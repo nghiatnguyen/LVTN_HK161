@@ -298,31 +298,81 @@
 		\subsection{Giải thuật học máy Support Vector Regression}
 			\par Trong lĩnh vực học máy, Support Vector Regression (SVR) là mô hình học có giám sát, được sử dụng vào bài toán phân tích hồi quy. Mô hình SVR là một mở rộng của giải thuật Support Vector Machine (SVM).
 			\par \textbf{Ý tưởng}
-				\par Giả sử có tập dữ liệu gồm $l$ mẫu $\left\{\left(x_{1},y_{1}\right),\left(x_{2},y_{2}\right),...,\left(x_{l},y_{l}\right)\right\}$, với $x_{i}\in  \mathbb{R}^{n}$ và $y_{i}\in  \mathbb{R}$ với mọi i. Mục đích của mô hình SVR là đi tìm một hàm \textit{f(x)} sao cho số lượng các mẫu $\left(x_{i},y_{i}\right)$ thỏa mãn điều kiện $\mid y_{i} - f(x_{i})\mid \leq \epsilon $ ($\epsilon$ cho trước) là lớn nhất.
-				\par Trường hợp hàm f tuyến tính, biểu diện dạng:
+				\par Giả sử có tập dữ liệu gồm $l$ mẫu $\left\{\left(x_{1},y_{1}\right),\left(x_{2},y_{2}\right),...,\left(x_{l},y_{l}\right)\right\}$, với $x_{i}\in  \mathbb{R}^{n}$ và $y_{i}\in  \mathbb{R}$ với mọi i. Mục đích của mô hình SVR là đi tìm một hàm \textit{f(x)} sao cho số lượng các mẫu $\left(x_{i},y_{i}\right)$ thỏa mãn điều kiện $\mid y_{i} - f(x_{i})\mid \leq \epsilon $ ($\epsilon$ cho trước) là lớn nhất. Hình 1 mô tả ý tưởng giải thuật: Hàm $f(x)$ sẽ tạo ra một đường thằng (siêu phẳng đối với không gian nhiều chiều), kết hợp giá trị $\epsilon$ tạo nên hai đường biên kèm theo (hai đường nét đứt); Bài toán là tìm hàm $f(x)$ sao cho mọi điểm trong tập mẫu đều nằm trong vùng giữa hai đường biên tạo ra.
+				\begin{figure}[h!]
+				\begin{center}
+%vẽ ý tưởng SVR
+\begin{tikzpicture}[]
+  % Draw axes
+ \draw[thick,->] (0,0) -- (6.5,0) node[anchor=north west] {x axis};
+\draw[thick,->] (0,0) -- (0,7.5) node[anchor=south east] {y axis};
+  % draw line
+  \draw (0,-1) -- (6,5); % y=x-1
+  \draw[dashed] (-1,0) -- (6,7); % y=x+1
+  \draw[dashed] (2,-1) -- (6,3); % y=x-3
+  % \draw labels
+  \draw (3.5,3) node[rotate=45,font=\small] 
+        {$ f(x) = \mathbf{w}\cdot \mathbf{x} + b $};
+  % draw negative dots
+  \fill[black] (1,1.5)     circle (3pt);
+  \fill[black] (2.75,1.25)    circle (3pt);
+  \fill[black] (-0.6,-0.5)   circle (3pt);
+  \fill[black] (2, -0.4) circle (3pt);
+  \fill[black] (4,4)     circle (3pt);
+  \fill[black] (4.5,1.5)   circle (3pt);
+  \fill[black] (5,6)   circle (3pt);
+\fill[black] (6.1,7) rectangle (6.3,7.01);
+\draw (6.7,7) node {\large{$+ \epsilon$}}; 
+\fill[black] (6.1,3) rectangle (6.3,3.01);
+\draw (6.7,3) node {\large{$- \epsilon$}}; 
+\fill[black] (6.1,5) rectangle (6.3,5.01);
+\draw (6.7,5) node {\large{$0$}};
+\draw[thick] (6.2,7) -- (6.2,3);
+\end{tikzpicture}
+				\end{center}
+					\caption{Minh họa mô hình SVR}
+				\label{fig:foody}
+			\end{figure}
+				\par Trường hợp hàm f(x) tuyến tính, biểu diện dạng:
 					\begin{center}
 						$f(x)=\langle w,x\rangle + b \;với \;w\in \mathbb{R}^{n}, b\in \mathbb{R}$
 						\par $\langle .,.\rangle$ : Tích có hướng của hai vector
 					\end{center}
 				\par Hàm f(x) càng tối ưu khi chuẩn của vector w càng nhỏ. Khi đó bài toán đặt ra là:
-					
-			\par \textbf{Phương pháp}
-			\par Trường hợp hàm f tuyến tính, biểu diện dạng:
-			\begin{center}
-				$f(x)=\langle w,x\rangle + b \;với \;w\in \mathbb{R}^{n}, b\in \mathbb{R}$
-				\par $\langle .,.\rangle$ : Tích có hướng của hai vector
-			\end{center}
-			\par Điều chỉnh w và b thỏa mãn hai điều kiện:
+					\begin{center}
+						$minimize \: \frac{1}{2}\parallel{w}\parallel^{2}$ \\
+						$subject\; to \: \begin{cases}y_{i}-\langle w,x_{i}\rangle-b \leq \epsilon \\\langle w,x_{i}\rangle-b-y_{i} \leq \epsilon\end{cases}$
+					\end{center}
+				\par Giả thuyết bài toán như trên có nghĩa là ta có thể tìm hàm $f(x)$ thỏa mãn điều kiện: mọi điểm $(x_{i},y_{i})$ đều nằm trong vùng của hai đường biên được tạo ra quanh đường thằng tạo bởi f(x). Tuy nhiên, trên thực tế có những trường hợp mà không thể tìm hàm $f(x)$ thỏa mãn điều kiện đó, hoặc ta muốn tạo một ít sai số cho mô hình. Do vậy, ta phải thay đổi yêu cầu để luôn tìm ra hàm $f(x)$. Ý tưởng là hàm f(x) vẫn được chấp nhận khi tồn tại một số điểm $(x_{i},y_{i})$ không nằm trong vùng giữa hai đường biên. Những điểm $(x_{i},y_{i})$ tạo nên sai số của hàm $f(x)$, kí hiệu tổng sai số đó là E. Yêu cầu bài toán bây giờ là tìm $min \parallel w\parallel$ và $min(E)$. Với ý tưởng đó, bài toán được mô hình hóa lại:
+					\begin{center}
+						$minimize \: \frac{1}{2}\parallel{w}\parallel^{2} +C\sum_{i=1}^l(\xi_{i}+\xi_i^*)$ \\
+						$subject\; to \: \begin{cases}y_{i}-\langle w,x_{i}\rangle-b \leq \epsilon + \xi_{i}\\\langle w,x_{i}\rangle-b-y_{i} \leq \epsilon+\xi_i^* \\ \xi_{i},\xi_i^* \geq0\end{cases}$
+					\end{center}
+				\par Trong đó:
 				\begin{itemize}
-					\item Chuẩn của vector w nhỏ nhất: $min \parallel w\parallel$
-					\item Hàm tổng khoảng cách từ các điểm dữ liệu đến siêu phẳng là nhỏ nhất. Hàm tính khoảng cách là hàm Vapnik’s $\epsilon-insensitive$ : 
+					\item $\xi_{i}, \xi_i^*$ : Trường hợp điểm $(x_{i},y_{i})$ nằm trong vùng hai đường biên, hai giá trị này đều bằng 0. Trường hợp $(x_{i},y_{i})$ nằm ngoài hai vùng hai đường biên tạo ra thì một trong hai giá trị sẽ là $\mid y_{i} - f(x_{i})-\epsilon\mid$ và giá trị còn lại bằng 0. Bản chất  $\xi_{i} + \xi_i^ * = \xi= \mid y_{i} - f(x_{i})-\epsilon\mid$, sử dụng hai biến thay vì một biến $\xi$ nhằm mục đích loại bỏ dấu giá trị tuyệt đối, đơn giản trong việc tính toán sau này.
+					\item $\sum_{i=1}^l(\xi_{i}+\xi_i^*)$ : Tổng sai số của hàm $f(x)$. Hàm sai số là hàm Vapnik's $\epsilon - insensitive$: Mỗi mẫu $(x_{i},y_{i})$ nếu nằm trong vùng hai đường biên thì không gây ra lỗi, những điểm nằm ngoài sẽ gây nên lỗi là $\mid y_{i} - f(x_{i})-\epsilon\mid$. Công thức hàm Vapnik's $\epsilon - insensitive$:
 					\begin{center}
 						$\mid y_{i} - f(x_{i})\mid_{\epsilon} \:=\:\begin{cases}0 &  if \mid y_{i} - f(x_{i})\mid \:\leq \epsilon\\\mid y_{i} - f(x_{i})\mid - \: \epsilon & otherwise\end{cases} $ 
 					\end{center}
+					\item $C$ : Giá trị điều chỉnh giữa việc tối thiểu chuẩn vector $w$ và tổng giá trị sai số. Nếu C quá lớn thì thuật toán thiên về mục đích là điều chỉnh sao cho tổng giá trị sai số là nhỏ nhất, và ngược lại.
 				\end{itemize}
+			\par Hình 2 mô tả ý tưởng giải thuật SVR, tồn tại các điểm nằm ngoài vùng hai đường biên và đồng thời  chỉ có các đó mới gây nên sai số theo công thức hàm  Vapnik's $\epsilon - insensitive$.
+			\par Ý tưởng tiếp theo quan trọng là sử dụng hàm Lagrange (Lagrange function) từ mục tiêu bài toán và các ràng buộc để tìm ra các giá trị w, b.
+				\begin{figure}[h!]
+				\includegraphics[width=\linewidth]{svr}
+				\caption[Ý tưởng giải thuật SVR gắn liền với hàm sai số Vapnik's $\epsilon - insensitive$]{Ý tưởng giải thuật SVR gắn liền với hàm sai số Vapnik's $\epsilon - insensitive$  
+					(\textit{Tham khảo:} Kang Yu, Georg Leufen (2013) Investigation of Leaf Diseases and Estimation of Chlorophyll Concentration in Seven Barley Varieties Using Fluorescence and Hyperspectral Indices)}
+				\label{fig:svr}
+			\end{figure}
+				
 			\par \textbf{Kĩ thuật Kernel}
-			\par Trong nhiều trường hợp, ta không thể tìm được siêu phẳng ( hàm \textit{f(x)}) thỏa mãn yêu cầu nằm gần với tất cả các điểm dữ liệu. Khi đó, sử dụng kĩ thuật ánh xạ không gian hiện tại sang không gian nhiều chiều hơn, ở đó ta có thể tìm ra siêu phẳng thỏa mãn. Tuy nhiên, ta không thể tự tạo ra các dữ liệu mới, do đó chỉ có thể suy diễn đặc trưng mới từ các không gian có sẵn.
-			\par Trong Hình 7, ta không thể tìm ra được đường thằng hồi quy thỏa mãn trong không gian hai chiều, sau khi ánh xạ sang không gian nhiều chiều hơn bởi hàm $\phi(x)$ thì ta có thể tìm ra siêu phẳng mong muốn.
+			\par Trong nhiều trường hợp, ta không thể tìm được siêu phẳng (hàm \textit{f(x)}) thỏa mãn yêu cầu nằm gần với tất cả các điểm dữ liệu. Khi đó, sử dụng kĩ thuật ánh xạ không gian hiện tại sang không gian nhiều chiều hơn, ở đó ta có thể tìm ra siêu phẳng thỏa mãn. Sử dụng hàm $(\phi(x))$ biến đổi vector $x$ hiện tại sang không gian nhiều chiều hơn. Lúc đó hàm $f(x)$ có dạng là: $f(x)=\langle w,\phi(x)\rangle + b$. Hình 3 minh họa lý thuyết Kernel: Ở không gian ban đầu (bên trái), ta không thể tìm được siêu phẳng; sau khi chuyển sang không gian mới (bên phải) nhờ hàm $\phi(x)$ thì tìm được siêu phẳng mong muốn.
+				\begin{figure}[h!]
+				\includegraphics[width=\linewidth]{kernel}
+				\caption[Ý tưởng Kernel]{Ý tưởng Kernel (\textit{Tham khảo:} Dr. Saed Sayad, Support Vector Machine - Regression (SVR))}
+				\label{fig:svr}
+			\end{figure}
 	\section{Tổng quan đề tài}
 		\subsection{Giới thiệu đề tài}
 			\par Cũng giống như các MXH trực tuyến nói chung, các trang MXH về ăn uống ngày càng trở nên phổ biến và trở thành một phần quan trọng trong cuộc sống của nhiều người. Ở đó người dùng có thể dễ dàng tìm kiếm ra địa điểm có những món ăn mà họ mong muốn, viết review cho những địa điểm mà họ đã đi hay tìm ra những người bạn có cùng gu ẩm thực. Ở Việt Nam hiện nay một số trang MXH về địa điểm ăn uống đã xuất hiện được một vài năm và phát triển mạnh mẽ với hàng trăm ngàn người dùng. Có thể kể đến đó là các trang MXH Foody, Lozi.
@@ -626,28 +676,27 @@
 		\newpage
 
 	\section {Tham khảo}
-		\par [1].	Charu C. Aggawal, “Social Network Data Analytics” – Editor, 2011
-		\par [2].	Charu C. Aggawal, “Mining Text Data” – Editor, “Chapter 12 - Text Analytics In Social Media”, 2012
-		\par [3].	Bing Liu, “Web Data Mining”, 2011
-		\par [4].	Bryan Wood, Victor Hwang, Jennifer King, “Infering Future Bussiness Attention”. Carnegie Mellon University, Yelp Challenge Round One, 2014
-		\par [5].	Kapil Jaisinghani, Ravi Todi, Zhengiy Liu, “Modeling Growth and Decline of Businesses in Yelp Network”. Stanford University, CS224W Assignment Project, 2013
-		\par [6].	Guy Shani, Asela Gunawardana, “Evaluating Recommendation Systems”. Microsoft Research, One Microsoft Way, Redmond, WA, 2009
-		\par [7].	Alex J. Smola, Bernhard Schölkopf, “A tutorial on Support Vector Regression”. Australian National University, Canberra, Australia, 2004
-		\par [8].	Kyle Carbon, Kacyn Fujii, Prasanth Veerina, “Applications of Machine Learning to Predict Yelp Ratings”. Stanford University, Yelp Dataset Challenge 2014
-		\par [9].	Dimitrios Kotzias, Misha Denil, Nando De Freitas, Padhraic Smyth, “From Group to Individual Labels Using Deep Features”. Yelp Dataset Challenge Round Five, 2015
-		\par [10].	Sumedh Sawant, Gina Pai, “Yelp Food Recommendation System”. Stanford University, Yelp Dataset Challenge 2014
-		\par [11].	Nabiha Asghar, “Yelp Dataset Challenge: Review Rating Prediction”. University of Waterloo, Yelp Dataset Challenge, 2014
-		\par [12].	Julian McAuley, Jure Leskovec, “Hidden Factors and Hidden Topics: Understanding Rating Dimensions with Review Text”. Stanford University, Yelp Dataset Challenge Round One, ACM RecSys '13 Proceedings, 2014
-		\par [13].	James Huang, Stephanie Rogers, Eunkwang Joo, “Improving Restaurants by Extracting Subtopics from Yelp Reviews”. University of California, Berkeley, Yelp Dataset Challenge Round One, iConference 2014 Berlin, 2014
-		\par [14].	Ji Wang, Jian Zhao, Sheng Guo, Chris North, “Clustered Layout Word Cloud for User Generated Review”. Virginia Tech and University of Toronto, Yelp Dataset Challenge Round One, Graphics Interface 2014 Montreal, 2014
-		\par [15].	Mingming Fan, Maryam Khademi, “ Predicting a Business’ Star in Yelp from Its Reviews’ Text Alone”. University of North Carolina and University of California. Yelp Dataset Challenge Round One, 2014
-		\par [16].	Prerna Wivedi, Nikita Chheda, “A Hybrid Restaurant Recommender”, International Journal of Computer Applications (0975 – 8887) Volume 55– No.16, October, 2012
-		\par [17].	Bing Liu. Sentiment Analysis and Opinion Mining, Morgan \& Claypool Publishers, May 2012.
-		\par [18].	Nguyễn Minh Khôi, Luận văn Thạc sĩ “Hệ Thống Đề Xuất Địa Điểm Dựa Trên Phương Pháp Lai (Hybrid) Trên Dữ Liệu Foody.vn”. Đại học Công nghệ TP. Hồ Chí Minh, 2015
-		\par [19].	Dang Hung Phan, Tuan Dung Cao, “Applying Skip-gram Word Estimation And SVM-based Classification for Opinion Mining Vietnamese Food Places Text Reviews”
-		\par [20].	Lê Quốc Nam, Nguyễn Ngọc Dũng, Luận Văn Tốt Nghiệp “Giới Thiệu Địa Điểm Trên Điện Thoại Thông Minh”. Đại học Bách Khoa TP. Hồ Chí Minh, 2014
-		\par [21].	Narenkuma Pandian, Vaibhab Aggawal, “Are You Open”, Stanford University
-		\par [22].	Praveenkumar Kondiloppa, Seung-Jong Park, “Modeling Business Trends Based on Yelp Review”, School of Electrical Engineering and Computer Science, Lousiana State University
+	\par [1]	\hspace{4pt}	Charu C. Aggawal, “\textit{Social Network Data Analytics}” – Editor. Springer Publishing Company, ISBN 978-1-4419-8462-3, 2011
+\par [2]	\hspace{4pt}	Charu C. Aggawal and Cheng Xiang Zhai. “\textit{Mining Text Data}” editors - Chapter “\textit{Text Analytics In Social Media}”. Springer Publishing Company, ISBN 978-1-4614-3223-4, 2012
+\par [3]	\hspace{4pt}	Bing Liu. “\textit{Web Data Mining}”. Springer Publishing Company, ISBN 978-3-642-19460-3, 2011
+\par [4]	\hspace{4pt}	Lindsay I Smith. “\textit{A tutorial on Principal Components Analysis}”. University of Otago, New Zealand, 2002
+\par [5]	\hspace{4pt}	Scikit-Learn Module. “\textit{Feature Selection in Python with Scikit-Learn}”.
+\par [6]	\hspace{4pt}	Alex J. Smola and Bernhard Schölkopf. “\textit{Statistics and Computing}” - Chapter “\textit{A tutorial on support vector regression}”. Kluwers Academic Publishers, ISBN 1573-1375, 2004
+\par [7]	\hspace{4pt}	Phan Thị Tươi. “\textit{Xử lý ngôn ngữ tự nhiên}”. Nhà xuất bản Đại Học Quốc Gia TP.Hồ Chí Minh, ISBN 978-604-73-1236-8, 2012
+\par [8]	\hspace{4pt}	Sumedh Sawant and Gina Pai. “\textit{Yelp Food Recommendation System}”. In Yelp Dataset Challenge, 2014
+\par [9]	\hspace{4pt} 	Prerna Wivedi and Nikita Chheda. “\textit{A Hybrid Restaurant Recommender}”. In International Journal of Computer Applications (0975 – 8887), vol. 55– no.16, 201
+\par [10]	\hspace{4pt} Ji Wang, Jian Zhao, Sheng Guo and Chris North. “\textit{Clustered Layout Word Cloud for User Generated Review}”. In Yelp Dataset Challenge Round One, Graphics Interface 2014 Montreal, 2014
+\par [11]\hspace{4pt}	Narenkuma Pandian and Vaibhab Aggawal. “\textit{Are you open?}”. In Project Report – Machine Learning Course of Stanford University, 2015
+\par [12]	\hspace{4pt}Kyle Carbon, Kacyn Fujii and Prasanth Veerina. “\textit{Applications of Machine Learning to Predict Yelp Ratings}”. Yelp Dataset Challenge, 2014
+\par [13]	\hspace{4pt}Mingming Fan and Maryam Khademi. “\textit{Predicting a Business’ Star in Yelp from Its Reviews’ Text Alone}”. In Yelp Dataset Challenge Round One, 2014
+\par [14]	\hspace{4pt}Bryan Wood, Victor Hwang and Jennifer King. “\textit{Infering Future Bussiness Attention}”. In Yelp Dataset Challenge Round One, 2014
+\par [15]	\hspace{4pt}Kapil Jaisinghani, Ravi Todi and Zhengiy Liu. “\textit{Modeling Growth and Decline of Businesses in Yelp Network}”. In Project Report – Social and Information Network Analysis Course of Stanford University, 2013
+\par [16]	\hspace{4pt}Praveenkumar Kondiloppa, Seung-Jong Park. “\textit{Modeling Business Trends based on Yelp Review}”. In Yelp Data Challenge, 2014 
+\par [17]	\hspace{4pt}Nguyễn Minh Khôi. “\textit{Hệ thống đề xuất địa điểm dựa trên Phương pháp lai (Hybrid) trên dữ liệu Foody.vn}”. Luận Văn Thạc Sĩ Trường Đại Học Công nghệ TP. Hồ Chí Minh, 2015
+\par [18]	\hspace{4pt}Lê Quốc Nam và Nguyễn Ngọc Dũng. “\textit{Giới thiệu địa điểm trên điện thoại thông minh}”. Luận Văn Tốt Nghiệp Trường Đại Học Bách Khoa TP. Hồ Chí Minh, 2014
+\par [19]	\hspace{4pt}Dang Hung Phan and Tuan Dung Cao. “\textit{Applying Skip-gram word estimation and SVM-based classification for opinion mining Vietnamese food places text reviews}”. In Proceedings of the Fifth Symposium on Information and Communication Technology, pp. 232-239, ISBN 978-1-4503-2930-9, 2014
+\par [20]	\hspace{4pt}Guy Shani and Asela Gunawardana. “\textit{Recommender Systems Handbook}”- Chapter “\textit{Evaluating Recommendation Systems}”. Springer Publishing Company, ISBN 978-0-387-85820-3, 2011
+
 
 %		\bibliography{baocao} 
 %		\bibliographystyle{plain}
