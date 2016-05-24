@@ -211,168 +211,7 @@
 			\par Khi có một sự kiện nổi bật nào đó ngoài thực tế, người dùng có xu hướng đăng các thông tin liên quan lên MXH. Từ những dữ liệu đó, chúng ta có thể phát hiện và theo dõi được những sự kiện nào đang xảy ra (Ở đây chủ yếu nghiên cứu nội dung văn bản trong các bài post, bỏ qua các thực thể như hình ảnh, audio, video ...).
 			\par Vấn đề đặt ra ở đây là làm thế nào để xác định được sự kiện đang diễn ra và mức độ “hot” của nó, theo dõi về diễn biến và sự lan truyền của sự kiện. \textit{Ví dụ}: Phát hiện, giám sát về sự kiện để gợi ý cho người dùng quan tâm đến nó, Giúp cho truyền thông, báo chí tìm kiếm sự kiên và ranking mức độ “hot” của sự kiện.
 			\par Giải quyết những vấn đề này gặp phải khó khăn là dữ liệu về một sự kiện có ảnh hưởng lớn theo thời gian, đòi hỏi phải có giải pháp đối phó với việc xử lí thời gian thực (real-time) trong việc xác định sự kiện.
-	\section{Kiến thức nền tảng}
-		\subsection{Tối ưu tập thuộc tính}
-			\par Việc tối ưu tập thuộc tính là xác định các thuộc tính quan trọng và loại bỏ các thuộc tính dư thừa, nhiễu để làm giảm số chiều của không  gian thuộc tính. Qua đó cải thiện độ chính xác và tốc độ tính toán của hệ thống. Các công cụ và giải thuật đề xuất sử dụng là:
-			\par \textbf{Principal Components Analysis (PCA)}
-				\par \textit{Định nghĩa} 
-				\par PCA là một thuật toán thống kê sử dụng phép biến đổi trực giao để biến đổi một tập hợp dữ liệu từ một không gian nhiều chiều sang một không gian mới ít chiều hơn (2 hoặc 3 chiều) nhằm tối ưu hóa việc thể hiện sự biến thiên của dữ liệu. 
-				\par  \textit{Ý tưởng}
-				\par Tìm ra một không gian mới với số chiều nhỏ hơn không gian cũ với tiêu chí cố gắng phản ánh được càng nhiều thông tin gốc càng tốt, và thước đo cho khái niệm “thông tin” ở đây là phương sai. Đồng nghĩa với việc tìm những thuộc tính mới từ tổ hợp tuyến tính các thuộc tính cũ sao cho mỗi thuộc tính mới có phương sai càng lớn càng tốt. 
-				\par  \textit{Kiến thức cơ bản}
-				\par Độ lệch chuẩn (Standard Deviation), Phương sai (Variance), Hiệp phương sai (Covariance), Ma trận hiệp phương sai (The covariance matrix), Eigenvectors, Eigenvalues.
-				\par \textit{Phương pháp}
-				\begin{enumerate}
-					\item Xử lý dữ liệu:
-					\par Cho ma trận ${X= \big\{ x_{ij} \big\}  \in  \mathbb{R}^{n \times p}}$, trong đó \textit{n} là số mẫu, \textit{p} là số thuộc tính.
-					\par Mỗi thuộc tính có một giá trị trung bình cộng:
-					\begin{center}
-						\par ${\overline{x}_{j}=\frac{\sum_{i=1}^n{x_{ij}}}{n}}$
-					\end{center}
-					\par Chuẩn hóa dữ liệu ta được ma trận mới ${X^{new}=\left\{x_{ij}^{new}\right\}}$, trong đó:
-					\begin{center}
-						\par ${x_{ij}^{new}=x_{ij}-\overline{x}_{j}}$
-					\end{center}
-					\item Tính ma trận hiệp phương sai của ma trận đã chuẩn hóa.
-					\item Tính Eigenvectors, Eigenvalues của ma trận hiệp phương sai.
-					\par Mỗi eigenvector đại diện cho một thuộc tính, eigenvalue tương ứng càng lớn thì thuộc tính đó càng quan trọng.
-				\end{enumerate}
-				\par  \textit{Ưu điểm}
-				\begin{itemize}
-					\item{Phương pháp học không giám sát, do đó PCA sẽ tự động tìm ra được các thuộc tính đặc trưng mà con người không nhận ra được.}
-					\item{Làm giảm độ nhiễu của tập dữ liệu.}
-				\end{itemize}
-				\par  \textit{Nhược điểm}
-				\begin{itemize}
-					\item{PCA chỉ làm việc với dữ liệu số.}
-					\item{PCA phù hợp sử dụng đối với tập dữ liệu tuyến tính, do đó khi dữ liệu là phi tuyến thì dùng PCA thôi là chưa đủ.}
-					\item{Quy tắc phương sai lớn nhất thì thuộc tính quan trọng nhất không luôn luôn đúng.}
-				\end{itemize}
-			\par \textbf{Univariate Feature Analysis}
-				\par \textit{Định nghĩa} 
-				\par Univariate Feature Analysis là giải thuật xác định thuộc tính quan trọng dựa trên ý tưởng theo dõi ảnh hưởng của mỗi thuộc tính một cách độc lập đến hiệu suất dự đoán của hệ thống rồi sau đó chọn ra n thuộc tính mang lại hiệu suất tốt nhất làm tập thuộc tính cho mô hình học máy.
-				\par \textit{Phương pháp}
-				\begin{enumerate}
-					\item Lựa chọn một thuộc tính bất kỳ, xây dựng hệ thống dựa chỉ dựa trên thuộc tính đó, đánh giá hệ thống: đối với bài toán hồi quy sử dụng giá trị \textit{f-regression}.
-					\item Lựa chọn n thuộc tính có giá trị \textit{f-regression} lớn nhất.
-				\end{enumerate}
-				\par  \textit{Ưu điểm}
-				\par Giải thuật Univariate Feature Analysis đơn giản và thời gian chạy nhanh.
-				\par  \textit{Nhược điểm}
-				\par Đôi khi việc kết hợp các thuộc tính không tốt với nhau cũng có thể đưa ra mô hình dự đoán tốt.
-			\par \textbf{Recursive Feature Elimination}
-				\par \textit{Định nghĩa} 
-				\par Recursive Feature Elimination là giải thuật xác định thuộc tính quan trọng dựa trên ý tưởng áp dụng giải thuật trên tất cả các thuộc tính, sau đó loại bớt các thuộc tính sao cho giải thuật đạt kết quả tối ưu nhất.
-				\par \textit{Phương pháp}
-				\begin{enumerate}
-					\item Train giải thuật trên tập các thuộc tính và sau đó gán trọng số (\textit{Ví dụ}: hệ số của mô hình tuyến tính) cho mỗi thuộc tính.
-					\item Thuộc tính có trị tuyệt đối của trọng số tương ứng nhỏ nhất sẽ bị loại khỏi tập thuộc tính. Sau đó lặp lại bước 1. Quá trình lặp kết thúc khi giải thuật đạt được hiệu suất mong muốn hoặc đã đạt đến số thuộc tính mong muốn.
-
-				\end{enumerate}
-				\par  \textit{Ưu điểm}
-				\par Kết quả thu được tốt hơn khi phân tích ảnh hưởng của thuộc tính đến kết quả một cách độc lập.
-				\par  \textit{Nhược điểm}
-				\par Chi phí tính toán cao.		
-		\subsection{Gán nhãn cụm từ trong Xử lý ngôn ngữ tự nhiên}
-			\par Trong Xử lý ngôn ngữ tự nhiên, để thực hiện được quá trình phân tích cú pháp thì một trong những vấn đề quan trọng là gán nhãn cho các từ/cụm từ ở trong văn bản, tức là “bẻ” các câu trong văn bản đó ra thành những thành phần nhỏ hơn (từ và cụm từ) sau đó xác định từ loại tương ứng với mỗi từ và cụm từ đó. Bảng 1 minh họa quá trình phân tích cú pháp câu "\textit{Món lẩu ở nhà hàng đó rất ngon}".
-			\begin{table}[h]
-				\centering
-				\caption{Ví dụ xác định từ loại tương ứng mỗi từ và cụm từ}
-				\label{my-label}
-				\begin{tabular}{|c|c|c|c|c|c|c|}
-				\hline
-           				Món &   lẩu        &  ở &  nhà hàng          &  đó          &       rất     & ngon           \\ \hline
-          					N & N          & P  &    N       &       ART    &     ADV      &     ADJ      \\ \hline
-				\multicolumn{2}{|c|}{NP} &  & \multicolumn{2}{c|}{NP} &  \multicolumn{2}{c|}{VP} \\ \hline
-				\multicolumn{2}{|c|}{} & \multicolumn{3}{c|}{PP}    &           &           \\ \hline
-				\multicolumn{5}{|c|}{NP}                          &           &           \\ \hline
-				\end{tabular}
-			\end{table}
-			\par Trong đó, \textit{N}: Danh từ,  \textit{P}: Giới từ,  \textit{ART}: Mạo từ,  \textit{ADV}: Trạng từ,  \textit{NP}: Cụm danh từ,  \textit{PP}: Cụm giới từ.
-		\subsection{Chuỗi thời gian (Time Series)}
-			\par Chuỗi thời gian là một chuỗi các điểm dữ liệu, được đo theo từng khoảng thời gian bằng nhau. \textit{Ví dụ:} theo từng tháng, từng năm. Công thức chuỗi thời gian:
-			\begin{center}
-				$y_{t}=f(y_{t-1},y_{t-2},...,y_{t-n}) + w(t)$
-			\end{center}
-			\par Từ công thức, nhận thấy có thể dự đoán sự kiện thời gian tại t ($y_{t}$) dựa vào các sự kiện đã biết trong quá ($y_{t-1},y_{t-2},...,y_{t-n}$); $w(t)$: thông tin chưa biết, thông tin chưa biết này tạo nên độ nhiễu. Vấn đề dự đoán dựa trên Chuỗi thời gian có thể xem là giải bài toán Hồi quy cơ bản có giám sát (Generic Supervised Learning Regression). \textit{Ví dụ}: Bài toán dự đoán doanh số bán sản phẩm của quí (năm) tới dựa vào doanh số bán của các quí (năm) qua.
-		\subsection{Giải thuật học máy Support Vector Regression}
-			\par Trong lĩnh vực học máy, Support Vector Regression (SVR) là mô hình học có giám sát, được sử dụng vào bài toán phân tích hồi quy. Mô hình SVR là một mở rộng của giải thuật Support Vector Machine (SVM).
-			\par \textbf{Ý tưởng}
-				\par Giả sử có tập dữ liệu gồm $l$ mẫu $\left\{\left(x_{1},y_{1}\right),\left(x_{2},y_{2}\right),...,\left(x_{l},y_{l}\right)\right\}$, với $x_{i}\in  \mathbb{R}^{n}$ và $y_{i}\in  \mathbb{R}$ với mọi i. Mục đích của mô hình SVR là đi tìm một hàm \textit{f(x)} sao cho số lượng các mẫu $\left(x_{i},y_{i}\right)$ thỏa mãn điều kiện $\mid y_{i} - f(x_{i})\mid \leq \epsilon $ ($\epsilon$ cho trước) là lớn nhất. Hình 1 mô tả ý tưởng giải thuật: Hàm $f(x)$ sẽ tạo ra một đường thằng (siêu phẳng đối với không gian nhiều chiều), kết hợp giá trị $\epsilon$ tạo nên hai đường biên kèm theo (hai đường nét đứt); Bài toán là tìm hàm $f(x)$ sao cho mọi điểm trong tập mẫu đều nằm trong vùng giữa hai đường biên tạo ra.
-				\begin{figure}[h!]
-				\begin{center}
-%vẽ ý tưởng SVR
-\begin{tikzpicture}[]
-  % Draw axes
- \draw[thick,->] (0,0) -- (6.5,0) node[anchor=north west] {x axis};
-\draw[thick,->] (0,0) -- (0,7.5) node[anchor=south east] {y axis};
-  % draw line
-  \draw (0,-1) -- (6,5); % y=x-1
-  \draw[dashed] (-1,0) -- (6,7); % y=x+1
-  \draw[dashed] (2,-1) -- (6,3); % y=x-3
-  % \draw labels
-  \draw (3.5,3) node[rotate=45,font=\small] 
-        {$ f(x) = \mathbf{w}\cdot \mathbf{x} + b $};
-  % draw negative dots
-  \fill[black] (1,1.5)     circle (3pt);
-  \fill[black] (2.75,1.25)    circle (3pt);
-  \fill[black] (-0.6,-0.5)   circle (3pt);
-  \fill[black] (2, -0.4) circle (3pt);
-  \fill[black] (4,4)     circle (3pt);
-  \fill[black] (4.5,1.5)   circle (3pt);
-  \fill[black] (5,6)   circle (3pt);
-\fill[black] (6.1,7) rectangle (6.3,7.01);
-\draw (6.7,7) node {\large{$+ \epsilon$}}; 
-\fill[black] (6.1,3) rectangle (6.3,3.01);
-\draw (6.7,3) node {\large{$- \epsilon$}}; 
-\fill[black] (6.1,5) rectangle (6.3,5.01);
-\draw (6.7,5) node {\large{$0$}};
-\draw[thick] (6.2,7) -- (6.2,3);
-\end{tikzpicture}
-				\end{center}
-					\caption{Minh họa mô hình SVR}
-				\label{fig:foody}
-			\end{figure}
-				\par Trường hợp hàm f(x) tuyến tính, biểu diện dạng:
-					\begin{center}
-						$f(x)=\langle w,x\rangle + b \;với \;w\in \mathbb{R}^{n}, b\in \mathbb{R}$
-						\par $\langle .,.\rangle$ : Tích có hướng của hai vector
-					\end{center}
-				\par Hàm f(x) càng tối ưu khi chuẩn của vector w càng nhỏ. Khi đó bài toán đặt ra là:
-					\begin{center}
-						$minimize \: \frac{1}{2}\parallel{w}\parallel^{2}$ \\
-						$subject\; to \: \begin{cases}y_{i}-\langle w,x_{i}\rangle-b \leq \epsilon \\\langle w,x_{i}\rangle-b-y_{i} \leq \epsilon\end{cases}$
-					\end{center}
-				\par Giả thuyết bài toán như trên có nghĩa là ta có thể tìm hàm $f(x)$ thỏa mãn điều kiện: mọi điểm $(x_{i},y_{i})$ đều nằm trong vùng của hai đường biên được tạo ra quanh đường thằng tạo bởi f(x). Tuy nhiên, trên thực tế có những trường hợp mà không thể tìm hàm $f(x)$ thỏa mãn điều kiện đó, hoặc ta muốn tạo một ít sai số cho mô hình. Do vậy, ta phải thay đổi yêu cầu để luôn tìm ra hàm $f(x)$. Ý tưởng là hàm f(x) vẫn được chấp nhận khi tồn tại một số điểm $(x_{i},y_{i})$ không nằm trong vùng giữa hai đường biên. Những điểm $(x_{i},y_{i})$ tạo nên sai số của hàm $f(x)$, kí hiệu tổng sai số đó là E. Yêu cầu bài toán bây giờ là tìm $min \parallel w\parallel$ và $min(E)$. Với ý tưởng đó, bài toán được mô hình hóa lại:
-					\begin{center}
-						$minimize \: \frac{1}{2}\parallel{w}\parallel^{2} +C\sum_{i=1}^l(\xi_{i}+\xi_i^*)$ \\
-						$subject\; to \: \begin{cases}y_{i}-\langle w,x_{i}\rangle-b \leq \epsilon + \xi_{i}\\\langle w,x_{i}\rangle-b-y_{i} \leq \epsilon+\xi_i^* \\ \xi_{i},\xi_i^* \geq0\end{cases}$
-					\end{center}
-				\par Trong đó:
-				\begin{itemize}
-					\item $\xi_{i}, \xi_i^*$ : Trường hợp điểm $(x_{i},y_{i})$ nằm trong vùng hai đường biên, hai giá trị này đều bằng 0. Trường hợp $(x_{i},y_{i})$ nằm ngoài hai vùng hai đường biên tạo ra thì một trong hai giá trị sẽ là $\mid y_{i} - f(x_{i})-\epsilon\mid$ và giá trị còn lại bằng 0. Bản chất  $\xi_{i} + \xi_i^ * = \xi= \mid y_{i} - f(x_{i})-\epsilon\mid$, sử dụng hai biến thay vì một biến $\xi$ nhằm mục đích loại bỏ dấu giá trị tuyệt đối, đơn giản trong việc tính toán sau này.
-					\item $\sum_{i=1}^l(\xi_{i}+\xi_i^*)$ : Tổng sai số của hàm $f(x)$. Hàm sai số là hàm Vapnik's $\epsilon - insensitive$: Mỗi mẫu $(x_{i},y_{i})$ nếu nằm trong vùng hai đường biên thì không gây ra lỗi, những điểm nằm ngoài sẽ gây nên lỗi là $\mid y_{i} - f(x_{i})-\epsilon\mid$. Công thức hàm Vapnik's $\epsilon - insensitive$:
-					\begin{center}
-						$\mid y_{i} - f(x_{i})\mid_{\epsilon} \:=\:\begin{cases}0 &  if \mid y_{i} - f(x_{i})\mid \:\leq \epsilon\\\mid y_{i} - f(x_{i})\mid - \: \epsilon & otherwise\end{cases} $ 
-					\end{center}
-					\item $C$ : Giá trị điều chỉnh giữa việc tối thiểu chuẩn vector $w$ và tổng giá trị sai số. Nếu C quá lớn thì thuật toán thiên về mục đích là điều chỉnh sao cho tổng giá trị sai số là nhỏ nhất, và ngược lại.
-				\end{itemize}
-			\par Hình 2 mô tả ý tưởng giải thuật SVR, tồn tại các điểm nằm ngoài vùng hai đường biên và đồng thời  chỉ có các đó mới gây nên sai số theo công thức hàm  Vapnik's $\epsilon - insensitive$.
-			\par Ý tưởng tiếp theo quan trọng là sử dụng hàm Lagrange (Lagrange function) từ mục tiêu bài toán và các ràng buộc để tìm ra các giá trị w, b.
-				\begin{figure}[h!]
-				\includegraphics[width=\linewidth]{svr}
-				\caption[Ý tưởng giải thuật SVR gắn liền với hàm sai số Vapnik's $\epsilon - insensitive$]{Ý tưởng giải thuật SVR gắn liền với hàm sai số Vapnik's $\epsilon - insensitive$  
-					(\textit{Tham khảo:} Kang Yu, Georg Leufen (2013) Investigation of Leaf Diseases and Estimation of Chlorophyll Concentration in Seven Barley Varieties Using Fluorescence and Hyperspectral Indices)}
-				\label{fig:svr}
-			\end{figure}
-				
-			\par \textbf{Kĩ thuật Kernel}
-			\par Trong nhiều trường hợp, ta không thể tìm được siêu phẳng (hàm \textit{f(x)}) thỏa mãn yêu cầu nằm gần với tất cả các điểm dữ liệu. Khi đó, sử dụng kĩ thuật ánh xạ không gian hiện tại sang không gian nhiều chiều hơn, ở đó ta có thể tìm ra siêu phẳng thỏa mãn. Sử dụng hàm $(\phi(x))$ biến đổi vector $x$ hiện tại sang không gian nhiều chiều hơn. Lúc đó hàm $f(x)$ có dạng là: $f(x)=\langle w,\phi(x)\rangle + b$. Hình 3 minh họa lý thuyết Kernel: Ở không gian ban đầu (bên trái), ta không thể tìm được siêu phẳng; sau khi chuyển sang không gian mới (bên phải) nhờ hàm $\phi(x)$ thì tìm được siêu phẳng mong muốn.
-				\begin{figure}[h!]
-				\includegraphics[width=\linewidth]{kernel}
-				\caption[Ý tưởng Kernel]{Ý tưởng Kernel (\textit{Tham khảo:} Dr. Saed Sayad, Support Vector Machine - Regression (SVR))}
-				\label{fig:svr}
-			\end{figure}
+	
 	\section{Tổng quan đề tài}
 		\subsection{Giới thiệu đề tài}
 			\par Cũng giống như các MXH trực tuyến nói chung, các trang MXH về ăn uống ngày càng trở nên phổ biến và trở thành một phần quan trọng trong cuộc sống của nhiều người. Ở đó người dùng có thể dễ dàng tìm kiếm ra địa điểm có những món ăn mà họ mong muốn, viết review cho những địa điểm mà họ đã đi hay tìm ra những người bạn có cùng gu ẩm thực. Ở Việt Nam hiện nay một số trang MXH về địa điểm ăn uống đã xuất hiện được một vài năm và phát triển mạnh mẽ với hàng trăm ngàn người dùng. Có thể kể đến đó là các trang MXH Foody, Lozi.
@@ -494,13 +333,176 @@
 				\end{itemize}
 			\par Những thành công nhất định trong các nghiên cứu trên là cơ sở quan trọng để nhóm đưa ra đề xuất cho phương pháp giải quyết thực hiện đề tài.
 
+
+\section{Kiến thức nền tảng liên quan đến đề tài}
+		\subsection{Tối ưu tập thuộc tính}
+			\par Việc tối ưu tập thuộc tính là xác định các thuộc tính quan trọng và loại bỏ các thuộc tính dư thừa, nhiễu để làm giảm số chiều của không  gian thuộc tính. Qua đó cải thiện độ chính xác và tốc độ tính toán của hệ thống. Các công cụ và giải thuật đề xuất sử dụng là:
+			\par \textbf{Principal Components Analysis (PCA)}
+				\par \textit{Định nghĩa} 
+				\par PCA là một thuật toán thống kê sử dụng phép biến đổi trực giao để biến đổi một tập hợp dữ liệu từ một không gian nhiều chiều sang một không gian mới ít chiều hơn (2 hoặc 3 chiều) nhằm tối ưu hóa việc thể hiện sự biến thiên của dữ liệu. 
+				\par  \textit{Ý tưởng}
+				\par Tìm ra một không gian mới với số chiều nhỏ hơn không gian cũ với tiêu chí cố gắng phản ánh được càng nhiều thông tin gốc càng tốt, và thước đo cho khái niệm “thông tin” ở đây là phương sai. Đồng nghĩa với việc tìm những thuộc tính mới từ tổ hợp tuyến tính các thuộc tính cũ sao cho mỗi thuộc tính mới có phương sai càng lớn càng tốt. 
+				\par  \textit{Kiến thức cơ bản}
+				\par Độ lệch chuẩn (Standard Deviation), Phương sai (Variance), Hiệp phương sai (Covariance), Ma trận hiệp phương sai (The covariance matrix), Eigenvectors, Eigenvalues.
+				\par \textit{Phương pháp}
+				\begin{enumerate}
+					\item Xử lý dữ liệu:
+					\par Cho ma trận ${X= \big\{ x_{ij} \big\}  \in  \mathbb{R}^{n \times p}}$, trong đó \textit{n} là số mẫu, \textit{p} là số thuộc tính.
+					\par Mỗi thuộc tính có một giá trị trung bình cộng:
+					\begin{center}
+						\par ${\overline{x}_{j}=\frac{\sum_{i=1}^n{x_{ij}}}{n}}$
+					\end{center}
+					\par Chuẩn hóa dữ liệu ta được ma trận mới ${X^{new}=\left\{x_{ij}^{new}\right\}}$, trong đó:
+					\begin{center}
+						\par ${x_{ij}^{new}=x_{ij}-\overline{x}_{j}}$
+					\end{center}
+					\item Tính ma trận hiệp phương sai của ma trận đã chuẩn hóa.
+					\item Tính Eigenvectors, Eigenvalues của ma trận hiệp phương sai.
+					\par Mỗi eigenvector đại diện cho một thuộc tính, eigenvalue tương ứng càng lớn thì thuộc tính đó càng quan trọng.
+				\end{enumerate}
+				\par  \textit{Ưu điểm}
+				\begin{itemize}
+					\item{Phương pháp học không giám sát, do đó PCA sẽ tự động tìm ra được các thuộc tính đặc trưng mà con người không nhận ra được.}
+					\item{Làm giảm độ nhiễu của tập dữ liệu.}
+				\end{itemize}
+				\par  \textit{Nhược điểm}
+				\begin{itemize}
+					\item{PCA chỉ làm việc với dữ liệu số.}
+					\item{PCA phù hợp sử dụng đối với tập dữ liệu tuyến tính, do đó khi dữ liệu là phi tuyến thì dùng PCA thôi là chưa đủ.}
+					\item{Quy tắc phương sai lớn nhất thì thuộc tính quan trọng nhất không luôn luôn đúng.}
+				\end{itemize}
+			\par \textbf{Univariate Feature Analysis}
+				\par \textit{Định nghĩa} 
+				\par Univariate Feature Analysis là giải thuật xác định thuộc tính quan trọng dựa trên ý tưởng theo dõi ảnh hưởng của mỗi thuộc tính một cách độc lập đến hiệu suất dự đoán của hệ thống rồi sau đó chọn ra n thuộc tính mang lại hiệu suất tốt nhất làm tập thuộc tính cho mô hình học máy.
+				\par \textit{Phương pháp}
+				\begin{enumerate}
+					\item Lựa chọn một thuộc tính bất kỳ, xây dựng hệ thống dựa chỉ dựa trên thuộc tính đó, đánh giá hệ thống: đối với bài toán hồi quy sử dụng giá trị \textit{f-regression}.
+					\item Lựa chọn n thuộc tính có giá trị \textit{f-regression} lớn nhất.
+				\end{enumerate}
+				\par  \textit{Ưu điểm}
+				\par Giải thuật Univariate Feature Analysis đơn giản và thời gian chạy nhanh.
+				\par  \textit{Nhược điểm}
+				\par Đôi khi việc kết hợp các thuộc tính không tốt với nhau cũng có thể đưa ra mô hình dự đoán tốt.
+			\par \textbf{Recursive Feature Elimination}
+				\par \textit{Định nghĩa} 
+				\par Recursive Feature Elimination là giải thuật xác định thuộc tính quan trọng dựa trên ý tưởng áp dụng giải thuật trên tất cả các thuộc tính, sau đó loại bớt các thuộc tính sao cho giải thuật đạt kết quả tối ưu nhất.
+				\par \textit{Phương pháp}
+				\begin{enumerate}
+					\item Train giải thuật trên tập các thuộc tính và sau đó gán trọng số (\textit{Ví dụ}: hệ số của mô hình tuyến tính) cho mỗi thuộc tính.
+					\item Thuộc tính có trị tuyệt đối của trọng số tương ứng nhỏ nhất sẽ bị loại khỏi tập thuộc tính. Sau đó lặp lại bước 1. Quá trình lặp kết thúc khi giải thuật đạt được hiệu suất mong muốn hoặc đã đạt đến số thuộc tính mong muốn.
+
+				\end{enumerate}
+				\par  \textit{Ưu điểm}
+				\par Kết quả thu được tốt hơn khi phân tích ảnh hưởng của thuộc tính đến kết quả một cách độc lập.
+				\par  \textit{Nhược điểm}
+				\par Chi phí tính toán cao.		
+		\subsection{Gán nhãn cụm từ trong Xử lý ngôn ngữ tự nhiên}
+			\par Trong Xử lý ngôn ngữ tự nhiên, để thực hiện được quá trình phân tích cú pháp thì một trong những vấn đề quan trọng là gán nhãn cho các từ/cụm từ ở trong văn bản, tức là “bẻ” các câu trong văn bản đó ra thành những thành phần nhỏ hơn (từ và cụm từ) sau đó xác định từ loại tương ứng với mỗi từ và cụm từ đó. Bảng 1 minh họa quá trình phân tích cú pháp câu "\textit{Món lẩu ở nhà hàng đó rất ngon}".
+			\begin{table}[h]
+				\centering
+				\caption{Ví dụ xác định từ loại tương ứng mỗi từ và cụm từ}
+				\label{my-label}
+				\begin{tabular}{|c|c|c|c|c|c|c|}
+				\hline
+           				Món &   lẩu        &  ở &  nhà hàng          &  đó          &       rất     & ngon           \\ \hline
+          					N & N          & P  &    N       &       ART    &     ADV      &     ADJ      \\ \hline
+				\multicolumn{2}{|c|}{NP} &  & \multicolumn{2}{c|}{NP} &  \multicolumn{2}{c|}{VP} \\ \hline
+				\multicolumn{2}{|c|}{} & \multicolumn{3}{c|}{PP}    &           &           \\ \hline
+				\multicolumn{5}{|c|}{NP}                          &           &           \\ \hline
+				\end{tabular}
+			\end{table}
+			\par Trong đó, \textit{N}: Danh từ,  \textit{P}: Giới từ,  \textit{ART}: Mạo từ,  \textit{ADV}: Trạng từ,  \textit{NP}: Cụm danh từ,  \textit{PP}: Cụm giới từ.
+		\subsection{Chuỗi thời gian (Time Series)}
+			\par Chuỗi thời gian là một chuỗi các điểm dữ liệu, được đo theo từng khoảng thời gian bằng nhau. \textit{Ví dụ:} theo từng tháng, từng năm. Công thức chuỗi thời gian:
+			\begin{center}
+				$y_{t}=f(y_{t-1},y_{t-2},...,y_{t-n}) + w(t)$
+			\end{center}
+			\par Từ công thức, nhận thấy có thể dự đoán sự kiện thời gian tại t ($y_{t}$) dựa vào các sự kiện đã biết trong quá ($y_{t-1},y_{t-2},...,y_{t-n}$); $w(t)$: thông tin chưa biết, thông tin chưa biết này tạo nên độ nhiễu. Vấn đề dự đoán dựa trên Chuỗi thời gian có thể xem là giải bài toán Hồi quy cơ bản có giám sát (Generic Supervised Learning Regression). \textit{Ví dụ}: Bài toán dự đoán doanh số bán sản phẩm của quí (năm) tới dựa vào doanh số bán của các quí (năm) qua.
+		\subsection{Giải thuật học máy Support Vector Regression}
+			\par Trong lĩnh vực học máy, Support Vector Regression (SVR) là mô hình học có giám sát, được sử dụng vào bài toán phân tích hồi quy. Mô hình SVR là một mở rộng của giải thuật Support Vector Machine (SVM).
+			\par \textbf{Ý tưởng}
+				\par Giả sử có tập dữ liệu gồm $l$ mẫu $\left\{\left(x_{1},y_{1}\right),\left(x_{2},y_{2}\right),...,\left(x_{l},y_{l}\right)\right\}$, với $x_{i}\in  \mathbb{R}^{n}$ và $y_{i}\in  \mathbb{R}$ với mọi i. Mục đích của mô hình SVR là đi tìm một hàm \textit{f(x)} sao cho số lượng các mẫu $\left(x_{i},y_{i}\right)$ thỏa mãn điều kiện $\mid y_{i} - f(x_{i})\mid \leq \epsilon $ ($\epsilon$ cho trước) là lớn nhất. Hình 4 mô tả ý tưởng giải thuật: Hàm $f(x)$ sẽ tạo ra một đường thằng (siêu phẳng đối với không gian nhiều chiều), kết hợp giá trị $\epsilon$ tạo nên hai đường biên kèm theo (hai đường nét đứt); Bài toán là tìm hàm $f(x)$ sao cho mọi điểm trong tập mẫu đều nằm trong vùng giữa hai đường biên tạo ra.
+				\begin{figure}[h!]
+				\begin{center}
+%vẽ ý tưởng SVR
+\begin{tikzpicture}[]
+  % Draw axes
+ \draw[thick,->] (0,0) -- (6.5,0) node[anchor=north west] {x axis};
+\draw[thick,->] (0,0) -- (0,7.5) node[anchor=south east] {y axis};
+  % draw line
+  \draw (0,-1) -- (6,5); % y=x-1
+  \draw[dashed] (-1,0) -- (6,7); % y=x+1
+  \draw[dashed] (2,-1) -- (6,3); % y=x-3
+  % \draw labels
+  \draw (3.5,3) node[rotate=45,font=\small] 
+        {$ f(x) = \mathbf{w}\cdot \mathbf{x} + b $};
+  % draw negative dots
+  \fill[black] (1,1.5)     circle (3pt);
+  \fill[black] (2.75,1.25)    circle (3pt);
+  \fill[black] (-0.6,-0.5)   circle (3pt);
+  \fill[black] (2, -0.4) circle (3pt);
+  \fill[black] (4,4)     circle (3pt);
+  \fill[black] (4.5,1.5)   circle (3pt);
+  \fill[black] (5,6)   circle (3pt);
+\fill[black] (6.1,7) rectangle (6.3,7.01);
+\draw (6.7,7) node {\large{$+ \epsilon$}}; 
+\fill[black] (6.1,3) rectangle (6.3,3.01);
+\draw (6.7,3) node {\large{$- \epsilon$}}; 
+\fill[black] (6.1,5) rectangle (6.3,5.01);
+\draw (6.7,5) node {\large{$0$}};
+\draw[thick] (6.2,7) -- (6.2,3);
+\end{tikzpicture}
+				\end{center}
+					\caption{Minh họa mô hình SVR}
+				\label{fig:foody}
+			\end{figure}
+				\par Trường hợp hàm f(x) tuyến tính, biểu diện dạng:
+					\begin{center}
+						$f(x)=\langle w,x\rangle + b \;với \;w\in \mathbb{R}^{n}, b\in \mathbb{R}$
+						\par $\langle .,.\rangle$ : Tích có hướng của hai vector
+					\end{center}
+				\par Hàm f(x) càng tối ưu khi chuẩn của vector w càng nhỏ. Khi đó bài toán đặt ra là:
+					\begin{center}
+						$minimize \: \frac{1}{2}\parallel{w}\parallel^{2}$ \\
+						$subject\; to \: \begin{cases}y_{i}-\langle w,x_{i}\rangle-b \leq \epsilon \\\langle w,x_{i}\rangle-b-y_{i} \leq \epsilon\end{cases}$
+					\end{center}
+				\par Giả thuyết bài toán như trên có nghĩa là ta có thể tìm hàm $f(x)$ thỏa mãn điều kiện: mọi điểm $(x_{i},y_{i})$ đều nằm trong vùng của hai đường biên được tạo ra quanh đường thằng tạo bởi f(x). Tuy nhiên, trên thực tế có những trường hợp mà không thể tìm hàm $f(x)$ thỏa mãn điều kiện đó, hoặc ta muốn tạo một ít sai số cho mô hình. Do vậy, ta phải thay đổi yêu cầu để luôn tìm ra hàm $f(x)$. Ý tưởng là hàm f(x) vẫn được chấp nhận khi tồn tại một số điểm $(x_{i},y_{i})$ không nằm trong vùng giữa hai đường biên. Những điểm $(x_{i},y_{i})$ tạo nên sai số của hàm $f(x)$, kí hiệu tổng sai số đó là E. Yêu cầu bài toán bây giờ là tìm $min \parallel w\parallel$ và $min(E)$. Với ý tưởng đó, bài toán được mô hình hóa lại:
+					\begin{center}
+						$minimize \: \frac{1}{2}\parallel{w}\parallel^{2} +C\sum_{i=1}^l(\xi_{i}+\xi_i^*)$ \\
+						$subject\; to \: \begin{cases}y_{i}-\langle w,x_{i}\rangle-b \leq \epsilon + \xi_{i}\\\langle w,x_{i}\rangle-b-y_{i} \leq \epsilon+\xi_i^* \\ \xi_{i},\xi_i^* \geq0\end{cases}$
+					\end{center}
+				\par Trong đó:
+				\begin{itemize}
+					\item $\xi_{i}, \xi_i^*$ : Trường hợp điểm $(x_{i},y_{i})$ nằm trong vùng hai đường biên, hai giá trị này đều bằng 0. Trường hợp $(x_{i},y_{i})$ nằm ngoài hai vùng hai đường biên tạo ra thì một trong hai giá trị sẽ là $\mid y_{i} - f(x_{i})-\epsilon\mid$ và giá trị còn lại bằng 0. Bản chất  $\xi_{i} + \xi_i^ * = \xi= \mid y_{i} - f(x_{i})-\epsilon\mid$, sử dụng hai biến thay vì một biến $\xi$ nhằm mục đích loại bỏ dấu giá trị tuyệt đối, đơn giản trong việc tính toán sau này.
+					\item $\sum_{i=1}^l(\xi_{i}+\xi_i^*)$ : Tổng sai số của hàm $f(x)$. Hàm sai số là hàm Vapnik's $\epsilon - insensitive$: Mỗi mẫu $(x_{i},y_{i})$ nếu nằm trong vùng hai đường biên thì không gây ra lỗi, những điểm nằm ngoài sẽ gây nên lỗi là $\mid y_{i} - f(x_{i})-\epsilon\mid$. Công thức hàm Vapnik's $\epsilon - insensitive$:
+					\begin{center}
+						$\mid y_{i} - f(x_{i})\mid_{\epsilon} \:=\:\begin{cases}0 &  if \mid y_{i} - f(x_{i})\mid \:\leq \epsilon\\\mid y_{i} - f(x_{i})\mid - \: \epsilon & otherwise\end{cases} $ 
+					\end{center}
+					\item $C$ : Giá trị điều chỉnh giữa việc tối thiểu chuẩn vector $w$ và tổng giá trị sai số. Nếu C quá lớn thì thuật toán thiên về mục đích là điều chỉnh sao cho tổng giá trị sai số là nhỏ nhất, và ngược lại.
+				\end{itemize}
+			\par Hình 5 mô tả ý tưởng giải thuật SVR, tồn tại các điểm nằm ngoài vùng hai đường biên và đồng thời  chỉ có các đó mới gây nên sai số theo công thức hàm  Vapnik's $\epsilon - insensitive$.
+			\par Ý tưởng tiếp theo quan trọng là sử dụng hàm Lagrange (Lagrange function) từ mục tiêu bài toán và các ràng buộc để tìm ra các giá trị w, b.
+				\begin{figure}[h!]
+				\includegraphics[width=\linewidth]{svr}
+				\caption[Ý tưởng giải thuật SVR gắn liền với hàm sai số Vapnik's $\epsilon - insensitive$]{Ý tưởng giải thuật SVR gắn liền với hàm sai số Vapnik's $\epsilon - insensitive$  
+					(\textit{Tham khảo:} Kang Yu, Georg Leufen (2013) Investigation of Leaf Diseases and Estimation of Chlorophyll Concentration in Seven Barley Varieties Using Fluorescence and Hyperspectral Indices)}
+				\label{fig:svr}
+			\end{figure}
+				
+			\par \textbf{Kĩ thuật Kernel}
+			\par Trong nhiều trường hợp, ta không thể tìm được siêu phẳng (hàm \textit{f(x)}) thỏa mãn yêu cầu nằm gần với tất cả các điểm dữ liệu. Khi đó, sử dụng kĩ thuật ánh xạ không gian hiện tại sang không gian nhiều chiều hơn, ở đó ta có thể tìm ra siêu phẳng thỏa mãn. Sử dụng hàm $(\phi(x))$ biến đổi vector $x$ hiện tại sang không gian nhiều chiều hơn. Lúc đó hàm $f(x)$ có dạng là: $f(x)=\langle w,\phi(x)\rangle + b$. Hình 6 minh họa lý thuyết Kernel: Ở không gian ban đầu (bên trái), ta không thể tìm được siêu phẳng; sau khi chuyển sang không gian mới (bên phải) nhờ hàm $\phi(x)$ thì tìm được siêu phẳng mong muốn.
+				\begin{figure}[h!]
+				\includegraphics[width=\linewidth]{kernel}
+				\caption[Ý tưởng Kernel]{Ý tưởng Kernel (\textit{Tham khảo:} Dr. Saed Sayad, Support Vector Machine - Regression (SVR))}
+				\label{fig:svr}
+			\end{figure}
 	\section{Phương pháp đề xuất}								
 		\subsection{Tập dữ liệu}
 			\par Foody.vn là trang web chứa thông tin về các địa điểm ăn uống ở Việt Nam (đặc biệt là TP. Hồ Chí Minh) với lượng thông tin phong phú và đáng tin cậy. Dữ liệu được dùng cho việc phân tích được crawl từ trang web foody.vn dùng thư viện jsoup và crawljax trên ngôn ngữ Java và được lưu trong một cơ sở dữ liệu không quan hệ (MongoDb). Jsoup và crawljax đều là các thư viện mã nguồn mở trên Java hỗ trợ việc trích xuất thông tin từ các trang web với API đơn giản và dễ sử dụng.
 					
 		\subsection{Tập thuộc tính}
-			\par Nhóm đề xuất 4 nhóm thuộc tính: Nhóm thuộc tính của địa điểm ăn uống trong một khoảng thời gian bất kì, Nhóm thuộc tính của địa điểm ăn uống trong một khoảng thời gian từ lúc thành lập đến hiện tại, nhóm thuộc tính trích xuất ra từ các review đối với địa điểm, và nhóm thuộc tính dựa trên phân loại người dùng. 
-			\par \textbf{Thuộc tính phụ thuộc khoảng thời gian bất kì (4.5.1)}
+			\par Nhóm đề xuất 4 nhóm thuộc tính: Nhóm thuộc tính của địa điểm ăn uống trong một khoảng thời gian bất kì, nhóm thuộc tính của địa điểm ăn uống trong một khoảng thời gian từ lúc thành lập đến hiện tại, nhóm thuộc tính trích xuất ra từ các review đối với địa điểm, và nhóm thuộc tính dựa trên phân loại người dùng. 
+			\par \textbf{Thuộc tính phụ thuộc khoảng thời gian bất kì (5.2.1)}
 				\par Kí hiệu địa điểm ăn uống là M. Khoảng thời gian (t1,t2) có thời điểm bắt đầu là t1 và thời điểm kết thúc là t2. Khi đó tập thuộc tính đặc trưng cho khoảng thời gian (t1,t2) là:
 				\begin{enumerate}
 					\item Số lượng review M nhận được trong khoảng thời gian (t1,t2).
@@ -512,10 +514,10 @@
 					\item Số ngày giữa bài review cuối cùng M nhận được đến t2.
 					\item Số ngày giữa bài review đầu tiên của địa điểm đến bài review cuối cùng địa điểm nhận được tính tới t2.
 				\end{enumerate}
-			\par \textbf{Thuộc tính phụ thuộc thời gian (4.5.2)}
+			\par \textbf{Thuộc tính phụ thuộc thời gian (5.2.2)}
 				\par Tập hợp thuộc tính đặc trưng cho địa điểm ăn uống M, tính từ khi M thành lập đến hiện tại:
 				\begin{enumerate}
-					\item Số bài bình luận M nhận được.
+					\item Số bài review M nhận được.
 					\item Số điểm cao nhất M nhận được.
 					\item Số điểm thấp nhất M nhận được.
 					\item Số điểm trung bình M nhận được.
@@ -533,8 +535,8 @@
 					\item Số lượng bài review được yêu thích của tất cả địa điểm ăn uống trong bán kính 1km của M.
 					\item Số ngày kể từ bài review cuối cùng về bất kỳ một địa điểm ăn uống trong bán kính 1km.
 				\end{enumerate}
-			\par \textbf{Thuộc tính trích xuất từ review (4.5.3)}
-				\par Mục tiêu của nhóm là tìm ra K = 100 từ/cụm từ phổ biến nhất (keyword) trong tất cả các bài review trên foody.vn và  xem chúng là tập thuộc tính của một bài review. Sau đó với mỗi bài review, ta xem mỗi thuộc tính có bao nhiêu lần được đánh giá tích cực, bao nhiêu lần được đánh giá tiêu cực. Dữ liệu được dùng cho việc trích xuất này là mọi review của mọi địa điểm có trong tập dữ liệu. Thực hiện thứ tự các bước:
+			\par \textbf{Thuộc tính trích xuất từ review (5.2.3)}
+				\par Mục tiêu của nhóm là tìm ra K từ/cụm từ (khoảng 100)phổ biến nhất (keyword) trong tất cả các bài review trên foody.vn và  xem chúng là tập thuộc tính của một bài review. Sau đó với mỗi bài review, ta xem mỗi thuộc tính có bao nhiêu lần được đánh giá tích cực, bao nhiêu lần được đánh giá tiêu cực. Dữ liệu được dùng cho việc trích xuất này là mọi review của mọi địa điểm có trong tập dữ liệu. Thực hiện thứ tự các bước:
 			 	\begin{enumerate}
 					\item \textit{Tiền xử lý cho các review}
 						\par Như đã trình bày ở phần 3.3, dữ liệu dạng văn bản trên MXH có đặc trưng là Ngắn gọn và Phi cấu trúc, do đó cần có quá trình tiền xử lý để giải quyết những điều này.
@@ -566,23 +568,23 @@
 							\item Danh sách 2 <từ khóa, số tính từ tiêu cực đi kèm>
 						\end{enumerate}
 				\end{enumerate}
-			\par \textbf{Thuộc tính phân loại người dùng (4.5.4)}
-				\par Để dự đoán số lượng bình luận và số điểm trung bình về một địa điểm ăn uống, thông tin về người dùng cũng rất quan trọng. Số lượng người dùng rất lớn nên ta chia người dùng thành 6 nhóm cụ thể, sử dụng giải thuật k-means trên các thuộc tính của người dùng là:
+			\par \textbf{Thuộc tính phân loại người dùng (5.2.4)}
+				\par Để dự đoán số bài review và số điểm trung bình về một địa điểm ăn uống, thông tin về người dùng cũng rất quan trọng. Số lượng người dùng rất lớn nên ta chia người dùng thành K nhóm cụ thể, bằng cách sử dụng giải thuật $K-means$ trên tập các thuộc tính của người dùng là:
 				\begin{enumerate}
-					\item Số bài bình luận.
+					\item Số bài review.
 					\item Số điểm đánh giá trung bình.
-					\item Số bài bình luận được thích.
+					\item Số bài review được thích.
 					\item Thời điểm bài review đầu tiên.
 					\item Thời điểm bài review cuối cùng.
 					\item Khoảng cách thời gian giữa bài review đầu tiên và cuối cùng.
 				\end{enumerate}
-				\par Mỗi nhóm người dùng có ảnh hưởng khác nhau đến sự thu hút của địa điểm ăn uống, cho nên được xem là thuộc tính của địa điểm ăn uống. \textit{Ví dụ}: Nhà hàng sau khi được những người review uy tín (số bài review nhiều, số bài review được yêu thích nhiều) thì độ thu hút sẽ tăng lên.
+				\par Đề xuất K nhóm đó làm K thuộc tính của một địa điểm ăn uống. Giá trị của mỗi thuộc tính là số lượng người đã review cho địa điểm ăn uống có đặc điểm của thuộc tính đó. Đề xuất tập thuộc tính như vậy bởi vì 2 lí do: thứ nhất, những thuộc tính này đặc trưng cho mỗi địa điểm ăn uống, vì đối với những địa điểm khác nhau thì giá trị tương ứng các thuộc tính là khác nhau; thứ hai, mỗi thuộc tính có ảnh hưởng đến tương lai của địa điểm ăn uống, \textit{ví dụ}: Một địa điểm ăn uống sau khi được nhiều người review uy tín (số bài review nhiều, số bài review được yêu thích nhiều) thì độ thu hút của địa điểm đó sẽ tăng lên.  
 		\subsection{Mô hình dự đoán}
 			\par Nhóm đề xuất 3 mô hình dự đoán:
 			\begin{itemize}
-				\item Mô hình 1: Tập thuộc tính gồm nhóm 4.5.1
-				\item Mô hình 2: Tập thuộc tính gồm nhóm 4.5.2
-				\item Mô hình 3: Tập thuộc tính gồm các nhóm 4.5.2, 4.5.3, 4.5.4
+				\item Mô hình 1: Tập thuộc tính 5.2.1
+				\item Mô hình 2: Tập thuộc tính 5.2.2
+				\item Mô hình 3: Tập thuộc tính gồm các nhóm 5.2.2, 5.2.3, 5.2.4
 			\end{itemize}
 			\par Với mỗi mô hình, áp dụng giải thuật học máy SVR trên tập thuộc tính:
 			\begin{itemize}
@@ -591,7 +593,7 @@
 				\item Tập thuộc tính đã áp dụng Univariate Feature Analysis.
 				\item Tập thuộc tính đã áp dụng Recursive Feature Elimination.
 			\end{itemize}
-			\par Mô hình dự đoán số lượng review và mô hình dự đoán số điểm trung bình có cách thức hoạt động như nhau, nhưng được train và test riêng biệt nhau.
+			\par Mô hình dự đoán số lượng review và mô hình dự đoán số điểm trung bình có cách thức hoạt động như nhau, nhưng được học và test riêng biệt nhau.
 			\par Để áp dụng các giải thuật tối ưu tập thuộc tính (PCA, Univariate Feature Analysis, Recursive Feature Elimination) có thể dùng thư viện scikit-learn (python).
 			\par \textbf{Dữ liệu dùng để học và test}
 				\par Lựa chọn một thời điểm \textit{T} và sử dụng tất cả dữ liệu trước thời điểm \textit{T} để xây dựng hệ thống dự đoán. Những thông tin sau thời điểm \textit{T} sẽ được dùng để kiểm tra hệ thống, minh họa ở hình 4. Thời điểm \textit{T} mà nhóm lựa chọn vẫn đang xem xét sao cho dữ liệu xây dựng hệ thống và kiểm tra hệ thống là hợp lý. 
@@ -609,23 +611,31 @@
 				\caption{Lựa chọn thời điểm T}
 				\label{fig:thoidiemt}
 			\end{figure}
-			\par \textbf{Mô hình 1: Tập thuộc tính gồm nhóm 4.5.1}
-			\par Kí hiệu khoảng thời gian t trong tương lai với thời điểm hiện tại là H. Để dự đoán giá trị trong khoảng thời gian H, sử dụng dữ liệu của n khoảng thời gian trước thời điểm hiện tại với mỗi khoảng thời gian có độ dài bằng độ dài thời gian của H. Theo như trình bày ở phần 4.5.1, mỗi khoảng thời gian có 8 thuộc tính của địa điểm ăn uống tương ứng. Hệ thống dự đoán, một mẫu trong tập học và tập test có dạng:
-			\begin{center}
-				 \textbf{$Y_{t}$} $\; \;Y_{t-1}\:Y_{t-2}...Y_{t-n}\;\;X1_{t-1}\:X1_{t-2}...X1_{t-n}\;...\;Xi_{t-1}\:Xi_{t-2}...Xi_{t-n}$
-			\end{center}
+			\par \textbf{Mô hình 1: Tập thuộc tính 5.2.1}
+			\par \textit{Ý tưởng}
+			\par Số bài review và số điểm trung bình trong tương lai của một địa điểm ăn uống nhận được trong tương lai chỉ phụ thuộc vào dữ liệu của địa điểm trong một chuỗi thời gian trước đó. 
+			\par Kí hiệu khoảng thời gian từ thời điểm hiện tại đến thời điểm $t$ trong tương lai là $H$. Để dự đoán giá trị trong khoảng thời gian $H$, ta sử dụng dữ liệu của $n$ khoảng thời gian trước thời điểm hiện tại, với mỗi khoảng thời gian có độ dài bằng độ dài thời gian của $H$.  Dữ liệu của $n$ khoảng thời gian trước thời điểm hiện tại chính là giá trị mong muốn (target) và tập thuộc tính ứng với n khoảng thời gian đó. Mô tả ý tưởng:
+				 \par \hspace{40pt}Tìm: \textbf{$Y_{H}$} \
+				\par \hspace{40pt}Khi biết: $Y_{H-1}\:Y_{H-2}...Y_{H-n}\;\;X1_{H-1}\:X1_{H-2}...X1_{H-n}\;...\;Xi_{H-1}\:Xi_{H-2}...Xi_{H-n}$
 			\par Trong đó:
 				\begin{itemize}
-					\item $  Y_{t}$ : Giá trị mong muốn tại thời điểm t, ở đây có thể là số lượng review hoặc là số điểm trung bình.
-					\item $Xi_{t-1}$ : Thuộc tính i tại thời điểm t-1.
-					\item $n$ : Số lượng thời điểm được sử dụng để đưa ra dự đoán cho thời điểm trong tương lai. Thời điểm được hiểu là thời điểm bắt đầu của một khoảng thời gian.
+					\item $  Y_{H}$ : Giá trị mong muốn trong khoảng thời gian $H$, ở đây có thể là số bài review hoặc là số điểm trung bình.
+					\item $Xi_{H-1}$ : Thuộc tính $i$ của khoảng thời gian $H-1$.
+					\item $n$ : Số lượng khoảng thời gian được sử dụng để đưa ra dự đoán cho khoảng thời gian $H$ trong tương lai.
 				\end{itemize}
-			\par Giá trị mong muốn tại thời điểm t phụ thuộc vào giá trị mong muốn của n thời điểm trước đó và tất các các thuộc tính của mỗi thời điểm trong n thời điểm đó. Để có một mẫu dùng để học, chọn ngẫu nhiên dữ liệu n+1 tháng liên tiếp trong tập dữ liệu trong tập dữ liệu dùng để học. Nhóm sẽ sử dụng dữ liệu của n tháng trước (thuộc tính) để đưa ra dự đoán cho 1 tháng sau (giá trị cần dự đoán).
-			\par \textit{Ví dụ}: Với bài toán dự đoán giá trị (review hoặc điểm trung bình của địa điểm ăn uống) 1 tháng sau ra sao (H có độ dài 1 tháng). Ta sử dụng dữ liệu của n = 5 tháng trước thời điểm hiện tại. Mỗi tháng sẽ có 8 thuộc tính (tham khảo phần đề xuất thuộc tính A)cộng thêm một giá trị mong muốn của tháng đó. Vậy tổng cộng một mẫu để sử dụng học và test (chưa thu giảm số chiều): có 45 thuộc tính đầu vào và 1 giá trị mong muốn cần dự đoán.
-			\par \textbf{Mô hình 2: Tập thuộc tính gồm nhóm 4.5.2}
+			\par \textit{Mẫu dữ liệu để học}
+			\par Một mẫu dữ liệu luôn có: tập thuộc tính và giá trị mong muốn. Cụ thể:
+				\begin{itemize}
+					\item Tập thuộc tính gồm $9*n$ thuộc tính. Giải thích: Sử dụng n khoảng thời gian, mỗi khoảng thời có 8 thuộc tính (theo đề xuất tập thuộc tính 5.2.1)và 1 giá trị mong muốn.  
+					\item Giá trị mong muốn: Số bài review hoặc số điểm trung bình.
+				\end{itemize}
+			\par \textit{Tập mẫu dùng để học}
+			\par Để tạo một mẫu dữ liệu cho việc học: ta chọn ngẫu nhiên dữ liệu trong $(n+1)$ khoảng thời gian liên tiếp trong dữ liệu học. Sử dụng dữ liệu của $n$ khoảng thời gian trước để tạo tập các thuộc tính và khoảng thời gian cuối cùng để tạo giá trị đầu ra mong muốn (target). 	 
+			\par \textit{Ví dụ}: Với bài toán dự đoán số bài review hoặc điểm trung bình của địa điểm ăn uống của một địa điểm1 tháng sau. Khi đó $H$ có độ dài là 1 tháng. Ta sử dụng dữ liệu của chuỗi $n$ = 5 tháng trước thời điểm hiện tại. Vậy một mẫu dữ liệu để học bao gồm: 45 thuộc tính và 1 giá trị mong muốn.
+			\par \textbf{Mô hình 2: Tập thuộc tính gồm nhóm 5.2.2}
 			\par Để dự đoán giá trị (số lượng review hoặc điểm số trung bình của địa điểm ăn uống) tại thời điểm \textit{t}, sử dụng toàn bộ thông tin liên quan địa điểm đó từ khi thành lập đến hiện tại. Toàn bộ dữ liệu quá khứ dùng để hình thành tập thuộc tính, trình bày ở phần 4.5.2.
 			\par Xây dựng một mẫu dữ liệu để học bằng cách: Lựa chọn thời điểm \textit{k} (\textit{k < T}). Xem thời điểm k đó chính là giá trị cần dự đoán trong tương lai, và  thời điểm \textit{k – ( n tháng)} chính là hiện tại. Khi đó: dữ liệu của địa điểm tính tới trước thời điểm \textit{k – (1 tháng)} được sử dụng để tạo nên tập thuộc tính. Dữ liệu tại thời điểm \textit{k} làm giá trị mong muốn. Vậy mỗi mẫu dữ liệu để học và test ( chưa thu giảm số chiều) bao gồm: 17 thuộc tính, 1 giá trị mong muốn cần dự đoán ( số lượng review hoặc sô điểm trung bỉnh).
-			\par \textbf{Mô hình 3: Tập thuộc tính gồm các nhóm 4.5.2, 4.5.3, 4.5.4}
+			\par \textbf{Mô hình 3: Tập thuộc tính gồm các nhóm 5.5.2, 5.5.3, 5.5.4}
 			\par Tương tự ở mô hình 2, chỉ khác về tập thuộc tính. Mỗi mẫu dữ liệu để học và test ( chưa thu giảm số chiều) bao gồm: 223 thuộc tính, 1 target đầu ra ( số lượng review hoặc sô điểm trung bình).
 		\subsection{Cách đánh giá hệ thống}
 			\par Như đã trình bày ở mục 4.6, để đánh giá hệ thống, lựa chọn tập dữ liệu có dạng như dữ liệu dùng để học hệ thống, chỉ khác về việc lựa chọn sau thời điểm \textit{T}.
