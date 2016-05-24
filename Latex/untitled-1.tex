@@ -7,6 +7,7 @@
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{tikz}
+\usepackage{fancybox}
 \usetikzlibrary{positioning}
 \usepackage[left=3 cm,right=2 cm,top=3cm,bottom=3cm]{geometry}
 \usepackage[labelfont=bf]{caption}
@@ -21,13 +22,59 @@
 \renewcommand{\footrulewidth}{0.4pt}
 
 \graphicspath{{images/}}
-\title{Báo cáo Thực tập tốt nghiệp\\Đề tài: Dự đoán mức độ thu hút của địa điểm ăn uống trong tương lai}
-\date{17-5-2016}
-\author{GVHD: GS.TS Cao Hoàng Trụ \\\\ Nguyễn Trọng Nghĩa \texttt{51202370}
- \\ Nguyễn Đăng Trang \texttt{51203957}}
+%\title{Báo cáo Thực tập tốt nghiệp\\Đề tài: Dự đoán mức độ thu hút của địa điểm ăn uống trong tương lai}
+%\date{17-5-2016}
+%\author{GVHD: GS.TS Cao Hoàng Trụ \\\\ Nguyễn Trọng Nghĩa \texttt{51202370}
+% \\ Nguyễn Đăng Trang \texttt{51203957}}
 
 \begin{document}
-	
+
+%Title Page
+\begin{titlepage}
+	\thispagestyle{empty}
+	\thisfancypage{
+	\setlength{\fboxsep}{0pt}
+	\fbox}{} 
+	\begin{center}
+		\begin{large}
+			TRƯỜNG ĐẠI HỌC BÁCH KHOA THÀNH PHỐ HỒ CHÍ MINH
+		\end{large} \\	
+		\begin{large}
+			KHOA KHOA HỌC \& KỸ THUẬT MÁY TÍNH
+		\end{large} \\
+		\textbf{---------------------------------------------}\\[1cm]
+
+		\begin{figure}[h!]
+			\includegraphics[scale=0.1]{logo}
+			\centering
+		\end{figure}
+
+		\vspace{1cm}
+
+		{\fontsize{40pt}{1}\selectfont BÁO CÁO THỰC TẬP TỐT NGHIỆP}\\
+		{\fontsize{20pt}{1}\selectfont ĐỀ TÀI: DỰ ĐOÁN MỨC ĐỘ THU HÚT \\ CỦA ĐỊA ĐIỂM ĂN UỐNG TRONG TƯƠNG LAI}\\[3cm]
+	\end{center}
+
+	\hspace{2cm} Sinh viên thực hiện : \hspace{16pt}
+	\textbf{\parbox[t]{7cm}{    
+		Nguyễn Đăng Trang \hspace{4pt}51203957 \\
+		Nguyễn Trọng Nghĩa 51202370
+	}}\\[12pt]
+
+	\hspace{2cm} Giảng viên hướng dẫn :  \hspace{3pt} \textbf{\parbox[t]{5cm}{    
+		GS.TS Cao Hoàng Trụ
+	}}
+
+	\vspace{1.5cm}
+	\begin{center}
+		{\fontsize{14pt}{1}\selectfont Thành phố Hồ Chí Minh}\\
+		{\fontsize{14pt}{1}\selectfont \today}
+	\end{center}
+
+
+\end{titlepage}
+
+
 % Vẽ hình
 	\tikzset{%
 	  every neuron/.style={
@@ -43,23 +90,25 @@
   	},
 	}
 	\pagenumbering{gobble}
-	\maketitle
-	\newpage
-	\listoffigures
+%	\maketitle
 	\newpage
 	\thispagestyle{empty}
 	\tableofcontents
-	\newpage
 	\pagenumbering{arabic}
+	\newpage	
+	\listoffigures
+	\newpage
+	\listoftables
+	\newpage
 	\section{Tóm tắt báo cáo}	
 		\par Bài báo cáo trình bày về chủ đề Phân tích dữ liệu trên mạng xã hội (MXH) và đi sâu vào một bài toán dùng học máy phân tích dữ liệu trên mạng xã hội do nhóm đề xuất, gồm ba phần:
 		\begin{itemize}
 
-		\item Phần đầu nói khái quát về MXH và những vấn đề nghiên cứu trên MXH.	
+		\item{Phần đầu nói khái quát về MXH và những vấn đề nghiên cứu trên MXH.}	
 
-		\item Phần tiếp theo trình bày các kiến thức nền tảng liên quan được sử dụng trong phương pháp đề xuất.
+		\item{Phần tiếp theo trình bày các kiến thức nền tảng liên quan được sử dụng trong phương pháp đề xuất.}
 
-		\item Những phần còn lại dẫn dắt vào đề tài mà nhóm đề xuất và nêu lên phương pháp thực hiện đề tài. Đó là bài toán về Dự đoán mức độ thu hút của địa điểm ăn uống trong tương lai. Nghiên cứu thu hẹp lại trên các MXH về địa điểm ăn uống, bài báo cáo đi từ các nghiên cứu liên quan đến các MXH về địa điểm ăn uống tới các cách xây dựng mô hình học máy để giải quyết bài toán.
+		\item{Những phần còn lại dẫn dắt vào đề tài mà nhóm đề xuất và nêu lên phương pháp thực hiện đề tài. Đó là bài toán về Dự đoán mức độ thu hút của địa điểm ăn uống trong tương lai. Nghiên cứu thu hẹp lại trên các MXH về địa điểm ăn uống, bài báo cáo đi từ các nghiên cứu liên quan đến các MXH về địa điểm ăn uống tới các cách xây dựng mô hình học máy để giải quyết bài toán.}
 		\end{itemize}
 
 	\section{Khái quát về MXH và Phân tích dữ liệu trên MXH}
