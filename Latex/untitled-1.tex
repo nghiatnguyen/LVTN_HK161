@@ -95,9 +95,11 @@
 	\thispagestyle{empty}
 	\tableofcontents
 	\pagenumbering{arabic}
-	\newpage	
+	\newpage
+  	\addcontentsline{toc}{section}{Danh sách hình vẽ}
 	\listoffigures
 	\newpage
+	\addcontentsline{toc}{section}{Danh sách bảng}
 	\listoftables
 	\newpage
 	\section{Tóm tắt báo cáo}	
@@ -313,10 +315,10 @@
 			\end{figure} 
 
 		\subsection{Các nghiên cứu liên quan}
-			\par Yelp là một trang MXH về địa điểm nổi tiếng ở Mỹ với những chức năng tương tự như trang MXH Foody của Việt Nam. Trang MXH này tổ chức ra một cuộc thi mang tên Yelp Dataset Challenge (bắt đầu từ năm 2014, đến nay đã trải qua 6 vòng thi và đang ở vòng 7), thu hút hàng trăm bài nghiên cứu của các tác giả khắp thế giới. Những bài toán được đưa ra dựa trên tập dữ liệu do cuộc thi này cung cấp bao gồm từ những bài toán Gợi ý các địa điểm phù hợp với sở thích, thói quen của người dùng [10], [16] tới Tóm tắt, trực quan hóa review cho người dùng [14] hay Dự đoán tương lai của địa điểm ăn uống.
+			\par Yelp là một trang MXH về địa điểm nổi tiếng ở Mỹ với những chức năng tương tự như trang MXH Foody của Việt Nam. Trang MXH này tổ chức ra một cuộc thi mang tên Yelp Dataset Challenge (bắt đầu từ năm 2014, đến nay đã trải qua 6 vòng thi và đang ở vòng 7), thu hút hàng trăm bài nghiên cứu của các tác giả khắp thế giới. Những bài toán được đưa ra dựa trên tập dữ liệu do cuộc thi này cung cấp bao gồm: gợi ý các địa điểm phù hợp với sở thích, thói quen của người dùng [4], [5]; tóm tắt, trực quan hóa review cho người dùng [6] hay dự đoán tương lai của địa điểm ăn uống.
 			\par Trong đó, nhóm bài toán có nhiều mối liên hệ nhất với đề tài do nhóm đề xuất là những bài toán về Dự đoán tương lai của một địa điểm ăn uống:
 			\begin{itemize}
-				\item Trong [21], tác giả đã đề xuất ra mô hình học máy nhằm dự đoán xem liệu một địa điểm sẽ tiếp tục hoạt động hay đóng cửa. Đó là một bài toán phân loại nhị phân với đầu vào là các thông tin liên quan tới địa điểm và đầu ra là một trong hai nhãn cho địa điểm: “open” – Địa điểm tiếp tục hoạt động, hoặc “close” – Địa điểm sẽ bị đóng cửa. Tác giả dùng 4 tập thuộc tính khác nhau cho mô hình học máy:
+				\item Trong [7], tác giả đã đề xuất ra mô hình học máy nhằm dự đoán xem liệu một địa điểm sẽ tiếp tục hoạt động hay đóng cửa. Đó là một bài toán phân loại nhị phân với đầu vào là các thông tin liên quan tới địa điểm và đầu ra là một trong hai nhãn cho địa điểm: “open” – Địa điểm tiếp tục hoạt động, hoặc “close” – Địa điểm sẽ bị đóng cửa. Tác giả dùng 4 tập thuộc tính khác nhau cho mô hình học máy:
 					\begin{itemize}
 						\item Nhóm các thuộc tính liên quan đến đánh giá: Số lượng review tương ứng, điểm rating trung bình, số lượng người dùng checkin.
 						\item Nhóm các thuộc tính về vị trí địa lý: Kinh độ, vĩ độ, bang.
@@ -325,22 +327,22 @@
 					\end{itemize}
 					Kết quả chỉ ra rằng nhóm thuộc tính về vị trí địa lý và nhóm liên quan đến thời gian cho hiệu quả dự đoán cao nhất.
 				\item Trong [8], tác giả đã đề xuất một tập các thuộc tính dựa trên đặc trưng của địa điểm cũng như dữ liệu văn bản trên review đối với địa điểm đó và dùng các mô hình học máy khác nhau (Logistic Regression, Support Vector Machine, Tree and Random Forest Classifier, Support Vector Regression) để dự đoán điểm rating cho địa điểm. Bài toán dự đoán điểm rating cho địa điểm được quy về bài toán phân loại cho địa điểm với các nhãn là 0,1,2,3,4,5 chính là điểm rating (được làm tròn) cho địa điểm đó. Kết quả cuối cùng cho thấy các thuộc tính liên quan đến phân tích ý kiến trên review, số lượng review, vị trí của địa điểm và số lượng các địa điểm nằm ở khu vực lân cận là những thuộc tính quan trọng nhất.
-				\item Điểm rating đối với một địa điểm là cơ sở quan trọng để một người dùng đưa ra lựa chọn có tới địa điểm đó hay không. Nhưng đôi khi việc rating của người dùng cũng mang tính chất chủ quan và thiên vị. \textit{Ví dụ:} Trên Yelp, người A đánh giá nhà hàng D ăn ngon, phục vụ tốt nhưng cho điểm là 4, trong khi người B có những đánh giá tương tự cho D nhưng cho điểm tới 5. Do đó một ý tưởng được đưa ra là dự đoán rating cho một địa điểm chỉ dựa trên dữ liệu văn bản trong review đối với địa điểm. Trong [15], tác giả tạo một nhóm gồm các từ thông dụng thường xuất hiện nhất trong các bài review và dùng các từ trong nhóm này để tạo tập thuộc tính phục vụ cho hệ thống dự đoán rating. Các mô hình học máy được sử dụng là: Linear Regression, Support Vector Regression, Support Vector Regression với tập thuộc tính được chuẩn hóa và Decision Tree Regression.
-				\item Trong [4], một mô hình học máy dựa trên Support Vector Regression được đề xuất nhằm dự đoán mức độ thu hút của một địa điểm trong tương lai. Mức độ thu hút này được đánh giá theo thước đo là số lượng review đối với địa điểm trong tương lai (số lượng review mà địa điểm nhận được trong 6 tháng tới). Mô hình này dựa trên hai nhóm thuộc tính chính: Nhóm thuộc tính được trích ra từ tập dữ liệu của Yelp như điểm rating, vị trí của địa điểm, thời gian (ngày) từ bài review gần nhất… và nhóm thuộc tính có được qua quá trình thực hiện các kỹ thuật nhằm Phân tích ý kiến dựa trên review của địa điểm. Các nhóm thuộc tính này là cơ sở quan trọng cho tập thuộc tính trong Phương pháp đề xuất của nhóm.
-				\item Trong [5], tác giả đề xuất ra hai mô hình dự đoán mức độ thu hút của một địa điểm trong tương lai, một mô hình dựa trên mô hình Chuỗi thời gian (Time Series) và một mô hình khác dựa trên Dự đoán liên kết trong đồ thị hai phía (Bipartite Graph). Mức độ thu hút này được thể hiện qua Số lượng review địa điểm nhận được trong tương lai và số điểm rating tại thời điểm đó. Hai mô hình này sử dụng tập thuộc tính tương tự như trong [4] nhưng không có nhóm thuộc tính liên quan tới dữ liệu văn bản trong các review. Một trong số các mô hình được nhóm đề xuất thực hiện cũng được đưa ra dựa trên ý tưởng của mô hình theo Chuỗi thời gian được nói tới trong bài. 
-				\item Trong [22], tác giả cũng đưa ra bài toán dự đoán xu hướng của địa điểm dựa vào số lượng review nhận được trong tương lai (Số lượng review nhận được trong tháng tới) sử dụng các phân tích thống kê trên mô hình Chuỗi thời gian.
+				\item Điểm rating đối với một địa điểm là cơ sở quan trọng để một người dùng đưa ra lựa chọn có tới địa điểm đó hay không. Nhưng đôi khi việc rating của người dùng cũng mang tính chất chủ quan và thiên vị. \textit{Ví dụ:} Trên Yelp, người A đánh giá nhà hàng D ăn ngon, phục vụ tốt nhưng cho điểm là 4, trong khi người B có những đánh giá tương tự cho D nhưng cho điểm tới 5. Do đó một ý tưởng được đưa ra là dự đoán rating cho một địa điểm chỉ dựa trên dữ liệu văn bản trong review đối với địa điểm. Trong [9], tác giả tạo một nhóm gồm các từ thông dụng thường xuất hiện nhất trong các bài review và dùng các từ trong nhóm này để tạo tập thuộc tính phục vụ cho hệ thống dự đoán rating. Các mô hình học máy được sử dụng là: Linear Regression, Support Vector Regression, Support Vector Regression với tập thuộc tính được chuẩn hóa và Decision Tree Regression.
+				\item Trong [10], một mô hình học máy dựa trên Support Vector Regression được đề xuất nhằm dự đoán mức độ thu hút của một địa điểm trong tương lai. Mức độ thu hút này được đánh giá theo thước đo là số lượng review đối với địa điểm trong tương lai (số lượng review mà địa điểm nhận được trong 6 tháng tới). Mô hình này dựa trên hai nhóm thuộc tính chính: Nhóm thuộc tính được trích ra từ tập dữ liệu của Yelp như điểm rating, vị trí của địa điểm, thời gian (ngày) từ bài review gần nhất… và nhóm thuộc tính có được qua quá trình thực hiện các kỹ thuật nhằm Phân tích ý kiến dựa trên review của địa điểm. Các nhóm thuộc tính này là cơ sở quan trọng cho tập thuộc tính trong Phương pháp đề xuất của nhóm.
+				\item Trong [11], tác giả đề xuất ra hai mô hình dự đoán mức độ thu hút của một địa điểm trong tương lai, một mô hình dựa trên mô hình Chuỗi thời gian (Time Series) và một mô hình khác dựa trên Dự đoán liên kết trong đồ thị hai phía (Bipartite Graph). Mức độ thu hút này được thể hiện qua Số lượng review địa điểm nhận được trong tương lai và số điểm rating tại thời điểm đó. Hai mô hình này sử dụng tập thuộc tính tương tự như trong [11] nhưng không có nhóm thuộc tính liên quan tới dữ liệu văn bản trong các review. Một trong số các mô hình được nhóm đề xuất thực hiện cũng được đưa ra dựa trên ý tưởng của mô hình theo Chuỗi thời gian được nói tới trong bài. 
+				\item Trong [12], tác giả cũng đưa ra bài toán dự đoán xu hướng của địa điểm dựa vào số lượng review nhận được trong tương lai (Số lượng review nhận được trong tháng tới) sử dụng các phân tích thống kê trên mô hình Chuỗi thời gian.
 			\end{itemize}
 			\par Ở Việt Nam, từ dữ liệu của trang mạng Foody và các trang mạng xã hội về địa điểm khác, một số đề tài cũng đã được thực hiện:
 			\begin{itemize}
-				\item Trong [18] và [20], tác giả đã đưa ra bài toán Đề xuất địa điểm dựa trên dữ liệu của mạng Foody và dẫn ra những phương pháp cơ bản để giải quyết bài toán này, đó là phương pháp Lọc – Cộng tác (Collaborative Filtering), lọc dựa trên nội dung (Content-based Filtering) và phương pháp lai (Hybrid) như là sự kết hợp giữa hai phương pháp trên. Dữ liệu dùng cho phân tích được crawl từ trang foody.vn, giải thuật học máy sẽ học những đặc trưng của địa điểm, hồ sơ của người dùng, và kết hợp với dữ liệu về mặt địa lý để hạn chế các kết quả không hợp lý về mặt khoảng cách. 
-				\item Trong [19], tác giả sử dụng các kỹ thuật Khai phá dữ liệu dạng văn bản (Trên tiếng Việt) để phân tích ý kiến dựa vào bình luận và review của người dùng đối với các địa điểm trên foody.vn và diadiemanuong.com. Tác giả áp dụng các giải thuật xử lý ngôn ngữ tự nhiên chia các câu trong các bình luận và review này thành 5 chủ đề: giá cả, khu vực, dịch vụ, không gian và chất lượng. Phân tích các từ trong mỗi câu để chỉ ra ý kiến của người dùng đối với địa điểm là tích cực hay tiêu cực. Kết quả cuối cùng sẽ có được bằng cách tính trung bình xem bao nhiêu phần trăm đánh giá là tích cực hay tiêu cực đối với địa điểm, và ứng với từng chủ đề trong số 5 chủ đề trên.   
+				\item Trong [13] và [14], tác giả đã đưa ra bài toán Đề xuất địa điểm dựa trên dữ liệu của mạng Foody và dẫn ra những phương pháp cơ bản để giải quyết bài toán này, đó là phương pháp Lọc – Cộng tác (Collaborative Filtering), lọc dựa trên nội dung (Content-based Filtering) và phương pháp lai (Hybrid) như là sự kết hợp giữa hai phương pháp trên. Dữ liệu dùng cho phân tích được crawl từ trang foody.vn, giải thuật học máy sẽ học những đặc trưng của địa điểm, hồ sơ của người dùng, và kết hợp với dữ liệu về mặt địa lý để hạn chế các kết quả không hợp lý về mặt khoảng cách. 
+				\item Trong [15], tác giả sử dụng các kỹ thuật Khai phá dữ liệu dạng văn bản (Trên tiếng Việt) để phân tích ý kiến dựa vào bình luận và review của người dùng đối với các địa điểm trên foody.vn và diadiemanuong.com. Tác giả áp dụng các giải thuật xử lý ngôn ngữ tự nhiên chia các câu trong các bình luận và review này thành 5 chủ đề: giá cả, khu vực, dịch vụ, không gian và chất lượng. Phân tích các từ trong mỗi câu để chỉ ra ý kiến của người dùng đối với địa điểm là tích cực hay tiêu cực. Kết quả cuối cùng sẽ có được bằng cách tính trung bình xem bao nhiêu phần trăm đánh giá là tích cực hay tiêu cực đối với địa điểm, và ứng với từng chủ đề trong số 5 chủ đề trên.   
 				\end{itemize}
 			\par Những thành công nhất định trong các nghiên cứu trên là cơ sở quan trọng để nhóm đưa ra đề xuất cho phương pháp giải quyết thực hiện đề tài.
 
 
 \section{Kiến thức nền tảng liên quan đến đề tài}
 		\subsection{Tối ưu tập thuộc tính}
-			\par Việc tối ưu tập thuộc tính là xác định các thuộc tính quan trọng và loại bỏ các thuộc tính dư thừa, nhiễu để làm giảm số chiều của không  gian thuộc tính. Qua đó cải thiện độ chính xác và tốc độ tính toán của hệ thống. Các công cụ và giải thuật đề xuất sử dụng là:
+			\par Việc tối ưu tập thuộc tính là xác định các thuộc tính quan trọng và loại bỏ các thuộc tính dư thừa, nhiễu để làm giảm số chiều của không  gian thuộc tính. Qua đó cải thiện độ chính xác và tốc độ tính toán của hệ thống. Các giải thuật để tối ưu tập thuộc tính liên quan đến đề tài gồm: Principal Components Analysis, Univariate Feature Analysis và Recursive Feature Elimination.
 			\par \textbf{Principal Components Analysis (PCA)}
 				\par \textit{Định nghĩa} 
 				\par PCA là một thuật toán thống kê sử dụng phép biến đổi trực giao để biến đổi một tập hợp dữ liệu từ một không gian nhiều chiều sang một không gian mới ít chiều hơn (2 hoặc 3 chiều) nhằm tối ưu hóa việc thể hiện sự biến thiên của dữ liệu. 
@@ -349,6 +351,7 @@
 				\par  \textit{Kiến thức cơ bản}
 				\par Độ lệch chuẩn (Standard Deviation), Phương sai (Variance), Hiệp phương sai (Covariance), Ma trận hiệp phương sai (The covariance matrix), Eigenvectors, Eigenvalues.
 				\par \textit{Phương pháp}
+				\par Để xác định các chiều của không gian mới, ta lần lượt thực hiện 3 bước tổng quát:
 				\begin{enumerate}
 					\item Xử lý dữ liệu:
 					\par Cho ma trận ${X= \big\{ x_{ij} \big\}  \in  \mathbb{R}^{n \times p}}$, trong đó \textit{n} là số mẫu, \textit{p} là số thuộc tính.
@@ -361,9 +364,9 @@
 						\par ${x_{ij}^{new}=x_{ij}-\overline{x}_{j}}$
 					\end{center}
 					\item Tính ma trận hiệp phương sai của ma trận đã chuẩn hóa.
-					\item Tính Eigenvectors, Eigenvalues của ma trận hiệp phương sai.
-					\par Mỗi eigenvector đại diện cho một thuộc tính, eigenvalue tương ứng càng lớn thì thuộc tính đó càng quan trọng.
+					\item Tính Eigenvectors, Eigenvalues của ma trận hiệp phương sai. Mỗi eigenvector đại diện cho một thuộc tính, eigenvalue tương ứng càng lớn thì thuộc tính đó càng quan trọng.
 				\end{enumerate}
+				\par Thuật toán chi tiết và các ví dụ dễ hiểu kèm theo được trình bày ở [16].
 				\par  \textit{Ưu điểm}
 				\begin{itemize}
 					\item{Phương pháp học không giám sát, do đó PCA sẽ tự động tìm ra được các thuộc tính đặc trưng mà con người không nhận ra được.}
@@ -377,7 +380,7 @@
 				\end{itemize}
 			\par \textbf{Univariate Feature Analysis}
 				\par \textit{Định nghĩa} 
-				\par Univariate Feature Analysis là giải thuật xác định thuộc tính quan trọng dựa trên ý tưởng theo dõi ảnh hưởng của mỗi thuộc tính một cách độc lập đến hiệu suất dự đoán của hệ thống rồi sau đó chọn ra n thuộc tính mang lại hiệu suất tốt nhất làm tập thuộc tính cho mô hình học máy.
+				\par Univariate Feature Analysis là giải thuật xác định thuộc tính quan trọng dựa trên ý tưởng theo dõi ảnh hưởng của mỗi thuộc tính một cách độc lập đến hiệu suất dự đoán của hệ thống rồi sau đó chọn ra n thuộc tính mang lại hiệu suất tốt nhất làm tập thuộc tính cho mô hình học máy [17].
 				\par \textit{Phương pháp}
 				\begin{enumerate}
 					\item Lựa chọn một thuộc tính bất kỳ, xây dựng hệ thống dựa chỉ dựa trên thuộc tính đó, đánh giá hệ thống: đối với bài toán hồi quy sử dụng giá trị \textit{f-regression}.
@@ -389,7 +392,7 @@
 				\par Đôi khi việc kết hợp các thuộc tính không tốt với nhau cũng có thể đưa ra mô hình dự đoán tốt.
 			\par \textbf{Recursive Feature Elimination}
 				\par \textit{Định nghĩa} 
-				\par Recursive Feature Elimination là giải thuật xác định thuộc tính quan trọng dựa trên ý tưởng áp dụng giải thuật trên tất cả các thuộc tính, sau đó loại bớt các thuộc tính sao cho giải thuật đạt kết quả tối ưu nhất.
+				\par Recursive Feature Elimination là giải thuật xác định thuộc tính quan trọng dựa trên ý tưởng áp dụng giải thuật trên tất cả các thuộc tính, sau đó loại bớt các thuộc tính sao cho giải thuật đạt kết quả tối ưu nhất [17].
 				\par \textit{Phương pháp}
 				\begin{enumerate}
 					\item Train giải thuật trên tập các thuộc tính và sau đó gán trọng số (\textit{Ví dụ}: hệ số của mô hình tuyến tính) cho mỗi thuộc tính.
@@ -401,7 +404,7 @@
 				\par  \textit{Nhược điểm}
 				\par Chi phí tính toán cao.		
 		\subsection{Gán nhãn cụm từ trong Xử lý ngôn ngữ tự nhiên}
-			\par Trong Xử lý ngôn ngữ tự nhiên, để thực hiện được quá trình phân tích cú pháp thì một trong những vấn đề quan trọng là gán nhãn cho các từ/cụm từ ở trong văn bản, tức là “bẻ” các câu trong văn bản đó ra thành những thành phần nhỏ hơn (từ và cụm từ) sau đó xác định từ loại tương ứng với mỗi từ và cụm từ đó. Bảng 1 minh họa quá trình phân tích cú pháp câu "\textit{Món lẩu ở nhà hàng đó rất ngon}".
+			\par Trong Xử lý ngôn ngữ tự nhiên, để thực hiện được quá trình phân tích cú pháp thì một trong những vấn đề quan trọng là gán nhãn cho các từ/cụm từ ở trong văn bản, tức là “bẻ” các câu trong văn bản đó ra thành những thành phần nhỏ hơn (từ và cụm từ) sau đó xác định từ loại tương ứng với mỗi từ và cụm từ đó [18]. Bảng 1 minh họa quá trình phân tích cú pháp câu "\textit{Món lẩu ở nhà hàng đó rất ngon}".
 			\begin{table}[h]
 				\centering
 				\caption{Ví dụ xác định từ loại tương ứng mỗi từ và cụm từ}
@@ -417,15 +420,15 @@
 			\end{table}
 			\par Trong đó, \textit{N}: Danh từ,  \textit{P}: Giới từ,  \textit{ART}: Mạo từ,  \textit{ADV}: Trạng từ,  \textit{NP}: Cụm danh từ,  \textit{PP}: Cụm giới từ.
 		\subsection{Chuỗi thời gian (Time Series)}
-			\par Chuỗi thời gian là một chuỗi các điểm dữ liệu, được đo theo từng khoảng thời gian bằng nhau. \textit{Ví dụ:} theo từng tháng, từng năm. Công thức chuỗi thời gian:
+			\par Chuỗi thời gian là một chuỗi các điểm dữ liệu, được đo theo từng khoảng thời gian bằng nhau. \textit{Ví dụ:} theo từng tháng, từng năm. Công thức chuỗi thời gian [19]:
 			\begin{center}
 				$y_{t}=f(y_{t-1},y_{t-2},...,y_{t-n}) + w(t)$
 			\end{center}
-			\par Từ công thức, nhận thấy có thể dự đoán sự kiện thời gian tại t ($y_{t}$) dựa vào các sự kiện đã biết trong quá khứ ($y_{t-1},y_{t-2},...,y_{t-n}$); $w(t)$: thông tin chưa biết, thông tin chưa biết này tạo nên độ nhiễu. Vấn đề dự đoán dựa trên Chuỗi thời gian có thể xem là giải bài toán Hồi quy cơ bản có giám sát (Generic Supervised Learning Regression). \textit{Ví dụ}: Bài toán dự đoán doanh số bán sản phẩm của quí (năm) tới dựa vào doanh số bán của các quí (năm) qua.
+			\par Từ công thức, nhận thấy có thể dự đoán sự kiện thời gian tại $t$ ($y_{t}$) dựa vào các sự kiện đã biết trong quá khứ ($y_{t-1},y_{t-2},...,y_{t-n}$); $w(t)$: thông tin chưa biết, thông tin chưa biết này tạo nên độ nhiễu. Vấn đề dự đoán dựa trên Chuỗi thời gian có thể xem là giải bài toán Hồi quy cơ bản có giám sát (Generic Supervised Learning Regression). \textit{Ví dụ}: Bài toán dự đoán doanh số bán sản phẩm của quí (năm) tới dựa vào doanh số bán của các quí (năm) qua.
 		\subsection{Giải thuật học máy Support Vector Regression}
 			\par Trong lĩnh vực học máy, Support Vector Regression (SVR) là mô hình học có giám sát, được sử dụng vào bài toán phân tích hồi quy. Mô hình SVR là một mở rộng của giải thuật Support Vector Machine (SVM).
 			\par \textbf{Ý tưởng}
-				\par Giả sử có tập dữ liệu gồm $l$ mẫu $\left\{\left(x_{1},y_{1}\right),\left(x_{2},y_{2}\right),...,\left(x_{l},y_{l}\right)\right\}$, với $x_{i}\in  \mathbb{R}^{n}$ và $y_{i}\in  \mathbb{R}$ với mọi i. Mục đích của mô hình SVR là đi tìm một hàm \textit{f(x)} sao cho số lượng các mẫu $\left(x_{i},y_{i}\right)$ thỏa mãn điều kiện $\mid y_{i} - f(x_{i})\mid \leq \epsilon $ ($\epsilon$ cho trước) là lớn nhất. Hình 4 mô tả ý tưởng giải thuật: Hàm $f(x)$ sẽ tạo ra một đường thằng (siêu phẳng đối với không gian nhiều chiều), kết hợp giá trị $\epsilon$ tạo nên hai đường biên kèm theo (hai đường nét đứt); Bài toán là tìm hàm $f(x)$ sao cho mọi điểm trong tập mẫu đều nằm trong vùng giữa hai đường biên tạo ra.
+				\par Giả sử có tập dữ liệu gồm $l$ mẫu $\left\{\left(x_{1},y_{1}\right),\left(x_{2},y_{2}\right),...,\left(x_{l},y_{l}\right)\right\}$, với $x_{i}\in  \mathbb{R}^{n}$ và $y_{i}\in  \mathbb{R}$ với mọi i. Mục đích của mô hình SVR là đi tìm một hàm \textit{f(x)} sao cho số lượng các mẫu $\left(x_{i},y_{i}\right)$ thỏa mãn điều kiện $\mid y_{i} - f(x_{i})\mid \leq \epsilon $ ($\epsilon$ cho trước) là lớn nhất [20]. Hình 4 mô tả ý tưởng giải thuật: Hàm $f(x)$ sẽ tạo ra một đường thằng (siêu phẳng đối với không gian nhiều chiều), kết hợp giá trị $\epsilon$ tạo nên hai đường biên kèm theo (hai đường nét đứt); Bài toán là tìm hàm $f(x)$ sao cho mọi điểm trong tập mẫu đều nằm trong vùng giữa hai đường biên tạo ra.
 				\begin{figure}[h!]
 				\begin{center}
 %vẽ ý tưởng SVR
@@ -748,27 +751,27 @@
 		\newpage
 
 	\section {Tham khảo}
-	\par [1]	\hspace{4pt}	Charu C. Aggawal, “\textit{Social Network Data Analytics}” – Editor. Springer Publishing Company, ISBN 978-1-4419-8462-3, 2011
-\par [2]	\hspace{4pt}	Charu C. Aggawal and Cheng Xiang Zhai. “\textit{Mining Text Data}” editors - Chapter “\textit{Text Analytics In Social Media}”. Springer Publishing Company, ISBN 978-1-4614-3223-4, 2012
-\par [3]	\hspace{4pt}	Bing Liu. “\textit{Web Data Mining}”. Springer Publishing Company, ISBN 978-3-642-19460-3, 2011
-\par [4]	\hspace{4pt}	Lindsay I Smith. “\textit{A tutorial on Principal Components Analysis}”. University of Otago, New Zealand, 2002
-\par [5]	\hspace{4pt}	Scikit-Learn Module. “\textit{Feature Selection in Python with Scikit-Learn}”.
-\par [6]	\hspace{4pt}	Alex J. Smola and Bernhard Schölkopf. “\textit{Statistics and Computing}” - Chapter “\textit{A tutorial on support vector regression}”. Kluwers Academic Publishers, ISBN 1573-1375, 2004
-\par [7]	\hspace{4pt}	Phan Thị Tươi. “\textit{Xử lý ngôn ngữ tự nhiên}”. Nhà xuất bản Đại Học Quốc Gia TP.Hồ Chí Minh, ISBN 978-604-73-1236-8, 2012
-\par [8]	\hspace{4pt}	Sumedh Sawant and Gina Pai. “\textit{Yelp Food Recommendation System}”. In Yelp Dataset Challenge, 2014
-\par [9]	\hspace{4pt} 	Prerna Wivedi and Nikita Chheda. “\textit{A Hybrid Restaurant Recommender}”. In International Journal of Computer Applications (0975 – 8887), vol. 55– no.16, 201
-\par [10]	\hspace{4pt} Ji Wang, Jian Zhao, Sheng Guo and Chris North. “\textit{Clustered Layout Word Cloud for User Generated Review}”. In Yelp Dataset Challenge Round One, Graphics Interface 2014 Montreal, 2014
-\par [11]\hspace{4pt}	Narenkuma Pandian and Vaibhab Aggawal. “\textit{Are you open?}”. In Project Report – Machine Learning Course of Stanford University, 2015
-\par [12]	\hspace{4pt}Kyle Carbon, Kacyn Fujii and Prasanth Veerina. “\textit{Applications of Machine Learning to Predict Yelp Ratings}”. Yelp Dataset Challenge, 2014
-\par [13]	\hspace{4pt}Mingming Fan and Maryam Khademi. “\textit{Predicting a Business’ Star in Yelp from Its Reviews’ Text Alone}”. In Yelp Dataset Challenge Round One, 2014
-\par [14]	\hspace{4pt}Bryan Wood, Victor Hwang and Jennifer King. “\textit{Infering Future Bussiness Attention}”. In Yelp Dataset Challenge Round One, 2014
-\par [15]	\hspace{4pt}Kapil Jaisinghani, Ravi Todi and Zhengiy Liu. “\textit{Modeling Growth and Decline of Businesses in Yelp Network}”. In Project Report – Social and Information Network Analysis Course of Stanford University, 2013
-\par [16]	\hspace{4pt}Praveenkumar Kondiloppa, Seung-Jong Park. “\textit{Modeling Business Trends based on Yelp Review}”. In Yelp Data Challenge, 2014 
-\par [17]	\hspace{4pt}Nguyễn Minh Khôi. “\textit{Hệ thống đề xuất địa điểm dựa trên Phương pháp lai (Hybrid) trên dữ liệu Foody.vn}”. Luận Văn Thạc Sĩ Trường Đại Học Công nghệ TP. Hồ Chí Minh, 2015
-\par [18]	\hspace{4pt}Lê Quốc Nam và Nguyễn Ngọc Dũng. “\textit{Giới thiệu địa điểm trên điện thoại thông minh}”. Luận Văn Tốt Nghiệp Trường Đại Học Bách Khoa TP. Hồ Chí Minh, 2014
-\par [19]	\hspace{4pt}Dang Hung Phan and Tuan Dung Cao. “\textit{Applying Skip-gram word estimation and SVM-based classification for opinion mining Vietnamese food places text reviews}”. In Proceedings of the Fifth Symposium on Information and Communication Technology, pp. 232-239, ISBN 978-1-4503-2930-9, 2014
-\par [20]	\hspace{4pt}Guy Shani and Asela Gunawardana. “\textit{Recommender Systems Handbook}”- Chapter “\textit{Evaluating Recommendation Systems}”. Springer Publishing Company, ISBN 978-0-387-85820-3, 2011
-
+\par [1]\hspace{15pt}Charu C. Aggawal, editor. “\textit{Social Network Data Analytics}” . Springer Publishing Company, ISBN 978-1-4419-8462-3, 2011
+\par [2]\hspace{15pt}Xia Hu and Huan Liu. “\textit{Text Analytics In Social Media}”. In Charu C. Aggawal and Cheng Xiang Zhai, editors, “\textit{Mining Text Data}”. Springer Publishing Company, ISBN 978-1-4614-3223-4, pp 385-414, 2012
+\par [3]\hspace{15pt}Bing Liu. “\textit{Web Data Mining}”. Springer Publishing Company, ISBN 978-3-642-19460-3, 2011
+\par [4]\hspace{15pt}Sumedh Sawant and Gina Pai. “\textit{Yelp Food Recommendation System}”. In Yelp Dataset Challenge, 2014
+\par [5]\hspace{15pt}Prerna Wivedi and Nikita Chheda. “\textit{A Hybrid Restaurant Recommender}”. In International Journal of Computer Applications (0975 – 8887), Vol. 55– No.16, 201
+\par [6]\hspace{15pt}Ji Wang, Jian Zhao, Sheng Guo and Chris North. “\textit{Clustered Layout Word Cloud for User Generated Review}”. In Yelp Dataset Challenge, Graphics Interface 2014 Montreal, 2014
+\par [7]\hspace{15pt}Narenkuma Pandian and Vaibhab Aggawal. “\textit{Are you open?}”. In Project Report, Machine Learning Course of Stanford University, 2015
+\par [8]\hspace{15pt}Kyle Carbon, Kacyn Fujii and Prasanth Veerina. “\textit{Applications of Machine Learning to Predict Yelp Ratings}”. Yelp Dataset Challenge, 2014
+\par [9]\hspace{15pt}Mingming Fan and Maryam Khademi. “\textit{Predicting a Business’ Star in Yelp from Its Reviews’ Text Alone}”. In Yelp Dataset Challenge, 2014
+\par [10]\hspace{9pt}Bryan Wood, Victor Hwang and Jennifer King. “\textit{Infering Future Bussiness Attention}”. In Yelp Dataset Challenge, 2014
+\par [11]\hspace{9pt}Kapil Jaisinghani, Ravi Todi and Zhengiy Liu. “\textit{Modeling Growth and Decline of Businesses in Yelp Network}”. In Project Report, Social and Information Network Analysis Course of Stanford University, 2013
+\par [12]\hspace{9pt}Praveenkumar Kondiloppa, Seung-Jong Park. “\textit{Modeling Business Trends based on Yelp Review}”. In Yelp Dataset Challenge, 2014 
+\par [13]\hspace{9pt}Nguyễn Minh Khôi. “\textit{Hệ thống đề xuất địa điểm dựa trên Phương pháp lai (Hybrid) trên dữ liệu Foody.vn}”. Luận Văn Thạc Sĩ, Trường Đại Học Công nghệ TP. Hồ Chí Minh, 2015
+\par [14]\hspace{9pt}Lê Quốc Nam và Nguyễn Ngọc Dũng. “\textit{Giới thiệu địa điểm trên điện thoại thông minh}”. Luận Văn Tốt Nghiệp, Trường Đại Học Bách Khoa TP. Hồ Chí Minh, 2014
+\par [15]\hspace{9pt}Dang Hung Phan and Tuan Dung Cao. “\textit{Applying Skip-gram word estimation and SVM-based classification for opinion mining Vietnamese food places text reviews}”. In Proceedings of the Fifth Symposium on Information and Communication Technology, pp. 232-239, ISBN 978-1-4503-2930-9, 2014
+\par [16]\hspace{9pt}Lindsay I Smith. “\textit{A tutorial on Principal Components Analysis}”. In Technical Report, Cornell University, USA, 2002
+\par [17]\hspace{9pt}Scikit-Learn Developers. “\textit{Scikit-Learn User Guide}” - Part "\textit{Feature Selection}".In Scikit-Learn Library, 2012
+\par [18]\hspace{9pt}Phan Thị Tươi. “\textit{Xử lý ngôn ngữ tự nhiên}”. Nhà xuất bản Đại Học Quốc Gia TP.Hồ Chí Minh, ISBN 978-604-73-1236-8, 2012
+\par [19]\hspace{9pt}Gianluca Bontempi, Souhaib Ben Taieb and Yann-Aël Le Borgne. "\textit{Machine Learning Strategies for Time Series Forecasting}". In Marie-Aude Aufaure and Esteban Zimányi, editors, "\textit{Business Intelligence}". Springer Publishing Company, ISBN 978-3-642-36317-7, pp 62-77, 2012
+\par [20]\hspace{9pt}Alex J. Smola and Bernhard Schölkopf. “\textit{Statistics and Computing}” - Chapter “\textit{A tutorial on support vector regression}”. Kluwers Academic Publishers, ISBN 1573-1375, 2004
+\par [21]\hspace{9pt}Guy Shani and Asela Gunawardana. “\textit{Recommender Systems Handbook}”- Chapter “\textit{Evaluating Recommendation Systems}”. Springer Publishing Company, ISBN 978-0-387-85820-3, 2011
 
 %		\bibliography{baocao} 
 %		\bibliographystyle{plain}
