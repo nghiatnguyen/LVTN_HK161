@@ -617,7 +617,7 @@
 			\end{figure}
 			\par \textbf{Mô hình 1: Tập thuộc tính 5.2.1}
 			\par \textit{Ý tưởng}
-			\par Số bài review và số điểm trung bình trong tương lai của một địa điểm ăn uống nhận được trong tương lai chỉ phụ thuộc vào dữ liệu của địa điểm trong một chuỗi thời gian trước đó. 
+			\par Số bài review và số điểm trung bình mà một địa điểm ăn uống nhận được trong tương lai chỉ phụ thuộc vào dữ liệu của địa điểm trong một chuỗi thời gian trước đó.
 			\par Kí hiệu khoảng thời gian từ thời điểm hiện tại đến thời điểm $t$ trong tương lai là $H$. Để dự đoán giá trị trong khoảng thời gian $H$, ta sử dụng dữ liệu của $n$ khoảng thời gian trước thời điểm hiện tại, với mỗi khoảng thời gian có độ dài bằng độ dài thời gian của $H$.  Dữ liệu của $n$ khoảng thời gian trước thời điểm hiện tại chính là giá trị mong muốn (target) và tập thuộc tính ứng với n khoảng thời gian đó. Mô tả ý tưởng:
 				 \par \hspace{40pt}Tìm: \textbf{$Y_{H}$} \
 				\par \hspace{40pt}Khi biết: $Y_{H-1}\:Y_{H-2}...Y_{H-n}\;\;X1_{H-1}\:X1_{H-2}...X1_{H-n}\;...\;Xi_{H-1}\:Xi_{H-2}...Xi_{H-n}$
@@ -628,21 +628,36 @@
 					\item $n$ : Số lượng khoảng thời gian được sử dụng để đưa ra dự đoán cho khoảng thời gian $H$ trong tương lai.
 				\end{itemize}
 			\par \textit{Mẫu dữ liệu để học}
-			\par Một mẫu dữ liệu luôn có: tập thuộc tính và giá trị mong muốn. Cụ thể:
+			\par Một mẫu dữ liệu bao gồm: tập thuộc tính và giá trị mong muốn. Cụ thể:
 				\begin{itemize}
 					\item Tập thuộc tính gồm $9*n$ thuộc tính. Giải thích: Sử dụng n khoảng thời gian, mỗi khoảng thời có 8 thuộc tính (theo đề xuất tập thuộc tính 5.2.1)và 1 giá trị mong muốn.  
 					\item Giá trị mong muốn: Số bài review hoặc số điểm trung bình.
 				\end{itemize}
 			\par \textit{Tập mẫu dùng để học}
-			\par Để tạo một mẫu dữ liệu cho việc học: ta chọn ngẫu nhiên dữ liệu trong $(n+1)$ khoảng thời gian liên tiếp trong dữ liệu học. Sử dụng dữ liệu của $n$ khoảng thời gian trước để tạo tập các thuộc tính và khoảng thời gian cuối cùng để tạo giá trị đầu ra mong muốn (target). 	 
+			\par Để tạo một mẫu dữ liệu cho việc học: ta chọn ngẫu nhiên $(n+1)$ khoảng thời gian liên tiếp trong dữ liệu học. Sử dụng dữ liệu của $n$ khoảng thời gian trước để tạo tập các thuộc tính và khoảng thời gian cuối cùng để tạo giá trị đầu ra mong muốn (target). 	 
 			\par \textit{Ví dụ}: Với bài toán dự đoán số bài review hoặc điểm trung bình của địa điểm ăn uống của một địa điểm1 tháng sau. Khi đó $H$ có độ dài là 1 tháng. Ta sử dụng dữ liệu của chuỗi $n$ = 5 tháng trước thời điểm hiện tại. Vậy một mẫu dữ liệu để học bao gồm: 45 thuộc tính và 1 giá trị mong muốn.
 			\par \textbf{Mô hình 2: Tập thuộc tính gồm nhóm 5.2.2}
-			\par Để dự đoán giá trị (số lượng review hoặc điểm số trung bình của địa điểm ăn uống) tại thời điểm \textit{t}, sử dụng toàn bộ thông tin liên quan địa điểm đó từ khi thành lập đến hiện tại. Toàn bộ dữ liệu quá khứ dùng để hình thành tập thuộc tính, trình bày ở phần 4.5.2.
-			\par Xây dựng một mẫu dữ liệu để học bằng cách: Lựa chọn thời điểm \textit{k} (\textit{k < T}). Xem thời điểm k đó chính là giá trị cần dự đoán trong tương lai, và  thời điểm \textit{k – ( n tháng)} chính là hiện tại. Khi đó: dữ liệu của địa điểm tính tới trước thời điểm \textit{k – (1 tháng)} được sử dụng để tạo nên tập thuộc tính. Dữ liệu tại thời điểm \textit{k} làm giá trị mong muốn. Vậy mỗi mẫu dữ liệu để học và test ( chưa thu giảm số chiều) bao gồm: 17 thuộc tính, 1 giá trị mong muốn cần dự đoán ( số lượng review hoặc sô điểm trung bỉnh).
-			\par \textbf{Mô hình 3: Tập thuộc tính gồm các nhóm 5.5.2, 5.5.3, 5.5.4}
-			\par Tương tự ở mô hình 2, chỉ khác về tập thuộc tính. Mỗi mẫu dữ liệu để học và test ( chưa thu giảm số chiều) bao gồm: 223 thuộc tính, 1 target đầu ra ( số lượng review hoặc sô điểm trung bình).
+			\par \textit{Ý tưởng}
+			\par Số bài review và số điểm trung bình mà một địa điểm ăn uống nhận được trong tương lai phụ thuộc vào toàn bộ dữ liệu của địa điểm đó từ khi thành lập đến hiện tại.
+			\par Để dự đoán giá trị (số lượng review hoặc điểm số trung bình của địa điểm ăn uống) tại thời điểm \textit{t} trong tương lai, sử dụng toàn bộ thông tin liên quan địa điểm đó từ khi thành lập đến hiện tại. Toàn bộ dữ liệu quá khứ dùng để hình thành tập thuộc tính.
+			\par \textit{Mẫu dữ liệu để học}
+				\par Một mẫu dữ liệu bao gồm: tập thuộc tính và giá trị mong muốn. Cụ thể:
+				\begin{itemize}
+					\item Tập thuộc tính gồm 17 thuộc tính. Giải thích: Theo như đề xuất tập thuộc tính 5.2.2, toàn bộ dữ liệu quá khứ tạo nên 17 thuộc tính.  
+					\item Giá trị mong muốn: Số bài review hoặc số điểm trung bình.
+				\end{itemize}
+			\par \textit{Tập mẫu dùng để học}
+			\par  Để tạo một mẫu dữ liệu cho việc học:  ta lựa chọn thời điểm \textit{k} trong tập dữ liệu học (\textit{k < T}). Sử dụng dữ liệu của địa điểm tính tới trước thời điểm \textit{k – (1 tháng)} để tạo nên tập thuộc tính. Dữ liệu tại thời điểm \textit{k} làm giá trị mong muốn. 
+			\par \textbf{Mô hình 3: Tập thuộc tính gồm các nhóm 5.2.2, 5.2.3, 5.2.4}
+			\par Ý tưởng và cách tạo tập dữ liệu dùng để học tương tự mô hình 2.
+			\par \textit{Mẫu dữ liệu để học}
+			\par Một mẫu dữ liệu bao gồm: tập thuộc tính và giá trị mong muốn. Cụ thể:
+				\begin{itemize}
+					\item Tập thuộc tính gồm 223 thuộc tính. Giải thích: Sử dụng dữ liệu quá khứ tạo ra 3 nhóm thuộc tính 5.2.2, 5.2.3, 5.2.4.. Trong đó: nhóm thuộc tính 5.2.2 có 17 thuộc tính, nhóm thuộc tính 5.5.3 có 200 thuộc tính, nhóm thuộc tính 5.5.4 có 6 thuộc tính. 
+					\item Giá trị mong muốn: Số bài review hoặc số điểm trung bình.
+				\end{itemize}
 		\subsection{Cách đánh giá hệ thống}
-			\par Như đã trình bày ở mục 4.6, để đánh giá hệ thống, lựa chọn tập dữ liệu có dạng như dữ liệu dùng để học hệ thống, chỉ khác về việc lựa chọn sau thời điểm \textit{T}.
+			\par Như đã trình bày ở mục 5.3, Ta sử dụng tập dữ liệu sau thời điểm \textit{T} dùng để kiểm tra, đánh giá hệ thống. Mẫu dữ liệu và cách tạo tập dữ liệu dùng để test hoàn toàn tương tự với mẫu dữ liệu và cách tạo tập dữ liệu dùng để học.
 			\par Giả thuyết:
 			 \begin{itemize}
 				\item $y_{i}$ : Giá trị thực tế của testcase thứ  \textit{i}. Ở trong bài toán là số lượng review hoặc số điểm trung bình trên thực tế của testcase thứ  \textit{i}.
