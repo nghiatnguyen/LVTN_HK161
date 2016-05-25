@@ -313,7 +313,7 @@
 			\end{figure} 
 
 		\subsection{Các nghiên cứu liên quan}
-			\par Yelp là một trang MXH về địa điểm nổi tiếng ở Mỹ với những chức năng tương tự như trang MXH Foody của Việt Nam. Trang MXH này tổ chức ra một cuộc thi mang tên Yelp Dataset Challenge (bắt đầu từ năm 2014, đến nay đã trải qua 6 vòng thi và đang ở vòng 7), thu hút hàng trăm bài nghiên cứu của các tác giả khắp thế giới. Những bài toán được đưa ra dựa trên tập dữ liệu (*) do cuộc thi này cung cấp bao gồm từ những bài toán Gợi ý các địa điểm phù hợp với sở thích, thói quen của người dùng [10], [16] tới Tóm tắt, trực quan hóa review cho người dùng [14] hay Dự đoán tương lai của địa điểm ăn uống.
+			\par Yelp là một trang MXH về địa điểm nổi tiếng ở Mỹ với những chức năng tương tự như trang MXH Foody của Việt Nam. Trang MXH này tổ chức ra một cuộc thi mang tên Yelp Dataset Challenge (bắt đầu từ năm 2014, đến nay đã trải qua 6 vòng thi và đang ở vòng 7), thu hút hàng trăm bài nghiên cứu của các tác giả khắp thế giới. Những bài toán được đưa ra dựa trên tập dữ liệu do cuộc thi này cung cấp bao gồm từ những bài toán Gợi ý các địa điểm phù hợp với sở thích, thói quen của người dùng [10], [16] tới Tóm tắt, trực quan hóa review cho người dùng [14] hay Dự đoán tương lai của địa điểm ăn uống.
 			\par Trong đó, nhóm bài toán có nhiều mối liên hệ nhất với đề tài do nhóm đề xuất là những bài toán về Dự đoán tương lai của một địa điểm ăn uống:
 			\begin{itemize}
 				\item Trong [21], tác giả đã đề xuất ra mô hình học máy nhằm dự đoán xem liệu một địa điểm sẽ tiếp tục hoạt động hay đóng cửa. Đó là một bài toán phân loại nhị phân với đầu vào là các thông tin liên quan tới địa điểm và đầu ra là một trong hai nhãn cho địa điểm: “open” – Địa điểm tiếp tục hoạt động, hoặc “close” – Địa điểm sẽ bị đóng cửa. Tác giả dùng 4 tập thuộc tính khác nhau cho mô hình học máy:
@@ -503,6 +503,49 @@
 	\section{Phương pháp đề xuất}								
 		\subsection{Tập dữ liệu}
 			\par Foody.vn là trang web chứa thông tin về các địa điểm ăn uống ở Việt Nam (đặc biệt là TP. Hồ Chí Minh) với lượng thông tin phong phú và đáng tin cậy. Dữ liệu được dùng cho việc phân tích được crawl từ trang web foody.vn dùng thư viện jsoup và crawljax trên ngôn ngữ Java và được lưu trong một cơ sở dữ liệu không quan hệ (MongoDb). Jsoup và crawljax đều là các thư viện mã nguồn mở trên Java hỗ trợ việc trích xuất thông tin từ các trang web với API đơn giản và dễ sử dụng.
+			\par \textbf{Dữ liệu về địa điểm:}\\
+				"type": "business"\\
+				"businessId": (business\_id)\\
+				"name": (business\_name)\\
+				"priceRange":(lowestPrice - highestPrice)\\
+				"aggregateRating":\\
+				\hspace*{1.5cm}"ratingValue": (avarage\_rating)\\
+				\hspace*{1.5cm}"reviewCount": (review\_count)\\
+				\hspace*{1.5cm}"bestRating": (best\_rating)\\
+				\hspace*{1.5cm}"worstRating": (worst\_rating)\\
+				"open": (open\_hours)\\
+				"address": \\
+				\hspace*{1.5cm}"addressLocality": (district\_name)\\
+				\hspace*{1.5cm}"addressRegion": (province\_name)\\
+				\hspace*{1.5cm}"streetAddress": (street\_name)\\
+				"geo":\\
+				\hspace*{1.5cm}"latitude": (latitude)\\
+				\hspace*{1.5cm}"longitude": (longitude)\\
+
+			\par \textbf{Dữ liệu về người dùng:}\\
+				"type": "user"\\
+				"userId": (user\_id)\\
+				"name": (user\_name)\\
+				"birthdate": (birth\_date)\\
+				"gender": (nam\_nu)\\
+				"maritalStatus": (docthan\_dakethon)\\
+				"address": (address\_string)\\
+				"reviewCount": (num\_of\_reviews\_create)\\
+
+			\par \textbf{Dữ liệu về review:}\\
+				"type": "review"\\
+				"reviewId": (review\_id)\\
+				"userId": (user\_id)\\
+				"businessId": (business\_id)\\
+				"content": (content\_text)\\
+				"date": (date\_created)\\
+				"rating":\\
+				\hspace*{1.5cm}"space": (space\_rating)\\
+				\hspace*{1.5cm}"position": (position\_rating)\\
+				\hspace*{1.5cm}"quality": (quality\_rating)\\
+				\hspace*{1.5cm}"reservation": (reservation\_rating)\\
+				\hspace*{1.5cm}"price": (price\_rating)\\		
+				"likes": [array\_of\_userId]
 					
 		\subsection{Tập thuộc tính}
 			\par Nhóm đề xuất 4 nhóm thuộc tính: Nhóm thuộc tính của địa điểm ăn uống trong một khoảng thời gian bất kì, nhóm thuộc tính của địa điểm ăn uống trong một khoảng thời gian từ lúc thành lập đến hiện tại, nhóm thuộc tính trích xuất ra từ các review đối với địa điểm, và nhóm thuộc tính dựa trên phân loại người dùng. 
@@ -560,7 +603,7 @@
 						\par Tạo ra một tập các tính từ mang ý nghĩa tích cực và một tập các tính từ mang ý nghĩa tiêu cực của tiếng Việt bằng cách:
 						\begin{enumerate}
 							\item Định nghĩa ra hai danh sách nhỏ, một cho các tính từ tích cực và một cho các tính từ tiêu cực.
-							\item Dựa vào từ điển (?) tìm tất cả các tính từ đồng nghĩa hoặc trái nghĩa với các tính từ có sẵn trong 2 danh sách trên và bổ sung vào một trong hai danh sách trên một cách phù hợp.
+							\item Dựa vào từ điển (đang tìm kiếm từ điển phù hợp) tìm tất cả các tính từ đồng nghĩa hoặc trái nghĩa với các tính từ có sẵn trong 2 danh sách trên và bổ sung vào một trong hai danh sách trên một cách phù hợp.
 						\end{enumerate}
 					\item \textit{Kết hợp các cặp <từ khóa, tính từ>}
 						\par Kết hợp kết quả của bước 2 và bước 3 để thực hiện phép kết hợp các cặp <từ khóa, tính từ>. 	
