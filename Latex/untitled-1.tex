@@ -11,6 +11,8 @@
 \usetikzlibrary{positioning}
 \usepackage[left=3 cm,right=2 cm,top=3cm,bottom=3cm]{geometry}
 \usepackage[labelfont=bf]{caption}
+\usepackage[bookmarks=true]{hyperref}
+\usepackage{bookmark}
 
 
 \pagestyle{fancy}
@@ -45,7 +47,7 @@
 		\textbf{---------------------------------------------}\\[1cm]
 
 		\begin{figure}[h!]
-			\includegraphics[scale=0.1]{logo}
+			\includegraphics{logo}
 			\centering
 		\end{figure}
 
@@ -65,7 +67,7 @@
 		GS.TS Cao Hoàng Trụ
 	}}
 
-	\vspace{1.5cm}
+	\vspace{2cm}
 	\begin{center}
 		{\fontsize{14pt}{1}\selectfont Thành phố Hồ Chí Minh}\\
 		{\fontsize{14pt}{1}\selectfont \today}
@@ -93,6 +95,7 @@
 %	\maketitle
 	\newpage
 	\thispagestyle{empty}
+	\pdfbookmark{\contentsname}{Mục lục}
 	\tableofcontents
 	\pagenumbering{arabic}
 	\newpage
@@ -121,7 +124,7 @@
 			\par Các MXH trực tuyến như \textit{Facebook}, \textit{Twitter} , \textit{Flickr}, \textit{Foody} … dần trở thành một phần quan trọng trong cuộc sống của mỗi cá nhân.
 			\begin{itemize}
 				\item{Nó giả lập những thành phần của thực tế xã hội con người mà ở đó người dùng có thể nói chuyện, đăng bài, kết bạn, đặt relationship … (\textit{Facebook}, \textit{Twitter})}	
-				\item{Nó cung cấp cho người dùng sự tiện lợi về một nhu cầu nào đó (\textit{Flickr} – chia sẻ ảnh, \textit{Foody}  – chia sẻ địa điểm ăn uống}
+				\item{Nó cung cấp cho người dùng sự tiện lợi về một nhu cầu nào đó (\textit{Flickr} – chia sẻ ảnh, \textit{Foody}  – chia sẻ địa điểm ăn uống)}
 			\end{itemize}
 
 			\par Một MXH có thể được hiểu như là một hệ thống mà chức năng chính là cho phép người dùng thực hiện các tương tác xã hội trên đó (\textit{Facebook}, \textit{Twitter}) hoặc là một hệ thống phục vụ chức năng khác (\textit{Flickr} – chia sẻ ảnh, \textit{Foody}  – chia sẻ thông tin địa điểm ăn uống) nhưng cho phép người dùng thực hiện những tương tác nhất định trên đó. 
@@ -132,11 +135,11 @@
 
 			\par Có hai hướng phân tích dữ liệu trên MXH trực tuyến [1], đó là:
 			\begin{itemize}
-				\item{Phân tích dữ liệu kiểu cấu trúc và liên kết (Linkage-based and Structural Analysis): Gồm các nghiên cứu về \textit{Hành vi lan truyền, Phát hiện cộng đồng, Xác định các tác nhân quan trọng trong MXH, Dự đoán liên kết, Niềm tin trên MXH, Phân loại nốt} và \textit{Tìm kiếm chuyên gia trên MXH}}	
-				\item{Phân tích dữ liệu kiểu nội dung người dùng đưa lên (Content-based Analysis): Lượng dữ liệu khổng lồ mà người dùng đưa lên trên các trang MXH như \textit{Facebook}, \textit{Youtube}, \textit{Flickr} (hình ảnh)… là cơ sở cho việc nghiên cứu nó kết hợp với các phân tích liên quan đến cấu trúc và liên kết nhằm tìm ra những đặc điểm của MXH.}
+				\item{Phân tích dữ liệu dựa trên cấu trúc và liên kết (Linkage-based and Structural Analysis): Gồm các nghiên cứu về \textit{Hành vi lan truyền, Phát hiện cộng đồng, Xác định các tác nhân quan trọng trong MXH, Dự đoán liên kết, Niềm tin trên MXH, Phân loại nốt} và \textit{Tìm kiếm chuyên gia trên MXH}}	
+				\item{Phân tích dữ liệu dựa trên nội dung người dùng đưa lên (Content-based Analysis): Lượng dữ liệu khổng lồ mà người dùng đưa lên trên các trang MXH như \textit{Facebook}, \textit{Youtube}, \textit{Flickr} (hình ảnh)… là cơ sở cho việc nghiên cứu nó kết hợp với các phân tích liên quan đến cấu trúc và liên kết nhằm tìm ra những đặc điểm của MXH.}
 			\end{itemize}
-			\par Để hiểu hơn về các thành phần của MXH, về dữ liệu trên MXH và những nghiên cứu trong việc phân tích các dữ liệu này, nhóm trình bày một số vấn đề nghiên cứu và bài toán quan trọng trong Phân tích dữ liệu MXH ở hai mục tiếp theo. Mục 2.3 trình bày các chủ đề nghiên cứu về Phân tích dữ liệu kiểu cấu trúc và liên kết; mục 2.4 trình bày các chủ đề nghiên cứu về Phân tích dữ liệu kiểu người dùng đưa lên.
-			\subsection {Các chủ đề về Phân tích dữ liệu kiểu cấu trúc và liên kết}
+			\par Để hiểu hơn về các thành phần của MXH, về dữ liệu trên MXH và những nghiên cứu trong việc phân tích các dữ liệu này, nhóm trình bày một số vấn đề nghiên cứu và bài toán quan trọng trong Phân tích dữ liệu MXH ở hai mục tiếp theo. Mục 2.3 trình bày các chủ đề nghiên cứu về Phân tích dữ liệu dựa trên cấu trúc và liên kết; mục 2.4 trình bày các chủ đề nghiên cứu về Phân tích dữ liệu dựa trên nội dung người dùng đưa lên.
+			\subsection {Phân tích dữ liệu dựa trên cấu trúc và liên kết}
 			\par \textbf{Hành vi lan truyền (Cascading Behavior)}
 			\par \textit{Hành vi lan truyền} là việc phát hiện và theo dõi một “xu hướng” mới trên MXH. Khi một người nào đó post một bài viết hay, hoặc một sự kiện xảy ra, một sản phẩm được ra mắt, ban đầu nó không được chú ý nhiều; nhưng dần dần, theo ảnh hưởng của người dùng, mọi người bắt đầu quan tâm, bàn luận đến vấn đề đó. Khi đó, vấn đề đó trở thành một “xu hướng” hay “trào lưu” mới trong MXH. \textit{Hành vi lan truyền} khác với \textit{Phát hiện sự kiện} ở chỗ sự kiện diễn ra ngoài đời thực được nhiều người biết đến và đưa nó lên MXH, còn “trào lưu” thì sinh ra và lan truyền trên MXH. Vậy điều quan trọng trong chủ đề này là làm thế nào để xác định được “xu hướng” mới và theo dõi sự lan truyền của nó. “Xu hướng” được lan truyền qua những đối tượng trong MXH, dựa vào sự lan truyền ấy có thể đánh giá đối tượng nào có ảnh hưởng lớn đối với sự lan truyền trong MXH.
 			\par Nghiên cứu về \textit{Hành vi lan truyền} có thể giúp tìm kiếm, phát triển các ý tưởng mới trên mạng xã hôi; giúp cho lĩnh vực truyền thông trong việc phát hiện, theo dõi các “xu hướng” mới hoặc ứng dụng để gợi ý, thông báo “trào lưu” mới cho người dùng.
@@ -173,7 +176,7 @@
 			\par Trong chủ đề này, ta cần nghiên cứu về thông tin cá nhân của mọi người trên MXH và những mối liên hệ giữa người với người. Sử dụng những thông tin cá nhân để đánh giá “điểm chuyên gia” cho mọi người và dùng số điểm này để xếp hạng, rồi chọn ra những người có số điểm cao nhất làm ứng cử viên. Các ứng cử viên này sẽ được dùng để xây dựng đồ thị. Sau đó, sử dụng mối quan hệ của các ứng cử viên với các chuyên gia (cho trước) để tìm ra những ứng cử viên có thể là chuyên gia.
 			\par Ứng dụng của các nghiên cứu trên chủ đề này có thể kể tới là: với một lĩnh vực nhất định, xác định các người dùng có ảnh hưởng để giúp marketing doanh nghiệp; hoặc gợi ý cho người dùng về những chuyên gia trong lĩnh vực họ hứng thú.
 			
-			\subsection {Các chủ đề về Phân tích dữ liệu do người dùng đưa lên MXH}
+			\subsection {Phân tích dữ liệu dựa trên nội dung người dùng đưa lên MXH}
 			\par Người dùng có thể đưa lên các trang MXH một lượng dữ liệu khổng lồ. Các nội dung này cho phép người dùng chia sẻ quan điểm cá nhân, ý kiến cá nhân và là phương tiện để tương tác trên MXH.
 			\par Có thể thấy dữ liệu trên các trang MXH rất đa dạng về định dạng: hình ảnh, video, văn bản … \textit{Ví dụ}: \textit{Flickr} cho phép người dùng chia sẻ hình ảnh chất lượng cao và kèm theo các mô tả, \textit{Youtube} là trang chia sẻ video kèm theo các mô tả và cho phép người dùng bình luận lên đó, \textit{Facebook} cho phép người dùng đăng các post chứa không những dữ liệu dạng văn bản mà có thể kèm theo cả hình ảnh, video.
 			\par Dữ liệu ở dạng văn bản đóng vai trò quan trọng trong các trang MXH. Đối với những trang MXH như \textit{Facebook}, \textit{Twitter} dữ liệu dạng văn bản được thể hiện qua những bài post và những bình luận của người dùng trên những bài post đó. Đối với những trang MXH mà chủ thể là hình ảnh hoặc video như \textit{Flickr} hay \textit{Youtube}, thì dữ liệu ở dạng văn bản cũng đóng vai trò quan trọng. Nó được dùng để mô tả cho chủ thể hoặc là nội dung phần bình luận của người dùng.
@@ -228,7 +231,7 @@
 				\label{fig:foody}
 			\end{figure}
 
-			\par Như đã trình bày ở phần 2.1, MXH nói chung có thể biểu diễn bằng đồ thị với nốt là các tác nhân và cạnh đại diện cho mối quan hệ hoặc tương tác giữa các nốt đó. Đối với MXH \textit{Foody} , mỗi nốt là người dùng hoặc địa điểm, mỗi cạnh giữa một nốt là người dùng và một nốt là địa điểm được thể hiện qua review của người dùng cho địa điểm hoặc comment trên các review. Ngoài ra giữa các nốt là người dùng còn tồn tại các cạnh là quan hệ “theo dõi” giữa họ.
+			\par Như đã trình bày ở phần 2.1, MXH nói chung có thể biểu diễn bằng đồ thị với nốt là các tác nhân và cạnh đại diện cho mối quan hệ hoặc tương tác giữa các nốt đó. Đối với MXH \textit{Foody} , mỗi nốt là người dùng hoặc địa điểm, mỗi cạnh giữa một nốt là người dùng và một nốt là địa điểm được thể hiện qua review của người dùng cho địa điểm hoặc comment trên các review. Ngoài ra giữa các nốt là người dùng còn tồn tại các cạnh là quan hệ “theo dõi” giữa họ. Trong đó, mối quan hệ được xét đến chủ yếu trong phạm vi đề tài là \textit{review} của người dùng đối với địa điểm.
 
 
 			% Vẽ mô hình mạng foody
@@ -290,9 +293,9 @@
 				\label{fig:foodygraph}
 			\end{figure}
 
-			\par Người chủ địa điểm ăn uống có thể vào trang mạng \textit{foody.vn} xem các review và rating của người dùng đối với địa điểm của mình, từ đó đánh giá được độ thu hút của địa điểm ở hiện tại. Sẽ là hữu ích nếu có một hệ thống dự đoán trước được số lượng các review và rating trung bình đối với địa điểm của họ trong tương lai. Những thông tin này sẽ là căn cứ để người chủ địa điểm xem xét mức độ thu hút của địa điểm trong tương lai và có thể đưa ra giải pháp cải thiện. Đề tài được sinh ra là để hướng tới những người chủ địa điểm đó.
+			\par Người chủ địa điểm ăn uống có thể vào trang mạng \textit{foody.vn} xem các review và rating của người dùng đối với địa điểm của mình, từ đó đánh giá được độ thu hút của địa điểm ở hiện tại. Sẽ là hữu ích nếu có một hệ thống dự đoán trước được số lượng các review và điểm rating đối với địa điểm của họ trong tương lai. Những thông tin này sẽ là căn cứ để người chủ địa điểm xem xét mức độ thu hút của địa điểm trong tương lai và có thể đưa ra giải pháp cải thiện. Đề tài được sinh ra là để hướng tới những người chủ địa điểm đó.
 
-			\par Dữ liệu trên trang \textit{Foody}  với các nốt và liên kết đã được giải thích ở trên là cơ sở để thực hiện các phân tích trên nó, nhằm tạo ra một hệ thống học máy giải quyết vấn đề đưa ra. Vấn đề này có thể coi là một dạng của Dự đoán liên kết, ở đó mục tiêu là dự đoán xem trong tương lai sẽ có thêm bao nhiêu review nữa, tức là bao nhiêu cạnh nữa giữa các người dùng và một địa điểm sẽ được hình thành. Đồng thời một mục tiêu khác của bài toán là dự đoán một đặc điểm của nốt trong tương lai, đó là số điểm rating trung bình của một địa điểm. Để đạt được những mục tiêu vừa nêu, cần có thêm những kiến thức về Phân tích dựa trên dữ liệu dạng văn bản và Phân loại nốt. Những sự liên hệ này sẽ được dẫn ra rõ hơn ở những phần tiếp theo.
+			\par Dữ liệu trên trang \textit{Foody}  với các nốt và liên kết đã được giải thích ở trên là cơ sở để thực hiện các phân tích trên nó, nhằm tạo ra một hệ thống học máy giải quyết vấn đề đưa ra. Vấn đề này có thể coi là một dạng của Dự đoán liên kết, ở đó mục tiêu là dự đoán xem trong tương lai sẽ có thêm bao nhiêu review nữa, tức là bao nhiêu cạnh nữa giữa các người dùng và một địa điểm sẽ được hình thành. Đồng thời một mục tiêu khác của bài toán là dự đoán một đặc điểm của nốt trong tương lai, đó là số điểm rating trung bình của một địa điểm. Để đạt được những mục tiêu vừa nêu, cần có thêm những kiến thức về Khai phá dữ liệu dạng văn bản và Phân loại nốt. Những sự liên hệ này sẽ được dẫn ra rõ hơn ở những phần tiếp theo.
 
 			\begin{figure}[h!]
 
@@ -317,7 +320,7 @@
 			\par Yelp là một trang MXH về địa điểm nổi tiếng ở Mỹ với những chức năng tương tự như trang MXH \textit{Foody}  của Việt Nam. Trang MXH này tổ chức ra một cuộc thi mang tên Yelp Dataset Challenge (bắt đầu từ năm 2014, đến nay đã trải qua 6 vòng thi và đang ở vòng 7), thu hút hàng trăm bài nghiên cứu của các tác giả khắp thế giới. Nhiều bài toán được đưa ra dựa trên tập dữ liệu do cuộc thi này cung cấp, \textit{ví dụ}: gợi ý các địa điểm phù hợp với sở thích, thói quen của người dùng [4], [5]; tóm tắt, trực quan hóa review cho người dùng [6] hay dự đoán tương lai của địa điểm ăn uống.
 			\par Trong đó, nhóm bài toán có nhiều mối liên hệ nhất với đề tài do nhóm đề xuất là những bài toán về Dự đoán tương lai của một địa điểm ăn uống:
 			\begin{itemize}
-				\item Trong [7], tác giả đã đề xuất ra mô hình học máy nhằm dự đoán xem liệu một địa điểm sẽ tiếp tục hoạt động hay đóng cửa. Đó là một bài toán phân loại nhị phân với đầu vào là các thông tin liên quan tới địa điểm và đầu ra là một trong hai nhãn cho địa điểm: “open” – Địa điểm tiếp tục hoạt động, hoặc “close” – Địa điểm sẽ bị đóng cửa. Tác giả dùng 4 tập thuộc tính khác nhau cho mô hình học máy:
+				\item Trong [7], tác giả đã đề xuất ra mô hình học máy nhằm dự đoán xem liệu một địa điểm sẽ tiếp tục hoạt động hay đóng cửa. Đó là một bài toán phân loại nhị phân với đầu vào là các thông tin liên quan tới địa điểm và đầu ra là một trong hai nhãn cho địa điểm: “open” – Địa điểm tiếp tục hoạt động, hoặc “close” – Địa điểm sẽ bị đóng cửa. Tác giả dùng 4 nhóm thuộc tính khác nhau cho mô hình học máy:
 					\begin{itemize}
 						\item Nhóm các thuộc tính liên quan đến đánh giá: Số lượng review tương ứng, điểm rating trung bình, số lượng người dùng checkin.
 						\item Nhóm các thuộc tính về vị trí địa lý: Kinh độ, vĩ độ, bang.
@@ -327,21 +330,21 @@
 					Kết quả chỉ ra rằng nhóm thuộc tính về vị trí địa lý và nhóm liên quan đến thời gian cho hiệu quả dự đoán cao nhất.
 				\item Trong [8], tác giả đã đề xuất một tập các thuộc tính dựa trên đặc trưng của địa điểm cũng như dữ liệu văn bản trên review đối với địa điểm đó và dùng các mô hình học máy khác nhau (Logistic Regression, Support Vector Machine, Tree and Random Forest Classifier, Support Vector Regression) để dự đoán điểm rating cho địa điểm. Bài toán dự đoán điểm rating cho địa điểm được quy về bài toán phân loại cho địa điểm với các nhãn là 0,1,2,3,4,5 chính là điểm rating (được làm tròn) cho địa điểm đó. Kết quả cuối cùng cho thấy các thuộc tính liên quan đến phân tích ý kiến trên review, số lượng review, vị trí của địa điểm và số lượng các địa điểm nằm ở khu vực lân cận là những thuộc tính quan trọng nhất.
 				\item Điểm rating đối với một địa điểm là cơ sở quan trọng để một người dùng đưa ra lựa chọn có tới địa điểm đó hay không. Nhưng đôi khi việc rating của người dùng cũng mang tính chất chủ quan và thiên vị. \textit{Ví dụ:} Trên Yelp, người A đánh giá nhà hàng D ăn ngon, phục vụ tốt nhưng cho điểm là 4, trong khi người B có những đánh giá tương tự cho D nhưng cho điểm tới 5. Do đó một ý tưởng được đưa ra là dự đoán rating cho một địa điểm chỉ dựa trên dữ liệu văn bản trong review đối với địa điểm. Trong [9], tác giả tạo một nhóm gồm các từ thông dụng thường xuất hiện nhất trong các bài review và dùng các từ trong nhóm này để tạo tập thuộc tính phục vụ cho hệ thống dự đoán rating. Các mô hình học máy được sử dụng là: Linear Regression, Support Vector Regression, Support Vector Regression với tập thuộc tính được chuẩn hóa và Decision Tree Regression.
-				\item Trong [10], một mô hình học máy dựa trên Support Vector Regression được đề xuất nhằm dự đoán mức độ thu hút của một địa điểm trong tương lai. Mức độ thu hút này được đánh giá theo thước đo là số lượng review đối với địa điểm trong tương lai (số lượng review mà địa điểm nhận được trong 6 tháng tới). Mô hình này dựa trên hai nhóm thuộc tính chính: Nhóm thuộc tính được trích ra từ tập dữ liệu của Yelp như điểm rating, vị trí của địa điểm, thời gian (ngày) từ bài review gần nhất… và nhóm thuộc tính có được qua quá trình thực hiện các kỹ thuật nhằm Phân tích ý kiến dựa trên review của địa điểm. Các nhóm thuộc tính này là cơ sở quan trọng cho tập thuộc tính trong Phương pháp đề xuất của nhóm.
-				\item Trong [11], tác giả đề xuất ra hai mô hình dự đoán mức độ thu hút của một địa điểm trong tương lai, một mô hình dựa trên mô hình Chuỗi thời gian (Time Series) và một mô hình khác dựa trên Dự đoán liên kết trong đồ thị hai phía (Bipartite Graph). Mức độ thu hút này được thể hiện qua Số lượng review địa điểm nhận được trong tương lai và số điểm rating tại thời điểm đó. Hai mô hình này sử dụng tập thuộc tính tương tự như trong [11] nhưng không có nhóm thuộc tính liên quan tới dữ liệu văn bản trong các review. Một trong số các mô hình được nhóm đề xuất thực hiện cũng được đưa ra dựa trên ý tưởng của mô hình theo Chuỗi thời gian được nói tới trong bài. 
+				\item Trong [10], một mô hình học máy dựa trên Support Vector Regression được đề xuất nhằm dự đoán mức độ thu hút của một địa điểm trong tương lai. Mức độ thu hút này được đánh giá theo thước đo là số lượng review đối với địa điểm trong tương lai (số lượng review mà địa điểm nhận được trong 6 tháng tới). Mô hình này dựa trên hai nhóm thuộc tính chính: Nhóm thuộc tính được lấy ra từ tập dữ liệu của Yelp như điểm rating, vị trí của địa điểm, thời gian (ngày) từ bài review gần nhất… và nhóm thuộc tính được trích xuất từ review của địa điểm (Khai phá dữ liệu dạng văn bản). Các nhóm thuộc tính này là cơ sở cho việc đề xuất tập thuộc tính của nhóm.
+				\item Trong [11], tác giả đề xuất ra hai mô hình dự đoán mức độ thu hút của một địa điểm trong tương lai, một mô hình dựa trên mô hình Chuỗi thời gian (Time Series) và một mô hình khác dựa trên Dự đoán liên kết trong đồ thị hai phía (Bipartite Graph). Mức độ thu hút này được thể hiện qua số lượng review mà địa điểm nhận được trong tương lai và số điểm rating tại thời điểm đó. Hai mô hình này sử dụng tập thuộc tính tương tự như trong [10] nhưng không có nhóm thuộc tính liên quan tới dữ liệu văn bản trong các review. Một trong số các mô hình được nhóm đề xuất thực hiện cũng được đưa ra dựa trên ý tưởng của mô hình theo Chuỗi thời gian được nói tới trong bài. 
 				\item Trong [12], tác giả cũng đưa ra bài toán dự đoán xu hướng của địa điểm dựa vào số lượng review nhận được trong tương lai (Số lượng review nhận được trong tháng tới) sử dụng các phân tích thống kê trên mô hình Chuỗi thời gian.
 			\end{itemize}
 			\par Ở Việt Nam, từ dữ liệu của trang mạng \textit{Foody}  và các trang mạng xã hội về địa điểm khác, một số đề tài cũng đã được thực hiện:
 			\begin{itemize}
 				\item Trong [13] và [14], tác giả đã đưa ra bài toán Đề xuất địa điểm dựa trên dữ liệu của mạng \textit{Foody}  và dẫn ra những phương pháp cơ bản để giải quyết bài toán này, đó là phương pháp Lọc – Cộng tác (Collaborative Filtering), lọc dựa trên nội dung (Content-based Filtering) và phương pháp lai (Hybrid) như là sự kết hợp giữa hai phương pháp trên. Dữ liệu dùng cho phân tích được crawl từ trang \textit{foody.vn}, giải thuật học máy sẽ học những đặc trưng của địa điểm, hồ sơ của người dùng, và kết hợp với dữ liệu về mặt địa lý để hạn chế các kết quả không hợp lý về mặt khoảng cách. 
-				\item Trong [15], tác giả sử dụng các kỹ thuật Khai phá dữ liệu dạng văn bản (Trên tiếng Việt) để phân tích ý kiến dựa vào bình luận và review của người dùng đối với các địa điểm trên \textit{foody.vn} và \textit{diadiemanuong.com}. Tác giả áp dụng các giải thuật xử lý ngôn ngữ tự nhiên chia các câu trong các bình luận và review này thành 5 chủ đề: giá cả, khu vực, dịch vụ, không gian và chất lượng. Phân tích các từ trong mỗi câu để chỉ ra ý kiến của người dùng đối với địa điểm là tích cực hay tiêu cực. Kết quả cuối cùng sẽ có được bằng cách tính trung bình xem bao nhiêu phần trăm đánh giá là tích cực hay tiêu cực đối với địa điểm, và ứng với từng chủ đề trong số 5 chủ đề trên.   
+				\item Trong [15], tác giả sử dụng các kỹ thuật Khai phá dữ liệu dạng văn bản (Trên tiếng Việt) để phân tích các bình luận và review của người dùng đối với các địa điểm trên \textit{foody.vn} và \textit{diadiemanuong.com}. Các câu trong các bình luận và review này được chia thành 5 chủ đề: giá cả, khu vực, dịch vụ, không gian và chất lượng. Sau đó, phân tích các từ trong mỗi câu để chỉ ra ý kiến của người dùng đối với địa điểm là tích cực hay tiêu cực. Kết quả cuối cùng sẽ có được bằng cách tính trung bình xem bao nhiêu phần trăm đánh giá là tích cực hay tiêu cực đối với địa điểm, và ứng với từng chủ đề trong số 5 chủ đề trên.   
 				\end{itemize}
 			\par Những thành công nhất định trong các nghiên cứu trên là cơ sở quan trọng để nhóm đưa ra đề xuất cho phương pháp giải quyết thực hiện đề tài.
 
 
-\section{Kiến thức nền tảng liên quan đến đề tài}
+\section{Kiến thức nền tảng}
 		\subsection{Tối ưu tập thuộc tính}
-			\par Việc tối ưu tập thuộc tính là xác định các thuộc tính quan trọng và loại bỏ các thuộc tính dư thừa, nhiễu để làm giảm số chiều của không  gian thuộc tính. Qua đó cải thiện độ chính xác và tốc độ tính toán của hệ thống. Các giải thuật để tối ưu tập thuộc tính liên quan đến đề tài gồm: Principal Components Analysis, Univariate Feature Analysis và Recursive Feature Elimination.
+			\par Việc tối ưu tập thuộc tính là xác định các thuộc tính quan trọng và loại bỏ các thuộc tính dư thừa, nhiễu để làm giảm số chiều của không  gian thuộc tính, qua đó cải thiện độ chính xác và tốc độ tính toán của hệ thống. Các giải thuật để tối ưu tập thuộc tính liên quan đến đề tài gồm: Principal Components Analysis, Univariate Feature Analysis và Recursive Feature Elimination.
 			\par \textbf{Principal Components Analysis (PCA)}
 				\par \textit{Định nghĩa} 
 				\par PCA là một thuật toán thống kê sử dụng phép biến đổi trực giao để biến đổi một tập hợp dữ liệu từ một không gian nhiều chiều sang một không gian mới ít chiều hơn (2 hoặc 3 chiều) nhằm tối ưu hóa việc thể hiện sự biến thiên của dữ liệu. 
@@ -550,7 +553,7 @@
 				"likes": [array\_of\_userId]
 					
 		\subsection{Tập thuộc tính}
-			\par Nhóm đề xuất 4 nhóm thuộc tính: Nhóm thuộc tính của địa điểm ăn uống trong một khoảng thời gian bất kì, nhóm thuộc tính của địa điểm ăn uống trong một khoảng thời gian từ lúc thành lập đến hiện tại, nhóm thuộc tính trích xuất ra từ các review đối với địa điểm, và nhóm thuộc tính dựa trên phân loại người dùng. 
+			\par Nhóm đề xuất 4 nhóm thuộc tính: nhóm thuộc tính của địa điểm ăn uống trong một khoảng thời gian bất kì, nhóm thuộc tính của địa điểm ăn uống trong một khoảng thời gian từ lúc thành lập đến hiện tại, nhóm thuộc tính trích xuất ra từ các review đối với địa điểm, và nhóm thuộc tính dựa trên phân loại người dùng. 
 			\par \textbf{Thuộc tính phụ thuộc khoảng thời gian bất kì (5.2.1)}
 				\par Kí hiệu địa điểm ăn uống là M. Khoảng thời gian (t1,t2) có thời điểm bắt đầu là t1 và thời điểm kết thúc là t2. Khi đó tập thuộc tính đặc trưng cho khoảng thời gian (t1,t2) là:
 				\begin{enumerate}
@@ -771,9 +774,5 @@
 \par [19]\hspace{9pt}Gianluca Bontempi, Souhaib Ben Taieb and Yann-Aël Le Borgne. "\textit{Machine Learning Strategies for Time Series Forecasting}". In Marie-Aude Aufaure and Esteban Zimányi, editors, "\textit{Business Intelligence}". Springer Publishing Company, ISBN 978-3-642-36317-7, pp 62-77, 2012
 \par [20]\hspace{9pt}Alex J. Smola and Bernhard Schölkopf. “\textit{Statistics and Computing}” - Chapter “\textit{A tutorial on support vector regression}”. Kluwers Academic Publishers, ISBN 1573-1375, 2004
 \par [21]\hspace{9pt}Guy Shani and Asela Gunawardana. “\textit{Recommender Systems Handbook}”- Chapter “\textit{Evaluating Recommendation Systems}”. Springer Publishing Company, ISBN 978-0-387-85820-3, 2011
-
-%		\bibliography{baocao} 
-%		\bibliographystyle{plain}
-
 
 \end{document}
