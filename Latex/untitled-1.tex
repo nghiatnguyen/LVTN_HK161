@@ -106,7 +106,7 @@
 	\listoftables
 	\newpage
 	\section{Tóm tắt báo cáo}	
-		\par Bài báo cáo trình bày về chủ đề Phân tích dữ liệu trên mạng xã hội (MXH) và đi sâu vào một bài toán dùng học máy phân tích dữ liệu trên mạng xã hội do nhóm đề xuất, gồm ba phần:
+		\par Bài báo cáo trình bày về chủ đề Phân tích dữ liệu trên mạng xã hội (MXH) và đi sâu vào một bài toán dùng học máy phân tích dữ liệu trên MXH do nhóm đề xuất, gồm ba phần:
 		\begin{itemize}
 
 		\item{Phần đầu nói khái quát về MXH và những vấn đề nghiên cứu trên MXH.}	
@@ -123,11 +123,11 @@
 			\par Sự bùng nổ của công nghệ thông tin và sự phổ biến rộng rãi của các thiết bị có khả năng kết nối Internet, đặc biệt là các thiết bị di động như điện thoại thông minh, máy tính bảng đã tạo điều kiện cho các MXH trực tuyến phát triển nhanh chóng.
 			\par Các MXH trực tuyến như \textit{Facebook}, \textit{Twitter} , \textit{Flickr}, \textit{Foody} … dần trở thành một phần quan trọng trong cuộc sống của mỗi cá nhân.
 			\begin{itemize}
-				\item{Nó giả lập những thành phần của thực tế xã hội con người mà ở đó người dùng có thể nói chuyện, đăng bài, kết bạn, đặt relationship … (\textit{Facebook}, \textit{Twitter})}	
+				\item{Nó giả lập những yếu tố thực tế của xã hội con người mà ở đó người dùng có thể nói chuyện, đăng bài, kết bạn, đặt relationship … (\textit{Facebook}, \textit{Twitter})}	
 				\item{Nó cung cấp cho người dùng sự tiện lợi về một nhu cầu nào đó (\textit{Flickr} – chia sẻ ảnh, \textit{Foody}  – chia sẻ địa điểm ăn uống)}
 			\end{itemize}
 
-			\par Một MXH có thể được hiểu như là một hệ thống mà chức năng chính là cho phép người dùng thực hiện các tương tác xã hội trên đó (\textit{Facebook}, \textit{Twitter}) hoặc là một hệ thống phục vụ chức năng khác (\textit{Flickr} – chia sẻ ảnh, \textit{Foody}  – chia sẻ thông tin địa điểm ăn uống) nhưng cho phép người dùng thực hiện những tương tác nhất định trên đó. 
+			\par Một MXH có thể được hiểu như là một hệ thống mà chức năng chính là cho phép người dùng thực hiện các tương tác xã hội trên đó (\textit{Facebook}, \textit{Twitter}) hoặc là một hệ thống phục vụ chức năng khác (\textit{Flickr} – chia sẻ ảnh, \textit{Foody}  – chia sẻ thông tin địa điểm ăn uống) nhưng vẫn cho phép người dùng thực hiện những tương tác nhất định trên đó. 
 			\par Nói một cách tổng quát, MXH là một mạng của các tương tác và mối quan hệ, mà trong mạng đó các nốt (node) đại diện cho các tác nhân và các cạnh (edge) đại diện cho các tương tác hoặc mối quan hệ giữa các tác nhân đó. Điều này có nghĩa là khái niệm MXH không chỉ bị giới hạn trong những trang MXH trực tuyến như \textit{Facebook}, \textit{Foody} … mà tổng quát hơn, nó là mạng của bất cứ các tác nhân nào tương tác với nhau, tương tác này có thể được thực hiện qua mạng Internet, qua thư bưu chính hay mặt đối mặt.
 
 		\subsection{Khái quát về Phân tích dữ liệu trên MXH}
@@ -136,12 +136,12 @@
 			\par Có hai hướng phân tích dữ liệu trên MXH trực tuyến [1], đó là:
 			\begin{itemize}
 				\item{Phân tích dữ liệu dựa trên cấu trúc và liên kết (Linkage-based and Structural Analysis): Gồm các nghiên cứu về \textit{Hành vi lan truyền, Phát hiện cộng đồng, Xác định các tác nhân quan trọng trong MXH, Dự đoán liên kết, Niềm tin trên MXH, Phân loại nốt} và \textit{Tìm kiếm chuyên gia trên MXH}}	
-				\item{Phân tích dữ liệu dựa trên nội dung người dùng đưa lên (Content-based Analysis): Lượng dữ liệu khổng lồ mà người dùng đưa lên trên các trang MXH như \textit{Facebook}, \textit{Youtube}, \textit{Flickr} (hình ảnh)… là cơ sở cho việc nghiên cứu nó kết hợp với các phân tích liên quan đến cấu trúc và liên kết nhằm tìm ra những đặc điểm của MXH.}
+				\item{Phân tích dữ liệu dựa trên nội dung người dùng đưa lên (Content-based Analysis): Lượng dữ liệu khổng lồ mà người dùng đưa lên trên các trang MXH như \textit{Facebook}, \textit{Youtube}, \textit{Flickr} (hình ảnh)… là cơ sở cho việc nghiên cứu kết hợp với các phân tích liên quan đến cấu trúc và liên kết nhằm tìm ra những đặc điểm của MXH.}
 			\end{itemize}
 			\par Để hiểu hơn về các thành phần của MXH, về dữ liệu trên MXH và những nghiên cứu trong việc phân tích các dữ liệu này, nhóm trình bày một số vấn đề nghiên cứu và bài toán quan trọng trong Phân tích dữ liệu MXH ở hai mục tiếp theo. Mục 2.3 trình bày các chủ đề nghiên cứu về Phân tích dữ liệu dựa trên cấu trúc và liên kết; mục 2.4 trình bày các chủ đề nghiên cứu về Phân tích dữ liệu dựa trên nội dung người dùng đưa lên.
 			\subsection {Phân tích dữ liệu dựa trên cấu trúc và liên kết}
 			\par \textbf{Hành vi lan truyền (Cascading Behavior)}
-			\par \textit{Hành vi lan truyền} là việc phát hiện và theo dõi một “xu hướng” mới trên MXH. Khi một người nào đó post một bài viết hay, hoặc một sự kiện xảy ra, một sản phẩm được ra mắt, ban đầu nó không được chú ý nhiều; nhưng dần dần, theo ảnh hưởng của người dùng, mọi người bắt đầu quan tâm, bàn luận đến vấn đề đó. Khi đó, vấn đề đó trở thành một “xu hướng” hay “trào lưu” mới trong MXH. \textit{Hành vi lan truyền} khác với \textit{Phát hiện sự kiện} ở chỗ sự kiện diễn ra ngoài đời thực được nhiều người biết đến và đưa nó lên MXH, còn “trào lưu” thì sinh ra và lan truyền trên MXH. Vậy điều quan trọng trong chủ đề này là làm thế nào để xác định được “xu hướng” mới và theo dõi sự lan truyền của nó. “Xu hướng” được lan truyền qua những đối tượng trong MXH, dựa vào sự lan truyền ấy có thể đánh giá đối tượng nào có ảnh hưởng lớn đối với sự lan truyền trong MXH.
+			\par \textit{Hành vi lan truyền} là nghiên cứu việc phát hiện và theo dõi một “xu hướng” mới trên MXH. Khi một người nào đó post một bài viết hay, hoặc một sự kiện xảy ra, một sản phẩm được ra mắt, ban đầu nó không được chú ý nhiều; nhưng dần dần, theo ảnh hưởng của người dùng, mọi người bắt đầu quan tâm, bàn luận đến vấn đề đó. Khi đó, vấn đề đó trở thành một “xu hướng” hay “trào lưu” mới trong MXH. \textit{Hành vi lan truyền} khác với \textit{Phát hiện sự kiện} ở chỗ sự kiện diễn ra ngoài đời thực được nhiều người biết đến và đưa nó lên MXH, còn “trào lưu” thì sinh ra và lan truyền trên MXH. Vậy điều quan trọng trong chủ đề này là làm thế nào để xác định được “xu hướng” mới và theo dõi sự lan truyền của nó. “Xu hướng” được lan truyền qua những đối tượng trong MXH, dựa vào sự lan truyền ấy có thể đánh giá đối tượng nào có ảnh hưởng lớn đối với sự lan truyền trong MXH.
 			\par Nghiên cứu về \textit{Hành vi lan truyền} có thể giúp tìm kiếm, phát triển các ý tưởng mới trên mạng xã hôi; giúp cho lĩnh vực truyền thông trong việc phát hiện, theo dõi các “xu hướng” mới hoặc ứng dụng để gợi ý, thông báo “trào lưu” mới cho người dùng.
 			\par \textbf{Phát hiện cộng đồng (Communty Discovery)}
 			\par \textit{Cộng đồng (community)} trong MXH là tập hợp một nhóm người dùng có chung một đặc điểm nào đó, \textit{ví dụ}: sở thích, hay cùng mối quan tâm, …  Một cộng đồng gồm chủ đề (theme) và tập hợp người dùng trong cộng đồng đó. Chủ đề là điểm chung mà người trong cộng đồng quan tâm.
@@ -150,16 +150,16 @@
 			\par \textbf{Xác định tác nhân quan trọng trong MXH (Identifying prominent actors in social network)}
 			\par \textit{Những người nổi bật trong MXH} là những người có vai trò trung tâm, có liên hệ với nhiều người khác. Trong ngữ cảnh một tổ chức/cộng đồng, những người này được xem là có vai trò quan trọng hơn nhiều so với những người ít giao tiếp quan hệ với người xung quanh.
 			\par Khi mô hình hóa MXH bằng đồ thị, ta có thể hình dung đơn giản rằng những người nổi bật sẽ được thể hiện bằng những đỉnh có số lượng đỉnh liền kề lớn. Có nhiều thang đo để đánh giá sự nổi bật của một người trong MXH, trong đó đáng chú ý nhất là \textit{Rank Prestige}. Giải thuật xếp hạng kết quả tìm kiếm (\textit{PageRank}) của \textit{Google} được hiện thực dựa trên \textit{Rank Prestige} và đã biến \textit{Google} thành công cụ tìm kiếm đứng đầu thế giới.
-			\par Vấn đề cần nghiên cứu chủ yếu trong chủ đề này là đánh giá các người dùng trong MXH để tìm ra người nổi bật nhất (có thể ứng dụng giải thuật \textit{PageRank} hoặc các biến thể của nó). Nghiên cứu này mang nhiều ý nghĩa thực tế. \textit{Ví dụ}: Trong lĩnh vực marketing, có thể tìm hiểu những đối tượng nào có khả năng thu hút cộng đồng MXH lớn để truyền thông tin, quảng bá.
+			\par Vấn đề cần nghiên cứu chủ yếu trong chủ đề này là đánh giá các người dùng trong MXH để tìm ra người nổi bật nhất (có thể ứng dụng giải thuật \textit{PageRank} hoặc các biến thể của nó). Nghiên cứu này mang nhiều ý nghĩa thực tế. \textit{Ví dụ}: trong lĩnh vực marketing, có thể tìm hiểu những đối tượng nào có khả năng thu hút cộng đồng MXH lớn để truyền thông tin, quảng bá.
 			\par \textbf{Dự đoán liên kết (Link prediction)}
 			\par \textit{Dự đoán liên kết} nghiên cứu về mối quan hệ (liên kết) giữa các tác nhân (actor) trong MXH. Nó được chia làm 3 bài toán cụ thể: dự đoán những mối quan hệ tồn tại trong MXH hiện tại mà ta không thể thu thập được; dự đoán những mối quan hệ sẽ hình thành trong MXH tương lai; dự đoán những mối quan hệ sẽ kết thúc trong MXH tương lai.
 			\par Vấn đề khai thác MXH hiện nay đối mặt hai thách thức. Thách thức thứ nhất là dữ liệu không đầy đủ (incompletion): Phần lớn dữ liệu về MXH thu thập được không đầy đủ bởi vì chỉ một phần thông tin MXH có thể thu thập được từ các ứng dụng thu thập dữ liệu MXH. Thách thức thứ hai đó là dữ liệu thay đổi liên tục (Dynamic): MXH có đặc trưng là luôn thay đổi liên tục, do đó mỗi đỉnh hay cạnh có thể xuất hiện và biến mất liên tục.
 			\par Một số ứng dụng của \textit{Dự đoán liên kết} trên MXH:
 			\begin{itemize}
-				\item Gợi ý trên MXH. Điển hình là gợi ý bạn bè, đồng nghiệp, người theo dõi (follower) và người được theo dõi (followee).
+				\item Gợi ý trên MXH, điển hình là gợi ý bạn bè, đồng nghiệp, người theo dõi (follower) và người được theo dõi (followee).
 				\item Giải quyết vấn đề hoàn chỉnh mạng. Mục đích của vấn đề là suy luận tìm ra những nốt và liên kết bị thiếu trong quá trình thu thập thông tin.
-				\item Dự đoán mối quan hệ xã hội. \textit{Ví dụ}: Dự đoán mức độ mối quan hệ (mạnh hay yếu) và mô hình mức độ quan hệ đó. Mặc dù nó không liên quan trực tiếp đến dự đoán liên kết, nhưng những kết quả của nó có thể dẫn đến những phương pháp dự đoán liên kết mới.
-				\item Ứng dụng vào các lĩnh vực khác. \textit{Ví dụ}: Trong sinh học, dự đoán tương tác protein-protein. 
+				\item Dự đoán mối quan hệ xã hội. \textit{Ví dụ}: dự đoán mức độ mối quan hệ (mạnh hay yếu) và mô hình mức độ quan hệ đó. Mặc dù nó không liên quan trực tiếp đến dự đoán liên kết, nhưng những kết quả của nó có thể dẫn đến những phương pháp dự đoán liên kết mới.
+				\item Ứng dụng vào các lĩnh vực khác. \textit{Ví dụ}: trong sinh học, dự đoán tương tác protein-protein. 
 			\end{itemize}
 			\par \textbf{Niềm tin trên MXH (Trust in social network)}
 			\par \textit{Niềm tin trên MXH} là lòng tin giữa người dùng trong MXH. Trên MXH, các người dùng có thể không biết nhau ngoài đời thật, nên cần có một công cụ để đánh giá lòng tin giữa các người dùng với nhau, giúp đánh giá về thông tin đăng trên MXH cũng như về bản thân một người dùng (hay tổ chức/công ty) tham gia vào MXH.
@@ -168,33 +168,33 @@
 			\par \textit{Niềm tin trên MXH} có nhiều ứng dụng quan trọng, bao gồm: giúp đánh giá mức độ tin cậy của một thông tin hay người dùng trên MXH; giúp các công ty/tổ chức nâng cao được lòng tin với khách hàng và giúp đánh giá, gợi ý kết bạn cho người dùng.
 			\par \textbf{Phân loại nốt (Node classification)}
 			\par Mỗi người dùng trong MXH có rất nhiều thông tin: hồ sơ người dùng (profile), các hoạt động tương tác, bình luận, status, các group tham gia. Những thông tin này được phân loại và gán nhãn, \textit{ví dụ}: từ thông tin tuổi gán nhãn cho người đó là trẻ, từ quan hệ tình cảm có thể gán nhãn là độc thân, kết hôn hay đã li dị,.. Mỗi người sẽ có nhiều nhãn dựa vào thông tin của họ.
-			\par Bài toán đặt ra cho phân loại nhãn đó là: Trong MXH, khi đã biết nhãn tương ứng với một vài người, làm sao gán nhãn cho những người dùng còn lại dựa vào các tương tác giữa họ với những người đã biết; ngoài ra, có thể đánh giá mức độ liên hệ giữa các nhãn với một người dùng.
-			\par Trong cách phân loại truyền thống, chỉ dựa trên các thuộc tính của một người dùng để gán nhãn cho họ. Ngược lại trong MXH, việc phân loại một người dùng còn bị ảnh hưởng bởi mối quan hệ giữa người dùng đó với các người dùng khác.
+			\par Bài toán đặt ra cho phân loại nhãn đó là: trong MXH, khi đã biết nhãn tương ứng với một vài người, làm sao gán nhãn cho những người dùng còn lại dựa vào các tương tác giữa họ với những người đã biết; ngoài ra, có thể đánh giá mức độ liên hệ giữa các nhãn với một người dùng.
+			\par Trong cách phân loại truyền thống, việc nghiên cứu chỉ dựa trên các thuộc tính của một người dùng để gán nhãn cho họ. Ngược lại trong MXH, việc phân loại một người dùng còn bị ảnh hưởng bởi mối quan hệ giữa người dùng đó với các người dùng khác.
 			\par Một vài ứng dụng quan trọng của \textit{Phân loại nốt} là: xây dựng hệ thống gợi ý đến người dùng (âm nhạc, phim ảnh, bạn bè,…) dựa trên nhãn mà người dùng được gán; hệ thống hỏi đáp mà những câu hỏi sẽ được trực tiếp gửi đến các chuyên gia có thể trả lời hợp lý; hệ thống quảng cáo: dựa trên việc gán nhãn người dùng, người quảng cáo có thể đưa ra quyết định nhanh chóng có nên quảng với người đó hay không.
 			\par \textbf{Tìm kiếm chuyên gia trên MXH (Expert finding in Social Network)}
 			\par \textit{Tìm kiếm chuyên gia trên MXH} là một trong những chủ đề nghiên cứu quan trọng trong MXH. Mục tiêu của chủ đề này là nhằm tìm kiếm những người trên MXH có kiến thức hay kinh nghiệm về một đề tài nhất định, chẳng hạn như toán học, vật lý, công nghệ,… Những người này có vai trò quan trọng vì họ có khả năng chia sẻ, truyền đạt những kiến thức, kinh nghiệm của mình cho những người khác quan tâm đến chủ đề đó.
-			\par Trong chủ đề này, ta cần nghiên cứu về thông tin cá nhân của mọi người trên MXH và những mối liên hệ giữa người với người. Sử dụng những thông tin cá nhân để đánh giá “điểm chuyên gia” cho mọi người và dùng số điểm này để xếp hạng, rồi chọn ra những người có số điểm cao nhất làm ứng cử viên. Các ứng cử viên này sẽ được dùng để xây dựng đồ thị. Sau đó, sử dụng mối quan hệ của các ứng cử viên với các chuyên gia (cho trước) để tìm ra những ứng cử viên có thể là chuyên gia.
+			\par Trong chủ đề này, ta cần nghiên cứu về thông tin cá nhân của mọi người trên MXH và những mối liên hệ giữa người với người. Ta sử dụng những thông tin cá nhân để đánh giá “điểm chuyên gia” cho mọi người và dùng số điểm này để xếp hạng, rồi chọn ra những người có số điểm cao nhất làm ứng cử viên. Các ứng cử viên này sẽ được dùng để xây dựng đồ thị. Sau đó, sử dụng mối quan hệ của các ứng cử viên với các chuyên gia (cho trước) để tìm ra những ứng cử viên có thể là chuyên gia.
 			\par Ứng dụng của các nghiên cứu trên chủ đề này có thể kể tới là: với một lĩnh vực nhất định, xác định các người dùng có ảnh hưởng để giúp marketing doanh nghiệp; hoặc gợi ý cho người dùng về những chuyên gia trong lĩnh vực họ hứng thú.
 			
 			\subsection {Phân tích dữ liệu dựa trên nội dung người dùng đưa lên MXH}
 			\par Người dùng có thể đưa lên các trang MXH một lượng dữ liệu khổng lồ. Các nội dung này cho phép người dùng chia sẻ quan điểm cá nhân, ý kiến cá nhân và là phương tiện để tương tác trên MXH.
-			\par Có thể thấy dữ liệu trên các trang MXH rất đa dạng về định dạng: hình ảnh, video, văn bản … \textit{Ví dụ}: \textit{Flickr} cho phép người dùng chia sẻ hình ảnh chất lượng cao và kèm theo các mô tả, \textit{Youtube} là trang chia sẻ video kèm theo các mô tả và cho phép người dùng bình luận lên đó, \textit{Facebook} cho phép người dùng đăng các post chứa không những dữ liệu dạng văn bản mà có thể kèm theo cả hình ảnh, video.
+			\par Có thể thấy dữ liệu trên các trang MXH rất đa dạng về định dạng: hình ảnh, video, văn bản … \textit{Ví dụ}: \textit{Flickr} cho phép người dùng chia sẻ hình ảnh chất lượng cao và kèm theo các mô tả, \textit{Youtube} là trang chia sẻ video kèm theo các mô tả và cho phép người dùng bình luận lên đó, \textit{Facebook} cho phép người dùng đăng các post không những chứa dữ liệu dạng văn bản mà có thể kèm theo cả hình ảnh, video.
 			\par Dữ liệu ở dạng văn bản đóng vai trò quan trọng trong các trang MXH. Đối với những trang MXH như \textit{Facebook}, \textit{Twitter} dữ liệu dạng văn bản được thể hiện qua những bài post và những bình luận của người dùng trên những bài post đó. Đối với những trang MXH mà chủ thể là hình ảnh hoặc video như \textit{Flickr} hay \textit{Youtube}, thì dữ liệu ở dạng văn bản cũng đóng vai trò quan trọng. Nó được dùng để mô tả cho chủ thể hoặc là nội dung phần bình luận của người dùng.
-			\par Do đó việc khai phá dạng dữ liệu dạng văn bản là rất hữu ích và có nhiều ứng dụng quan trọng. Khai phá dữ liệu dạng văn bản (Text Mining) có thể hiểu là việc khám phá tri thức được ẩn sau các dữ liệu dạng văn bản. Nó liên quan đến nhiều lĩnh vực khác như Học máy, Xử lý ngôn ngữ tự nhiên, Khai phá dữ liệu.
+			\par Do đó việc khai phá dữ liệu dạng văn bản là rất hữu ích và có nhiều ứng dụng quan trọng. Khai phá dữ liệu dạng văn bản (Text Mining) có thể hiểu là việc khám phá tri thức được ẩn sau các dữ liệu dạng văn bản. Nó liên quan đến nhiều lĩnh vực khác như Học máy, Xử lý ngôn ngữ tự nhiên, Khai phá dữ liệu.
 			\par Quá trình Khai phá dữ liệu dạng văn bản có thể được tóm tắt qua 3 giai đoạn:
 			\begin{itemize}
-				\item Tiền xử lý (Text preprocessing): Làm sạch và tạo ra đầu vào phù hợp cho giai đoạn Biểu diễn .
-				\item Biểu diễn (Text Presentation): Mô hình hóa dữ liệu. Một cách thông dụng để thực hiện mô hình hóa là chuyển đổi dữ liệu đã tiền xử lý thành dạng vector số. Dưới dạng vector số, ta có thể thực hiện các phép toán đại số tuyến tính lên nó (Dạng biểu diễn này được gọi là Bag of Words hay Vector Space Model).
-				\item Khám phá tri thức (Knowledge Discovery): Áp dụng các kỹ thuật trong Học máy, Khai phá dữ liệu và Xử lý ngôn ngữ tự nhiên lên dạng Biểu diễn để tìm ra thông tin cần thiết.
+				\item Tiền xử lý (Text preprocessing): làm sạch và tạo ra đầu vào phù hợp cho giai đoạn Biểu diễn .
+				\item Biểu diễn (Text Presentation): mô hình hóa dữ liệu. Một cách thông dụng để thực hiện mô hình hóa là chuyển đổi dữ liệu đã tiền xử lý thành dạng vector số. Dưới dạng vector số, ta có thể thực hiện các phép toán đại số tuyến tính lên nó (Dạng biểu diễn này được gọi là Bag of Words hay Vector Space Model).
+				\item Khám phá tri thức (Knowledge Discovery): áp dụng các kỹ thuật trong Học máy, Khai phá dữ liệu và Xử lý ngôn ngữ tự nhiên lên dạng Biểu diễn để tìm ra thông tin cần thiết.
 			\end{itemize}
 			\par Kết quả của quá trình Khai phá sẽ cung cấp những thông tin cần thiết cho người dùng. Tuy nhiên, dữ liệu dạng văn bản trên MXH có những đặc trưng riêng và chúng là thách thức cho việc khai phá này. Những đặc trưng đó là: Tính nhạy cảm theo thời gian, Tính ngắn gọn, Tính phi cấu trúc và Tính phong phú về thông tin. Cụ thể:
 			\begin{itemize}
-				\item Tính nhạy cảm theo thời gian (Time Sensitivity): Dữ liệu trên các trang MXH được cập nhật từng phút. Các người dùng khác nhau trên \textit{Twitter} hay \textit{Facebook} đăng các post hoặc bình luận hàng giờ, hàng phút để tương tác với những người dùng khác. Do đó dữ liệu trên các trang MXH được cập nhật nhanh chóng theo thời gian. Việc truy vấn thông tin từ dữ liệu của các MXH ở thời điểm hiện tại đôi khi cho ra những kết quả đã cũ của nhiều phút trước.  
+				\item Tính nhạy cảm theo thời gian (Time Sensitivity): dữ liệu trên các trang MXH được cập nhật từng phút. Các người dùng khác nhau trên \textit{Twitter} hay \textit{Facebook} đăng các post hoặc bình luận hàng giờ, hàng phút để tương tác với những người dùng khác. Do đó dữ liệu trên các trang MXH được cập nhật nhanh chóng theo thời gian. Việc truy vấn thông tin từ dữ liệu của các MXH ở thời điểm hiện tại đôi khi cho ra những kết quả đã cũ của nhiều phút trước.  
 				\item Tính ngắn gọn (Short Length): Các trang MXH thường có giới hạn nhất định về độ dài của các bài post, bình luận hay review. \textit{Ví dụ}: \textit{Twitter} giới hạn bài post tối đa 140 ký tự, \textit{Picasa} giới hạn bình luận tối đa 512 ký tự. Sự ngắn gọn này là thách thức đối với các kỹ thuật khai phá truyền thống trên dạng dữ liệu văn bản.
 				\item Tính phi cấu trúc (Unstructured Phrases):
 					\begin{itemize}
-						\item Chất lượng của nội dung được biểu đạt qua một đoạn dữ liệu dạng văn bản không giống nhau tùy thuộc vào người viết. \textit{Ví dụ}: Đối với cùng một địa điểm ăn uống trên \textit{Foody} , một người có kinh nghiệm ăn uống sẽ viết một bài review “hay” so với một người chưa có kinh nghiệm.
-						\item Do những đặc trưng riêng của MXH, nội dung các bài post, bình luận, review thường chứa những tiếng lóng, từ viết tắt thiếu ngữ nghĩa … gây khó khăn cho các kỹ thuật phân tích. \textit{Ví dụ} về một bình luận trên \textit{Foody} : “\textit{Hqua mình k ăn món cá ở đó}”.
+						\item Chất lượng của nội dung được biểu đạt qua một đoạn dữ liệu dạng văn bản không giống nhau tùy thuộc vào người viết. \textit{Ví dụ}: đối với cùng một địa điểm ăn uống trên \textit{Foody}, một người có kinh nghiệm ăn uống sẽ viết một bài review “hay” so với một người chưa có kinh nghiệm.
+						\item Do những đặc trưng riêng của MXH, nội dung các bài post, bình luận, review thường chứa những tiếng lóng, từ viết tắt thiếu ngữ nghĩa … gây khó khăn cho các kỹ thuật phân tích. Ví dụ về một bình luận trên \textit{Foody}: “\textit{Hqua mình k ăn món cá ở đó}”.
 					\end{itemize}
 				\item Tính phong phú về thông tin (Abundant Information): Dữ liệu dạng văn bản trên MXH có thể tồn tại dưới nhiều hình thức và mang những ý nghĩa khác nhau. \textit{Ví dụ}: Một bài post trên \textit{Facebook} có nội dung chính là câu “\textit{Du lịch miền Tây}”, nó đi kèm với hashtag \textit{\#mientay} và một bức ảnh, trong đó mỗi phần của bức ảnh tag tên của những người dùng là bạn bè của người đăng. Những hình thức như hashtag hay tag hình ảnh trong \textit{Facebook} cho phép dữ liệu dạng văn bản mang thông tin liên quan đến liên kết giữa các nốt trong mạng.
 			\end{itemize}
@@ -207,13 +207,13 @@
 			\par \textbf{Gán nhãn trên MXH (Social Tagging)}
 			\par Người dùng có thể đưa các thực thể khác nhau (ảnh, audio, văn bản…) lên MXH và đính kèm theo nó các từ khóa (keyword) để mô tả, gán nhãn cho nội dung chính. Những từ khóa này là một hình thức của \textit{Gán nhãn trên MXH}. Việc gán nhãn này có nhiều ứng dụng trên MXH:
 			\begin{itemize}
-				\item Tìm kiếm dựa trên nhãn (tag): Người dùng trên các trang MXH có thể tìm kiếm các thực thể được gán nhãn tương tự hoặc liên quan ngữ nghĩa đến nhãn mà họ đem tìm kiếm. Vấn đề đặt ra là làm sao có thể tìm được các thực thể liên quan ngữ nghĩa này. \textit{Ví dụ}: Khi người dùng tìm kiếm về một sự kiện gần đây, như “\textit{Cuộc cách mạng Ai Cập}”, hệ thống chỉ trả về các kết quả có nhãn là “\textit{Cuộc cách mạng}” và “\textit{Ai Cập}”, những thông tin về các nhãn khác như “\textit{Mubarak từ chức}” hay “\textit{Phản đối}” mặc dù có liên quan đến nhãn “\textit{Cách mạng Ai Cập}” bị bỏ qua. Hiện tượng này là do sự “thiếu ngữ nghĩa” trong việc xử lí nhãn, nguyên nhân là nhãn quá ngắn.
+				\item Tìm kiếm dựa trên nhãn (tag): Người dùng trên các trang MXH có thể tìm kiếm các thực thể được gán nhãn tương tự hoặc liên quan ngữ nghĩa đến nhãn mà họ đem tìm kiếm. Vấn đề đặt ra là làm sao có thể tìm được các thực thể liên quan ngữ nghĩa này. \textit{Ví dụ}: khi người dùng tìm kiếm về một sự kiện gần đây, như “\textit{Cuộc cách mạng Ai Cập}”, hệ thống chỉ trả về các kết quả có nhãn là “\textit{Cuộc cách mạng}” và “\textit{Ai Cập}”, những thông tin về các nhãn khác như “\textit{Mubarak từ chức}” hay “\textit{Phản đối}” mặc dù có liên quan đến nhãn “\textit{Cách mạng Ai Cập}” bị bỏ qua. Hiện tượng này là do sự “thiếu ngữ nghĩa” trong việc xử lí nhãn, nguyên nhân là nhãn quá ngắn.
 				\item Gợi ý nhãn (tag recommendation): Khi người dùng đưa một thực thể (ảnh, audio, văn bản, …) lên MXH trực tuyến, hệ thống sẽ đưa ra gợi ý cho người dùng những nhãn nào là phù hợp nhất cho thực thể đó. Vấn đề đặt ra là làm thế nào để tạo ra một hệ thống gợi ý có hiệu quả.   
 				\item Phân loại các thực thể trên mạng (web objects classification): Cùng với sự bùng nổ của mạng xã hội nơi người dùng có thể đưa lên hàng triệu video, hình ảnh… mỗi giờ, sự phát triển nhanh chóng về số lượng và chủng loại của các thực thể này đặt ra yêu cầu cần thiết phải phân loại chúng một cách hiệu quả. Trên MXH, người dùng được cho phép gán nhãn (tag) cho các thực thể. Các nhãn này mang theo nhiều thông tin mô tả cho thực thể mà nó gắn vào và có thể được dùng hỗ trợ cho việc phân loại.
 			\end{itemize}
 			\par \textbf{Phân tích ý kiến trên MXH (Sentiment Analysis)}
-			\par \textit{Phân tích ý kiến} liên quan đến việc xác định và phân loại các ý kiến, cảm xúc được biểu đạt qua một đoạn văn bản hoặc một thực thể (hình ảnh, …) nào đó; xác định thái độ của con người tới một chủ đề nhất định. Đối với các MXH trực tuyến, chủ thể là các blogger, người dùng trên các MXH và họ thể hiện các thực thể là các post, bình luận, hình ảnh được đưa lên …
-			\par \textit{Phân tích ý kiến} dựa trên dữ liệu dạng văn bản trên MXH là một hướng nghiên cứu quan trọng và có nhiều ý nghĩa thực tế. \textit{Ví dụ}: Người chủ kinh doanh có thể dùng Phân tích ý kiến để đánh giá thái độ, ý kiến của người dùng đối với một sản phẩm hoặc sự kiện nào đó. Giả sử, dùng \textit{Phân tích ý kiến} phân tích các bài review và bình luận của người dùng cho một địa điểm ăn uống trên mạng \textit{foody.vn}. Thông qua các phân tích này, người chủ kinh doanh có thể thu thập được sự quan tâm hoặc khen/chê của người dùng đối với sản phẩm/sự kiện của mình và so sánh với các đối thủ cạnh tranh hoặc đưa ra các giải pháp khắc phục khuyết điểm.
+			\par \textit{Phân tích ý kiến} liên quan đến việc xác định và phân loại các ý kiến, cảm xúc được biểu đạt qua một đoạn văn bản hoặc một thực thể (hình ảnh, …) nào đó; xác định thái độ của con người tới một chủ đề nhất định. Đối với các MXH trực tuyến: chủ thể là các blogger, người dùng trên các MXH và các thực thể là các post, bình luận, hình ảnh được đưa lên …
+			\par \textit{Phân tích ý kiến} dựa trên dữ liệu dạng văn bản trên MXH là một hướng nghiên cứu quan trọng và có nhiều ý nghĩa thực tế. \textit{Ví dụ}: người chủ kinh doanh có thể dùng Phân tích ý kiến để đánh giá thái độ, ý kiến của người dùng đối với một sản phẩm hoặc sự kiện nào đó. Giả sử, dùng \textit{Phân tích ý kiến} phân tích các bài review và bình luận của người dùng cho một địa điểm ăn uống trên mạng \textit{foody.vn}. Thông qua các phân tích này, người chủ kinh doanh có thể thu thập được sự quan tâm hoặc khen/chê của người dùng đối với sản phẩm/sự kiện của mình và so sánh với các đối thủ cạnh tranh hoặc đưa ra các giải pháp khắc phục khuyết điểm.
 			\par Tuy nhiên, ngôn ngữ của con người vốn phức tạp, đặc biệt là ngôn ngữ được dùng trên MXH trực tuyến (nó có thể bao gồm cả từ lóng, từ viết tắt, từ viết sai lỗi chính tả… như được chỉ ra ở phần trên) do đó gây khó khăn cho việc phân tích.
 			\par \textbf{Phát hiện sự kiện (Event Detection)}
 			\par Khi có một sự kiện nổi bật nào đó ngoài thực tế, người dùng có xu hướng đăng các thông tin liên quan lên MXH. Từ những dữ liệu đó, chúng ta có thể phát hiện và theo dõi được những sự kiện nào đang xảy ra (Ở đây chủ yếu nghiên cứu nội dung văn bản trong các bài post, bỏ qua các thực thể như hình ảnh, audio, video ...).
@@ -351,7 +351,7 @@
 				\par  \textit{Ý tưởng}
 				\par Tìm ra một không gian mới với số chiều nhỏ hơn không gian cũ với tiêu chí cố gắng phản ánh được càng nhiều thông tin gốc càng tốt, và thước đo cho khái niệm “thông tin” ở đây là phương sai. Đồng nghĩa với việc tìm những thuộc tính mới từ tổ hợp tuyến tính các thuộc tính cũ sao cho mỗi thuộc tính mới có phương sai càng lớn càng tốt. 
 				\par  \textit{Kiến thức cơ bản}
-				\par Độ lệch chuẩn (Standard Deviation), Phương sai (Variance), Hiệp phương sai (Covariance), Ma trận hiệp phương sai (The covariance matrix), Eigenvectors, Eigenvalues.
+				\par Độ lệch chuẩn (Standard Deviation), Phương sai (Variance), Hiệp phương sai (Covariance), Ma trận hiệp phương sai (The covariance matrix), Eigenvectors, Eigenvalues [16]. 
 				\par \textit{Phương pháp}
 				\par Để xác định các chiều của không gian mới, ta lần lượt thực hiện 3 bước tổng quát:
 				\begin{enumerate}
@@ -366,7 +366,7 @@
 						\par ${x_{ij}^{new}=x_{ij}-\overline{x}_{j}}$
 					\end{center}
 					\item Tính ma trận hiệp phương sai của ma trận đã chuẩn hóa.
-					\item Tính Eigenvectors, Eigenvalues của ma trận hiệp phương sai. Mỗi eigenvector đại diện cho một thuộc tính, eigenvalue tương ứng càng lớn thì thuộc tính đó càng quan trọng.
+					\item Tính các eigenvector, eigenvalue của ma trận hiệp phương sai. Mỗi eigenvector đại diện cho một thuộc tính, eigenvalue tương ứng càng lớn thì thuộc tính đó càng quan trọng.
 				\end{enumerate}
 				\par Thuật toán chi tiết và các ví dụ dễ hiểu kèm theo được trình bày ở [16].
 				\par  \textit{Ưu điểm}
@@ -382,16 +382,16 @@
 				\end{itemize}
 			\par \textbf{Univariate Feature Analysis}
 				\par \textit{Định nghĩa} 
-				\par Univariate Feature Analysis là giải thuật xác định thuộc tính quan trọng dựa trên ý tưởng theo dõi ảnh hưởng của mỗi thuộc tính một cách độc lập đến hiệu suất dự đoán của hệ thống rồi sau đó chọn ra n thuộc tính mang lại hiệu suất tốt nhất làm tập thuộc tính cho mô hình học máy [17].
+				\par Univariate Feature Analysis là giải thuật xác định thuộc tính quan trọng dựa trên ý tưởng theo dõi ảnh hưởng của mỗi thuộc tính một cách độc lập đến hiệu suất dự đoán của hệ thống rồi sau đó chọn ra $n$ thuộc tính mang lại hiệu suất tốt nhất làm tập thuộc tính cho mô hình học máy [17].
 				\par \textit{Phương pháp}
 				\begin{enumerate}
 					\item Lựa chọn một thuộc tính bất kỳ, xây dựng hệ thống dựa chỉ dựa trên thuộc tính đó, đánh giá hệ thống: đối với bài toán hồi quy sử dụng giá trị \textit{f-regression}.
 					\item Lựa chọn n thuộc tính có giá trị \textit{f-regression} lớn nhất.
 				\end{enumerate}
 				\par  \textit{Ưu điểm}
-				\par Giải thuật Univariate Feature Analysis đơn giản và thời gian chạy nhanh.
+				\par Giải thuật đơn giản và thời gian chạy nhanh.
 				\par  \textit{Nhược điểm}
-				\par Đôi khi việc kết hợp các thuộc tính không tốt với nhau cũng có thể đưa ra mô hình dự đoán tốt.
+				\par Những thuộc tính tốt nhất mà thuật toán chọn ra đều ảnh hưởng độc lập đến kết quả bài toán. Tuy nhiên, đôi khi việc kết hợp các thuộc tính không tốt với nhau cũng có thể đưa ra mô hình dự đoán tốt.
 			\par \textbf{Recursive Feature Elimination}
 				\par \textit{Định nghĩa} 
 				\par Recursive Feature Elimination là giải thuật xác định thuộc tính quan trọng dựa trên ý tưởng áp dụng giải thuật trên tất cả các thuộc tính, sau đó loại bớt các thuộc tính sao cho giải thuật đạt kết quả tối ưu nhất [17].
@@ -426,11 +426,11 @@
 			\begin{center}
 				$y_{t}=f(y_{t-1},y_{t-2},...,y_{t-n}) + w(t)$
 			\end{center}
-			\par Từ công thức, nhận thấy có thể dự đoán sự kiện thời gian tại $t$ ($y_{t}$) dựa vào các sự kiện đã biết trong quá khứ ($y_{t-1},y_{t-2},...,y_{t-n}$); $w(t)$: thông tin chưa biết, thông tin chưa biết này tạo nên độ nhiễu. Vấn đề dự đoán dựa trên Chuỗi thời gian có thể xem là giải bài toán Hồi quy cơ bản có giám sát (Generic Supervised Learning Regression). \textit{Ví dụ}: Bài toán dự đoán doanh số bán sản phẩm của quí (năm) tới dựa vào doanh số bán của các quí (năm) qua.
+			\par Từ công thức, ta nhận thấy có thể dự đoán sự kiện thời gian tại $t$ ($y_{t}$) dựa vào các sự kiện đã biết trong quá khứ ($y_{t-1},y_{t-2},...,y_{t-n}$); $w(t)$: thông tin chưa biết tạo nên độ nhiễu. Vấn đề dự đoán dựa trên Chuỗi thời gian có thể xem là giải bài toán Hồi quy cơ bản có giám sát (Generic Supervised Learning Regression). \textit{Ví dụ}: Bài toán dự đoán doanh số bán sản phẩm của quí (năm) tới dựa vào doanh số bán của các quí (năm) qua.
 		\subsection{Giải thuật học máy Support Vector Regression}
 			\par Trong lĩnh vực học máy, Support Vector Regression (SVR) là mô hình học có giám sát, được sử dụng vào bài toán phân tích hồi quy. Mô hình SVR là một mở rộng của giải thuật Support Vector Machine (SVM).
 			\par \textbf{Ý tưởng}
-				\par Giả sử có tập dữ liệu gồm $l$ mẫu $\left\{\left(x_{1},y_{1}\right),\left(x_{2},y_{2}\right),...,\left(x_{l},y_{l}\right)\right\}$, với $x_{i}\in  \mathbb{R}^{n}$ và $y_{i}\in  \mathbb{R}$ với mọi i. Mục đích của mô hình SVR là đi tìm một hàm \textit{f(x)} sao cho số lượng các mẫu $\left(x_{i},y_{i}\right)$ thỏa mãn điều kiện $\mid y_{i} - f(x_{i})\mid \leq \epsilon $ ($\epsilon$ cho trước) là lớn nhất [20]. Hình 4 mô tả ý tưởng giải thuật: Hàm $f(x)$ sẽ tạo ra một đường thằng (siêu phẳng đối với không gian nhiều chiều), kết hợp giá trị $\epsilon$ tạo nên hai đường biên kèm theo (hai đường nét đứt); Bài toán là tìm hàm $f(x)$ sao cho mọi điểm trong tập mẫu đều nằm trong vùng giữa hai đường biên tạo ra.
+				\par Giả sử có tập dữ liệu gồm $l$ mẫu $\left\{\left(x_{1},y_{1}\right),\left(x_{2},y_{2}\right),...,\left(x_{l},y_{l}\right)\right\}$, với $x_{i}\in  \mathbb{R}^{n}$ và $y_{i}\in  \mathbb{R}$ với mọi i. Mục đích của mô hình SVR là đi tìm một hàm \textit{f(x)} sao cho số lượng các mẫu $\left(x_{i},y_{i}\right)$ thỏa mãn điều kiện $\mid y_{i} - f(x_{i})\mid \leq \epsilon $ ($\epsilon$ cho trước) là lớn nhất [20]. Hình 4 mô tả ý tưởng giải thuật: Hàm $f(x)$ sẽ tạo ra một đường thẳng (siêu phẳng đối với không gian nhiều chiều), kết hợp giá trị $\epsilon$ tạo nên hai đường biên kèm theo (hai đường nét đứt); bài toán là tìm hàm $f(x)$ sao cho mọi điểm trong tập mẫu đều nằm trong vùng giữa hai đường biên tạo ra.
 				\begin{figure}[h!]
 				\begin{center}
 %vẽ ý tưởng SVR
@@ -465,7 +465,7 @@
 					\caption{Minh họa mô hình SVR}
 				\label{fig:foody}
 			\end{figure}
-				\par Trường hợp hàm f(x) tuyến tính, biểu diện dạng:
+				\par Trường hợp hàm f(x) tuyến tính, biểu diễn dạng:
 					\begin{center}
 						$f(x)=\langle w,x\rangle + b \;với \;w\in \mathbb{R}^{n}, b\in \mathbb{R}$
 						\par $\langle .,.\rangle$ : Tích có hướng của hai vector
@@ -475,7 +475,7 @@
 						$minimize \: \frac{1}{2}\parallel{w}\parallel^{2}$ \\
 						$subject\; to \: \begin{cases}y_{i}-\langle w,x_{i}\rangle-b \leq \epsilon \\\langle w,x_{i}\rangle-b-y_{i} \leq \epsilon\end{cases}$
 					\end{center}
-				\par Giả thuyết bài toán như trên có nghĩa là ta có thể tìm hàm $f(x)$ thỏa mãn điều kiện: mọi điểm $(x_{i},y_{i})$ đều nằm trong vùng của hai đường biên được tạo ra quanh đường thằng tạo bởi f(x). Tuy nhiên, trên thực tế có những trường hợp mà không thể tìm hàm $f(x)$ thỏa mãn điều kiện đó, hoặc ta muốn tạo một ít sai số cho mô hình. Do vậy, ta phải thay đổi yêu cầu để luôn tìm ra hàm $f(x)$. Ý tưởng là hàm f(x) vẫn được chấp nhận khi tồn tại một số điểm $(x_{i},y_{i})$ không nằm trong vùng giữa hai đường biên. Những điểm $(x_{i},y_{i})$ tạo nên sai số của hàm $f(x)$, kí hiệu tổng sai số đó là E. Yêu cầu bài toán bây giờ là tìm $min \parallel w\parallel$ và $min(E)$. Với ý tưởng đó, bài toán được mô hình hóa lại:
+				\par Giả thuyết bài toán như trên có nghĩa là ta có thể tìm hàm $f(x)$ thỏa mãn điều kiện: mọi điểm $(x_{i},y_{i})$ đều nằm trong vùng của hai đường biên được tạo ra quanh đường thằng tạo bởi f(x). Tuy nhiên, trên thực tế có những trường hợp mà không thể tìm hàm $f(x)$ thỏa mãn điều kiện đó, hoặc ta muốn tạo một ít sai số cho mô hình để tránh trường hợp overfitting. Do vậy, ta phải thay đổi yêu cầu để luôn tìm ra hàm $f(x)$. Ý tưởng là hàm f(x) vẫn được chấp nhận khi tồn tại một số điểm $(x_{i},y_{i})$ không nằm trong vùng giữa hai đường biên. Những điểm $(x_{i},y_{i})$ tạo nên sai số của hàm $f(x)$, kí hiệu tổng sai số đó là E. Yêu cầu bài toán bây giờ là tìm $min \parallel w\parallel$ và $min(E)$. Với ý tưởng đó, bài toán được mô hình hóa lại:
 					\begin{center}
 						$minimize \: \frac{1}{2}\parallel{w}\parallel^{2} +C\sum_{i=1}^l(\xi_{i}+\xi_i^*)$ \\
 						$subject\; to \: \begin{cases}y_{i}-\langle w,x_{i}\rangle-b \leq \epsilon + \xi_{i}\\\langle w,x_{i}\rangle-b-y_{i} \leq \epsilon+\xi_i^* \\ \xi_{i},\xi_i^* \geq0\end{cases}$
@@ -489,7 +489,7 @@
 					\end{center}
 					\item $C$ : Giá trị điều chỉnh giữa việc tối thiểu chuẩn vector $w$ và tổng giá trị sai số. Nếu C quá lớn thì thuật toán thiên về mục đích là điều chỉnh sao cho tổng giá trị sai số là nhỏ nhất, và ngược lại.
 				\end{itemize}
-			\par Hình 5 mô tả ý tưởng giải thuật SVR, tồn tại các điểm nằm ngoài vùng hai đường biên và đồng thời  chỉ có các đó mới gây nên sai số theo công thức hàm  Vapnik's $\epsilon - insensitive$.
+			\par Hình 5 mô tả ý tưởng giải thuật SVR, tồn tại các điểm nằm ngoài vùng hai đường biên và đồng thời  chỉ có các điểm đó mới gây nên sai số theo công thức hàm  Vapnik's $\epsilon - insensitive$.
 			\par Ý tưởng tiếp theo quan trọng là sử dụng hàm Lagrange (Lagrange function) từ mục tiêu bài toán và các ràng buộc để tìm ra các giá trị w, b.
 				\begin{figure}[h!]
 				\includegraphics[width=\linewidth]{svr}
@@ -499,7 +499,7 @@
 			\end{figure}
 				
 			\par \textbf{Kĩ thuật Kernel}
-			\par Trong nhiều trường hợp, ta không thể tìm được siêu phẳng (hàm \textit{f(x)}) thỏa mãn yêu cầu nằm gần với tất cả các điểm dữ liệu. Khi đó, sử dụng kĩ thuật ánh xạ không gian hiện tại sang không gian nhiều chiều hơn, ở đó ta có thể tìm ra siêu phẳng thỏa mãn. Sử dụng hàm $(\phi(x))$ biến đổi vector $x$ hiện tại sang không gian nhiều chiều hơn. Lúc đó hàm $f(x)$ có dạng là: $f(x)=\langle w,\phi(x)\rangle + b$. Hình 6 minh họa lý thuyết Kernel: Ở không gian ban đầu (bên trái), ta không thể tìm được siêu phẳng; sau khi chuyển sang không gian mới (bên phải) nhờ hàm $\phi(x)$ thì tìm được siêu phẳng mong muốn.
+			\par Trong nhiều trường hợp, ta không thể tìm được siêu phẳng (hàm \textit{f(x)}) thỏa mãn yêu cầu nằm gần với tất cả các điểm dữ liệu. Khi đó, chúng ta sử dụng kĩ thuật ánh xạ không gian hiện tại sang không gian nhiều chiều hơn, ở đó ta có thể tìm ra siêu phẳng thỏa mãn. Sử dụng hàm $(\phi(x))$ biến đổi vector $x$ hiện tại sang không gian nhiều chiều hơn. Lúc đó hàm $f(x)$ có dạng là: $f(x)=\langle w,\phi(x)\rangle + b$. Hình 6 minh họa lý thuyết Kernel: Ở không gian ban đầu (bên trái), ta không thể tìm được siêu phẳng; sau khi chuyển sang không gian mới (bên phải) nhờ hàm $\phi(x)$ thì tìm được siêu phẳng mong muốn.
 				\begin{figure}[h!]
 				\includegraphics[width=\linewidth]{kernel}
 				\caption[Ý tưởng kĩ thuật Kernel]{Ý tưởng kĩ thuật Kernel (\textit{Tham khảo:} Dr. Saed Sayad, Support Vector Machine - Regression (SVR))}
@@ -597,7 +597,7 @@
 							\item 	Loại bỏ các dấu câu hoặc từ bị thừa, thay thể một số chữ viết tắt, tiếng lóng thông dụng.
 						\end{enumerate}
 					\item \textit{Phân tích các câu, từ trong review và gán nhãn}
-						\par Từ các review đã được tiền xử lý, dùng công cụ (đề xuất dùng công cụ VnChunker1.0 – Một công cụ dùng trong Xử lý ngôn ngữ tự nhiên) để phân tích các câu, từ trong review và gán nhãn. Đây chính là giai đoạn 2 và 3 của quá trình phân tích dữ liệu văn bản như đã được đề cập ở trên. Sau khi gán nhãn cho từ và cụm từ, có thể lấy ra được:
+						\par Từ các review đã được tiền xử lý, ta dùng công cụ (đề xuất dùng công cụ VnChunker1.0 – Một công cụ dùng trong Xử lý ngôn ngữ tự nhiên) để phân tích các câu, từ trong review và gán nhãn. Đây chính là giai đoạn 2 và 3 của quá trình phân tích dữ liệu văn bản như đã được đề cập ở trên. Sau khi gán nhãn cho từ và cụm từ, có thể lấy ra được:
 						\begin{enumerate}
 							\item Các cụm danh từ (NP) không chứa tính từ (thường ở dạng N-N).
 							\item Các tính từ.
@@ -614,7 +614,7 @@
 						\par Kết hợp kết quả của bước 2 và bước 3 để thực hiện phép kết hợp các cặp <từ khóa, tính từ>. 	
 						\par Duyệt qua từng câu trong review và xét thử trong câu đó có những từ khóa nào, kết cặp với tính từ ở vị trí gần nó nhất. Sau khi làm tương tự với mọi câu trong mọi review, đếm số lượng tính từ tương ứng với mỗi từ khóa.
 					\item \textit{Tính toán giá trị của từng từ khóa}
-						\par Kết hợp với kết quả của bước 4 và 5, ta có thể tạo ra hai danh sách tương ứng với ý nghĩa tích cực và tiêu cực: Có bao nhiêu tính từ tích cực/tiêu cực đi kèm một từ khóa. Xây dựng nên danh sách có dạng:
+						\par Kết hợp với kết quả của bước 4 và 5, ta có thể tạo ra hai danh sách tương ứng với ý nghĩa tích cực và tiêu cực: có bao nhiêu tính từ tích cực/tiêu cực đi kèm một từ khóa. Từ đó xây dựng nên danh sách có dạng:
 						\begin{enumerate}
 							\item Danh sách 1 <từ khóa, số tính từ tích cực đi kèm>
 							\item Danh sách 2 <từ khóa, số tính từ tiêu cực đi kèm>
@@ -687,7 +687,7 @@
 			\par \textbf{Mô hình 2: Tập thuộc tính gồm nhóm 5.2.2}
 			\par \textit{Ý tưởng}
 			\par Số bài review và số điểm trung bình mà một địa điểm ăn uống nhận được trong tương lai phụ thuộc vào toàn bộ dữ liệu của địa điểm đó từ khi thành lập đến hiện tại.
-			\par Để dự đoán giá trị (số lượng review hoặc điểm số trung bình của địa điểm ăn uống) tại thời điểm \textit{t} trong tương lai, sử dụng toàn bộ thông tin liên quan địa điểm đó từ khi thành lập đến hiện tại. Toàn bộ dữ liệu quá khứ dùng để hình thành tập thuộc tính.
+			\par Để dự đoán giá trị (số lượng review hoặc điểm số trung bình của địa điểm ăn uống) tại thời điểm \textit{t} trong tương lai, ta sử dụng toàn bộ thông tin liên quan địa điểm đó từ khi thành lập đến hiện tại. Toàn bộ dữ liệu quá khứ dùng để hình thành tập thuộc tính.
 			\par \textit{Mẫu dữ liệu để học}
 				\par Một mẫu dữ liệu bao gồm: tập thuộc tính và giá trị mong muốn. Cụ thể:
 				\begin{itemize}
@@ -705,7 +705,7 @@
 					\item Giá trị mong muốn: Số bài review hoặc số điểm trung bình.
 				\end{itemize}
 		\subsection{Cách đánh giá hệ thống}
-			\par Như đã trình bày ở mục 5.3, Ta sử dụng tập dữ liệu sau thời điểm \textit{T} dùng để kiểm tra, đánh giá hệ thống. Mẫu dữ liệu và cách tạo tập dữ liệu dùng để test hoàn toàn tương tự với mẫu dữ liệu và cách tạo tập dữ liệu dùng để học.
+			\par Như đã trình bày ở mục 5.3, ta sử dụng tập dữ liệu sau thời điểm \textit{T} dùng để kiểm tra, đánh giá hệ thống. Mẫu dữ liệu và cách tạo tập dữ liệu dùng để test hoàn toàn tương tự với mẫu dữ liệu và cách tạo tập dữ liệu dùng để học.
 			\par Giả thuyết:
 			 \begin{itemize}
 				\item $y_{i}$ : Giá trị thực tế của testcase thứ  \textit{i}. Ở trong bài toán là số lượng review hoặc số điểm trung bình trên thực tế của testcase thứ  \textit{i}.
