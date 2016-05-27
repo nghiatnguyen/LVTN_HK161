@@ -272,7 +272,7 @@ Nguyễn Trọng Nghĩa - 51202370\\[1.5cm]
 	\section{Tổng quan đề tài}
 		\subsection{Giới thiệu đề tài}
 			\par Cũng giống như các MXH trực tuyến nói chung, các trang MXH về ăn uống ngày càng trở nên phổ biến và trở thành một phần quan trọng trong cuộc sống của nhiều người. Ở đó người dùng có thể dễ dàng tìm kiếm ra địa điểm có những món ăn mà họ mong muốn, viết review cho những địa điểm mà họ đã đi hay tìm ra những người bạn có cùng gu ẩm thực. Ở Việt Nam hiện nay một số trang MXH về địa điểm ăn uống đã xuất hiện được một vài năm và phát triển mạnh mẽ với hàng trăm ngàn người dùng. Có thể kể đến đó là các trang MXH \textit{Foody}, \textit{Lozi}.
-			\par Trang web \textit{foody.vn} bắt đầu hoạt động từ năm 2012. \textit{Foody} chứa thông tin về hàng chục nghìn địa điểm ăn uống và hàng triệu người dùng trên đó. Mỗi địa điểm có những thông tin liên quan như vị trí địa lý, điểm rating trung bình, số lượng review. Người dùng tới một địa điểm có thể viết review đánh giá và chấm điểm (rating) cho địa điểm đó. Đồng thời, người dùng cũng có thể thể hiện việc họ đang ở một địa điểm thông qua chức năng checkin hoặc theo dõi những người dùng khác, những người có cùng gu ẩm thực, viết review hay chẳng hạn.
+			\par Trang web \textit{foody.vn} bắt đầu hoạt động từ năm 2012. \textit{Foody} chứa thông tin về hàng trăm nghìn địa điểm ăn uống và hàng triệu người dùng trên đó. Mỗi địa điểm có những thông tin liên quan như vị trí địa lý, điểm rating trung bình, số lượng review. Người dùng tới một địa điểm có thể viết review đánh giá và chấm điểm (rating) cho địa điểm đó. Đồng thời, người dùng cũng có thể thể hiện việc họ đang ở một địa điểm thông qua chức năng checkin hoặc theo dõi những người dùng khác, những người có cùng gu ẩm thực, viết review hay chẳng hạn.
 
 			\begin{figure}[h!]
 				\includegraphics[width=\linewidth]{foody}
@@ -637,7 +637,7 @@ Nguyễn Trọng Nghĩa - 51202370\\[1.5cm]
 					\item Số ngày kể từ bài review cuối cùng về bất kỳ một địa điểm ăn uống trong bán kính 1km.
 				\end{enumerate}
 			\par \textbf{Thuộc tính trích xuất từ review (5.2.3)}
-				\par Mục tiêu của nhóm là tìm ra K từ/cụm từ (khoảng 100)phổ biến nhất (keyword) trong tất cả các bài review trên \textit{foody.vn} và  xem chúng là tập thuộc tính của một bài review. Sau đó với mỗi bài review, ta xem mỗi thuộc tính có bao nhiêu lần được đánh giá tích cực, bao nhiêu lần được đánh giá tiêu cực. Dữ liệu được dùng cho việc trích xuất này là mọi review của mọi địa điểm có trong tập dữ liệu. Thực hiện thứ tự các bước:
+				\par Mục tiêu của nhóm là tìm ra K từ/cụm từ (khoảng 100) phổ biến nhất (keyword) trong tất cả các bài review trên \textit{foody.vn} và  xem chúng là tập thuộc tính của một bài review. Sau đó với mỗi bài review, ta xem mỗi thuộc tính có bao nhiêu lần được đánh giá tích cực, bao nhiêu lần được đánh giá tiêu cực. Dữ liệu được dùng cho việc trích xuất này là mọi review của mọi địa điểm có trong tập dữ liệu. Thực hiện thứ tự các bước:
 			 	\begin{enumerate}
 					\item \textit{Tiền xử lý cho các review}
 						\par Như đã trình bày ở phần 3.3, dữ liệu dạng văn bản trên MXH có đặc trưng là Ngắn gọn và Phi cấu trúc, do đó cần có quá trình tiền xử lý để giải quyết những điều này.
@@ -756,31 +756,31 @@ Nguyễn Trọng Nghĩa - 51202370\\[1.5cm]
 				\end{itemize}
 		\subsection{Cách đánh giá hệ thống}
 			\par Như đã trình bày ở mục 5.3, ta sử dụng tập dữ liệu sau thời điểm \textit{T} dùng để kiểm tra, đánh giá hệ thống. Mẫu dữ liệu và cách tạo tập dữ liệu dùng để test hoàn toàn tương tự với mẫu dữ liệu và cách tạo tập dữ liệu dùng để học.
-			\par Giả thuyết:
+			\par Một hệ thống hồi quy thường được đánh giá qua ba độ đo: \textit{Sai số trung bình tuyệt đối} (Mean Absolute Error), \textit{Sai số trung bình bình phường} (Mean Square Error), \textit{R bình phương} (R-squared).
+			\par Giả thuyết: 
 			 \begin{itemize}
 				\item $y_{i}$ : Giá trị thực tế của testcase thứ  \textit{i}. Ở trong bài toán là số lượng review hoặc số điểm trung bình trên thực tế của testcase thứ  \textit{i}.
 				\item $\hat{y}_{i}$ : Giá trị hệ thống dự đoán của testcase thứ  \textit{i}. Ở trong bài toán là số lượng review hoặc số điểm trung bình mà hệ thống dự đoán của testcase thứ  \textit{i}.
-				\item $n$ : Số mẫu. Được hiểu là độ lớn không gian của tập test.
+				\item $n$ : Số mẫu, được hiểu là độ lớn không gian của tập test.
 			\end{itemize}
-			\par \textbf{Các chỉ số đánh giá hệ thống}
-			\par \textit{Mean Absolute Error (MAE)}: 
+			\par \textbf{Sai số trung bình tuyệt đối (MAE)}: 
 				\large
 				\begin{center}
 					$MAE\;=\;\frac{1}{n}\sum_{i=1}^n\mid \hat{y}_{i}-y_{i}\mid$
 				\end{center}
 				\normalsize
-			\par \textit{Mean Square Error (MSE)}:
+			\par \textbf{Sai số trung bình bình phường (MSE)}:
 				\large
 				\begin{center}
 					$MSE\;=\;\frac{1}{n}\sum_{i=1}^n(\hat{y}_{i}-y_{i})^{2}$
 				\end{center}
 				\normalsize
-			\par \textit{R-squared ($R^{2}$)}:
+			\par \textbf{R bình phương ($R^{2}$)}:
 				\large
 				\begin{center}
-					\par $\bar{y}\;=\;\frac{1}{n}\sum_{i=1}^ny$
-					\par $SST\;=\;\frac{1}{n}\sum_{i=1}^n(y_{i}-\bar{y})^{2}$
-					\par $SSE\;=\;\frac{1}{n}\sum_{i=1}^n(y_{i}-\hat{y}_{i})^{2}$
+					\par $\bar{y}\;=\;\frac{1}{n}\sum_{i=1}^ny$ \\[10pt]
+					\par $SST\;=\;\frac{1}{n}\sum_{i=1}^n(y_{i}-\bar{y})^{2}$ \\[10pt]
+					\par $SSE\;=\;\frac{1}{n}\sum_{i=1}^n(y_{i}-\hat{y}_{i})^{2}$ \\[10pt]
 					\par $R^{2}\;=\;1-\frac{SSE}{SST}$
 				\end{center}
 				\normalsize
