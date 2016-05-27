@@ -366,7 +366,7 @@ Nguyễn Trọng Nghĩa - 51202370\\[1.5cm]
 			\end{figure} 
 
 		\subsection{Các nghiên cứu liên quan}
-			\par \textit{Yelp} là một trang MXH về địa điểm nổi tiếng ở Mỹ với những chức năng tương tự như trang MXH \textit{Foody}  của Việt Nam. Trang MXH này tổ chức ra một cuộc thi mang tên Yelp Dataset Challenge (bắt đầu từ năm 2014, đến nay đã trải qua 6 vòng thi và đang ở vòng 7), thu hút hàng trăm bài nghiên cứu của các tác giả khắp thế giới. Nhiều bài toán được đưa ra dựa trên tập dữ liệu do cuộc thi này cung cấp, \textit{ví dụ}: gợi ý các địa điểm phù hợp với sở thích, thói quen của người dùng [4], [5]; tóm tắt, trực quan hóa review cho người dùng [6] hay dự đoán tương lai của địa điểm ăn uống.
+			\par \textit{Yelp} \footnote[1]{http://www.yelp.com} là một trang MXH về địa điểm nổi tiếng ở Mỹ với những chức năng tương tự như trang MXH \textit{Foody}  của Việt Nam. Trang MXH này tổ chức ra một cuộc thi mang tên Yelp Dataset Challenge \footnote[2]{https://www.yelp.com/dataset\_challenge} (bắt đầu từ năm 2014, đến nay đã trải qua 6 vòng thi và đang ở vòng 7), thu hút hàng trăm bài nghiên cứu của các tác giả khắp thế giới. Nhiều bài toán được đưa ra dựa trên tập dữ liệu do cuộc thi này cung cấp, \textit{ví dụ}: gợi ý các địa điểm phù hợp với sở thích, thói quen của người dùng [4], [5]; tóm tắt, trực quan hóa review cho người dùng [6] hay dự đoán tương lai của địa điểm ăn uống.
 			\par Trong đó, nhóm bài toán có nhiều mối liên hệ nhất với đề tài mà nhóm đề xuất là những bài toán về Dự đoán tương lai của một địa điểm ăn uống:
 			\begin{itemize}
 				\item Trong [7], tác giả đề xuất ra mô hình học máy nhằm dự đoán xem liệu một địa điểm sẽ tiếp tục hoạt động hay đóng cửa. Đó là một bài toán phân loại nhị phân với đầu vào là các thông tin liên quan tới địa điểm và đầu ra là một trong hai nhãn cho địa điểm: “open” – Địa điểm tiếp tục hoạt động, hoặc “close” – Địa điểm sẽ bị đóng cửa. Tác giả dùng 4 nhóm thuộc tính khác nhau cho mô hình học máy:
@@ -556,7 +556,7 @@ Nguyễn Trọng Nghĩa - 51202370\\[1.5cm]
 			\end{figure}
 	\section{Phương pháp đề xuất}								
 		\subsection{Tập dữ liệu}
-			\par \textit{foody.vn} là trang web chứa thông tin về các địa điểm ăn uống ở Việt Nam (đặc biệt là TP. Hồ Chí Minh) với lượng thông tin phong phú và đáng tin cậy. Dữ liệu được dùng cho việc phân tích được crawl từ trang web \textit{foody.vn} dùng thư viện jsoup và crawljax trên ngôn ngữ Java và được lưu trong một cơ sở dữ liệu không quan hệ (MongoDB). Jsoup và crawljax đều là các thư viện mã nguồn mở trên Java hỗ trợ việc trích xuất thông tin từ các trang web với API đơn giản và dễ sử dụng.
+			\par \textit{foody.vn} là trang web chứa thông tin về các địa điểm ăn uống ở Việt Nam (đặc biệt là TP. Hồ Chí Minh) với lượng thông tin phong phú và đáng tin cậy. Dữ liệu được dùng cho việc phân tích được crawl từ trang web \textit{foody.vn} dùng thư viện jsoup \footnote[1]{https://jsoup.org/} và crawljax \footnote[2]{http://crawljax.com/} trên ngôn ngữ Java và được lưu trong một cơ sở dữ liệu không quan hệ (MongoDB \footnote[3]{https://www.mongodb.com/}). Jsoup và crawljax đều là các thư viện mã nguồn mở trên Java hỗ trợ việc trích xuất thông tin từ các trang web với API đơn giản và dễ sử dụng.
 			\par \textbf{Dữ liệu về địa điểm:}\\
 				"type": "business"\\
 				"businessId": (business\_id)\\
@@ -646,7 +646,7 @@ Nguyễn Trọng Nghĩa - 51202370\\[1.5cm]
 							\item 	Loại bỏ các dấu câu hoặc từ bị thừa, thay thể một số chữ viết tắt, tiếng lóng thông dụng.
 						\end{enumerate}
 					\item \textit{Phân tích các câu, từ trong review và gán nhãn}
-						\par Từ các review đã được tiền xử lý, ta dùng công cụ (đề xuất dùng công cụ VnChunker1.0 – Một công cụ dùng trong Xử lý ngôn ngữ tự nhiên) để phân tích các câu, từ trong review và gán nhãn. Đây chính là giai đoạn 2 và 3 của quá trình phân tích dữ liệu văn bản như đã được đề cập ở trên. Sau khi gán nhãn cho từ và cụm từ, có thể lấy ra được:
+						\par Từ các review đã được tiền xử lý, ta dùng công cụ (đề xuất dùng công cụ VnChunker \footnote[1]{http://vlsp.vietlp.org:8080/} – Một công cụ dùng trong Xử lý ngôn ngữ tự nhiên) để phân tích các câu, từ trong review và gán nhãn. Đây chính là giai đoạn 2 và 3 của quá trình phân tích dữ liệu văn bản như đã được đề cập ở trên. Sau khi gán nhãn cho từ và cụm từ, có thể lấy ra được:
 						\begin{enumerate}
 							\item Các cụm danh từ (NP) không chứa tính từ (thường ở dạng N-N).
 							\item Các tính từ.
@@ -696,7 +696,7 @@ Nguyễn Trọng Nghĩa - 51202370\\[1.5cm]
 
 			\end{itemize}
 			\par Mô hình dự đoán số lượng review và mô hình dự đoán số điểm trung bình có cách thức hoạt động như nhau, nhưng được học và test riêng biệt nhau.
-			\par Để áp dụng các giải thuật tối ưu tập thuộc tính (PCA, Univariate Feature Analysis, Recursive Feature Elimination) có thể dùng thư viện scikit-learn (python).
+			\par Để áp dụng các giải thuật tối ưu tập thuộc tính (PCA, Univariate Feature Analysis, Recursive Feature Elimination) có thể dùng thư viện scikit-learn \footnote[1]{http://scikit-learn.org} (python).
 			\par \textbf{Dữ liệu dùng để học và test}
 				\par Lựa chọn một thời điểm \textit{T} và sử dụng tất cả dữ liệu trước thời điểm \textit{T} để xây dựng hệ thống dự đoán. Những thông tin sau thời điểm \textit{T} sẽ được dùng để kiểm tra hệ thống, minh họa ở hình 4. Thời điểm \textit{T} mà nhóm lựa chọn vẫn đang xem xét sao cho dữ liệu xây dựng hệ thống và kiểm tra hệ thống là hợp lý. 
 				\begin{figure}[h!]
