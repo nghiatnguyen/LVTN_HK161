@@ -10,19 +10,22 @@
 \usepackage{tikz}
 \usepackage{fancybox}
 \usetikzlibrary{positioning}
-\usepackage[left=3 cm,right=2 cm,top=3cm,bottom=3cm]{geometry}
+\usepackage[left=3 cm,right=3 cm,top=3cm,bottom=3cm]{geometry}
 \usepackage[labelfont=bf]{caption}
 \usepackage[bookmarks=true]{hyperref}
 \usepackage{bookmark}
-
+\usepackage{enumitem}
+\usepackage[bottom]{footmisc}
 
 \pagestyle{fancy}
+\renewcommand{\sectionmark}[1]{\markboth{#1}{}} 
 \fancyhf{}
-
-\rhead{Dự đoán mức độ thu hút của địa điểm ăn uống trong tương lai}
-\fancyfoot[LE,RO]{\thepage}
+\fancyhead[R]{\normalsize{\textit{\leftmark}}}
+%\rhead{Dự đoán mức độ thu hút của địa điểm ăn uống trong tương lai}
+\fancyhead[LE,LO]{\thepage}
+%\fancyfoot[LE,RO]{\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
-\renewcommand{\footrulewidth}{0.4pt}
+%\renewcommand{\footrulewidth}{0.4pt}
 
 \graphicspath{{images/}}
 %\title{Báo cáo Thực tập tốt nghiệp\\Đề tài: Dự đoán mức độ thu hút của địa điểm ăn uống trong tương lai}
@@ -43,15 +46,12 @@
 %	HEADING SECTIONS
 %----------------------------------------------------------------------------------------
 \begin{flushright}
-\begin{minipage}{1\textwidth}
-
-\end{minipage}
 \end{flushright}
 \textsc{\large ĐẠI HỌC BÁCH KHOA THÀNH PHỐ HỒ CHÍ MINH}\\[0.2cm] % Name of your university/college
 \textsc{\Large \scshape khoa khoa học và kỹ thuật máy tính}\\[0.5cm] % Major heading such as course name
 \begin{figure}[H] 
 \centering
-\includegraphics[scale=2]{images/logo.jpg}
+\includegraphics[scale=1.6]{images/logo.jpg}
 \end{figure} 
 
 \textsc{\large BÁO CÁO THỰC TẬP TỐT NGHIỆP}\\[0.2cm] % Minor heading such as course title
@@ -60,7 +60,7 @@
 %	TITLE SECTION
 %----------------------------------------------------------------------------------------
 \HRule \\[0.4cm]
-{ \huge \bfseries Dự đoán mức độ thu hút\\của địa điểm ăn uống trong tương lai}\\[0.4cm] % Title of your document
+{ \huge \bfseries Dự đoán mức độ thu hút của\\địa điểm ăn uống trong tương lai}\\[0.4cm] % Title of your document
 \HRule \\[0.8cm]
 
 %----------------------------------------------------------------------------------------
@@ -389,8 +389,6 @@ Nguyễn Trọng Nghĩa - 51202370\\[1.5cm]
 				\item Trong [15], tác giả sử dụng các kỹ thuật Khai phá dữ liệu dạng văn bản (Trên tiếng Việt) để phân tích các bình luận và review của người dùng đối với các địa điểm ăn uống trên \textit{foody.vn} và \textit{diadiemanuong.com}. Các câu trong các bình luận và review này được chia thành 5 chủ đề: giá cả, khu vực, dịch vụ, không gian và chất lượng. Sau đó, phân tích các từ trong mỗi câu để chỉ ra ý kiến của người dùng đối với địa điểm là tích cực hay tiêu cực. Kết quả cuối cùng sẽ có được bằng cách tính trung bình xem bao nhiêu phần trăm đánh giá là tích cực hay tiêu cực đối với địa điểm, và ứng với từng chủ đề trong số 5 chủ đề trên.   
 				\end{itemize}
 			\par Những thành công nhất định trong các nghiên cứu trên là cơ sở quan trọng để nhóm đưa ra đề xuất cho phương pháp giải quyết thực hiện đề tài.
-
-
 \section{Kiến thức nền tảng}
 		\subsection{Tối ưu tập thuộc tính}
 			\par Việc tối ưu tập thuộc tính là xác định các thuộc tính quan trọng và loại bỏ các thuộc tính dư thừa, nhiễu để làm giảm số chiều của không  gian thuộc tính, qua đó cải thiện độ chính xác và tốc độ tính toán của hệ thống. Các giải thuật để tối ưu tập thuộc tính liên quan đến đề tài gồm: Principal Components Analysis, Univariate Feature Analysis và Recursive Feature Elimination.
@@ -478,9 +476,7 @@ Nguyễn Trọng Nghĩa - 51202370\\[1.5cm]
 			\par Từ công thức, ta nhận thấy có thể dự đoán sự kiện thời gian tại $t$ ($y_{t}$) dựa vào các sự kiện đã biết trong quá khứ ($y_{t-1},y_{t-2},...,y_{t-n}$); $w(t)$: thông tin chưa biết tạo nên độ nhiễu. Vấn đề dự đoán dựa trên Chuỗi thời gian có thể xem là giải bài toán Hồi quy cơ bản có giám sát (Generic Supervised Learning Regression). \textit{Ví dụ}: bài toán dự đoán doanh số bán sản phẩm của quí (năm) tới dựa vào doanh số bán của các quí (năm) qua.
 		\subsection{Giải thuật học máy Support Vector Regression}
 			\par Trong lĩnh vực học máy, Support Vector Regression (SVR) là mô hình học có giám sát, được sử dụng vào bài toán phân tích hồi quy. Mô hình SVR là một mở rộng của giải thuật Support Vector Machine (SVM).
-			\par \textbf{Ý tưởng}
-				\par Giả sử có tập dữ liệu gồm $l$ mẫu $\left\{\left(x_{1},y_{1}\right),\left(x_{2},y_{2}\right),...,\left(x_{l},y_{l}\right)\right\}$, với $x_{i}\in  \mathbb{R}^{n}$ và $y_{i}\in  \mathbb{R}$ với mọi i. Mục đích của mô hình SVR là đi tìm một hàm \textit{f(x)} sao cho số lượng các mẫu $\left(x_{i},y_{i}\right)$ thỏa mãn điều kiện $\mid y_{i} - f(x_{i})\mid \leq \epsilon $ ($\epsilon$ cho trước) là lớn nhất [20]. Hình 4 mô tả ý tưởng giải thuật: hàm $f(x)$ sẽ tạo ra một đường thẳng (siêu phẳng đối với không gian nhiều chiều), kết hợp giá trị $\epsilon$ tạo nên hai đường biên kèm theo (hai đường nét đứt); bài toán là tìm hàm $f(x)$ sao cho mọi điểm trong tập mẫu đều nằm trong vùng giữa hai đường biên tạo ra.
-				\begin{figure}[h!]
+\begin{figure}[h!]
 				\begin{center}
 %vẽ ý tưởng SVR
 \begin{tikzpicture}[]
@@ -514,6 +510,9 @@ Nguyễn Trọng Nghĩa - 51202370\\[1.5cm]
 					\caption{Minh họa mô hình SVR}
 				\label{fig:foody}
 			\end{figure}
+			\par \textbf{Ý tưởng}
+				\par Giả sử có tập dữ liệu gồm $l$ mẫu $\left\{\left(x_{1},y_{1}\right),\left(x_{2},y_{2}\right),...,\left(x_{l},y_{l}\right)\right\}$, với $x_{i}\in  \mathbb{R}^{n}$ và $y_{i}\in  \mathbb{R}$ với mọi i. Mục đích của mô hình SVR là đi tìm một hàm \textit{f(x)} sao cho số lượng các mẫu $\left(x_{i},y_{i}\right)$ thỏa mãn điều kiện $\mid y_{i} - f(x_{i})\mid \leq \epsilon $ ($\epsilon$ cho trước) là lớn nhất [20]. Hình 4 mô tả ý tưởng giải thuật: hàm $f(x)$ sẽ tạo ra một đường thẳng (siêu phẳng đối với không gian nhiều chiều), kết hợp giá trị $\epsilon$ tạo nên hai đường biên kèm theo (hai đường nét đứt); bài toán là tìm hàm $f(x)$ sao cho mọi điểm trong tập mẫu đều nằm trong vùng giữa hai đường biên tạo ra.
+				
 				\par Trường hợp hàm f(x) tuyến tính, biểu diễn dạng:
 					\begin{center}
 						$f(x)=\langle w,x\rangle + b \;với \;w\in \mathbb{R}^{n}, b\in \mathbb{R}$
@@ -538,25 +537,28 @@ Nguyễn Trọng Nghĩa - 51202370\\[1.5cm]
 					\end{center}
 					\item $C$ : Giá trị điều chỉnh giữa việc tối thiểu chuẩn vector $w$ và tổng giá trị sai số. Nếu C quá lớn thì thuật toán thiên về mục đích là điều chỉnh sao cho tổng giá trị sai số là nhỏ nhất, và ngược lại.
 				\end{itemize}
-			\par Hình 5 mô tả ý tưởng giải thuật SVR, tồn tại các điểm nằm ngoài vùng hai đường biên và đồng thời  chỉ có các điểm đó mới gây nên sai số theo công thức hàm  Vapnik's $\epsilon - insensitive$.
-			\par Ý tưởng tiếp theo quan trọng là sử dụng hàm Lagrange (Lagrange function) từ mục tiêu bài toán và các ràng buộc để tìm ra các giá trị w, b.
-				\begin{figure}[h!]
+			\begin{figure}[h!]
 				\includegraphics[width=\linewidth]{svr}
-				\caption[Minh họa cách tính sai số trong mô hình SVR]{Ý tưởng giải thuật SVR gắn liền với hàm sai số Vapnik's $\epsilon - insensitive$  
-					(\textit{Tham khảo:} Kang Yu, Georg Leufen (2013) Investigation of Leaf Diseases and Estimation of Chlorophyll Concentration in Seven Barley Varieties Using Fluorescence and Hyperspectral Indices)}
+				\caption[Minh họa cách tính sai số trong mô hình SVR]{Ý tưởng giải thuật SVR gắn liền với hàm sai số Vapnik's $\epsilon - insensitive$  \footnotemark{}}
 				\label{fig:svr}
 			\end{figure}
-				
+		\footnotetext{\textit{Tham khảo:} Kang Yu, Georg Leufen (2013) Investigation of Leaf Diseases and Estimation of Chlorophyll Concentration in Seven Barley Varieties Using Fluorescence and Hyperspectral Indices}	
+			\par Hình 5 mô tả ý tưởng giải thuật SVR, tồn tại các điểm nằm ngoài vùng hai đường biên và đồng thời  chỉ có các điểm đó mới gây nên sai số theo công thức hàm  Vapnik's $\epsilon - insensitive$.
+
+			\par Ý tưởng quan trọng tiếp theo là sử dụng hàm Lagrange (Lagrange function) từ mục tiêu bài toán và các ràng buộc để tìm ra các giá trị w, b.
+
 			\par \textbf{Kĩ thuật Kernel}
-			\par Trong nhiều trường hợp, ta không thể tìm được siêu phẳng (hàm \textit{f(x)}) thỏa mãn yêu cầu nằm gần với tất cả các điểm dữ liệu. Khi đó, chúng ta sử dụng kĩ thuật ánh xạ không gian hiện tại sang không gian nhiều chiều hơn, ở đó ta có thể tìm ra siêu phẳng thỏa mãn. Sử dụng hàm $(\phi(x))$ biến đổi vector $x$ hiện tại sang không gian nhiều chiều hơn. Lúc đó hàm $f(x)$ có dạng là: $f(x)=\langle w,\phi(x)\rangle + b$. Hình 6 minh họa lý thuyết Kernel: Ở không gian ban đầu (bên trái), ta không thể tìm được siêu phẳng; sau khi chuyển sang không gian mới (bên phải) nhờ hàm $\phi(x)$ thì tìm được siêu phẳng mong muốn.
-				\begin{figure}[h!]
+			\par Trong nhiều trường hợp, ta không thể tìm được siêu phẳng (hàm \textit{f(x)}) thỏa mãn yêu cầu nằm gần với tất cả các điểm dữ liệu. Khi đó, chúng ta sử dụng kĩ thuật ánh xạ không gian hiện tại sang không gian nhiều chiều hơn, ở đó ta có thể tìm ra siêu phẳng thỏa mãn. Sử dụng hàm $(\phi(x))$ biến đổi vector $x$ hiện tại sang không gian nhiều chiều hơn. Lúc đó hàm $f(x)$ có dạng là: $f(x)=\langle w,\phi(x)\rangle + b$. Hình 6 minh họa lý thuyết Kernel: Ở không gian ban đầu (bên trái), ta không thể tìm được siêu phẳng; sau khi chuyển sang không gian mới (bên phải) nhờ hàm $\phi(x)$ thì tìm được siêu phẳng mong muốn. \\[100pt]
+	\begin{figure}[h!]
 				\includegraphics[width=\linewidth]{kernel}
-				\caption[Ý tưởng kĩ thuật Kernel]{Ý tưởng kĩ thuật Kernel (\textit{Tham khảo:} Dr. Saed Sayad, Support Vector Machine - Regression (SVR))}
+				\caption[Ý tưởng kĩ thuật Kernel]{Ý tưởng kĩ thuật Kernel  \footnotemark[1]}
 				\label{fig:svr}
 			\end{figure}
-	\section{Phương pháp đề xuất}								
+			\footnotetext[1]{\textit{Tham khảo:} Dr. Saed Sayad, Support Vector Machine - Regression (SVR)}			
+	\section{Phương pháp đề xuất}	
+							
 		\subsection{Tập dữ liệu}
-			\par \textit{foody.vn} là trang web chứa thông tin về các địa điểm ăn uống ở Việt Nam (đặc biệt là TP. Hồ Chí Minh) với lượng thông tin phong phú và đáng tin cậy. Dữ liệu được dùng cho việc phân tích được crawl từ trang web \textit{foody.vn} dùng thư viện jsoup \footnote[1]{https://jsoup.org/} và crawljax \footnote[2]{http://crawljax.com/} trên ngôn ngữ Java và được lưu trong một cơ sở dữ liệu không quan hệ (MongoDB \footnote[3]{https://www.mongodb.com/}). Jsoup và crawljax đều là các thư viện mã nguồn mở trên Java hỗ trợ việc trích xuất thông tin từ các trang web với API đơn giản và dễ sử dụng.
+			\par \textit{foody.vn} là trang web chứa thông tin về các địa điểm ăn uống ở Việt Nam (đặc biệt là TP. Hồ Chí Minh) với lượng thông tin phong phú và đáng tin cậy. Dữ liệu được dùng cho việc phân tích được crawl từ trang web \textit{foody.vn} dùng thư viện jsoup \footnote[2]{https://jsoup.org/} và crawljax \footnote[3]{http://crawljax.com/} trên ngôn ngữ Java và được lưu trong một cơ sở dữ liệu không quan hệ (MongoDB \footnote[4]{https://www.mongodb.com/}). Jsoup và crawljax đều là các thư viện mã nguồn mở trên Java hỗ trợ việc trích xuất thông tin từ các trang web với API đơn giản và dễ sử dụng.
 			\par \textbf{Dữ liệu về địa điểm:}\\
 				{\fontfamily{qcr}\selectfont
 				"type": "business"\\
@@ -775,7 +777,7 @@ Nguyễn Trọng Nghĩa - 51202370\\[1.5cm]
 					$MAE\;=\;\frac{1}{n}\sum_{i=1}^n\mid \hat{y}_{i}-y_{i}\mid$
 				\end{center}
 				\normalsize
-			\par \textbf{Sai số trung bình bình phường (MSE)}:
+			\par \textbf{Sai số trung bình bình phương (MSE)}:
 				\large
 				\begin{center}
 					$MSE\;=\;\frac{1}{n}\sum_{i=1}^n(\hat{y}_{i}-y_{i})^{2}$
@@ -804,31 +806,31 @@ Nguyễn Trọng Nghĩa - 51202370\\[1.5cm]
 
 		\begin{itemize}
 			\item Hoàn thành việc lấy dữ liệu cho bài toán.
-			\item Thực hiện phương pháp đề xuất, cân nhắc thay đổi trong phương pháp để tạo ra hệ thống dự đoán có độ chính xác cao. 
+			\item Thực hiện phương pháp đề xuất, cân nhắc thay đổi trong phương pháp để tạo ra hệ thống dự đoán có độ chính xác cao.
 		\end{itemize}
 		\newpage
-
 	\section {Tham khảo}
-\par [1]\hspace{15pt}Charu C. Aggawal, editor. “\textit{Social Network Data Analytics}” . Springer Publishing Company, ISBN 978-1-4419-8462-3, 2011
-\par [2]\hspace{15pt}Xia Hu and Huan Liu. “\textit{Text Analytics In Social Media}”. In Charu C. Aggawal and Cheng Xiang Zhai, editors, “\textit{Mining Text Data}”. Springer Publishing Company, ISBN 978-1-4614-3223-4, pp 385-414, 2012
-\par [3]\hspace{15pt}Bing Liu. “\textit{Web Data Mining}”. Springer Publishing Company, ISBN 978-3-642-19460-3, 2011
-\par [4]\hspace{15pt}Sumedh Sawant and Gina Pai. “\textit{Yelp Food Recommendation System}”. In Yelp Dataset Challenge, 2014
-\par [5]\hspace{15pt}Prerna Wivedi and Nikita Chheda. “\textit{A Hybrid Restaurant Recommender}”. In International Journal of Computer Applications (0975 – 8887), Vol. 55– No.16, 201
-\par [6]\hspace{15pt}Ji Wang, Jian Zhao, Sheng Guo and Chris North. “\textit{Clustered Layout Word Cloud for User Generated Review}”. In Yelp Dataset Challenge, Graphics Interface 2014 Montreal, 2014
-\par [7]\hspace{15pt}Narenkuma Pandian and Vaibhab Aggawal. “\textit{Are you open?}”. In Project Report, Machine Learning Course of Stanford University, 2015
-\par [8]\hspace{15pt}Kyle Carbon, Kacyn Fujii and Prasanth Veerina. “\textit{Applications of Machine Learning to Predict Yelp Ratings}”. Yelp Dataset Challenge, 2014
-\par [9]\hspace{15pt}Mingming Fan and Maryam Khademi. “\textit{Predicting a Business’ Star in Yelp from Its Reviews’ Text Alone}”. In Yelp Dataset Challenge, 2014
-\par [10]\hspace{9pt}Bryan Wood, Victor Hwang and Jennifer King. “\textit{Infering Future Bussiness Attention}”. In Yelp Dataset Challenge, 2014
-\par [11]\hspace{9pt}Kapil Jaisinghani, Ravi Todi and Zhengiy Liu. “\textit{Modeling Growth and Decline of Businesses in Yelp Network}”. In Project Report, Social and Information Network Analysis Course of Stanford University, 2013
-\par [12]\hspace{9pt}Praveenkumar Kondiloppa, Seung-Jong Park. “\textit{Modeling Business Trends based on Yelp Review}”. In Yelp Dataset Challenge, 2014 
-\par [13]\hspace{9pt}Nguyễn Minh Khôi. “\textit{Hệ thống đề xuất địa điểm dựa trên Phương pháp lai (Hybrid) trên dữ liệu Foody.vn}”. Luận Văn Thạc Sĩ, Trường Đại Học Công nghệ TP. Hồ Chí Minh, 2015
-\par [14]\hspace{9pt}Lê Quốc Nam và Nguyễn Ngọc Dũng. “\textit{Giới thiệu địa điểm trên điện thoại thông minh}”. Luận Văn Tốt Nghiệp, Trường Đại Học Bách Khoa TP. Hồ Chí Minh, 2014
-\par [15]\hspace{9pt}Dang Hung Phan and Tuan Dung Cao. “\textit{Applying Skip-gram word estimation and SVM-based classification for opinion mining Vietnamese food places text reviews}”. In Proceedings of the Fifth Symposium on Information and Communication Technology, pp. 232-239, ISBN 978-1-4503-2930-9, 2014
-\par [16]\hspace{9pt}Lindsay I Smith. “\textit{A tutorial on Principal Components Analysis}”. In Technical Report, Cornell University, USA, 2002
-\par [17]\hspace{9pt}Scikit-Learn Developers. “\textit{Scikit-Learn User Guide}” - Part "\textit{Feature Selection}".In Scikit-Learn Library, 2012
-\par [18]\hspace{9pt}Phan Thị Tươi. “\textit{Xử lý ngôn ngữ tự nhiên}”. Nhà xuất bản Đại Học Quốc Gia TP.Hồ Chí Minh, ISBN 978-604-73-1236-8, 2012
-\par [19]\hspace{9pt}Gianluca Bontempi, Souhaib Ben Taieb and Yann-Aël Le Borgne. "\textit{Machine Learning Strategies for Time Series Forecasting}". In Marie-Aude Aufaure and Esteban Zimányi, editors, "\textit{Business Intelligence}". Springer Publishing Company, ISBN 978-3-642-36317-7, pp 62-77, 2012
-\par [20]\hspace{9pt}Alex J. Smola and Bernhard Schölkopf. “\textit{Statistics and Computing}” - Chapter “\textit{A tutorial on support vector regression}”. Kluwers Academic Publishers, ISBN 1573-1375, 2004
-\par [21]\hspace{9pt}Guy Shani and Asela Gunawardana. “\textit{Recommender Systems Handbook}”- Chapter “\textit{Evaluating Recommendation Systems}”. Springer Publishing Company, ISBN 978-0-387-85820-3, 2011
-
+\begin{enumerate}[label={[\arabic*]}]
+	\item Charu C. Aggawal, editor. “\textit{Social Network Data Analytics}”. Springer Publishing Company, ISBN 978-1-4419-8462-3, 2011
+	\item Xia Hu and Huan Liu. “\textit{Text Analytics In Social Media}”. In Charu C. Aggawal and Cheng Xiang Zhai, editors, “\textit{Mining Text Data}”. Springer Publishing Company, ISBN 978-1-4614-3223-4, pp 385-414, 2012
+	\item Bing Liu. “\textit{Web Data Mining}”. Springer Publishing Company, ISBN 978-3-642-19460-3, 2011
+	\item Sumedh Sawant and Gina Pai. “\textit{Yelp Food Recommendation System}”. In Yelp Dataset Challenge, 2014
+	\item Prerna Wivedi and Nikita Chheda. “\textit{A Hybrid Restaurant Recommender}”. In International Journal of Computer Applications (0975 – 8887), Vol. 55– No.16, 2012
+	\item Ji Wang, Jian Zhao, Sheng Guo and Chris North. “\textit{Clustered Layout Word Cloud for User Generated Review}”. In Yelp Dataset Challenge, Graphics Interface 2014 Montreal, 2014
+	\item Narenkuma Pandian and Vaibhab Aggawal. “\textit{Are you open?}”. In Project Report, Machine Learning Course of Stanford University, 2015
+	\item Kyle Carbon, Kacyn Fujii and Prasanth Veerina. “\textit{Applications of Machine Learning to Predict Yelp Ratings}”. Yelp Dataset Challenge, 2014
+	\item Mingming Fan and Maryam Khademi. “\textit{Predicting a Business’ Star in Yelp from Its Reviews’ Text Alone}”. In Yelp Dataset Challenge, 2014
+	\item Bryan Wood, Victor Hwang and Jennifer King. “\textit{Infering Future Bussiness Attention}”. In Yelp Dataset Challenge, 2014
+	\item Kapil Jaisinghani, Ravi Todi and Zhengiy Liu. “\textit{Modeling Growth and Decline of Businesses in Yelp Network}”. In Project Report, Social and Information Network Analysis Course of Stanford University, 2013
+	\item Praveenkumar Kondiloppa, Seung-Jong Park. “\textit{Modeling Business Trends based on Yelp Review}”. In Yelp Dataset Challenge, 2014 
+	\item Nguyễn Minh Khôi. “\textit{Hệ thống đề xuất địa điểm dựa trên Phương pháp lai (Hybrid) trên dữ liệu Foody.vn}”. Luận Văn Thạc Sĩ, Trường Đại Học Công nghệ TP. Hồ Chí Minh, 2015
+	\item Lê Quốc Nam và Nguyễn Ngọc Dũng. “\textit{Giới thiệu địa điểm trên điện thoại thông minh}”. Luận Văn Tốt Nghiệp, Trường Đại Học Bách Khoa TP. Hồ Chí Minh, 2014
+	\item Dang Hung Phan and Tuan Dung Cao. “\textit{Applying Skip-gram word estimation and SVM-based classification for opinion mining Vietnamese food places text reviews}”. In Proceedings of the Fifth Symposium on Information and Communication Technology, pp. 232-239, ISBN 978-1-4503-2930-9, 2014
+	\item Lindsay I Smith. “\textit{A tutorial on Principal Components Analysis}”. In Technical Report, Cornell University, USA, 2002
+	\item Scikit-Learn Developers. “\textit{Scikit-Learn User Guide}” - Part "\textit{Feature Selection}".In Scikit-Learn Library, 2012
+	\item Phan Thị Tươi. “\textit{Xử lý ngôn ngữ tự nhiên}”. Nhà xuất bản Đại Học Quốc Gia TP.Hồ Chí Minh, ISBN 978-604-73-1236-8, 2012
+	\item Gianluca Bontempi, Souhaib Ben Taieb and Yann-Aël Le Borgne. "\textit{Machine Learning Strategies for Time Series Forecasting}". In Marie-Aude Aufaure and Esteban Zimányi, editors, "\textit{Business Intelligence}". Springer Publishing Company, ISBN 978-3-642-36317-7, pp 62-77, 2012
+	\item Alex J. Smola and Bernhard Schölkopf. “\textit{Statistics and Computing}” - Chapter “\textit{A tutorial on support vector regression}”. Kluwers Academic Publishers, ISBN 1573-1375, 2004
+	\item Guy Shani and Asela Gunawardana. “\textit{Recommender Systems Handbook}”- Chapter “\textit{Evaluating Recommendation Systems}”. Springer Publishing Company, ISBN 978-0-387-85820-3, 2011
+\end{enumerate}
 \end{document}
