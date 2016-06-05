@@ -12,7 +12,7 @@
 \usetikzlibrary{positioning}
 \usepackage[left=3 cm,right=3 cm,top=3cm,bottom=3cm]{geometry}
 \usepackage[labelfont=bf]{caption}
-\usepackage[bookmarks=true]{hyperref}
+\usepackage[hidelinks]{hyperref}
 \usepackage{bookmark}
 \usepackage{enumitem}
 \usepackage[bottom]{footmisc}
@@ -80,7 +80,7 @@ GS. TS. Cao Hoàng Trụ\\[1.0cm]
 \begin{flushleft} \large
 \textbf{Sinh viên thực hiện:}\\
 Nguyễn Đăng Trang- 51203957\\
-Nguyễn Trọng Nghĩa - 51202370\\[1.5cm]
+Nguyễn Trọng Nghĩa - 51202370\\[2.5cm]
 \end{flushleft}
 
 
@@ -150,7 +150,6 @@ Nguyễn Trọng Nghĩa - 51202370\\[1.5cm]
 	\newpage
   	\addcontentsline{toc}{section}{Danh sách hình vẽ}
 	\listoffigures
-	\newpage
 	\addcontentsline{toc}{section}{Danh sách bảng}
 	\listoftables
 	\newpage
@@ -438,13 +437,13 @@ Nguyễn Trọng Nghĩa - 51202370\\[1.5cm]
 				\par  \textit{Ưu điểm}
 				\par Giải thuật đơn giản và thời gian chạy nhanh.
 				\par  \textit{Nhược điểm}
-				\par Những thuộc tính tốt nhất mà thuật toán chọn ra đều ảnh hưởng độc lập đến kết quả bài toán. Tuy nhiên, đôi khi việc kết hợp các thuộc tính không tốt với nhau cũng có thể đưa ra mô hình dự đoán tốt.
+				\par Những thuộc tính tốt nhất mà thuật toán chọn ra đều ảnh hưởng độc lập đến kết quả bài toán. Tuy nhiên, đôi khi việc kết hợp các thuộc tính không tốt với nhau cũng có thể đưa ra mô hình dự đoán tốt. \\[30pt]
 			\par \textbf{Recursive Feature Elimination}
 				\par \textit{Định nghĩa} 
 				\par Recursive Feature Elimination là giải thuật xác định thuộc tính quan trọng dựa trên ý tưởng áp dụng giải thuật trên tất cả các thuộc tính, sau đó loại bớt các thuộc tính sao cho giải thuật đạt kết quả tối ưu nhất [17].
 				\par \textit{Phương pháp}
 				\begin{enumerate}
-					\item Train giải thuật trên tập các thuộc tính và sau đó gán trọng số (\textit{Ví dụ}: hệ số của mô hình tuyến tính) cho mỗi thuộc tính.
+					\item Cho giải thuật học dựa trên tập các thuộc tính và sau đó gán trọng số (\textit{Ví dụ}: hệ số của mô hình tuyến tính) cho mỗi thuộc tính.
 					\item Thuộc tính có trị tuyệt đối của trọng số tương ứng nhỏ nhất sẽ bị loại khỏi tập thuộc tính. Sau đó lặp lại bước 1. Quá trình lặp kết thúc khi giải thuật đạt được hiệu suất mong muốn hoặc đã đạt đến số thuộc tính mong muốn.
 
 				\end{enumerate}
@@ -510,6 +509,7 @@ Nguyễn Trọng Nghĩa - 51202370\\[1.5cm]
 					\caption{Minh họa mô hình SVR}
 				\label{fig:foody}
 			\end{figure}
+			\\[20pt]
 			\par \textbf{Ý tưởng}
 				\par Giả sử có tập dữ liệu gồm $l$ mẫu $\left\{\left(x_{1},y_{1}\right),\left(x_{2},y_{2}\right),...,\left(x_{l},y_{l}\right)\right\}$, với $x_{i}\in  \mathbb{R}^{n}$ và $y_{i}\in  \mathbb{R}$ với mọi i. Mục đích của mô hình SVR là đi tìm một hàm \textit{f(x)} sao cho số lượng các mẫu $\left(x_{i},y_{i}\right)$ thỏa mãn điều kiện $\mid y_{i} - f(x_{i})\mid \leq \epsilon $ ($\epsilon$ cho trước) là lớn nhất [20]. Hình 4 mô tả ý tưởng giải thuật: hàm $f(x)$ sẽ tạo ra một đường thẳng (siêu phẳng đối với không gian nhiều chiều), kết hợp giá trị $\epsilon$ tạo nên hai đường biên kèm theo (hai đường nét đứt); bài toán là tìm hàm $f(x)$ sao cho mọi điểm trong tập mẫu đều nằm trong vùng giữa hai đường biên tạo ra.
 				
@@ -548,7 +548,7 @@ Nguyễn Trọng Nghĩa - 51202370\\[1.5cm]
 			\par Ý tưởng quan trọng tiếp theo là sử dụng hàm Lagrange (Lagrange function) từ mục tiêu bài toán và các ràng buộc để tìm ra các giá trị w, b.
 
 			\par \textbf{Kĩ thuật Kernel}
-			\par Trong nhiều trường hợp, ta không thể tìm được siêu phẳng (hàm \textit{f(x)}) thỏa mãn yêu cầu nằm gần với tất cả các điểm dữ liệu. Khi đó, chúng ta sử dụng kĩ thuật ánh xạ không gian hiện tại sang không gian nhiều chiều hơn, ở đó ta có thể tìm ra siêu phẳng thỏa mãn. Sử dụng hàm $(\phi(x))$ biến đổi vector $x$ hiện tại sang không gian nhiều chiều hơn. Lúc đó hàm $f(x)$ có dạng là: $f(x)=\langle w,\phi(x)\rangle + b$. Hình 6 minh họa lý thuyết Kernel: Ở không gian ban đầu (bên trái), ta không thể tìm được siêu phẳng; sau khi chuyển sang không gian mới (bên phải) nhờ hàm $\phi(x)$ thì tìm được siêu phẳng mong muốn. \\[100pt]
+			\par Trong nhiều trường hợp, ta không thể tìm được siêu phẳng (hàm \textit{f(x)}) thỏa mãn yêu cầu nằm gần với tất cả các điểm dữ liệu. Khi đó, chúng ta có thể ánh xạ không gian hiện tại sang không gian nhiều chiều hơn, ở đó ta có thể tìm ra siêu phẳng thỏa mãn. Sử dụng hàm $(\phi(x))$ biến đổi vector $x$ hiện tại sang không gian nhiều chiều hơn. Lúc đó hàm $f(x)$ có dạng là: $f(x)=\langle w,\phi(x)\rangle + b$. Hình 6 minh họa lý thuyết Kernel: Ở không gian ban đầu (bên trái), ta không thể tìm được siêu phẳng; sau khi chuyển sang không gian mới (bên phải) nhờ hàm $\phi(x)$ thì tìm được siêu phẳng mong muốn.
 	\begin{figure}[h!]
 				\includegraphics[width=\linewidth]{kernel}
 				\caption[Ý tưởng kĩ thuật Kernel]{Ý tưởng kĩ thuật Kernel  \footnotemark[1]}
