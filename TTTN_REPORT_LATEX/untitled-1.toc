@@ -1,0 +1,19 @@
+\contentsline {section}{\numberline {1}T\IeC {\'o}m t\IeC {\'\abreve }t b\IeC {\'a}o c\IeC {\'a}o}{1}
+\contentsline {section}{\numberline {2}T\IeC {\h \ocircumflex }ng quan v\IeC {\`\ecircumflex } MXH v\IeC {\`a} Ph\IeC {\^a}n t\IeC {\'\i }ch d\IeC {\~\uhorn } li\IeC {\d \ecircumflex }u tr\IeC {\^e}n MXH}{1}
+\contentsline {subsection}{\numberline {2.1}T\IeC {\h \ocircumflex }ng quan v\IeC {\`\ecircumflex } MXH}{1}
+\contentsline {subsection}{\numberline {2.2}C\IeC {\'a}c v\IeC {\'\acircumflex }n \IeC {\dj }\IeC {\`\ecircumflex } trong Ph\IeC {\^a}n t\IeC {\'\i }ch d\IeC {\~\uhorn } li\IeC {\d \ecircumflex }u tr\IeC {\^e}n MXH}{2}
+\contentsline {section}{\numberline {3}Ki\IeC {\'\ecircumflex }n th\IeC {\'\uhorn }c n\IeC {\`\ecircumflex }n t\IeC {\h a}ng}{9}
+\contentsline {subsection}{\numberline {3.1}T\IeC {\'\ocircumflex }i \IeC {\uhorn }u t\IeC {\d \acircumflex }p thu\IeC {\d \ocircumflex }c t\IeC {\'\i }nh}{9}
+\contentsline {subsection}{\numberline {3.2}Gi\IeC {\h a}i thu\IeC {\d \acircumflex }t h\IeC {\d o}c m\IeC {\'a}y SVR}{11}
+\contentsline {subsection}{\numberline {3.3}G\IeC {\'a}n nh\IeC {\~a}n c\IeC {\d u}m t\IeC {\`\uhorn } trong X\IeC {\h \uhorn } l\IeC {\'y} ng\IeC {\^o}n ng\IeC {\~\uhorn } t\IeC {\d \uhorn } nhi\IeC {\^e}n}{12}
+\contentsline {subsection}{\numberline {3.4}Chu\IeC {\~\ocircumflex }i th\IeC {\`\ohorn }i gian (Time Series)}{12}
+\contentsline {section}{\numberline {4}T\IeC {\h \ocircumflex }ng quan \IeC {\dj }\IeC {\`\ecircumflex } t\IeC {\`a}i}{13}
+\contentsline {subsection}{\numberline {4.1}Gi\IeC {\'\ohorn }i thi\IeC {\d \ecircumflex }u \IeC {\dj }\IeC {\`\ecircumflex } t\IeC {\`a}i}{13}
+\contentsline {subsection}{\numberline {4.2}C\IeC {\'a}c nghi\IeC {\^e}n c\IeC {\'\uhorn }u li\IeC {\^e}n quan}{15}
+\contentsline {section}{\numberline {5}Ph\IeC {\uhorn }\IeC {\ohorn }ng ph\IeC {\'a}p \IeC {\dj }\IeC {\`\ecircumflex } xu\IeC {\'\acircumflex }t}{17}
+\contentsline {subsection}{\numberline {5.1}T\IeC {\d \acircumflex }p d\IeC {\~\uhorn } li\IeC {\d \ecircumflex }u}{17}
+\contentsline {subsection}{\numberline {5.2}\IeC {\DJ }\IeC {\`\ecircumflex } xu\IeC {\'\acircumflex }t t\IeC {\d \acircumflex }p thu\IeC {\d \ocircumflex }c t\IeC {\'\i }nh}{17}
+\contentsline {subsection}{\numberline {5.3}M\IeC {\^o} h\IeC {\`\i }nh d\IeC {\d \uhorn } \IeC {\dj }o\IeC {\'a}n}{20}
+\contentsline {subsection}{\numberline {5.4}C\IeC {\'a}ch \IeC {\dj }\IeC {\'a}nh gi\IeC {\'a} h\IeC {\d \ecircumflex } th\IeC {\'\ocircumflex }ng}{22}
+\contentsline {section}{\numberline {6}T\IeC {\h \ocircumflex }ng k\IeC {\'\ecircumflex }t}{23}
+\contentsline {section}{\numberline {7}Tham kh\IeC {\h a}o}{24}
