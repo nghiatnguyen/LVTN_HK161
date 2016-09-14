@@ -5,6 +5,7 @@ SET curent_path=%~dp0
 SET head=java -jar "
 SET tail=dist\DataPreprocessing.jar" "%%1"
 SET batfilepath=%curent_path%%batfilename%
+SET batfilepath=%batfilepath:\=\\%
 SET mucannotate_cmd=%head%%curent_path%%tail%
 echo %mucannotate_cmd%>MUCAnnotate.bat
 
@@ -44,6 +45,3 @@ SET text_reg_file=Windows Registry Editor Version 5.00 ^
 
 @="\"%batfilepath%\" \"%%1\""
 echo !text_reg_file!>config.reg
-
-call config.reg
-del config.reg
