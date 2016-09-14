@@ -45,3 +45,6 @@ SET text_reg_file=Windows Registry Editor Version 5.00 ^
 
 @="\"%batfilepath%\" \"%%1\""
 echo !text_reg_file!>config.reg
+
+call config.reg
+del config.reg
