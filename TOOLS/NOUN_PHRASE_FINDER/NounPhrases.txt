@@ -1,0 +1,19 @@
+PRONOUN	DEF_NP	DEM_NP	Sentence	ID	Noun Phrase
+false	false	true		1		1	 This
+false	false	false		1		2	 a fantastic case
+false	false	false		2		3	 my phone
+false	false	false		3		4	 Easy access to all buttons and features
+false	false	false		3		5	 Easy access
+false	false	false		3		6	 all buttons and features
+false	false	false		3		7	 any loss of phone reception
+false	false	false		3		8	 any loss
+false	false	false		3		9	 phone reception
+false	false	false		4		10	 most importantly it double power
+false	false	false		4		11	 most importantly
+false	false	false		4		12	 most
+false	false	false		4		13	 it double power
+true	false	false		4		14	 it
+false	false	false		4		15	 double power
+false	false	false		5		16	 Great buy
+false	false	false		6		17	 My name
+false	false	false		6		18	 Jonh
