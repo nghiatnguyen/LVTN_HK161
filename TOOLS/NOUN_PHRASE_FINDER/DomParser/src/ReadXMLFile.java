@@ -184,12 +184,16 @@ public class ReadXMLFile {
 				position = 0;
 				tam = listreviews.get(order);
 			}
+			
 				position = position + tam.substring(position).indexOf(np.get_text());
 				tam = tam.substring(0,position) + "<" + np.get_text() + ">" + 
 				tam.substring(position + np.get_text().length());
 				np.set_sentence(np.get_sentence() - count_sentence);
 				np.set_review(count_review);
 				np.set_position(position);
+			if (np.get_text().equals("it")||np.get_text().equals("I")
+				|| np.get_text().equals("It")	)
+				position = position + 2;
 		}
 		new_list_review.add(tam);
 		
