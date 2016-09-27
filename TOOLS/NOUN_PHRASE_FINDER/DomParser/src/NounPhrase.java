@@ -1,8 +1,9 @@
 public class NounPhrase {
 	private int id;
-	//NOTE: text start with character " ", example: " Trang"
 	private String text;
 	private int sentence;
+	private int review;
+	private int position;
 	
 	void set_id(int id){
 		this.id = id;
@@ -16,6 +17,14 @@ public class NounPhrase {
 		this.sentence = sentence;
 	}
 	
+	void set_review(int review){
+		this.review = review;
+	}
+	
+	void set_position(int position){
+		this.position = position;
+	}
+	
 	int get_id(){
 		return this.id;
 	}
@@ -26,5 +35,13 @@ public class NounPhrase {
 	
 	String get_text(){
 		return this.text;
+	}
+	
+	int get_review(){
+		return this.review;
+	}
+	
+	int get_position(){
+		return this.position;
 	}
 }
