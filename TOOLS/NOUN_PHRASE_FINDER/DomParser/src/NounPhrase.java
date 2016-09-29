@@ -4,6 +4,7 @@ public class NounPhrase {
 	private int sentence;
 	private int review;
 	private int position;
+	private int old_position;
 	
 	void set_id(int id){
 		this.id = id;
@@ -25,6 +26,10 @@ public class NounPhrase {
 		this.position = position;
 	}
 	
+	void set_old_position(int old_position){
+		this.old_position = old_position;
+	}
+	
 	int get_id(){
 		return this.id;
 	}
@@ -43,5 +48,9 @@ public class NounPhrase {
 	
 	int get_position(){
 		return this.position;
+	}
+	
+	int get_old_position(){
+		return this.old_position;
 	}
 }

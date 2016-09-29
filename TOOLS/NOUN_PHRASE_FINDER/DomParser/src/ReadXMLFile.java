@@ -180,7 +180,7 @@ public class ReadXMLFile {
 			writer.println(check.check_Pronoun(np)+ "\t" + check.check_Definite_NP(np)+ "\t" + 
 					check.check_Demonstrative_NP(np)+ "\t\t" + check.check_Proper_name(np) 
 					+ "\t\t" + np.get_review() + "\t\t" + np.get_sentence()
-					 + "\t\t\t" + np.get_position() + "\t\t" + np.get_id() + "\t" 
+					 + "\t\t\t" + np.get_position() + "\t" + np.get_old_position() + "\t" + np.get_id() + "\t" 
 					+ "[" + np.get_text() + "]" + "\t["+ check.get_main_noun(np)+ "]");
 		}
 		writer.close();
@@ -211,6 +211,7 @@ public class ReadXMLFile {
 				np.set_sentence(np.get_sentence() - count_sentence);
 				np.set_review(count_review);
 				np.set_position(position);
+				np.set_old_position(position - count_times(tam.substring(0,position),'<') - count_times(tam.substring(0,position),'>'));
 			if (np.get_text().equals("it")||np.get_text().equals("I")
 				|| np.get_text().equals("It")	)
 				position = position + 2;
@@ -249,6 +250,16 @@ public class ReadXMLFile {
 	}
 	else
 		return false;
+	}
+	
+	static int count_times(String s, char t){
+		int counter = 0;
+		for( int i=0; i<s.length(); i++ ) {
+		    if( s.charAt(i) == t ) {
+		        counter++;
+		    } 
+		}
+		return counter;
 	}
 
 }
