@@ -22,10 +22,12 @@ public class Checker {
 		    		"me", "you", "him", "her", "us", "them"));
 	
 	
+	//Get the first letter of Noun Phrase and change it to lower case 
+	//but if Noun Phrase includes just one letter return empty ""
 	public String get_first_letter(NounPhrase np){
 		String tam;
 		if (np.get_text().indexOf(' ')== -1)
-			tam = np.get_text();
+			tam = "";
 		else
 			tam = np.get_text().substring(0,np.get_text().indexOf(' '));
 		return tam.toLowerCase();

@@ -20,7 +20,12 @@ import java.util.regex.Pattern;
 public class ReadXMLFile {
 
     static ArrayList<String> new_list_review = new ArrayList<String>();
-    //List dataset of all reviews
+  //List of reviews
+    static ArrayList<String> list_reviews = new ArrayList<String>();
+    // List of NounPhares
+    static ArrayList<NounPhrase> list_NPs = new ArrayList<NounPhrase>();
+    // List of Opinion words
+    static ArrayList<Opinion_Word> list_OWs = new ArrayList<Opinion_Word>();
     private static String sDataset = null;
     private static BufferedReader buffReaderDict;
     private static BufferedReader bufferedReader;
@@ -31,8 +36,8 @@ public class ReadXMLFile {
     
     public static void main(String argv[]) {
         long startTime = System.currentTimeMillis();
-        // List of NounPhares
-        ArrayList<NounPhrase> list_NPs = new ArrayList<NounPhrase>();
+        
+        
         //Added by Nghia
         ArrayList<Token> list_Tokens = new ArrayList<Token>();
         //End of Adding
@@ -44,11 +49,14 @@ public class ReadXMLFile {
         //Regex for getting text of NP
         String pattern1 = "([(])([^()\\.]|\\$)+(\\s([^()])*)([)])";
         Pattern r1 = Pattern.compile(pattern1);
+        //Regex for getting Opinion_Word;
+        String pattern2 = "([(]JJ )([A-Za-z]+)[)]";
+        Pattern r2 = Pattern.compile(pattern2);
         // Regex for get the number of sentences in each reviews.
-        String pattern_sen = "[.!?]+";
-        Pattern r2 = Pattern.compile(pattern_sen);
+//        String pattern_sen = "[.!?]+";
+//        Pattern r2 = Pattern.compile(pattern_sen);
+//        ArrayList<String> new_list = new ArrayList<String>();
         String parse;
-        ArrayList<String> new_list = new ArrayList<String>();
 
         int count_id = 0;
         int count_sentence = 0;
@@ -66,7 +74,8 @@ public class ReadXMLFile {
 
             FileReader fileReader = new FileReader(fInput);
             bufferedReader = new BufferedReader(fileReader);
-            ArrayList<String> list_reviews = new ArrayList<String>();
+            
+
             String line;
             //read input file line by line and count the number sentences of each lines
             while ((line = bufferedReader.readLine()) != null) {
@@ -137,6 +146,20 @@ public class ReadXMLFile {
                     Matcher m = r.matcher(parse);
                     int start = 0;
                     Matcher m1;
+                    //Regex for getting Opinion words
+                    Matcher m2 = r2.matcher(parse);
+                    int id_ow = 0;
+                    while (m2.find()){
+                    	 id_ow++;
+                    	 if (Checker.check_adj_in_list(m2.group(2))){
+//	                    	 System.out.println("Found value:" + m2.group(2) );
+	                    	 Opinion_Word ow = new Opinion_Word();
+	                    	 ow.set_id(id_ow);
+	                    	 ow.set_index(count_sentence);
+	                    	 ow.set_text(m2.group(2));
+	                    	 list_OWs.add(ow);
+                    	 }
+                    }
                     while (m.find(start)) {
                         count_id++;
                         tam = "";
@@ -171,6 +194,7 @@ public class ReadXMLFile {
                         NounPhrase np = new NounPhrase();
                         np.set_id(count_id);
                         np.set_sentence(count_sentence);
+                        np.set_index(count_sentence);
                         np.set_text(tam.substring(1));
                         list_NPs.add(np);
                         start = m.start() + 1;
@@ -178,7 +202,7 @@ public class ReadXMLFile {
                 }
 //			System.out.println("-----------------------");
             }
-//            annotation(list_reviews, list_NPs);
+            annotation(list_reviews, list_NPs);
             //Added by Nghia
 //            FeatureExtractor.initial_reviews_and_tokens(list_reviews, list_Tokens);
             //End of adding
@@ -198,16 +222,19 @@ public class ReadXMLFile {
             //End of Adding
             
           //check function checker.count_word
-    		Checker check1 = new Checker();
-    		check1.count_word("case");
-    		check1.count_NP_and_OW("i", "HEadset");
+//    		Checker check1 = new Checker();
+//    		check1.count_word("case");
+//    		check1.count_NP_and_OW("i", "HEadset");
+            
+            //test review and position of opinion words
+            set_np_liking_ow();
 
             System.out.println("Done!");
             long endTime = System.currentTimeMillis();
             long totalTime = endTime - startTime;
             System.out.println("Time: " + totalTime);
 
-//            write_TXT(list_NPs);
+            write_TXT(list_NPs);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -218,11 +245,12 @@ public class ReadXMLFile {
     static void write_TXT(ArrayList<NounPhrase> listNPs) throws FileNotFoundException, UnsupportedEncodingException {
         Checker check = new Checker();
         PrintWriter writer = new PrintWriter("NounPhrases.txt", "UTF-8");
-        writer.println("PRONOUN\tDEF_NP\tDEM_NP\tProper_name\tReview\tSentence\tPosition\tID\tNoun Phrase\tMain Noun");
+        writer.println("PRONOUN\tDEF_NP\tDEM_NP\tProper_name\tReview\tSentence\tOpinion\tPosition\tID\tNoun Phrase\tMain Noun");
         for (NounPhrase np : listNPs) {
             writer.println(check.check_Pronoun(np) + "\t" + check.check_Definite_NP(np) + "\t"
                     + check.check_Demonstrative_NP(np) + "\t\t" + check.check_Proper_name(np)
                     + "\t\t" + np.get_review() + "\t\t" + np.get_sentence()
+                    + "\t\t" + np.get_opinion_word()
                     + "\t\t\t" + np.get_position() + "\t\t" + np.get_old_position() + "\t" + np.get_id() + "\t"
                     + "[" + np.get_text() + "]" + "\t[" + check.get_main_noun(np) + "]");
         }
@@ -232,13 +260,13 @@ public class ReadXMLFile {
     static void annotation(ArrayList<String> listreviews, ArrayList<NounPhrase> listNPs) throws FileNotFoundException, UnsupportedEncodingException {
         int order = 0;
         int position = 0;
-        int count_sentence = 0;
+        int count_sen = 0;
         int count_review = 1;
         String tam = listreviews.get(0);
         for (NounPhrase np : listNPs) {
 //			System.out.println(np.get_id());
             if (tam.substring(position).indexOf(np.get_text()) == -1) {
-                count_sentence = np.get_sentence() - 1;
+                count_sen = np.get_sentence() - 1;
 //				System.out.println("------"+ order +"-------");
 //				System.out.println(tam);
                 new_list_review.add(tam);
@@ -251,7 +279,7 @@ public class ReadXMLFile {
             position = position + tam.substring(position).indexOf(np.get_text());
             tam = tam.substring(0, position) + "<" + np.get_text() + ">"
                     + tam.substring(position + np.get_text().length());
-            np.set_sentence(np.get_sentence() - count_sentence);
+            np.set_sentence(np.get_sentence() - count_sen);
             np.set_review(count_review);
             np.set_position(position);
             np.set_old_position(position - count_times(tam.substring(0, position), '<') - count_times(tam.substring(0, position), '>'));
@@ -302,5 +330,111 @@ public class ReadXMLFile {
             }
         }
         return counter;
+    }
+    
+    //find a list of candidate nps liking with a opinion word
+    static ArrayList<NounPhrase> list_candidate(Opinion_Word f_ow){
+    	ArrayList<NounPhrase> f_list = new ArrayList<NounPhrase>();
+    	for (NounPhrase np: list_NPs){
+    		if (np.get_index() == f_ow.get_index()){
+    			f_ow.set_review(np.get_review());
+    			f_list.add(np);
+    		}
+    	}
+    	return f_list;
+    }
+    
+    //find a review and position of a opinion word, besides find a list of candidate nps liking with a opinion word
+    static ArrayList<NounPhrase> set_review_of_ow(Opinion_Word f_ow){
+//    	System.out.println(f_ow);
+    	ArrayList<NounPhrase> f_list = new ArrayList<NounPhrase>();
+    	for (NounPhrase np: list_NPs){
+    		if (np.get_index() == f_ow.get_index()){
+    			f_ow.set_review(np.get_review());
+    			f_list.add(np);
+    		}
+    	}
+    	Matcher m = Pattern.compile("(\\b" + f_ow.get_text() + "\\b)").matcher(list_reviews.get(f_ow.get_review()-1));
+//    	System.out.println(f_ow.get_review());
+    	while(m.find())
+		    f_ow.set_position(m.start());
+//    	System.out.println(list_reviews.get(f_ow.get_review()-1).indexOf((f_ow.get_text())));
+//    	System.out.println(f_ow.get_position());
+    	return f_list;
+    }
+
+    
+    //find NP associating with OW, and set a review and position for each opinion word
+    static void set_np_liking_ow(){
+    	 for (Opinion_Word f_ow : list_OWs){
+         	 ArrayList<NounPhrase> f_listnps = set_review_of_ow(f_ow);
+         	 //if List of candidate NPs is empty
+         	 if (f_listnps.isEmpty()){
+         	 }
+         	 else {
+         		 //If all candidate NPs are after OW, get the nearest NP after OW 
+         		if (f_listnps.get(0).get_old_position() > f_ow.get_position()){
+    				 f_listnps.get(0).set_opinion_word(f_ow.get_text());
+    				 f_ow.set_id_np(f_listnps.get(0).get_id());
+    			 }
+         		else {
+         			//If OW is nested in NP, OW associates with that NP
+         			boolean f_check = false;
+//         			for (NounPhrase f_np : f_listnps){
+//	          			 if (f_np.get_text().indexOf(f_ow.get_text()) != -1){
+//	          				 f_np.set_opinion_word(f_ow.get_text());
+//	          				 f_ow.set_id_np(f_np.get_id());
+//	          				 f_check = true;
+//	          				 f_np.
+//	          			 }
+//         			}
+         			int f_tam = 0;
+         			for (int i = 0; i< f_listnps.size(); i++){
+         				if (f_listnps.get(i).get_text().indexOf(f_ow.get_text()) != -1){
+         					f_tam = i;
+         					f_check = true;	
+         				}
+         			}
+         			if (f_check == true){
+         				f_ow.set_id_np(f_listnps.get(f_tam).get_id());
+        				f_listnps.get(f_tam).set_opinion_word(f_ow.get_text());
+         			}
+         			else {
+         				//If the sentence is a exclamatory sentence 
+             			if ((list_reviews.get(f_ow.get_review()-1).indexOf("how " + f_ow.get_text()) != -1)
+            					 || (list_reviews.get(f_ow.get_review()-1).indexOf("How " + f_ow.get_text()) != -1)){
+             				for (NounPhrase f_np : f_listnps){
+             					//If OW is nested in NP, OW associates with that NP
+    	               			 if (f_np.get_text().indexOf(f_ow.get_text()) != -1){
+    	               				 f_np.set_opinion_word(f_ow.get_text());
+    	               				 f_ow.set_id_np(f_np.get_id());
+    	               				 break;
+    	               			 }
+    	         				 if (f_np.get_old_position() > f_ow.get_position()){
+    	        					 f_np.set_opinion_word(f_ow.get_text());
+    	            				 f_ow.set_id_np(f_np.get_id());
+    	            				 break;
+    	        				 }
+             				}
+            			 } else {
+            				 	int f_sub = -1000;
+            				 	int f_id = 0;
+    	        				for (int i = 0; i < f_listnps.size(); i++){
+    	        					int f_sub_tam = f_listnps.get(i).get_old_position() + f_listnps.get(i).get_text().length() - f_ow.get_position();
+    	        					if ((f_sub_tam < 0) && (f_sub_tam) > f_sub){
+    	        						 f_sub = f_sub_tam;
+    	        						 f_id = i;
+    	        					 }
+    	        				}
+    	        				if (f_id != 0){
+	    	        				f_ow.set_id_np(f_listnps.get(f_id).get_id());
+	    	        				f_listnps.get(f_id).set_opinion_word(f_ow.get_text());
+    	        				}
+            			}
+         			}		 
+         		 }
+         	 } 
+         	 
+         }
     }
 }

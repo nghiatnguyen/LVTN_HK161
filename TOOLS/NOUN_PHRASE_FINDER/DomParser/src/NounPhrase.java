@@ -5,6 +5,20 @@ public class NounPhrase {
 	private int review;
 	private int position;
 	private int old_position;
+	//position of np's sentence in all review
+	private int index;
+	private String opinion_word;
+	
+	public NounPhrase(){
+		id = 0;
+		text = "";
+		sentence = 0;
+		review = 0;
+		position = 0;
+		old_position = 0;
+		index = 0;
+		opinion_word = "";
+	}
 	
 	void set_id(int id){
 		this.id = id;
@@ -30,6 +44,14 @@ public class NounPhrase {
 		this.old_position = old_position;
 	}
 	
+	void set_index(int index){
+		this.index = index;
+	}
+	
+	void set_opinion_word(String ow){
+		this.opinion_word = ow;
+	}
+	
 	int get_id(){
 		return this.id;
 	}
@@ -52,5 +74,13 @@ public class NounPhrase {
 	
 	int get_old_position(){
 		return this.old_position;
+	}
+	
+	int get_index(){
+		return this.index;
+	}
+	
+	String get_opinion_word(){
+		return this.opinion_word;
 	}
 }
