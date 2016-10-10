@@ -6,6 +6,7 @@
 package coreferenceresolver;
 
 import edu.stanford.nlp.ling.CoreAnnotations.CharacterOffsetBeginAnnotation;
+import edu.stanford.nlp.ling.CoreAnnotations.CharacterOffsetEndAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.NamedEntityTagAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.PartOfSpeechAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.SentencesAnnotation;
@@ -19,6 +20,11 @@ import edu.stanford.nlp.trees.CollinsHeadFinder;
 import edu.stanford.nlp.trees.Tree;
 import edu.stanford.nlp.trees.TreeCoreAnnotations.TreeAnnotation;
 import edu.stanford.nlp.util.CoreMap;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -29,91 +35,145 @@ import java.util.Properties;
  */
 public class StanfordUtil {
 
-    private String documentText;
+    private File documentFile;
     private Properties props;
     private Annotation document;
     private CollinsHeadFinder headFinder;
-    private List nounPhrases;
-    private List reviews;
+    public static List<NounPhrase> nounPhrases;
+    public static List<Review> reviews;
+    private StanfordCoreNLP pipeline;
 
-    public StanfordUtil(String documentText) {
-        this.documentText = documentText;
+    public StanfordUtil(File documentFile) {
+        this.documentFile = documentFile;
         props = new Properties();
-        props.put("annotators", "tokenize, ssplit, pos, lemma, parse");
-        StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
-
-        // create an empty Annotation just with the given text
-        document = new Annotation(documentText);
-
-        // run all Annotators on this text
-        pipeline.annotate(document);
+        props.put("annotators", "tokenize, ssplit, pos, parse");
+        pipeline = new StanfordCoreNLP(props);
 
         headFinder = new CollinsHeadFinder();
 
         nounPhrases = new ArrayList<>();
-        
+
         reviews = new ArrayList<>();
     }
 
-    public void init() {
-        List<CoreMap> sentences = document.get(SentencesAnnotation.class);
+    public void init() throws FileNotFoundException, IOException {
 
-        //Begin extracting from paragraphs
-        List<Sentence> convertedSentences = new ArrayList<>();
-        for (CoreMap sentence : sentences) {
-            int sentenceOffsetStart = sentence.get(CharacterOffsetBeginAnnotation.class);
-            //Check for BREAK CHARACTER, the end of a paragraph
-            if (sentenceOffsetStart > 1 && documentText.substring(sentenceOffsetStart - 1, sentenceOffsetStart).equals("\n") && !convertedSentences.isEmpty()) {
-                Review current = new Review(convertedSentences);
-                reviews.add(current);
-                convertedSentences = new ArrayList<>();
+        FileReader fileReader = new FileReader(documentFile);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+        String reviewLine;
+        int reviewId = 0;
+        int sentenceId = 0;
+        //read input file line by line and count the number sentences of each lines
+        while ((reviewLine = bufferedReader.readLine()) != null) {
+            sentenceId = 0;
+            Review newReview = new Review();
+
+            //Add to reviews list
+            newReview.setRawContent(reviewLine);            
+
+            // create an empty Annotation just with the given text
+            document = new Annotation(reviewLine);
+
+            // run all Annotators on this text
+            pipeline.annotate(document);
+            List<CoreMap> sentences = document.get(SentencesAnnotation.class);
+
+            //Begin extracting from paragraphs
+            for (CoreMap sentence : sentences) {
+                Sentence newSentence = new Sentence();
+                newSentence.setReviewId(reviewId);
+                newSentence.setRawContent(sentence.toString());
+                for (CoreLabel token : sentence.get(TokensAnnotation.class)) {
+                    Token newToken = new Token();
+                    // this is the text of the token
+                    String word = token.get(TextAnnotation.class);
+                    // this is the POS tag of the token
+                    String pos = token.get(PartOfSpeechAnnotation.class);
+
+                    int offsetBegin = token.get(CharacterOffsetBeginAnnotation.class);
+                    newToken.setOffsetBegin(offsetBegin);
+
+                    int offsetEnd = token.get(CharacterOffsetEndAnnotation.class);
+                    newToken.setOffsetEnd(offsetEnd);
+
+                    newToken.setWord(word);
+                    newToken.setPOS(pos);
+
+                    newSentence.addToken(newToken);
+                }
+
+                // this is the parse tree of the current sentence
+                Tree sentenceTree = sentence.get(TreeAnnotation.class);
+                nounPhraseFind(sentenceTree, newReview, reviewId, sentenceId);
+
+                newReview.addSentence(newSentence);
+
+                ++sentenceId;
+
             }
-            convertedSentences.add(new Sentence());                        
+            reviews.add(newReview);
+            ++reviewId;
         }
-        
-        Review current = new Review(convertedSentences);
-        reviews.add(current);
 
-        for (CoreMap sentence : sentences) {
-            for (CoreLabel token : sentence.get(TokensAnnotation.class)) {
-                // this is the text of the token
-                String word = token.get(TextAnnotation.class);
-                // this is the POS tag of the token
-                String pos = token.get(PartOfSpeechAnnotation.class);
-                // this is the NER label of the token
-                String ne = token.get(NamedEntityTagAnnotation.class);
-            }
-
-            // this is the parse tree of the current sentence
-            Tree sentenceTree = sentence.get(TreeAnnotation.class);
-            nounPhraseFind(sentenceTree);
-        }
-        int test = 0;
     }
 
-    public void nounPhraseFind(Tree rootNode) {
+    public void nounPhraseFind(Tree rootNode, Review review, int reviewId, int sentenceId) {
         if (rootNode == null || rootNode.isLeaf()) {
             return;
         }
 
-        if (rootNode.value().equals("NP")) {                        
-            CoreLabel rootNodeLabel = (CoreLabel) rootNode.getLeaves().get(0).label();
-            HasOffset ofs = (HasOffset) rootNodeLabel;
-            System.out.println("Offset Begin = " + ofs.beginPosition());
+        if (rootNode.value().equals("NP")) {
+            List leaves = rootNode.getLeaves();
+            CoreLabel firstLeafLabel = (CoreLabel) rootNode.getLeaves().get(0).label();
+            HasOffset firstOfs = (HasOffset) firstLeafLabel;
+            CoreLabel lastNodeLabel = (CoreLabel) rootNode.getLeaves().get(leaves.size() - 1).label();
+            HasOffset lastOfs = (HasOffset) lastNodeLabel;
             NounPhrase np = new NounPhrase();
             np.setNpNode(rootNode);
             np.setHeadNode(rootNode.headTerminal(headFinder));
-            nounPhrases.add(rootNode);
-            System.out.println("Noun Phrase detected");
-            System.out.println("Text = " + rootNode.yieldWords());
-            System.out.println("Head = " + rootNode.headTerminal(headFinder));
-            CoreLabel headLabel = (CoreLabel) rootNode.headTerminal(headFinder).label();
-            System.out.println("Head Label = " + headLabel.get(PartOfSpeechAnnotation.class));
-            System.out.println("---------------------------------");
+            np.setOffsetBegin(firstOfs.beginPosition());
+            np.setOffsetEnd(lastOfs.endPosition());
+            np.setReviewId(reviewId);
+            np.setSentenceId(sentenceId);
+            nounPhrases.add(np);
+            review.addNounPhrase(np);
         }
 
         for (Tree child : rootNode.children()) {
-            nounPhraseFind(child);
+            nounPhraseFind(child, review,reviewId, sentenceId);
         }
+    }
+
+    public static void test() {
+//        for (int i = 0; i < nounPhrases.size(); ++i){
+//            System.out.println("------------");
+//            System.out.println("NP words: " + nounPhrases.get(i).getNpNode().getLeaves());
+//            System.out.println("NP head label: " + nounPhrases.get(i).getHeadLabel());
+//            System.out.println("NP head: " + nounPhrases.get(i).getHeadNode());
+//            System.out.println("NP begin: " + nounPhrases.get(i).getOffsetBegin());
+//            System.out.println("NP end: " + nounPhrases.get(i).getOffsetEnd());
+//            System.out.println("NP review: " + nounPhrases.get(i).getReviewId());
+//            System.out.println("NP sentence: " + nounPhrases.get(i).getSentenceId());
+//            System.out.println("------------");
+//        }
+        Review testReview = reviews.get(3);
+        
+        for (NounPhrase np : testReview.getNounPhrases()){
+            System.out.println(np.getNpNode());
+        }
+
+//        System.out.println("Sentences size: " + testReview.getSentences().size());
+//        List<Sentence> sentences = testReview.getSentences();
+//        for (Sentence sen : sentences) {
+//            System.out.println("-----------");
+//            System.out.println(sen.getRawContent());
+//            for (Token token : sen.getTokens()) {
+//                System.out.println("Token Word: " + token.getWord());
+//                System.out.println("Token POS: " + token.getPOS());
+//                System.out.println("Token offset begin: " + token.getOffsetBegin());
+//            }
+//            System.out.println("-----------");
+//        }        
     }
 }

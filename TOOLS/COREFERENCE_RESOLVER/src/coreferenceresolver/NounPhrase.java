@@ -14,11 +14,14 @@ import edu.stanford.nlp.trees.Tree;
  * @author TRONGNGHIA
  */
 public class NounPhrase {
+
     private Tree npNode;
     private Tree headNode;
     private String headLabel;
     private int sentenceId;
     private int reviewId;
+    private int offsetBegin;
+    private int offsetEnd;
 
     /**
      * @return the npNode
@@ -47,7 +50,14 @@ public class NounPhrase {
     public void setHeadNode(Tree headNode) {
         this.headNode = headNode;
         CoreLabel label = (CoreLabel) headNode.label();
-        this.headLabel = label.get(CoreAnnotations.PartOfSpeechAnnotation.class);
+        this.setHeadLabel(label.get(CoreAnnotations.PartOfSpeechAnnotation.class));
+    }
+
+    /**
+     * @param headLabel the headLabel to set
+     */
+    public void setHeadLabel(String headLabel) {
+        this.headLabel = headLabel;
     }
 
     /**
@@ -83,5 +93,33 @@ public class NounPhrase {
      */
     public void setReviewId(int reviewId) {
         this.reviewId = reviewId;
+    }
+
+    /**
+     * @return the offsetBegin
+     */
+    public int getOffsetBegin() {
+        return offsetBegin;
+    }
+
+    /**
+     * @param offsetBegin the offsetBegin to set
+     */
+    public void setOffsetBegin(int offsetBegin) {
+        this.offsetBegin = offsetBegin;
+    }
+
+    /**
+     * @return the offsetEnd
+     */
+    public int getOffsetEnd() {
+        return offsetEnd;
+    }
+
+    /**
+     * @param offsetEnd the offsetEnd to set
+     */
+    public void setOffsetEnd(int offsetEnd) {
+        this.offsetEnd = offsetEnd;
     }
 }

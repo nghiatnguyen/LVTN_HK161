@@ -5,18 +5,22 @@
  */
 package coreferenceresolver;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author TRONGNGHIA
  */
-public class Review {
+public class Review {    
 
     private List<Sentence> sentences;
+    private List<NounPhrase> nounPhrases;
+    private String rawContent;
 
-    public Review(List<Sentence> sentences) {
-        this.sentences = sentences;
+    public Review() {
+        sentences = new ArrayList<>();
+        nounPhrases = new ArrayList<>();
     }
 
     /**
@@ -27,9 +31,37 @@ public class Review {
     }
 
     /**
-     * @param sentences the sentences to set
+     * @param sentenceAdded the sentences to set
      */
-    public void setSentences(List<Sentence> sentences) {
-        this.sentences = sentences;
+    public void addSentence(Sentence sentenceAdded) {
+        this.sentences.add(sentenceAdded);
+    }
+
+    /**
+     * @return the rawContent
+     */
+    public String getRawContent() {
+        return rawContent;
+    }
+
+    /**
+     * @param rawContent the rawContent to set
+     */
+    public void setRawContent(String rawContent) {
+        this.rawContent = rawContent;
+    }
+    
+    /**
+     * @return the nounPhrases
+     */
+    public List<NounPhrase> getNounPhrases() {
+        return nounPhrases;
+    }
+
+    /**
+     * @param nounPhraseAdded the nounPhrase to set
+     */
+    public void addNounPhrase(NounPhrase nounPhraseAdded) {
+        this.nounPhrases.add(nounPhraseAdded);
     }
 }

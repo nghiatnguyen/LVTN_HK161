@@ -10,34 +10,65 @@ package coreferenceresolver;
  * @author TRONGNGHIA
  */
 public class Token {
-    private int sentenceId;
-    private int reviewId;
+
+    private String word;
+    private String POS;
+    private int offsetBegin;
+    private int offsetEnd;
 
     /**
-     * @return the sentenceId
+     * @return the word
      */
-    public int getSentenceId() {
-        return sentenceId;
+    public String getWord() {
+        return word;
     }
 
     /**
-     * @param sentenceId the sentenceId to set
+     * @param word the word to set
      */
-    public void setSentenceId(int sentenceId) {
-        this.sentenceId = sentenceId;
+    public void setWord(String word) {
+        this.word = word;
     }
 
     /**
-     * @return the reviewId
+     * @return the POS
      */
-    public int getReviewId() {
-        return reviewId;
+    public String getPOS() {
+        return POS;
     }
 
     /**
-     * @param reviewId the reviewId to set
+     * @param POS the POS to set
      */
-    public void setReviewId(int reviewId) {
-        this.reviewId = reviewId;
+    public void setPOS(String POS) {
+        this.POS = POS;
+    }
+
+    /**
+     * @return the offsetBegin
+     */
+    public int getOffsetBegin() {
+        return offsetBegin;
+    }
+
+    /**
+     * @param offsetBegin the offsetBegin to set
+     */
+    public void setOffsetBegin(int offsetBegin) {
+        this.offsetBegin = offsetBegin;
+    }
+
+    /**
+     * @return the offsetEnd
+     */
+    public int getOffsetEnd() {
+        return offsetEnd;
+    }
+
+    /**
+     * @param offsetEnd the offsetEnd to set
+     */
+    public void setOffsetEnd(int offsetEnd) {
+        this.offsetEnd = offsetEnd;
     }
 }

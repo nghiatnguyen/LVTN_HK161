@@ -5,6 +5,7 @@
  */
 package coreferenceresolver;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,9 +13,15 @@ import java.util.List;
  * @author TRONGNGHIA
  */
 public class Sentence {
+
     private List<Token> tokens;
     private List<NounPhrase> nounPhrases;
     private int reviewId;
+    private String rawContent;
+
+    public Sentence() {
+        tokens = new ArrayList<>();
+    }
 
     /**
      * @return the tokens
@@ -24,10 +31,10 @@ public class Sentence {
     }
 
     /**
-     * @param tokens the tokens to set
+     * @param tokenAdded the tokens to set
      */
-    public void setTokens(List<Token> tokens) {
-        this.tokens = tokens;
+    public void addToken(Token tokenAdded) {
+        this.tokens.add(tokenAdded);
     }
 
     /**
@@ -38,10 +45,10 @@ public class Sentence {
     }
 
     /**
-     * @param nounPhrases the nounPhrases to set
+     * @param nounPhraseAdded the nounPhrases to set
      */
-    public void setNounPhrases(List<NounPhrase> nounPhrases) {
-        this.nounPhrases = nounPhrases;
+    public void setNounPhrases(NounPhrase nounPhraseAdded) {
+        this.nounPhrases.add(nounPhraseAdded);
     }
 
     /**
@@ -56,5 +63,19 @@ public class Sentence {
      */
     public void setReviewId(int reviewId) {
         this.reviewId = reviewId;
+    }
+
+    /**
+     * @return the rawContent
+     */
+    public String getRawContent() {
+        return rawContent;
+    }
+
+    /**
+     * @param rawContent the rawContent to set
+     */
+    public void setRawContent(String rawContent) {
+        this.rawContent = rawContent;
     }
 }
