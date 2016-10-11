@@ -277,7 +277,7 @@ public class FeatureExtractor {
 		}
 	}
   	
-  //To compute the number of times Noun Phare appearing in the sentences
+  //To compute the number of times a word appearing in the sentences
   	public static int count_word(String word){
   		String input = Main.get_sDataset();
   		Matcher m = Pattern.compile("\\b" + word.toLowerCase() + "\\b").matcher(input);
@@ -288,8 +288,8 @@ public class FeatureExtractor {
   		return matches;
   	}
   	
-  //To compute the number of times Noun Phrase and Opinion Word appearing together in the sentences.
-  	public static int count_NP_and_OW(String np, String ow){
+  //To compute the number of times 2 words appearing together in the sentences.
+  	public static int count_two_words(String np, String ow){
   		String input = Main.get_sDataset();
   		Matcher m = Pattern.compile("(\\b" + np.toLowerCase() + "\\b)[^.]+(\\b" + ow.toLowerCase() + "\\b)").matcher(input);
   		int matches = 0;
@@ -306,4 +306,86 @@ public class FeatureExtractor {
   		else
   			return false;
   	} 
+  	
+  	public static boolean has_Between_Extract(Review review, NounPhrase np1, NounPhrase np2) {
+            if (np1.getSentenceId() == np2.getSentenceId()) {
+                Sentence curSentence = review.getSentences().get(np1.getSentenceId());
+                if (np1.getOffsetEnd() < np2.getOffsetBegin()){
+                	for (int i = 0; i < curSentence.getTokens().size(); i++)
+                		if (curSentence.getTokens().get(i).getOffsetBegin() > np1.getOffsetEnd()
+                				&& curSentence.getTokens().get(i).getOffsetEnd() < np2.getOffsetBegin()){
+                			if (curSentence.getTokens().get(i).getWord().equals("has")
+                        			|| curSentence.getTokens().get(i).getWord().equals("have")
+                        			|| curSentence.getTokens().get(i).getWord().equals("had")){
+                				if (curSentence.getTokens().get(i+1).getWord().equals("to")||
+                						curSentence.getTokens().get(i+1).getPOS().equals("VBN"))
+                					return false;
+                				return true;
+                			}		
+                		}
+                }
+                else if (np2.getOffsetEnd() < np1.getOffsetBegin()){
+                	for (int i = 0; i < curSentence.getTokens().size(); i++)
+                		if (curSentence.getTokens().get(i).getOffsetBegin() > np2.getOffsetEnd()
+                				&& curSentence.getTokens().get(i).getOffsetEnd() < np1.getOffsetBegin()){
+                			if (curSentence.getTokens().get(i).getWord().equals("has")
+                        			|| curSentence.getTokens().get(i).getWord().equals("have")
+                        			|| curSentence.getTokens().get(i).getWord().equals("had")){
+                				if (curSentence.getTokens().get(i+1).getWord().equals("to")||
+                						curSentence.getTokens().get(i+1).getPOS().equals("VBN"))
+                					return false;
+                				return true;
+                			}		
+                		}
+                }
+        }
+
+        return false;
+    }
+  	
+  	public static void set_NP_for_OP_in_sentence(Sentence fSentence){
+  		for (Token token :fSentence.getTokens()){
+  			//get opinion word in the sentence
+  			if (token.getPOS().toString().equals("JJ") && 
+  					check_adj_in_list(token.getWord().toString())){
+  				boolean check = false;
+  				//if OW is nested in NP -> OW belongs to that NP
+  				for (NounPhrase np : fSentence.getNounPhrases()){
+  					if (np.getOffsetBegin() <= token.getOffsetBegin() &&
+  							np.getOffsetEnd() >= token.getOffsetEnd()){
+  						np.addOpinionWord(token.getWord().toString());
+  						check = true;
+  					}
+  				}
+  				
+  				if (check == false){
+  					//If the sentence is a exclamatory sentence 
+  					if ((fSentence.getRawContent().indexOf("how " + token.getWord().toString()) != -1)
+  						|| (fSentence.getRawContent().indexOf("How " + token.getWord().toString()) != -1)){
+  						for (NounPhrase np : fSentence.getNounPhrases())
+  							if (np.getOffsetBegin() > token.getOffsetEnd()){
+  								np.addOpinionWord(token.getWord().toString());
+  								break;
+  							}
+  					}
+  					else {
+  						int f_sub = -1000;
+    				 	int f_id = 0;
+        				for (int i = 0; i < fSentence.getNounPhrases().size(); i++){
+        					int f_sub_tam = fSentence.getNounPhrases().get(i).getOffsetEnd() - token.getOffsetBegin();
+        					if ((f_sub_tam < 0) && (f_sub_tam) > f_sub){
+        						 f_sub = f_sub_tam;
+        						 f_id = i;
+        					 }
+        				}
+        				if (f_id != 0)
+        					fSentence.getNounPhrases().get(f_id).addOpinionWord(token.getWord().toString());
+  					}
+  				}
+  			}
+  					
+  		}
+  	}
+  	
+  	
 }

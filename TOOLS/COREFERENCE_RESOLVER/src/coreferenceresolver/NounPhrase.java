@@ -5,6 +5,9 @@
  */
 package coreferenceresolver;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.trees.Tree;
@@ -22,6 +25,7 @@ public class NounPhrase {
     private int reviewId;
     private int offsetBegin;
     private int offsetEnd;
+    private ArrayList<String> opinionWords; 
 
     /**
      * @return the npNode
@@ -121,5 +125,16 @@ public class NounPhrase {
      */
     public void setOffsetEnd(int offsetEnd) {
         this.offsetEnd = offsetEnd;
+    }
+    
+    public void addOpinionWord(String opnionWordAdded) {
+        this.opinionWords.add(opnionWordAdded);
+    }
+
+    /**
+     * @return the opinionWords
+     */
+    public List<String> getOpinionWords() {
+        return opinionWords;
     }
 }

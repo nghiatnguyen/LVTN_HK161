@@ -57,59 +57,71 @@ public class Main {
             System.out.print(np.getNpNode().getLeaves() + "  ");
         }
         System.out.println();
-        for (int i = 0; i < review.getSentences().size(); i++){
-        	for (int j = 0; j< review.getSentences().get(i).getTokens().size(); j++){
-        		System.out.print(review.getSentences().get(i).getTokens().get(j).getWord());
-        		System.out.println(review.getSentences().get(i).getTokens().get(j).getPOS());
-        	}
-        	
-        }
+        
+        
         for (int i = 0; i < review.getNounPhrases().size(); ++i) {
             NounPhrase np1 = review.getNounPhrases().get(i);
-            for (int j = i + 1; j < review.getNounPhrases().size(); ++j) {
-                NounPhrase np2 = review.getNounPhrases().get(j);
-                System.out.println("-----------NP pair--------------");
-                System.out.println("In review");
-                System.out.println(review.getRawContent());
-                System.out.println("NP1 words: " + np1.getNpNode().getLeaves());
-                System.out.println("NP1 head label: " + np1.getHeadLabel());
-                System.out.println("NP1 head: " + np1.getHeadNode());
-                System.out.println("NP1 begin: " + np1.getOffsetBegin());
-                System.out.println("NP1 end: " + np1.getOffsetEnd());
-                System.out.println("NP1 review: " + np1.getReviewId());
-                System.out.println("NP1 sentence: " + np1.getSentenceId());
-                System.out.println("------------");
-                System.out.println("NP2 words: " + np2.getNpNode().getLeaves());
-                System.out.println("NP2 head label: " + np2.getHeadLabel());
-                System.out.println("NP2 head: " + np2.getHeadNode());
-                System.out.println("NP2 begin: " + np2.getOffsetBegin());
-                System.out.println("NP2 end: " + np2.getOffsetEnd());
-                System.out.println("NP2 review: " + np2.getReviewId());
-                System.out.println("NP2 sentence: " + np2.getSentenceId());
-                System.out.println("------------");
-                try {
-                    System.out.println("number agreement: " + FeatureExtractor.numberAgreementExtract(np1, np2));
-                    System.out.println("comparative indicator-between: " + FeatureExtractor.comparativeIndicatorExtract(review, np1, np2));
-                    System.out.println("is-between: " + FeatureExtractor.isBetweenExtract(review, np1, np2));
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                    System.out.println("Exception NP1 words: " + np1.getNpNode().getLeaves());
-                    System.out.println("Exception NP2 words: " + np2.getNpNode().getLeaves());
-                }
-
-                System.out.println("------------End of NP pair--------------");
-            }
-//            System.out.println("NP1 head label: " + np1.getHeadLabel());
-//            System.out.println("NP1 head: " + np1.getHeadNode());
-//            System.out.println("NP1 begin: " + np1.getOffsetBegin());
-//            System.out.println("NP1 end: " + np1.getOffsetEnd());
-//            System.out.println("NP1 review: " + np1.getReviewId());
-//            System.out.println("NP1 sentence: " + np1.getSentenceId());
+//            for (int j = i + 1; j < review.getNounPhrases().size(); ++j) {
+//                NounPhrase np2 = review.getNounPhrases().get(j);
+//                System.out.println("-----------NP pair--------------");
+//                System.out.println("In review");
+//                System.out.println(review.getRawContent());
+//                System.out.println("NP1 words: " + np1.getNpNode().getLeaves());
+//                System.out.println("NP1 head label: " + np1.getHeadLabel());
+//                System.out.println("NP1 head: " + np1.getHeadNode());
+//                System.out.println("NP1 begin: " + np1.getOffsetBegin());
+//                System.out.println("NP1 end: " + np1.getOffsetEnd());
+//                System.out.println("NP1 review: " + np1.getReviewId());
+//                System.out.println("NP1 sentence: " + np1.getSentenceId());
+//                System.out.println("------------");
+//                System.out.println("NP2 words: " + np2.getNpNode().getLeaves());
+//                System.out.println("NP2 head label: " + np2.getHeadLabel());
+//                System.out.println("NP2 head: " + np2.getHeadNode());
+//                System.out.println("NP2 begin: " + np2.getOffsetBegin());
+//                System.out.println("NP2 end: " + np2.getOffsetEnd());
+//                System.out.println("NP2 review: " + np2.getReviewId());
+//                System.out.println("NP2 sentence: " + np2.getSentenceId());
+//                System.out.println("------------");
+//                try {
+//                    System.out.println("number agreement: " + FeatureExtractor.numberAgreementExtract(np1, np2));
+//                    System.out.println("comparative indicator-between: " + FeatureExtractor.comparativeIndicatorExtract(review, np1, np2));
+//                    System.out.println("is-between: " + FeatureExtractor.isBetweenExtract(review, np1, np2));
+//                    System.out.println("has-between: " + FeatureExtractor.has_Between_Extract(review, np1, np2));
+//                } catch (Exception e) {
+//                    System.out.println(e.getMessage());
+//                    System.out.println("Exception NP1 words: " + np1.getNpNode().getLeaves());
+//                    System.out.println("Exception NP2 words: " + np2.getNpNode().getLeaves());
+//                }
+//
+//                System.out.println("------------End of NP pair--------------");
+//            }
+            System.out.println("------------");
+            System.out.println("NP1 words: " + np1.getNpNode().getLeaves());
+            System.out.println("NP1 head label: " + np1.getHeadLabel());
+            System.out.println("NP1 head: " + np1.getHeadNode());
+            System.out.println("NP1 begin: " + np1.getOffsetBegin());
+            System.out.println("NP1 end: " + np1.getOffsetEnd());
+            System.out.println("NP1 review: " + np1.getReviewId());
+            System.out.println("NP1 sentence: " + np1.getSentenceId());
 //            System.out.println("is Pronoun: " + FeatureExtractor.is_Pronoun(np1));
 //            System.out.println("is Definite Noun Phrase: " + FeatureExtractor.is_Definite_NP(np1));
 //            System.out.println("is Demonstrative Noun Phrase: " + FeatureExtractor.is_Demonstrative_NP(np1));
 //            System.out.println("is Proper name: " + FeatureExtractor.is_Proper_name(np1));
+//            System.out.print("Opinion words: ");
+//            if (np1.getOpinionWords().isEmpty()){}
+//            else {
+//            	for (String s : np1.getOpinionWords())
+//            		System.out.print(s + " ; ");
+//            }
+//            System.out.println();
         }
+      //Set Opinion Words for Noun Phrases
+        for (int i = 0; i < review.getSentences().size(); i++){
+//        	FeatureExtractor.set_NP_for_OP_in_sentence(review.getSentences().get(index));
+//        	System.out.println(review.getSentences().get(i).getNounPhrases().get(0));
+        	
+        }
+        	
     }
 
     /**
@@ -141,6 +153,9 @@ public class Main {
                 System.out.println("-----END REVIEW-----");
                 ++i;
             }
+            
+
+            
 //            StanfordUtil.test();
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
