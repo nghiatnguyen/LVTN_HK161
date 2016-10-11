@@ -81,9 +81,11 @@ public class StanfordUtil {
 
             //Begin extracting from paragraphs
             for (CoreMap sentence : sentences) {
+                int sentenceOffsetBegin = sentence.get(CharacterOffsetBeginAnnotation.class);
                 Sentence newSentence = new Sentence();
                 newSentence.setReviewId(reviewId);
                 newSentence.setRawContent(sentence.toString());
+                newSentence.setOffsetBegin(sentenceOffsetBegin);
                 for (CoreLabel token : sentence.get(TokensAnnotation.class)) {
                     Token newToken = new Token();
                     // this is the text of the token
@@ -157,11 +159,19 @@ public class StanfordUtil {
 //            System.out.println("NP sentence: " + nounPhrases.get(i).getSentenceId());
 //            System.out.println("------------");
 //        }
-        Review testReview = reviews.get(3);
+        Review testReview = reviews.get(0);
         
-        for (NounPhrase np : testReview.getNounPhrases()){
-            System.out.println(np.getNpNode());
-        }
+//        for (NounPhrase np : testReview.getNounPhrases()){
+//            NounPhrase np1;
+//            NounPhrase np2;
+//            if (np.getOffsetBegin() == 51){
+//                np1 = np;
+//            }
+//            if (np.getOffsetBegin() == 75){
+//                np2 = np;
+//            }
+//            FeatureExtr
+//        }
 
 //        System.out.println("Sentences size: " + testReview.getSentences().size());
 //        List<Sentence> sentences = testReview.getSentences();

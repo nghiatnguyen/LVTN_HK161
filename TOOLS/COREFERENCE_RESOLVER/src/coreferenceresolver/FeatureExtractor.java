@@ -57,23 +57,23 @@ public class FeatureExtractor {
     /**
      * Check for is-between feature
      *
-     * @param reviews np1 np2
+     * @param review np1 np2
      * @param np1
      * @param np2
      * @return true if there is an 'is-like' between 2 NPs, otherwise false
      */
-    public static boolean isBetweenExtract(List<Review> reviews, NounPhrase np1, NounPhrase np2) {
+    public static boolean isBetweenExtract(Review review, NounPhrase np1, NounPhrase np2) {
         if (np1.getReviewId() == np2.getReviewId()) {
             if (np1.getSentenceId() == np2.getSentenceId()) {
-                Sentence curSentence = reviews.get(np1.getReviewId()).getSentences().get(np1.getSentenceId());
+                Sentence curSentence = review.getSentences().get(np1.getSentenceId());
                 if (np1.getOffsetEnd() < np2.getOffsetBegin()) {
-                    if (np1.getOffsetEnd() + 1 < np2.getOffsetBegin() && contains3rdTobe(curSentence.getRawContent().substring(np1.getOffsetEnd() + 1, np2.getOffsetBegin()))) {
+                    if (np1.getOffsetEnd() + 1 < np2.getOffsetBegin() && contains3rdTobe(curSentence.getRawContent().substring(np1.getOffsetEnd() + 1 - curSentence.getOffsetBegin(), np2.getOffsetBegin() - curSentence.getOffsetBegin()))) {
                         if (!containsComparativeIndicator(curSentence, np1, np2)) {
                             return true;
                         }
                     }
                 } else if (np2.getOffsetEnd() < np1.getOffsetBegin()) {
-                    if (np1.getOffsetEnd() + 1 < np2.getOffsetBegin() && contains3rdTobe(curSentence.getRawContent().substring(np2.getOffsetEnd() + 1, np1.getOffsetBegin()))) {
+                    if (np2.getOffsetEnd() + 1 < np1.getOffsetBegin() && contains3rdTobe(curSentence.getRawContent().substring(np2.getOffsetEnd() + 1 - curSentence.getOffsetBegin(), np1.getOffsetBegin() - curSentence.getOffsetBegin()))) {
                         if (!containsComparativeIndicator(curSentence, np1, np2)) {
                             return true;
                         }
@@ -88,15 +88,15 @@ public class FeatureExtractor {
     /**
      * Check for comparativeIndicator-between feature
      *
-     * @param reviews
+     * @param review
      * @param np1
      * @param np2
      * @return true if there is a comparative indicator between, otherwise false
      */
-    public static boolean comparativeIndicatorExtract(List<Review> reviews, NounPhrase np1, NounPhrase np2) {
+    public static boolean comparativeIndicatorExtract(Review review, NounPhrase np1, NounPhrase np2) {
         if (np1.getReviewId() == np2.getReviewId()) {
             if (np1.getSentenceId() == np2.getSentenceId()) {
-                Sentence curSentence = reviews.get(np1.getReviewId()).getSentences().get(np1.getSentenceId());
+                Sentence curSentence = review.getSentences().get(np1.getSentenceId());
                 if (np1.getOffsetEnd() < np2.getOffsetBegin()) {
                     if (containsComparativeIndicator(curSentence, np1, np2)) {
                         return true;

@@ -12,12 +12,13 @@ import java.util.List;
  *
  * @author TRONGNGHIA
  */
-public class Sentence {
+public class Sentence {    
 
     private List<Token> tokens;
     private List<NounPhrase> nounPhrases;
     private int reviewId;
     private String rawContent;
+    private int offsetBegin;
 
     public Sentence() {
         tokens = new ArrayList<>();
@@ -77,5 +78,19 @@ public class Sentence {
      */
     public void setRawContent(String rawContent) {
         this.rawContent = rawContent;
+    }
+    
+    /**
+     * @return the offsetBegin
+     */
+    public int getOffsetBegin() {
+        return offsetBegin;
+    }
+
+    /**
+     * @param offsetBegin the offsetBegin to set
+     */
+    public void setOffsetBegin(int offsetBegin) {
+        this.offsetBegin = offsetBegin;
     }
 }

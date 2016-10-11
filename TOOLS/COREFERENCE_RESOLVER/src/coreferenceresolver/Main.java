@@ -41,11 +41,12 @@ public class Main {
                 System.out.println("NP2 review: " + np2.getReviewId());
                 System.out.println("NP2 sentence: " + np2.getSentenceId());
                 System.out.println("------------");
-                System.out.println("number agreement: " + FeatureExtractor.numberAgreementExtract(np1, np2));
-                System.out.println("comparative indicator-between: " + FeatureExtractor.comparativeIndicatorExtract(StanfordUtil.reviews, np1, np2));
+//                System.out.println("number agreement: " + FeatureExtractor.numberAgreementExtract(np1, np2));
+//                System.out.println("comparative indicator-between: " + FeatureExtractor.comparativeIndicatorExtract(review, np1, np2));
                 try {
-                    System.out.println("is-between: " + FeatureExtractor.isBetweenExtract(StanfordUtil.reviews, np1, np2));
+                    System.out.println("is-between: " + FeatureExtractor.isBetweenExtract(review, np1, np2));
                 } catch (Exception e) {
+                    System.out.println(e.getMessage());
                     System.out.println("Exception NP1 words: " + np1.getNpNode().getLeaves());
                     System.out.println("Exception NP2 words: " + np2.getNpNode().getLeaves());
                 }
