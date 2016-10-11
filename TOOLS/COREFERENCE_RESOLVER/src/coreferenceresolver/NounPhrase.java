@@ -137,4 +137,8 @@ public class NounPhrase {
     public List<String> getOpinionWords() {
         return opinionWords;
     }
+    
+    public void setOpinionWord(){
+    	this.opinionWords = new ArrayList<String>();
+    }
 }

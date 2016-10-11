@@ -278,29 +278,6 @@ public class FeatureExtractor {
         }
     }
 
-    //To compute the number of times a word appearing in the sentences
-    public static int count_word(String word) {
-        String input = Main.get_sDataset();
-        Matcher m = Pattern.compile("\\b" + word.toLowerCase() + "\\b").matcher(input);
-        int matches = 0;
-        while (m.find()) {
-            matches++;
-        }
-        System.out.println(matches);
-        return matches;
-    }
-
-    //To compute the number of times 2 words appearing together in the sentences.
-    public static int count_two_words(String np, String ow) {
-        String input = Main.get_sDataset();
-        Matcher m = Pattern.compile("(\\b" + np.toLowerCase() + "\\b)[^.]+(\\b" + ow.toLowerCase() + "\\b)").matcher(input);
-        int matches = 0;
-        while (m.find()) {
-            matches++;
-        }
-        System.out.println(matches);
-        return matches;
-    }
 
     //Check if the adjective is in the List of negative and positive words
     public static boolean check_adj_in_list(String adj) {
@@ -394,5 +371,60 @@ public class FeatureExtractor {
 
         }
     }
+    
+    //To compute the number of times a word appearing in the sentences
+    public static int count_word(String word) {
+        String input = Main.get_sDataset();
+        Matcher m = Pattern.compile("\\b" + word.toLowerCase() + "\\b").matcher(input);
+        int matches = 0;
+        while (m.find()) {
+            matches++;
+        }
+        System.out.println(matches);
+        return matches;
+    }
 
+    //To compute the number of times 2 words appearing together in the sentences.
+    public static int count_two_words(String np, String ow) {
+        String input = Main.get_sDataset();
+        Matcher m = Pattern.compile("(\\b" + np.toLowerCase() + "\\b)[^.]+(\\b" + ow.toLowerCase() + "\\b)").matcher(input);
+        int matches = 0;
+        while (m.find()) {
+            matches++;
+        }
+        System.out.println(matches);
+        return matches;
+    }
+    
+    public static int count_sentences(){
+    	int counter = 0;
+    	for( int i=0; i<Main.get_sDataset().length(); i++ ) {
+    	    if( Main.get_sDataset().charAt(i) == '.' ) {
+    	        counter++;
+    	    } 
+    	}
+    	return counter;
+    }
+    
+    public static int probability_noun_phrase(NounPhrase np){
+    	return count_word(np.getHeadNode().toString());
+    }
+    
+    //If a NP has more than 1 OW, then Probability of OWs is sum of all
+    public static int probability_opinion_word(NounPhrase np){
+    	int counter = 0;
+    	for (String s : np.getOpinionWords())
+    		counter = counter + count_word(s);
+    	return counter;
+    }
+    
+    //probability of NP2 and OWs of NP1
+    //If a NP has more than 1 OW, then Probability of OWs is sum of all
+    public static int probability_NP_and_OW(NounPhrase np1, NounPhrase np2){
+    	int counter = 0;
+    	for (String s : np1.getOpinionWords()){
+    		counter = counter + count_two_words(np2.getHeadNode().toString(), s);
+    	}
+    	return counter;
+    }
 }

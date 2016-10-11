@@ -138,6 +138,7 @@ public class StanfordUtil {
             np.setOffsetEnd(lastOfs.endPosition());
             np.setReviewId(reviewId);
             np.setSentenceId(sentenceId);
+            np.setOpinionWord();
             nounPhrases.add(np);
             review.addNounPhrase(np);
             sentence.addNounPhrase(np);
