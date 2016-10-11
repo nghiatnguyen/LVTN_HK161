@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 public class FeatureExtractor {
 
     private static final String SINGULAR_KEYWORDS = ";it;";
-    private static final String PLURAL_KEYWORDS = ";they;";
+    private static final String PLURAL_KEYWORDS = ";they;them;";
     private static final String[] TO_BEs = {"is", "'s", "are", "'re", "was", "were", "been", "be"};
     private static final String[] SPECIAL_COMPARATIVES = {"inferior", "superior", "junior", "senior", "anterior", "posterior", "prior"};
     private static final String ADJECTIVE = "JJ";
@@ -50,22 +50,13 @@ public class FeatureExtractor {
      * @return true if agree, otherwise false
      */
     public static boolean numberAgreementExtract(NounPhrase np1, NounPhrase np2) {
-        if (SINGULAR_KEYWORDS.contains(";" + np1.getHeadNode().value() + ";")
-                && SINGULAR_KEYWORDS.contains(";" + np2.getHeadNode().value() + ";")) {
-            return true;
-        }
-        if (PLURAL_KEYWORDS.contains(";" + np1.getHeadNode().value() + ";")
-                && PLURAL_KEYWORDS.contains(";" + np2.getHeadNode().value() + ";")) {
+        if ((np1.getHeadLabel().equals("NN") || np1.getHeadLabel().equals("NNP") || SINGULAR_KEYWORDS.contains(";" + np1.getHeadNode().value() + ";"))
+                && (np2.getHeadLabel().equals("NN") || np1.getHeadLabel().equals("NNP") || SINGULAR_KEYWORDS.contains(";" + np2.getHeadNode().value().toLowerCase() + ";"))) {
             return true;
         }
 
-        if ((np1.getHeadLabel().equals("NN") || np1.getHeadLabel().equals("NNP"))
-                && (np2.getHeadLabel().equals("NN") || np1.getHeadLabel().equals("NNP"))) {
-            return true;
-        }
-
-        if ((np1.getHeadLabel().equals("NNS") || np1.getHeadLabel().equals("NNPS"))
-                && (np2.getHeadLabel().equals("NNS") || np1.getHeadLabel().equals("NNPS"))) {
+        if ((np1.getHeadLabel().equals("NNS") || np1.getHeadLabel().equals("NNPS") || PLURAL_KEYWORDS.contains(";" + np1.getHeadNode().value() + ";"))
+                && (np2.getHeadLabel().equals("NNS") || np1.getHeadLabel().equals("NNPS") || PLURAL_KEYWORDS.contains(";" + np2.getHeadNode().value().toLowerCase() + ";"))) {
             return true;
         }
 
@@ -75,23 +66,23 @@ public class FeatureExtractor {
     /**
      * Check for is-between feature
      *
-     * @param reviews np1 np2
+     * @param review np1 np2
      * @param np1
      * @param np2
      * @return true if there is an 'is-like' between 2 NPs, otherwise false
      */
-    public static boolean isBetweenExtract(List<Review> reviews, NounPhrase np1, NounPhrase np2) {
+    public static boolean isBetweenExtract(Review review, NounPhrase np1, NounPhrase np2) {
         if (np1.getReviewId() == np2.getReviewId()) {
             if (np1.getSentenceId() == np2.getSentenceId()) {
-                Sentence curSentence = reviews.get(np1.getReviewId()).getSentences().get(np1.getSentenceId());
+                Sentence curSentence = review.getSentences().get(np1.getSentenceId());
                 if (np1.getOffsetEnd() < np2.getOffsetBegin()) {
-                    if (np1.getOffsetEnd() + 1 < np2.getOffsetBegin() && contains3rdTobe(curSentence.getRawContent().substring(np1.getOffsetEnd() + 1, np2.getOffsetBegin()))) {
+                    if (np1.getOffsetEnd() + 1 < np2.getOffsetBegin() && contains3rdTobe(curSentence.getRawContent().substring(np1.getOffsetEnd() + 1 - curSentence.getOffsetBegin(), np2.getOffsetBegin() - curSentence.getOffsetBegin()))) {
                         if (!containsComparativeIndicator(curSentence, np1, np2)) {
                             return true;
                         }
                     }
                 } else if (np2.getOffsetEnd() < np1.getOffsetBegin()) {
-                    if (np1.getOffsetEnd() + 1 < np2.getOffsetBegin() && contains3rdTobe(curSentence.getRawContent().substring(np2.getOffsetEnd() + 1, np1.getOffsetBegin()))) {
+                    if (np2.getOffsetEnd() + 1 < np1.getOffsetBegin() && contains3rdTobe(curSentence.getRawContent().substring(np2.getOffsetEnd() + 1 - curSentence.getOffsetBegin(), np1.getOffsetBegin() - curSentence.getOffsetBegin()))) {
                         if (!containsComparativeIndicator(curSentence, np1, np2)) {
                             return true;
                         }
@@ -106,15 +97,15 @@ public class FeatureExtractor {
     /**
      * Check for comparativeIndicator-between feature
      *
-     * @param reviews
+     * @param review
      * @param np1
      * @param np2
      * @return true if there is a comparative indicator between, otherwise false
      */
-    public static boolean comparativeIndicatorExtract(List<Review> reviews, NounPhrase np1, NounPhrase np2) {
+    public static boolean comparativeIndicatorExtract(Review review, NounPhrase np1, NounPhrase np2) {
         if (np1.getReviewId() == np2.getReviewId()) {
             if (np1.getSentenceId() == np2.getSentenceId()) {
-                Sentence curSentence = reviews.get(np1.getReviewId()).getSentences().get(np1.getSentenceId());
+                Sentence curSentence = review.getSentences().get(np1.getSentenceId());
                 if (np1.getOffsetEnd() < np2.getOffsetBegin()) {
                     if (containsComparativeIndicator(curSentence, np1, np2)) {
                         return true;
