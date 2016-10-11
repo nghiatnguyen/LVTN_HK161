@@ -14,7 +14,7 @@ import java.util.List;
 public class FeatureExtractor {
 
     private static final String SINGULAR_KEYWORDS = ";it;";
-    private static final String PLURAL_KEYWORDS = ";they;";
+    private static final String PLURAL_KEYWORDS = ";they;them;";
     private static final String[] TO_BEs = {"is", "'s", "are", "'re", "was", "were", "been", "be"};
     private static final String[] SPECIAL_COMPARATIVES = {"inferior", "superior", "junior", "senior", "anterior", "posterior", "prior"};
     private static final String ADJECTIVE = "JJ";
@@ -32,22 +32,13 @@ public class FeatureExtractor {
      * @return true if agree, otherwise false
      */
     public static boolean numberAgreementExtract(NounPhrase np1, NounPhrase np2) {
-        if (SINGULAR_KEYWORDS.contains(";" + np1.getHeadNode().value() + ";")
-                && SINGULAR_KEYWORDS.contains(";" + np2.getHeadNode().value() + ";")) {
-            return true;
-        }
-        if (PLURAL_KEYWORDS.contains(";" + np1.getHeadNode().value() + ";")
-                && PLURAL_KEYWORDS.contains(";" + np2.getHeadNode().value() + ";")) {
+        if ((np1.getHeadLabel().equals("NN") || np1.getHeadLabel().equals("NNP") || SINGULAR_KEYWORDS.contains(";" + np1.getHeadNode().value() + ";"))
+                && (np2.getHeadLabel().equals("NN") || np1.getHeadLabel().equals("NNP") || SINGULAR_KEYWORDS.contains(";" + np2.getHeadNode().value().toLowerCase() + ";"))) {
             return true;
         }
 
-        if ((np1.getHeadLabel().equals("NN") || np1.getHeadLabel().equals("NNP"))
-                && (np2.getHeadLabel().equals("NN") || np1.getHeadLabel().equals("NNP"))) {
-            return true;
-        }
-
-        if ((np1.getHeadLabel().equals("NNS") || np1.getHeadLabel().equals("NNPS"))
-                && (np2.getHeadLabel().equals("NNS") || np1.getHeadLabel().equals("NNPS"))) {
+        if ((np1.getHeadLabel().equals("NNS") || np1.getHeadLabel().equals("NNPS") || PLURAL_KEYWORDS.contains(";" + np1.getHeadNode().value() + ";"))
+                && (np2.getHeadLabel().equals("NNS") || np1.getHeadLabel().equals("NNPS") || PLURAL_KEYWORDS.contains(";" + np2.getHeadNode().value().toLowerCase() + ";"))) {
             return true;
         }
 
