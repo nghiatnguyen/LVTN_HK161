@@ -145,18 +145,18 @@ public class Main {
 		
         try {
             su.init();
-            int i = 0;
-            for (Review review : StanfordUtil.reviews) {
-                System.out.println("-----BEGIN REVIEW-----");
-                System.out.println("Extract from review " + i);
-                featureExtract(review);
-                System.out.println("-----END REVIEW-----");
-                ++i;
-            }
+//            int i = 0;
+//            for (Review review : StanfordUtil.reviews) {
+//                System.out.println("-----BEGIN REVIEW-----");
+//                System.out.println("Extract from review " + i);
+//                featureExtract(review);
+//                System.out.println("-----END REVIEW-----");
+//                ++i;
+//            }
             
 
             
-//            StanfordUtil.test();
+            StanfordUtil.test();
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }

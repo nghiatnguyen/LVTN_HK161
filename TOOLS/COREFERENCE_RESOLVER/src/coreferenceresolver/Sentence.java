@@ -22,6 +22,7 @@ public class Sentence {
 
     public Sentence() {
         tokens = new ArrayList<>();
+        nounPhrases = new ArrayList<>();
     }
 
     /**
@@ -48,7 +49,7 @@ public class Sentence {
     /**
      * @param nounPhraseAdded the nounPhrases to set
      */
-    public void setNounPhrases(NounPhrase nounPhraseAdded) {
+    public void addNounPhrase(NounPhrase nounPhraseAdded) {
         this.nounPhrases.add(nounPhraseAdded);
     }
 

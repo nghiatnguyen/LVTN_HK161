@@ -107,7 +107,7 @@ public class StanfordUtil {
 
                 // this is the parse tree of the current sentence
                 Tree sentenceTree = sentence.get(TreeAnnotation.class);
-                nounPhraseFind(sentenceTree, newReview, reviewId, sentenceId);
+                nounPhraseFind(sentenceTree, newReview, newSentence, reviewId, sentenceId);
 
                 newReview.addSentence(newSentence);
 
@@ -120,7 +120,7 @@ public class StanfordUtil {
 
     }
 
-    public void nounPhraseFind(Tree rootNode, Review review, int reviewId, int sentenceId) {
+    public void nounPhraseFind(Tree rootNode, Review review, Sentence sentence, int reviewId, int sentenceId) {
         if (rootNode == null || rootNode.isLeaf()) {
             return;
         }
@@ -140,10 +140,11 @@ public class StanfordUtil {
             np.setSentenceId(sentenceId);
             nounPhrases.add(np);
             review.addNounPhrase(np);
+            sentence.addNounPhrase(np);
         }
 
         for (Tree child : rootNode.children()) {
-            nounPhraseFind(child, review,reviewId, sentenceId);
+            nounPhraseFind(child, review, sentence, reviewId, sentenceId);
         }
     }
 
@@ -160,6 +161,12 @@ public class StanfordUtil {
 //            System.out.println("------------");
 //        }
         Review testReview = reviews.get(0);
+        for (Sentence sentence : testReview.getSentences()){
+            System.out.println(sentence.getRawContent());
+            for (NounPhrase np : sentence.getNounPhrases()){
+                System.out.println(np.getNpNode());
+            }
+        }
         
 //        for (NounPhrase np : testReview.getNounPhrases()){
 //            NounPhrase np1;
