@@ -155,20 +155,20 @@ public class Main {
         try {
             su.init();
             int i = 0;
-//            for (Review review : StanfordUtil.reviews) {
-//                System.out.println("-----BEGIN REVIEW-----");
-//                System.out.println("Extract from review " + i);
-//                featureExtract(review);
-//                System.out.println("-----END REVIEW-----");
-//                ++i;
-//            }
-            for (int j = 0; j < 14; j++){
-            	System.out.println("-----BEGIN REVIEW-----");
-                System.out.println("Extract from review " + i);
-                featureExtract(StanfordUtil.reviews.get(j));
-                System.out.println("-----END REVIEW-----");
-                ++i;
-            }
+           for (Review review : StanfordUtil.reviews) {
+               System.out.println("-----BEGIN REVIEW-----");
+               System.out.println("Extract from review " + i);
+               featureExtract(review);
+               System.out.println("-----END REVIEW-----");
+               ++i;
+           }
+            // for (int j = 0; j < 14; j++){
+            // 	System.out.println("-----BEGIN REVIEW-----");
+            //     System.out.println("Extract from review " + i);
+            //     featureExtract(StanfordUtil.reviews.get(j));
+            //     System.out.println("-----END REVIEW-----");
+            //     ++i;
+            // }
             
 
             
