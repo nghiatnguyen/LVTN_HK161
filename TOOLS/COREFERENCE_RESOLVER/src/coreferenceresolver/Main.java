@@ -94,6 +94,7 @@ public class Main {
                 	System.out.println("NP2 is Pronoun: " + FeatureExtractor.is_Pronoun(np2));
                 	System.out.println("NP2 is Definite Noun Phrase: " + FeatureExtractor.is_Definite_NP(np2));
                 	System.out.println("NP2 is Demonstrative Noun Phrase: " + FeatureExtractor.is_Demonstrative_NP(np2));
+                	System.out.println("String similarity: " + FeatureExtractor.stringSimilarity(np1, np2, review.getSentences().get(np1.getSentenceId())));
                 	System.out.println("Distance Feature: " + FeatureExtractor.count_Distance(np1, np2));
                     System.out.println("number agreement: " + FeatureExtractor.numberAgreementExtract(np1, np2));
                     System.out.println("comparative indicator-between: " + FeatureExtractor.comparativeIndicatorExtract(review, np1, np2));
@@ -154,10 +155,17 @@ public class Main {
         try {
             su.init();
             int i = 0;
-            for (Review review : StanfordUtil.reviews) {
-                System.out.println("-----BEGIN REVIEW-----");
+//            for (Review review : StanfordUtil.reviews) {
+//                System.out.println("-----BEGIN REVIEW-----");
+//                System.out.println("Extract from review " + i);
+//                featureExtract(review);
+//                System.out.println("-----END REVIEW-----");
+//                ++i;
+//            }
+            for (int j = 0; j < 14; j++){
+            	System.out.println("-----BEGIN REVIEW-----");
                 System.out.println("Extract from review " + i);
-                featureExtract(review);
+                featureExtract(StanfordUtil.reviews.get(j));
                 System.out.println("-----END REVIEW-----");
                 ++i;
             }

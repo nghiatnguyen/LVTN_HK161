@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import edu.stanford.nlp.trees.Tree;
+
 /**
  *
  * @author TRONGNGHIA
@@ -426,5 +428,33 @@ public class FeatureExtractor {
     		counter = counter + count_two_words(np2.getHeadNode().toString(), s);
     	}
     	return counter;
+    }
+    
+    //Algorithm: N2 is considered that has a similar string with N1 if:
+    //Main noun of N2 is the same as the main noun of N1 and
+    //N1 includes all Nouns, adjactives of N2
+    public static boolean stringSimilarity(NounPhrase np1, NounPhrase np2, Sentence sen){
+    	if (np2.getHeadNode().toString().toLowerCase().equals(np1.getHeadNode().toString().toLowerCase())){
+    		for (Token token : sen.getTokens())
+    			if ((token.getOffsetBegin() >= np2.getOffsetBegin()) &&
+    					token.getOffsetEnd() <= np2.getOffsetEnd()){
+    				if ((token.getPOS().equals("JJ"))
+    	    				||(token.getPOS().equals("NN"))
+    	    				||(token.getPOS().equals("NNS"))
+    	    				||(token.getPOS().equals("NNP"))
+    	    				||(token.getPOS().equals("NNPS"))){
+    	    					boolean isConclusion = false;
+    	    					for (Tree tree : np1.getNpNode().getLeaves())
+    	    						if (tree.toString().toLowerCase().equals(token.getWord().toLowerCase()))
+    	    							isConclusion = true;
+    	    					if (isConclusion == false)
+    	    						return false;
+    	    				}
+    			}
+    		return true;
+    		
+    	}
+    	return false;
+    	
     }
 }
