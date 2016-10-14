@@ -25,7 +25,9 @@ public class NounPhrase {
     private int reviewId;
     private int offsetBegin;
     private int offsetEnd;
-    private ArrayList<String> opinionWords; 
+    private boolean isSuperior;
+    private boolean isInferior;
+    private ArrayList<String> opinionWords;
 
     /**
      * @return the npNode
@@ -126,7 +128,7 @@ public class NounPhrase {
     public void setOffsetEnd(int offsetEnd) {
         this.offsetEnd = offsetEnd;
     }
-    
+
     public void addOpinionWord(String opnionWordAdded) {
         this.opinionWords.add(opnionWordAdded);
     }
@@ -137,8 +139,36 @@ public class NounPhrase {
     public List<String> getOpinionWords() {
         return opinionWords;
     }
-    
-    public void setOpinionWord(){
-    	this.opinionWords = new ArrayList<String>();
+
+    public void setOpinionWord() {
+        this.opinionWords = new ArrayList<String>();
+    }
+
+    /**
+     * @return the isSuperior
+     */
+    public boolean isSuperior() {
+        return isSuperior;
+    }
+
+    /**
+     * @param isSuperior the isSuperior to set
+     */
+    public void setSuperior(boolean isSuperior) {
+        this.isSuperior = isSuperior;
+    }
+
+    /**
+     * @return the isInferior
+     */
+    public boolean isInferior() {
+        return isInferior;
+    }
+
+    /**
+     * @param isInferior the isInferior to set
+     */
+    public void setInferior(boolean isInferior) {
+        this.isInferior = isInferior;
     }
 }

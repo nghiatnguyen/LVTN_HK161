@@ -90,20 +90,20 @@ public class Main {
                 System.out.println("NP2 sentence: " + np2.getSentenceId());
                 System.out.println("------------");
                 try {
-                	System.out.println("NP1 is Pronoun: " + FeatureExtractor.is_Pronoun(np1));
-                	System.out.println("NP2 is Pronoun: " + FeatureExtractor.is_Pronoun(np2));
-                	System.out.println("NP2 is Definite Noun Phrase: " + FeatureExtractor.is_Definite_NP(np2));
-                	System.out.println("NP2 is Demonstrative Noun Phrase: " + FeatureExtractor.is_Demonstrative_NP(np2));
-                	System.out.println("String similarity: " + FeatureExtractor.stringSimilarity(np1, np2, review.getSentences().get(np1.getSentenceId())));
-                	System.out.println("Distance Feature: " + FeatureExtractor.count_Distance(np1, np2));
-                    System.out.println("number agreement: " + FeatureExtractor.numberAgreementExtract(np1, np2));
+//                    System.out.println("NP1 is Pronoun: " + FeatureExtractor.is_Pronoun(np1));
+//                    System.out.println("NP2 is Pronoun: " + FeatureExtractor.is_Pronoun(np2));
+//                    System.out.println("NP2 is Definite Noun Phrase: " + FeatureExtractor.is_Definite_NP(np2));
+//                    System.out.println("NP2 is Demonstrative Noun Phrase: " + FeatureExtractor.is_Demonstrative_NP(np2));
+//                    System.out.println("String similarity: " + FeatureExtractor.stringSimilarity(np1, np2, review.getSentences().get(np1.getSentenceId())));
+//                    System.out.println("Distance Feature: " + FeatureExtractor.count_Distance(np1, np2));
+//                    System.out.println("number agreement: " + FeatureExtractor.numberAgreementExtract(np1, np2));
                     System.out.println("comparative indicator-between: " + FeatureExtractor.comparativeIndicatorExtract(review, np1, np2));
                     System.out.println("is-between: " + FeatureExtractor.isBetweenExtract(review, np1, np2));
-                    System.out.println("has-between: " + FeatureExtractor.has_Between_Extract(review, np1, np2));
-                    System.out.println("***Entity and opinion words association***");
-                    System.out.println("Probability of Opinion Word of NP1: " + FeatureExtractor.probability_opinion_word(np1));
-                    System.out.println("Probability of NP2: " + FeatureExtractor.probability_noun_phrase(np2));
-                    System.out.println("Probability of (NP2 and Opinion Word of NP1): " + FeatureExtractor.probability_NP_and_OW(np1, np2));
+//                    System.out.println("has-between: " + FeatureExtractor.has_Between_Extract(review, np1, np2));
+//                    System.out.println("***Entity and opinion words association***");
+//                    System.out.println("Probability of Opinion Word of NP1: " + FeatureExtractor.probability_opinion_word(np1));
+//                    System.out.println("Probability of NP2: " + FeatureExtractor.probability_noun_phrase(np2));
+//                    System.out.println("Probability of (NP2 and Opinion Word of NP1): " + FeatureExtractor.probability_NP_and_OW(np1, np2));
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                     System.out.println("Exception NP1 words: " + np1.getNpNode().getLeaves());
@@ -155,6 +155,13 @@ public class Main {
         try {
             su.init();
             int i = 0;
+//            for (Review review : StanfordUtil.reviews) {
+//                System.out.println("-----BEGIN REVIEW-----");
+//                System.out.println("Extract from review " + i);
+//                featureExtract(review);
+//                System.out.println("-----END REVIEW-----");
+//                ++i;
+//            }
            for (Review review : StanfordUtil.reviews) {
                System.out.println("-----BEGIN REVIEW-----");
                System.out.println("Extract from review " + i);
@@ -172,7 +179,7 @@ public class Main {
             
 
             
-//            StanfordUtil.test();
+            StanfordUtil.test();
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }

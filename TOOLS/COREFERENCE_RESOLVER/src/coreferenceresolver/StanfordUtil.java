@@ -14,8 +14,10 @@ import edu.stanford.nlp.ling.CoreAnnotations.TextAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.TokensAnnotation;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.ling.HasOffset;
+import edu.stanford.nlp.neural.rnn.RNNCoreAnnotations;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+import edu.stanford.nlp.sentiment.SentimentCoreAnnotations;
 import edu.stanford.nlp.trees.CollinsHeadFinder;
 import edu.stanford.nlp.trees.Tree;
 import edu.stanford.nlp.trees.TreeCoreAnnotations.TreeAnnotation;
@@ -46,7 +48,7 @@ public class StanfordUtil {
     public StanfordUtil(File documentFile) {
         this.documentFile = documentFile;
         props = new Properties();
-        props.put("annotators", "tokenize, ssplit, pos, parse");
+        props.put("annotators", "tokenize, ssplit, pos, parse, sentiment");
         pipeline = new StanfordCoreNLP(props);
 
         headFinder = new CollinsHeadFinder();
@@ -70,7 +72,7 @@ public class StanfordUtil {
             Review newReview = new Review();
 
             //Add to reviews list
-            newReview.setRawContent(reviewLine);            
+            newReview.setRawContent(reviewLine);
 
             // create an empty Annotation just with the given text
             document = new Annotation(reviewLine);
@@ -82,14 +84,19 @@ public class StanfordUtil {
             //Begin extracting from paragraphs
             for (CoreMap sentence : sentences) {
                 int sentenceOffsetBegin = sentence.get(CharacterOffsetBeginAnnotation.class);
+                int sentenceOffsetEnd = sentence.get(CharacterOffsetEndAnnotation.class);
+                int sentimentLevel = RNNCoreAnnotations.getPredictedClass(sentence.get(SentimentCoreAnnotations.SentimentAnnotatedTree.class));
                 Sentence newSentence = new Sentence();
                 newSentence.setReviewId(reviewId);
                 newSentence.setRawContent(sentence.toString());
                 newSentence.setOffsetBegin(sentenceOffsetBegin);
+                newSentence.setOffsetEnd(sentenceOffsetEnd);
+                newSentence.setSentimentLevel(sentimentLevel);
                 for (CoreLabel token : sentence.get(TokensAnnotation.class)) {
                     Token newToken = new Token();
                     // this is the text of the token
                     String word = token.get(TextAnnotation.class);
+
                     // this is the POS tag of the token
                     String pos = token.get(PartOfSpeechAnnotation.class);
 
@@ -105,9 +112,18 @@ public class StanfordUtil {
                     newSentence.addToken(newToken);
                 }
 
+                // Check if this token is a comparative keyword. If so, its sentence is a comparative sentence
+                List<Token> comparatives = FeatureExtractor.findComparativeIndicator(newSentence, null, null);
+                if (!comparatives.isEmpty()) {
+                    newSentence.setComparativeIndicatorPhrases(comparatives);
+                }
+
                 // this is the parse tree of the current sentence
                 Tree sentenceTree = sentence.get(TreeAnnotation.class);
                 nounPhraseFind(sentenceTree, newReview, newSentence, reviewId, sentenceId);
+
+                //Check if there are superior or inferior nounphrases in sentence. If yes, assign them
+                newSentence.initComparativeNPs();
 
                 newReview.addSentence(newSentence);
 
@@ -117,7 +133,6 @@ public class StanfordUtil {
             reviews.add(newReview);
             ++reviewId;
         }
-
     }
 
     public void nounPhraseFind(Tree rootNode, Review review, Sentence sentence, int reviewId, int sentenceId) {
@@ -150,48 +165,41 @@ public class StanfordUtil {
     }
 
     public static void test() {
-//        for (int i = 0; i < nounPhrases.size(); ++i){
-//            System.out.println("------------");
-//            System.out.println("NP words: " + nounPhrases.get(i).getNpNode().getLeaves());
-//            System.out.println("NP head label: " + nounPhrases.get(i).getHeadLabel());
-//            System.out.println("NP head: " + nounPhrases.get(i).getHeadNode());
-//            System.out.println("NP begin: " + nounPhrases.get(i).getOffsetBegin());
-//            System.out.println("NP end: " + nounPhrases.get(i).getOffsetEnd());
-//            System.out.println("NP review: " + nounPhrases.get(i).getReviewId());
-//            System.out.println("NP sentence: " + nounPhrases.get(i).getSentenceId());
-//            System.out.println("------------");
-//        }
-        Review testReview = reviews.get(0);
-        for (Sentence sentence : testReview.getSentences()){
-            System.out.println(sentence.getRawContent());
-            for (NounPhrase np : sentence.getNounPhrases()){
-                System.out.println(np.getNpNode());
+        for (Review testReview : reviews) {
+            for (Sentence sentence : testReview.getSentences()) {
+                System.out.println(sentence.getRawContent());
+                switch (sentence.getSentimentLevel()) {
+                    case Sentence.NEGATIVE_SENTIMENT:
+                        System.out.println("Negative");
+                        break;
+                    case Sentence.NEUTRAL_SENTIMENT:
+                        System.out.println("Neutral");
+                        break;
+                    case Sentence.POSITIVE_SENTIMENT:
+                        System.out.println("Positive");
+                        break;
+                    default:
+                        break;
+
+                }
+
+                System.out.println("NPs");
+                for (NounPhrase np : sentence.getNounPhrases()) {
+                    System.out.println(np.getNpNode().getLeaves());
+                }
+                if (!sentence.getComparativeIndicatorPhrases().isEmpty()) {
+                    System.out.println("Comparative NPs");
+                    for (NounPhrase np : sentence.getNounPhrases()) {
+                        if (np.isSuperior()) {
+                            System.out.println("NP Superior " + np.getNpNode().getLeaves());
+                        }
+                        if (np.isInferior()) {
+                            System.out.println("NP Inferior " + np.getNpNode().getLeaves());
+                        }
+                    }
+                }
+                System.out.println();
             }
         }
-        
-//        for (NounPhrase np : testReview.getNounPhrases()){
-//            NounPhrase np1;
-//            NounPhrase np2;
-//            if (np.getOffsetBegin() == 51){
-//                np1 = np;
-//            }
-//            if (np.getOffsetBegin() == 75){
-//                np2 = np;
-//            }
-//            FeatureExtr
-//        }
-
-//        System.out.println("Sentences size: " + testReview.getSentences().size());
-//        List<Sentence> sentences = testReview.getSentences();
-//        for (Sentence sen : sentences) {
-//            System.out.println("-----------");
-//            System.out.println(sen.getRawContent());
-//            for (Token token : sen.getTokens()) {
-//                System.out.println("Token Word: " + token.getWord());
-//                System.out.println("Token POS: " + token.getPOS());
-//                System.out.println("Token offset begin: " + token.getOffsetBegin());
-//            }
-//            System.out.println("-----------");
-//        }        
     }
 }
