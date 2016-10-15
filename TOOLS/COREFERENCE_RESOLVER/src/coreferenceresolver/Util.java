@@ -5,6 +5,11 @@
  */
 package coreferenceresolver;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,9 +24,82 @@ import java.util.regex.Pattern;
  */
 public class Util {
 
-    private static String DISCARDED_PERSONAL_PRONOUNS = ";i;me;you;he;him;his;she;her;hers;";
+    private static final String DISCARDED_PERSONAL_PRONOUNS = ";i;me;you;he;him;his;she;her;hers;";
 
-    public static void markupOutFileFromReview(Review review, FileWriter fw) throws IOException {
+    public static void extractFeatures(Review review) {
+        System.out.println("All NPs in this review:");
+        for (NounPhrase np : review.getNounPhrases()) {
+            System.out.print(np.getNpNode().getLeaves() + "  ");
+        }
+        System.out.println();
+
+        //Set Opinion Words for Noun Phrases
+        for (int i = 0; i < review.getSentences().size(); i++) {
+            FeatureExtractor.set_NP_for_OP_in_sentence(review.getSentences().get(i));
+        }
+
+        for (int i = 0; i < review.getNounPhrases().size(); ++i) {
+            NounPhrase np1 = review.getNounPhrases().get(i);
+            for (int j = i + 1; j < review.getNounPhrases().size(); ++j) {
+                NounPhrase np2 = review.getNounPhrases().get(j);
+                System.out.println("-----------NP pair--------------");
+                System.out.println("In review");
+                System.out.println(review.getRawContent());
+                System.out.println("NP1 id: " + np1.getId());
+                System.out.println("NP1 ref: " + np1.getRefId());
+                System.out.println("NP1 type: " + np1.getType());
+                System.out.println("NP1 words: " + np1.getNpNode().getLeaves());
+                System.out.println("NP1 head label: " + np1.getHeadLabel());
+                System.out.println("NP1 head: " + np1.getHeadNode());
+                System.out.println("NP1 begin: " + np1.getOffsetBegin());
+                System.out.println("NP1 end: " + np1.getOffsetEnd());
+                System.out.println("NP1 review: " + np1.getReviewId());
+                System.out.println("NP1 sentence: " + np1.getSentenceId());
+                System.out.print("Opinion words: ");
+                for (int k = 0; k < np1.getOpinionWords().size(); k++) {
+                    System.out.print(np1.getOpinionWords().get(k) + " ; ");
+                }
+                System.out.println();
+                System.out.println("------------");
+                System.out.println("NP2 id: " + np2.getId());
+                System.out.println("NP2 ref: " + np2.getRefId());
+                System.out.println("NP2 type: " + np2.getType());
+                System.out.println("NP2 words: " + np2.getNpNode().getLeaves());
+                System.out.println("NP2 head label: " + np2.getHeadLabel());
+                System.out.println("NP2 head: " + np2.getHeadNode());
+                System.out.println("NP2 begin: " + np2.getOffsetBegin());
+                System.out.println("NP2 end: " + np2.getOffsetEnd());
+                System.out.println("NP2 review: " + np2.getReviewId());
+                System.out.println("NP2 sentence: " + np2.getSentenceId());
+                System.out.println("------------");
+                try {
+//                    System.out.println("COREF: " + FeatureExtractor.isCoref(np1, np2));
+//                    System.out.println("NP1 is Pronoun: " + FeatureExtractor.is_Pronoun(np1));
+//                    System.out.println("NP2 is Pronoun: " + FeatureExtractor.is_Pronoun(np2));
+//                    System.out.println("NP2 is Definite Noun Phrase: " + FeatureExtractor.is_Definite_NP(np2));
+//                    System.out.println("NP2 is Demonstrative Noun Phrase: " + FeatureExtractor.is_Demonstrative_NP(np2));
+//                    System.out.println("String similarity: " + FeatureExtractor.stringSimilarity(np1, np2, review.getSentences().get(np1.getSentenceId())));
+//                    System.out.println("Distance Feature: " + FeatureExtractor.count_Distance(np1, np2));
+//                    System.out.println("Number agreement: " + FeatureExtractor.numberAgreementExtract(np1, np2));
+//                    System.out.println("comparative indicator-between: " + FeatureExtractor.comparativeIndicatorExtract(review, np1, np2));
+//                    System.out.println("is-between: " + FeatureExtractor.isBetweenExtract(review, np1, np2));
+//                    System.out.println("has-between: " + FeatureExtractor.has_Between_Extract(review, np1, np2));
+//                    System.out.println("***Entity and opinion words association***");
+//                    System.out.println("Probability of Opinion Word of NP1: " + FeatureExtractor.probability_opinion_word(np1));
+//                    System.out.println("Probability of NP2: " + FeatureExtractor.probability_noun_phrase(np2));
+//                    System.out.println("Probability of (NP2 and Opinion Word of NP1): " + FeatureExtractor.probability_NP_and_OW(np1, np2));
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                    System.out.println("Exception NP1 words: " + np1.getNpNode().getLeaves());
+                    System.out.println("Exception NP2 words: " + np2.getNpNode().getLeaves());
+                }
+
+                System.out.println("------------End of NP pair--------------");
+            }
+        }
+    }
+    
+    public static void initMarkupFile(Review review, FileWriter fw) throws IOException {
 
         String markupReview = review.getRawContent();
         for (int i = 0; i < review.getNounPhrases().size(); ++i) {
@@ -48,7 +126,7 @@ public class Util {
 //            System.out.println("Raw NP " + rawNp);
 //            System.out.println("Consider " + markupReview.substring(openNpOffsets.get(i)));
 
-            String regex = regex(rawNp);
+            String regex = specialRegex(rawNp);
             pattern = Pattern.compile(regex);
 //            System.out.println("Regex " + regex);
             String subString = markupReview.substring(openNpOffsets.get(i));
@@ -79,26 +157,65 @@ public class Util {
         fw.write("\n");
     }
 
-    public static void discardPersonalPronoun(Review review) {
+    public static void readMarkupFile(File markupFile) throws FileNotFoundException, IOException {
+        BufferedReader br = new BufferedReader(new FileReader(markupFile));
+        String line = "";
+
+        int reviewId = 0;
+        while ((line = br.readLine()) != null) {
+            readMarkup(line, reviewId);
+            ++reviewId;
+        }
+    }
+
+    private static void readMarkup(String markupLine, int reviewId) {
+        List<NounPhrase> nounPhrases = StanfordUtil.reviews.get(reviewId).getNounPhrases();
+        int charId = 0;
+        int npId = 0;
+        while (charId < markupLine.length()) {
+            if (markupLine.charAt(charId) == '<') {
+                String corefInfo = "";
+                int j = 0;
+                for (j = charId; j < markupLine.length(); ++j){
+                    if (markupLine.charAt(j) == ' '){
+                        break;
+                    }
+                    corefInfo += markupLine.charAt(j);
+                    
+                }
+                String[] corefInfos = corefInfo.split(",");
+                int refId = corefInfos[1].equals("/") ? -1 : Integer.valueOf(corefInfos[1]);
+                int type = Integer.valueOf(corefInfos[2]);
+                nounPhrases.get(npId).setRefId(refId);
+                nounPhrases.get(npId).setType(type);
+                ++npId;
+                charId = j;
+            } else {
+                ++charId;
+            }
+        }
+    }
+
+    public static void discardPersonalProNPs(Review review) {
         List nps = review.getNounPhrases();
         Iterator<NounPhrase> itr = nps.iterator();
 
         while (itr.hasNext()) {
             NounPhrase np = itr.next();
-            if (isDiscardedPersonalPronoun(np)) {
+            if (isDiscardedPersonalPronounNP(np)) {
                 itr.remove();
             }
         }
     }
 
-    private static boolean isDiscardedPersonalPronoun(NounPhrase np) {
+    private static boolean isDiscardedPersonalPronounNP(NounPhrase np) {
         if (DISCARDED_PERSONAL_PRONOUNS.contains(";" + np.getHeadNode().value().toLowerCase() + ";")) {
             return true;
         }
         return false;
     }
 
-    private static String regex(String sequence) {
+    private static String specialRegex(String sequence) {
         return sequence.replaceAll("\\s", " <*");
     }
 }

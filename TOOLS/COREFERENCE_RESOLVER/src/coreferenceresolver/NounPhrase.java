@@ -25,8 +25,8 @@ public class NounPhrase {
     private int reviewId;
     private int offsetBegin;
     private int offsetEnd;
-    private int nestedLevel;
-    private int ref;
+    private int id;
+    private int refId;
     private int type;
     private boolean isSuperior;
     private boolean isInferior;
@@ -133,17 +133,17 @@ public class NounPhrase {
     }
 
     /**
-     * @return the nestedLevel
+     * @return the id
      */
-    public int getNestedLevel() {
-        return nestedLevel;
+    public int getId() {
+        return id;
     }
 
     /**
-     * @param nestedLevel the nestedLevel to set
+     * @param id the id to set
      */
-    public void setNestedLevel(int nestedLevel) {
-        this.nestedLevel = nestedLevel;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void addOpinionWord(String opnionWordAdded) {
@@ -190,17 +190,17 @@ public class NounPhrase {
     }
 
     /**
-     * @return the ref
+     * @return the refId -1 for the NP with no REF
      */
-    public int getRef() {
-        return ref;
+    public int getRefId() {
+        return refId;
     }
 
     /**
-     * @param ref the ref to set
+     * @param refId the refId to set
      */
-    public void setRef(int ref) {
-        this.ref = ref;
+    public void setRefId(int refId) {
+        this.refId = refId;
     }
 
     /**

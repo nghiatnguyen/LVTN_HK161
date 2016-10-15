@@ -29,7 +29,6 @@ public class FeatureExtractor {
     private static final String ADVERB = "RB";
     private static final String SINGULAR_NOUN = "NN";
     private static final String PLURAL_NOUN = "NNS";
-    public static final String COMPARATIVE_KEYWORDS = ";than;beat;beats;win;wins;";
     public static final String COMPARATIVE_VERBS = ";beat;beats;win;wins;";
     //List of Pronouns include reflexive pronouns, personal pronouns and possessive pronouns.
     private static final ArrayList<String> list_Pronoun = new ArrayList<String>(
@@ -127,18 +126,20 @@ public class FeatureExtractor {
     }
 
     /**
-     * Get comparative indicator phrase in a sentence or between 2 NPs in a sentence
+     * Get comparative indicator phrase in a sentence or between 2 NPs in a
+     * sentence
+     *
      * @param curSentence
      * @param np1
      * @param np2
-     * @return 
+     * @return
      */
     public static List<Token> findComparativeIndicator(Sentence curSentence, NounPhrase np1, NounPhrase np2) {
         List<Token> res = new ArrayList<>();
-        
-        int offsetTraverseBegin = np1 != null? np1.getOffsetEnd() : curSentence.getOffsetBegin();
-        int offsetTraverseEnd = np2 != null? np2.getOffsetBegin() : curSentence.getOffsetEnd();        
-        
+
+        int offsetTraverseBegin = np1 != null ? np1.getOffsetEnd() : curSentence.getOffsetBegin();
+        int offsetTraverseEnd = np2 != null ? np2.getOffsetBegin() : curSentence.getOffsetEnd();
+
         int i = 0;
         List<Token> tokens = curSentence.getTokens();
         while (i < tokens.size()) {
@@ -146,10 +147,10 @@ public class FeatureExtractor {
             if (token.getOffsetBegin() > offsetTraverseBegin && token.getOffsetEnd() < offsetTraverseEnd) {
 
                 //Case 0: beat, win
-                if (isComparativeVerb(token)){
+                if (isComparativeVerb(token)) {
                     res.add(token);
                 }
-                
+
                 //Case 1: comparative ADJ + than
                 if (isComparativeAdjective(token) || isComparativeAdverb(token)) {
                     if (tokens.get(i + 1).getWord().equals("than")) {
@@ -207,8 +208,12 @@ public class FeatureExtractor {
 
             ++i;
         }
-        
+
         return res;
+    }
+
+    public static boolean isCoref(NounPhrase np1, NounPhrase np2) {
+        return (np1.getRefId() == np2.getId() || np1.getRefId() == np2.getId());
     }
 
     private static boolean contains3rdTobe(String sequence) {
@@ -249,17 +254,16 @@ public class FeatureExtractor {
         return (token.getPOS().equals(ADVERB));
     }
 
-    private static boolean isComparativeVerb(Token token){
+    private static boolean isComparativeVerb(Token token) {
         return COMPARATIVE_VERBS.contains(";" + token.getWord() + ";");
     }
-    
+
     public static boolean is_Pronoun(NounPhrase np) {
         if (np.getNpNode().numChildren() == 1) {
             return list_Pronoun.contains(np.getNpNode().getLeaves().get(0).toString().toLowerCase());
         } else {
             return false;
         }
-
     }
 
     public static boolean is_Definite_NP(NounPhrase np) {
@@ -313,7 +317,6 @@ public class FeatureExtractor {
             return false;
         }
     }
-
 
     //Check if the adjective is in the List of negative and positive words
     public static boolean check_adj_in_list(String adj) {
@@ -407,10 +410,10 @@ public class FeatureExtractor {
 
         }
     }
-    
+
     //To compute the number of times a word appearing in the sentences
     public static int count_word(String word) {
-        String input = Main.get_sDataset();
+        String input = MarkupMain.get_sDataset();
         Matcher m = Pattern.compile("\\b" + word.toLowerCase() + "\\b").matcher(input);
         int matches = 0;
         while (m.find()) {
@@ -422,7 +425,7 @@ public class FeatureExtractor {
 
     //To compute the number of times 2 words appearing together in the sentences.
     public static int count_two_words(String np, String ow) {
-        String input = Main.get_sDataset();
+        String input = MarkupMain.get_sDataset();
         Matcher m = Pattern.compile("(\\b" + np.toLowerCase() + "\\b)[^.]+(\\b" + ow.toLowerCase() + "\\b)").matcher(input);
         int matches = 0;
         while (m.find()) {
@@ -431,64 +434,68 @@ public class FeatureExtractor {
         System.out.println(matches);
         return matches;
     }
-    
-    public static int count_sentences(){
-    	int counter = 0;
-    	for( int i=0; i<Main.get_sDataset().length(); i++ ) {
-    	    if( Main.get_sDataset().charAt(i) == '.' ) {
-    	        counter++;
-    	    } 
-    	}
-    	return counter;
+
+    public static int count_sentences() {
+        int counter = 0;
+        for (int i = 0; i < MarkupMain.get_sDataset().length(); i++) {
+            if (MarkupMain.get_sDataset().charAt(i) == '.') {
+                counter++;
+            }
+        }
+        return counter;
     }
-    
-    public static int probability_noun_phrase(NounPhrase np){
-    	return count_word(np.getHeadNode().toString());
+
+    public static int probability_noun_phrase(NounPhrase np) {
+        return count_word(np.getHeadNode().toString());
     }
-    
+
     //If a NP has more than 1 OW, then Probability of OWs is sum of all
-    public static int probability_opinion_word(NounPhrase np){
-    	int counter = 0;
-    	for (String s : np.getOpinionWords())
-    		counter = counter + count_word(s);
-    	return counter;
+    public static int probability_opinion_word(NounPhrase np) {
+        int counter = 0;
+        for (String s : np.getOpinionWords()) {
+            counter = counter + count_word(s);
+        }
+        return counter;
     }
-    
+
     //probability of NP2 and OWs of NP1
     //If a NP has more than 1 OW, then Probability of OWs is sum of all
-    public static int probability_NP_and_OW(NounPhrase np1, NounPhrase np2){
-    	int counter = 0;
-    	for (String s : np1.getOpinionWords()){
-    		counter = counter + count_two_words(np2.getHeadNode().toString(), s);
-    	}
-    	return counter;
+    public static int probability_NP_and_OW(NounPhrase np1, NounPhrase np2) {
+        int counter = 0;
+        for (String s : np1.getOpinionWords()) {
+            counter = counter + count_two_words(np2.getHeadNode().toString(), s);
+        }
+        return counter;
     }
-    
+
     //Algorithm: N2 is considered that has a similar string with N1 if:
     //Main noun of N2 is the same as the main noun of N1 and
     //N1 includes all Nouns, adjactives of N2
-    public static boolean stringSimilarity(NounPhrase np1, NounPhrase np2, Sentence sen){
-    	if (np2.getHeadNode().toString().toLowerCase().equals(np1.getHeadNode().toString().toLowerCase())){
-    		for (Token token : sen.getTokens())
-    			if ((token.getOffsetBegin() >= np2.getOffsetBegin()) &&
-    					token.getOffsetEnd() <= np2.getOffsetEnd()){
-    				if ((token.getPOS().equals("JJ"))
-    	    				||(token.getPOS().equals("NN"))
-    	    				||(token.getPOS().equals("NNS"))
-    	    				||(token.getPOS().equals("NNP"))
-    	    				||(token.getPOS().equals("NNPS"))){
-    	    					boolean isConclusion = false;
-    	    					for (Tree tree : np1.getNpNode().getLeaves())
-    	    						if (tree.toString().toLowerCase().equals(token.getWord().toLowerCase()))
-    	    							isConclusion = true;
-    	    					if (isConclusion == false)
-    	    						return false;
-    	    				}
-    			}
-    		return true;
-    		
-    	}
-    	return false;
-    	
+    public static boolean stringSimilarity(NounPhrase np1, NounPhrase np2, Sentence sen) {
+        if (np2.getHeadNode().toString().toLowerCase().equals(np1.getHeadNode().toString().toLowerCase())) {
+            for (Token token : sen.getTokens()) {
+                if ((token.getOffsetBegin() >= np2.getOffsetBegin())
+                        && token.getOffsetEnd() <= np2.getOffsetEnd()) {
+                    if ((token.getPOS().equals("JJ"))
+                            || (token.getPOS().equals("NN"))
+                            || (token.getPOS().equals("NNS"))
+                            || (token.getPOS().equals("NNP"))
+                            || (token.getPOS().equals("NNPS"))) {
+                        boolean isConclusion = false;
+                        for (Tree tree : np1.getNpNode().getLeaves()) {
+                            if (tree.toString().toLowerCase().equals(token.getWord().toLowerCase())) {
+                                isConclusion = true;
+                            }
+                        }
+                        if (isConclusion == false) {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
+
+        }
+        return false;
     }
 }

@@ -46,6 +46,72 @@ public class StanfordUtil {
 
     public StanfordUtil(File documentFile) {
         this.documentFile = documentFile;
+    }
+
+    //Just for finding Noun Phrases
+    public void simpleInit() throws FileNotFoundException, IOException {
+        headFinder = new CollinsHeadFinder();
+        props = new Properties();
+        props.put("annotators", "tokenize, ssplit, pos, parse");
+        pipeline = new StanfordCoreNLP(props);
+
+        reviews = new ArrayList<>();
+
+        FileReader fileReader = new FileReader(documentFile);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+        String reviewLine;
+        //read input file line by line and count the number sentences of each lines
+        while ((reviewLine = bufferedReader.readLine()) != null) {
+            Review newReview = new Review();
+
+            //Add to reviews list
+            newReview.setRawContent(reviewLine);
+
+            // create an empty Annotation just with the given text
+            document = new Annotation(reviewLine);
+
+            // run all Annotators on this text
+            pipeline.annotate(document);
+            List<CoreMap> sentences = document.get(SentencesAnnotation.class);
+
+            //Begin extracting from paragraphs
+            for (CoreMap sentence : sentences) {
+                // this is the parse tree of the current sentence
+                Tree sentenceTree = sentence.get(TreeAnnotation.class);
+                nounPhraseFindSimple(sentenceTree, newReview);
+            }
+            reviews.add(newReview);
+        }
+    }
+
+    public void nounPhraseFindSimple(Tree rootNode, Review review) {
+        if (rootNode == null || rootNode.isLeaf()) {
+            return;
+        }
+
+        if (rootNode.value().equals("NP")) {
+            List leaves = rootNode.getLeaves();
+            CoreLabel firstLeafLabel = (CoreLabel) rootNode.getLeaves().get(0).label();
+            HasOffset firstOfs = (HasOffset) firstLeafLabel;
+            CoreLabel lastNodeLabel = (CoreLabel) rootNode.getLeaves().get(leaves.size() - 1).label();
+            HasOffset lastOfs = (HasOffset) lastNodeLabel;
+            NounPhrase np = new NounPhrase();
+            np.setNpNode(rootNode);
+            np.setHeadNode(rootNode.headTerminal(headFinder));
+            np.setOffsetBegin(firstOfs.beginPosition());
+            np.setOffsetEnd(lastOfs.endPosition());
+            np.setId(review.getNounPhrases().size());
+            review.addNounPhrase(np);
+        }
+
+        for (Tree child : rootNode.children()) {
+            nounPhraseFindSimple(child, review);
+        }
+    }
+
+    public void init() throws FileNotFoundException, IOException {
+
         props = new Properties();
         props.put("annotators", "tokenize, ssplit, pos, parse, sentiment");
         pipeline = new StanfordCoreNLP(props);
@@ -55,9 +121,6 @@ public class StanfordUtil {
         nounPhrases = new ArrayList<>();
 
         reviews = new ArrayList<>();
-    }
-
-    public void init() throws FileNotFoundException, IOException {
 
         FileReader fileReader = new FileReader(documentFile);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -153,6 +216,7 @@ public class StanfordUtil {
             np.setReviewId(reviewId);
             np.setSentenceId(sentenceId);
             np.setOpinionWord();
+            np.setId(review.getNounPhrases().size());
             nounPhrases.add(np);
             review.addNounPhrase(np);
             sentence.addNounPhrase(np);
@@ -185,6 +249,9 @@ public class StanfordUtil {
                 System.out.println("NPs");
                 for (NounPhrase np : sentence.getNounPhrases()) {
                     System.out.println(np.getNpNode().getLeaves());
+                    System.out.println("Id " + np.getId());
+                    System.out.println("Ref " + np.getRefId());
+                    System.out.println("Type " + np.getType());
                 }
                 if (!sentence.getComparativeIndicatorPhrases().isEmpty()) {
                     System.out.println("Comparative NPs");
