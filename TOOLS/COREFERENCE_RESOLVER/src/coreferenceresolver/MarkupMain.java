@@ -57,7 +57,9 @@ public class MarkupMain {
 //
 //                //Create output file for markup
                 Util.initMarkupFile(review, fw);
+                                
             }
+            fw.close();
         } catch (IOException ex) {
             Logger.getLogger(MarkupMain.class.getName()).log(Level.SEVERE, null, ex);
         }
