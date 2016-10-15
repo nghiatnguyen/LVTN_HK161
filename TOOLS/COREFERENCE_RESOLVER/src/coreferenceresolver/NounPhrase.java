@@ -25,6 +25,9 @@ public class NounPhrase {
     private int reviewId;
     private int offsetBegin;
     private int offsetEnd;
+    private int nestedLevel;
+    private int ref;
+    private int type;
     private boolean isSuperior;
     private boolean isInferior;
     private ArrayList<String> opinionWords;
@@ -129,6 +132,20 @@ public class NounPhrase {
         this.offsetEnd = offsetEnd;
     }
 
+    /**
+     * @return the nestedLevel
+     */
+    public int getNestedLevel() {
+        return nestedLevel;
+    }
+
+    /**
+     * @param nestedLevel the nestedLevel to set
+     */
+    public void setNestedLevel(int nestedLevel) {
+        this.nestedLevel = nestedLevel;
+    }
+
     public void addOpinionWord(String opnionWordAdded) {
         this.opinionWords.add(opnionWordAdded);
     }
@@ -170,5 +187,33 @@ public class NounPhrase {
      */
     public void setInferior(boolean isInferior) {
         this.isInferior = isInferior;
+    }
+
+    /**
+     * @return the ref
+     */
+    public int getRef() {
+        return ref;
+    }
+
+    /**
+     * @param ref the ref to set
+     */
+    public void setRef(int ref) {
+        this.ref = ref;
+    }
+
+    /**
+     * @return the type
+     */
+    public int getType() {
+        return type;
+    }
+
+    /**
+     * @param type the type to set
+     */
+    public void setType(int type) {
+        this.type = type;
     }
 }

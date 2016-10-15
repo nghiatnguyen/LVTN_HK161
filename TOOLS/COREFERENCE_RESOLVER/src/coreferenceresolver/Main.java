@@ -7,11 +7,9 @@ package coreferenceresolver;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,44 +22,23 @@ public class Main {
     FeatureExtractor fe = new FeatureExtractor();
     private static String sDataset = null;
     private static BufferedReader buffReaderDict;
-    
-    public static String get_sDataset(){
-		return sDataset;
-	}
 
-    private static String DISCARDED_PERSONAL_PRONOUNS = ";i;me;you;he;him;his;she;her;hers;";
-
-    private static boolean isDiscardedPersonalPronoun(NounPhrase np) {
-        if (DISCARDED_PERSONAL_PRONOUNS.contains(";" + np.getHeadNode().value().toLowerCase() + ";")) {
-            return true;
-        }
-        return false;
-    }
-
-    public static void discardPersonalPronoun(Review review) {
-        List nps = review.getNounPhrases();
-        Iterator<NounPhrase> itr = nps.iterator();
-
-        while (itr.hasNext()) {
-            NounPhrase np = itr.next();
-            if (isDiscardedPersonalPronoun(np)) {
-                itr.remove();
-            }
-        }
+    public static String get_sDataset() {
+        return sDataset;
     }
 
     public static void featureExtract(Review review) {
-        discardPersonalPronoun(review);
         System.out.println("All NPs in this review:");
         for (NounPhrase np : review.getNounPhrases()) {
             System.out.print(np.getNpNode().getLeaves() + "  ");
         }
         System.out.println();
-        
+
         //Set Opinion Words for Noun Phrases
-        for (int i = 0; i < review.getSentences().size(); i++)
-        	FeatureExtractor.set_NP_for_OP_in_sentence(review.getSentences().get(i));
-        	
+        for (int i = 0; i < review.getSentences().size(); i++) {
+            FeatureExtractor.set_NP_for_OP_in_sentence(review.getSentences().get(i));
+        }
+
         for (int i = 0; i < review.getNounPhrases().size(); ++i) {
             NounPhrase np1 = review.getNounPhrases().get(i);
             for (int j = i + 1; j < review.getNounPhrases().size(); ++j) {
@@ -77,8 +54,9 @@ public class Main {
                 System.out.println("NP1 review: " + np1.getReviewId());
                 System.out.println("NP1 sentence: " + np1.getSentenceId());
                 System.out.print("Opinion words: ");
-                for (int k = 0; k < np1.getOpinionWords().size(); k++)
-                	System.out.print(np1.getOpinionWords().get(k) + " ; ");
+                for (int k = 0; k < np1.getOpinionWords().size(); k++) {
+                    System.out.print(np1.getOpinionWords().get(k) + " ; ");
+                }
                 System.out.println();
                 System.out.println("------------");
                 System.out.println("NP2 words: " + np2.getNpNode().getLeaves());
@@ -112,7 +90,7 @@ public class Main {
 
                 System.out.println("------------End of NP pair--------------");
             }
-            
+
 //            System.out.println("------------");
 //            System.out.println("NP1 words: " + np1.getNpNode().getLeaves());
 //            System.out.println("NP1 head label: " + np1.getHeadLabel());
@@ -130,59 +108,51 @@ public class Main {
 //            	System.out.print(np1.getOpinionWords().get(k) + " ; ");
 //            System.out.println();
         }
-        	
     }
 
     /**
      * @param args the command line arguments
-     * @throws IOException 
+     * @throws IOException
      */
     public static void main(String[] args) throws IOException {
         // TODO code application logic here
         File inputFile = new File("E:\\REPOSITORIES\\LVTN_HK161\\TOOLS\\NOUN_PHRASE_FINDER\\DomParser\\input.txt");
+        File outFile = new File(".\\markup.out.txt");
+        FileWriter fw = new FileWriter(outFile);
         StanfordUtil su = new StanfordUtil(inputFile);
         //Read the big database to find relation between NP and OW
         // read the Dataset
-		File fData = new File("E:\\REPOSITORIES\\LVTN_HK161\\TOOLS\\NOUN_PHRASE_FINDER\\DomParser\\dataset.txt");
-		FileReader fReaderData = new FileReader(fData);
-		buffReaderDict = new BufferedReader(fReaderData);
-		String line;
-		while ((line = buffReaderDict.readLine()) != null){
-			sDataset = sDataset + line + "\n";
-		}
-		
-		
+        File fData = new File("E:\\REPOSITORIES\\LVTN_HK161\\TOOLS\\NOUN_PHRASE_FINDER\\DomParser\\dataset.txt");
+        FileReader fReaderData = new FileReader(fData);
+        buffReaderDict = new BufferedReader(fReaderData);
+        String line;
+        while ((line = buffReaderDict.readLine()) != null) {
+            sDataset = sDataset + line + "\n";
+        }
+
         try {
             su.init();
             int i = 0;
-//            for (Review review : StanfordUtil.reviews) {
-//                System.out.println("-----BEGIN REVIEW-----");
-//                System.out.println("Extract from review " + i);
-//                featureExtract(review);
-//                System.out.println("-----END REVIEW-----");
-//                ++i;
-//            }
-           for (Review review : StanfordUtil.reviews) {
-               System.out.println("-----BEGIN REVIEW-----");
-               System.out.println("Extract from review " + i);
-               featureExtract(review);
-               System.out.println("-----END REVIEW-----");
-               ++i;
-           }
-            // for (int j = 0; j < 14; j++){
-            // 	System.out.println("-----BEGIN REVIEW-----");
-            //     System.out.println("Extract from review " + i);
-            //     featureExtract(StanfordUtil.reviews.get(j));
-            //     System.out.println("-----END REVIEW-----");
-            //     ++i;
-            // }
-            
+            for (Review review : StanfordUtil.reviews) {
+//                Review review = StanfordUtil.reviews.get(19);
+                //Discard all NPs that is Personal Pronoun
+                Util.discardPersonalPronoun(review);
 
-            
-            StanfordUtil.test();
+                //Begin markup
+                System.out.println("-----BEGIN REVIEW-----");
+                System.out.println("Markup for review " + i);
+
+                Util.markupOutFileFromReview(review, fw);
+
+                System.out.println("-----END REVIEW-----");
+                ++i;
+            }
+
+            fw.close();
+
+//            StanfordUtil.test();
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 }
