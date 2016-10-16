@@ -49,15 +49,18 @@ public class MarkupMain {
             //Init every info
             su.simpleInit();
 
+            int i = 0;
+
             //Begin markup
             for (Review review : StanfordUtil.reviews) {
-//                Review review = StanfordUtil.reviews.get(0);
+//                Review review = StanfordUtil.reviews.get(3);
+                System.out.println("Mark up for review " + i);
                 //Discard all NPs that is Personal Pronoun
                 Util.discardPersonalProNPs(review);
 //
 //                //Create output file for markup
                 Util.initMarkupFile(review, fw);
-                                
+
             }
             fw.close();
         } catch (IOException ex) {

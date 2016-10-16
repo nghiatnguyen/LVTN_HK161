@@ -7,7 +7,6 @@ package coreferenceresolver;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -24,7 +23,7 @@ import java.util.regex.Pattern;
  */
 public class Util {
 
-    private static final String DISCARDED_PERSONAL_PRONOUNS = ";i;me;you;he;him;his;she;her;hers;";
+    private static final String DISCARDED_PERSONAL_PRONOUNS = ";i;me;we;us;ours;you;he;him;his;she;her;hers;";
 
     public static void extractFeatures(Review review) {
         System.out.println("All NPs in this review:");
@@ -123,21 +122,22 @@ public class Util {
 
             NounPhrase curNp = review.getNounPhrases().get(i);
             String rawNp = review.getRawContent().substring(curNp.getOffsetBegin(), curNp.getOffsetEnd());
-//            System.out.println("Raw NP " + rawNp);
-//            System.out.println("Consider " + markupReview.substring(openNpOffsets.get(i)));
+            System.out.println("Raw NP " + rawNp);
+            System.out.println("Consider " + markupReview.substring(openNpOffsets.get(i)));
 
             String regex = specialRegex(rawNp);
-            pattern = Pattern.compile(regex);
-//            System.out.println("Regex " + regex);
+            System.out.println("Regex " + regex);
+            pattern = Pattern.compile(regex);            
             String subString = markupReview.substring(openNpOffsets.get(i));
             matcher = pattern.matcher(subString);
             if (matcher.find()) {
-//                System.out.println("Found: " + matcher.group());
-                subString = markupReview.substring(openNpOffsets.get(i)).replaceFirst(matcher.group(), matcher.group() + ">");
+                System.out.println("Found: " + matcher.group());
+                int replacedStringIndex = markupReview.substring(openNpOffsets.get(i)).indexOf(matcher.group());
+                subString = markupReview.substring(openNpOffsets.get(i), openNpOffsets.get(i) + replacedStringIndex + matcher.group().length()) + ">" + markupReview.substring(openNpOffsets.get(i) + replacedStringIndex + matcher.group().length());
             }
 
             markupReview = markupReview.substring(0, openNpOffsets.get(i)) + subString;
-//            System.out.println("Markup Review " + markupReview);
+            System.out.println("Markup Review " + markupReview);
         }
 
         int npIndex = -1;
@@ -216,6 +216,12 @@ public class Util {
     }
 
     private static String specialRegex(String sequence) {
-        return sequence.replaceAll("\\s", " <*");
+        return sequence.replaceAll("\\$", "[\\$]")
+                .replaceAll("[?]", "[\\?]")
+                .replaceAll("[*]", "[\\*]")
+                .replaceAll("[+]", "[+]")
+                .replaceAll("[\\(]", "[(]<*")
+                .replaceAll("[\\)]", "[)]")                
+                .replaceAll("\\s", " <*");        
     }
 }

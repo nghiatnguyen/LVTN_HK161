@@ -39,11 +39,11 @@ public class TrainingMain {
                 //Read the hand-modified markup file
                 Util.readMarkupFile(markupFile);
 
-//                StanfordUtil.test();
+                StanfordUtil.test();
                 System.out.println("-----BEGIN REVIEW " + i + "-----");
 
                 //Extract features
-                Util.extractFeatures(review);
+//                Util.extractFeatures(review);
 //                StanfordUtil.test();
 
                 System.out.println("-----END REVIEW-----");
