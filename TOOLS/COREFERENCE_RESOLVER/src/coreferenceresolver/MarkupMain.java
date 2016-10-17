@@ -25,6 +25,10 @@ public class MarkupMain {
     public static String get_sDataset() {
         return sDataset;
     }
+    
+    public static void set_sDataset(String s){
+    	sDataset = s;
+    }
 
     /**
      * @param args the command line arguments

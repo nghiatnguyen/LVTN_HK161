@@ -5,8 +5,13 @@
  */
 package coreferenceresolver;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,9 +27,28 @@ public class TrainingMain {
      */
     public static void main(String[] args) throws IOException {
         File inputFile = new File(".\\input.txt");
-        File markupFile = new File(".\\markup.out.txt");
+        File markupFile = new File(".\\markup1.out.txt");
         StanfordUtil su = new StanfordUtil(inputFile);
 
+        // read the Dataset
+        File fData = new File(".\\dataset.txt");
+        FileReader fReaderData = new FileReader(fData);
+        BufferedReader buffReaderDict = new BufferedReader(fReaderData);
+        String sData = null;
+        String line;
+        while ((line = buffReaderDict.readLine()) != null) {
+            sData = sData + line + "\n";
+        }
+        MarkupMain.set_sDataset(sData);
+        
+        
+      //Write to train.txt
+        File ftrain = new File("train.txt");
+    	FileOutputStream fostrain = new FileOutputStream(ftrain);
+    	BufferedWriter bwtrain = new BufferedWriter(new OutputStreamWriter(fostrain));
+    	bwtrain.write("Review,NP1,NP2,NP1isPr,NP2 is Pr,NP2isDefNP,NP2isDemNP,Stringsimilary,Distance,NumberAgreement,isBetween,hasBetween,Comparative,PMI,COREF");
+		bwtrain.newLine();
+		
         try {
             //Init every info
             su.init();
@@ -43,7 +67,7 @@ public class TrainingMain {
                 System.out.println("-----BEGIN REVIEW " + i + "-----");
 
                 //Extract features
-//                Util.extractFeatures(review);
+                Util.extractFeatures(review,bwtrain);
 //                StanfordUtil.test();
 
                 System.out.println("-----END REVIEW-----");
@@ -53,5 +77,6 @@ public class TrainingMain {
         } catch (IOException ex) {
             Logger.getLogger(MarkupMain.class.getName()).log(Level.SEVERE, null, ex);
         }
+        bwtrain.close();
     }
 }

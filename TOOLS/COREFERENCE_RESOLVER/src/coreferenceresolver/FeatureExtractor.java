@@ -75,7 +75,7 @@ public class FeatureExtractor {
      * @param np2
      * @return true if there is an 'is-like' between 2 NPs, otherwise false
      */
-    public static boolean isBetweenExtract(Review review, NounPhrase np1, NounPhrase np2) {
+    public static Boolean isBetweenExtract(Review review, NounPhrase np1, NounPhrase np2) {
         if (np1.getReviewId() == np2.getReviewId()) {
             if (np1.getSentenceId() == np2.getSentenceId()) {
                 Sentence curSentence = review.getSentences().get(np1.getSentenceId());
@@ -106,7 +106,7 @@ public class FeatureExtractor {
      * @param np2
      * @return true if there is a comparative indicator between, otherwise false
      */
-    public static boolean comparativeIndicatorExtract(Review review, NounPhrase np1, NounPhrase np2) {
+    public static Boolean comparativeIndicatorExtract(Review review, NounPhrase np1, NounPhrase np2) {
         if (np1.getReviewId() == np2.getReviewId()) {
             if (np1.getSentenceId() == np2.getSentenceId()) {
                 Sentence curSentence = review.getSentences().get(np1.getSentenceId());
@@ -213,7 +213,7 @@ public class FeatureExtractor {
     }
 
     public static boolean isCoref(NounPhrase np1, NounPhrase np2) {
-        return (np1.getRefId() == np2.getId() || np1.getRefId() == np2.getId());
+        return (np1.getRefId() == np2.getId() || np2.getRefId() == np1.getId());
     }
 
     private static boolean contains3rdTobe(String sequence) {
@@ -258,7 +258,7 @@ public class FeatureExtractor {
         return COMPARATIVE_VERBS.contains(";" + token.getWord() + ";");
     }
 
-    public static boolean is_Pronoun(NounPhrase np) {
+    public static Boolean is_Pronoun(NounPhrase np) {
         if (np.getNpNode().numChildren() == 1) {
             return list_Pronoun.contains(np.getNpNode().getLeaves().get(0).toString().toLowerCase());
         } else {
@@ -266,7 +266,7 @@ public class FeatureExtractor {
         }
     }
 
-    public static boolean is_Definite_NP(NounPhrase np) {
+    public static Boolean is_Definite_NP(NounPhrase np) {
         if (np.getNpNode().getLeaves().get(0).toString().toLowerCase().equals("the")) {
             return true;
         } else {
@@ -275,7 +275,7 @@ public class FeatureExtractor {
     }
 
     //this, that, these, those
-    public static boolean is_Demonstrative_NP(NounPhrase np) {
+    public static Boolean is_Demonstrative_NP(NounPhrase np) {
         //System.out.println("1"+get_first_letter(np)+"1");
         return ((np.getNpNode().getLeaves().get(0).toString().toLowerCase().equals("this"))
                 || (np.getNpNode().getLeaves().get(0).toString().toLowerCase().equals("that"))
@@ -327,7 +327,7 @@ public class FeatureExtractor {
         }
     }
 
-    public static boolean has_Between_Extract(Review review, NounPhrase np1, NounPhrase np2) {
+    public static Boolean has_Between_Extract(Review review, NounPhrase np1, NounPhrase np2) {
         if (np1.getSentenceId() == np2.getSentenceId()) {
             Sentence curSentence = review.getSentences().get(np1.getSentenceId());
             if (np1.getOffsetEnd() < np2.getOffsetBegin()) {
@@ -467,11 +467,29 @@ public class FeatureExtractor {
         }
         return counter;
     }
+    
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
+    }
+    
+    public static Double PMI(NounPhrase np1, NounPhrase np2){
+    	if ((probability_noun_phrase(np2) == 0)||(probability_opinion_word(np1) == 0))
+    		return round(Math.log10(0),2);
+    	else
+    		return round(Math.log10(probability_NP_and_OW(np1, np2)/(probability_noun_phrase(np2)*probability_opinion_word(np1))),2);
+    		
+    		
+    }
 
     //Algorithm: N2 is considered that has a similar string with N1 if:
     //Main noun of N2 is the same as the main noun of N1 and
     //N1 includes all Nouns, adjactives of N2
-    public static boolean stringSimilarity(NounPhrase np1, NounPhrase np2, Sentence sen) {
+    public static Boolean stringSimilarity(NounPhrase np1, NounPhrase np2, Sentence sen) {
         if (np2.getHeadNode().toString().toLowerCase().equals(np1.getHeadNode().toString().toLowerCase())) {
             for (Token token : sen.getTokens()) {
                 if ((token.getOffsetBegin() >= np2.getOffsetBegin())
