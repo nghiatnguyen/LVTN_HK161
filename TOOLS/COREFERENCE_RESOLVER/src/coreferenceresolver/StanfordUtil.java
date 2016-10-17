@@ -252,6 +252,12 @@ public class StanfordUtil {
                     System.out.println("Id " + np.getId());
                     System.out.println("Ref " + np.getRefId());
                     System.out.println("Type " + np.getType());
+                    System.out.print("Opinion words: ");
+                  
+                   for (int k = 0; k < np.getOpinionWords().size(); k++) {
+                       System.out.print(np.getOpinionWords().get(k) + " ; ");
+                   }
+                   System.out.println();
                 }
                 if (!sentence.getComparativeIndicatorPhrases().isEmpty()) {
                     System.out.println("Comparative NPs");

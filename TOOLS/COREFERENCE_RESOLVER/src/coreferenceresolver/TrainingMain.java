@@ -43,11 +43,18 @@ public class TrainingMain {
         
         
       //Write to train.txt
-        File ftrain = new File("train.txt");
-    	FileOutputStream fostrain = new FileOutputStream(ftrain);
-    	BufferedWriter bwtrain = new BufferedWriter(new OutputStreamWriter(fostrain));
-    	bwtrain.write("Review,NP1,NP2,NP1isPr,NP2 is Pr,NP2isDefNP,NP2isDemNP,Stringsimilary,Distance,NumberAgreement,isBetween,hasBetween,Comparative,PMI,COREF");
-		bwtrain.newLine();
+//        File ftrain = new File("train.txt");
+//    	FileOutputStream fostrain = new FileOutputStream(ftrain);
+//    	BufferedWriter bwtrain = new BufferedWriter(new OutputStreamWriter(fostrain));
+//    	bwtrain.write("Review,NP1,NP2,NP1isPr,NP2 is Pr,NP2isDefNP,NP2isDemNP,Stringsimilary,Distance,NumberAgreement,isBetween,hasBetween,Comparative,PMI,COREF");
+//		bwtrain.newLine();
+		
+		//Write to train.txt
+        File ftest = new File("test.txt");
+    	FileOutputStream fostest = new FileOutputStream(ftest);
+    	BufferedWriter bwtest = new BufferedWriter(new OutputStreamWriter(fostest));
+    	bwtest.write("Review,NP1,NP2,NP1isPr,NP2 is Pr,NP2isDefNP,NP2isDemNP,Stringsimilary,Distance,NumberAgreement,isBetween,hasBetween,Comparative,PMI,COREF");
+		bwtest.newLine();
 		
         try {
             //Init every info
@@ -67,8 +74,9 @@ public class TrainingMain {
                 System.out.println("-----BEGIN REVIEW " + i + "-----");
 
                 //Extract features
-                Util.extractFeatures(review,bwtrain);
-//                StanfordUtil.test();
+//                Util.extractFeatures(review,bwtrain);
+                Util.extractFeatures(review,bwtest);
+ //               StanfordUtil.test();
 
                 System.out.println("-----END REVIEW-----");
 
@@ -77,6 +85,7 @@ public class TrainingMain {
         } catch (IOException ex) {
             Logger.getLogger(MarkupMain.class.getName()).log(Level.SEVERE, null, ex);
         }
-        bwtrain.close();
+//        bwtrain.close();
+        bwtest.close();
     }
 }

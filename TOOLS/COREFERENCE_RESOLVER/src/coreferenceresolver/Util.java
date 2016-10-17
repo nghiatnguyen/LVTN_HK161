@@ -43,20 +43,30 @@ public class Util {
         
         
     	
-		for (int i = review.getNounPhrases().size()-1; i > 0; i--){
-			NounPhrase np2 = review.getNounPhrases().get(i);
-			if ((np2.getRefId() == -1)|| (np2.getType() == 1)){
-				
-			}
-			else{
-				for (int j = i-1 ; j >= 0; j-- ){
-					NounPhrase np1 = review.getNounPhrases().get(j);
-					createTrain(np1, np2, review, bwtrain);
-					if (np1.getId() == np2.getRefId())
-						break;
-				}
-			}
-			
+//		for (int i = review.getNounPhrases().size()-1; i > 0; i--){
+//			NounPhrase np2 = review.getNounPhrases().get(i);
+//			if ((np2.getRefId() == -1)|| (np2.getType() == 1)){
+//				
+//			}
+//			else{
+//				for (int j = i-1 ; j >= 0; j-- ){
+//					NounPhrase np1 = review.getNounPhrases().get(j);
+//					createTrain(np1, np2, review, bwtrain);
+//					if (np1.getId() == np2.getRefId())
+//						break;
+//				}
+//			}
+//			
+//		}
+		
+		for (int i = 0; i < review.getNounPhrases().size(); ++i) {
+          NounPhrase np1 = review.getNounPhrases().get(i);
+          for (int j = i + 1; j < review.getNounPhrases().size(); ++j) {
+              NounPhrase np2 = review.getNounPhrases().get(j);
+              if (np1.getType() == 0 || np2.getType() == 0){
+              	createTrain(np1, np2, review, bwtrain);
+              }
+          }
 		}
         
 //        for (int i = 0; i < review.getNounPhrases().size(); ++i) {
@@ -285,8 +295,13 @@ public class Util {
      bwtrain.write(FeatureExtractor.isBetweenExtract(review, np1, np2).toString() + ",");
      bwtrain.write(FeatureExtractor.has_Between_Extract(review, np1, np2).toString() + ",");
      bwtrain.write(FeatureExtractor.comparativeIndicatorExtract(review, np1, np2).toString() + ",");
-     bwtrain.write(FeatureExtractor.PMI(np1, np2).toString());
+     bwtrain.write(FeatureExtractor.PMI(np1, np2).toString() + ",");
+//     bwtrain.write(FeatureExtractor.probability_NP_and_OW(np1, np2) + ",");
+//     bwtrain.write(FeatureExtractor.probability_opinion_word(np1) + ",");
+//     bwtrain.write(FeatureExtractor.probability_noun_phrase(np2) + ",");
+     bwtrain.write(FeatureExtractor.isCoref(np1, np2).toString());
      bwtrain.newLine();
     }
+    
     
 }

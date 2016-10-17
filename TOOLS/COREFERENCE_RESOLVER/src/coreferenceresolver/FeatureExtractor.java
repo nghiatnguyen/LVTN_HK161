@@ -212,7 +212,7 @@ public class FeatureExtractor {
         return res;
     }
 
-    public static boolean isCoref(NounPhrase np1, NounPhrase np2) {
+    public static Boolean isCoref(NounPhrase np1, NounPhrase np2) {
         return (np1.getRefId() == np2.getId() || np2.getRefId() == np1.getId());
     }
 
@@ -371,6 +371,7 @@ public class FeatureExtractor {
             //get opinion word in the sentence
             if (token.getPOS().toString().equals("JJ")
                     && check_adj_in_list(token.getWord().toString())) {
+//            	System.out.print(token.getWord().toString() + " ");
                 boolean check = false;
                 //if OW is nested in NP -> OW belongs to that NP
                 for (NounPhrase np : fSentence.getNounPhrases()) {
@@ -378,6 +379,7 @@ public class FeatureExtractor {
                             && np.getOffsetEnd() >= token.getOffsetEnd()) {
                         np.addOpinionWord(token.getWord().toString());
                         check = true;
+//                        System.out.println(np.getNpNode().toString());
                     }
                 }
 
@@ -388,6 +390,7 @@ public class FeatureExtractor {
                         for (NounPhrase np : fSentence.getNounPhrases()) {
                             if (np.getOffsetBegin() > token.getOffsetEnd()) {
                                 np.addOpinionWord(token.getWord().toString());
+//                                System.out.println(np.getNpNode().toString());
                                 break;
                             }
                         }
@@ -403,6 +406,7 @@ public class FeatureExtractor {
                         }
                         if (f_id != 0) {
                             fSentence.getNounPhrases().get(f_id).addOpinionWord(token.getWord().toString());
+                            System.out.println(fSentence.getNounPhrases().get(f_id).getNpNode().toString());
                         }
                     }
                 }
@@ -468,20 +472,12 @@ public class FeatureExtractor {
         return counter;
     }
     
-    public static double round(double value, int places) {
-        if (places < 0) throw new IllegalArgumentException();
-
-        long factor = (long) Math.pow(10, places);
-        value = value * factor;
-        long tmp = Math.round(value);
-        return (double) tmp / factor;
-    }
     
-    public static Double PMI(NounPhrase np1, NounPhrase np2){
-    	if ((probability_noun_phrase(np2) == 0)||(probability_opinion_word(np1) == 0))
-    		return round(Math.log10(0),2);
+    public static Float PMI(NounPhrase np1, NounPhrase np2){
+    	if ((probability_noun_phrase(np2) == 0)||(probability_opinion_word(np1) == 0)||(probability_NP_and_OW(np1, np2) == 0))
+    		return (float) 0;
     	else
-    		return round(Math.log10(probability_NP_and_OW(np1, np2)/(probability_noun_phrase(np2)*probability_opinion_word(np1))),2);
+    		return ((int)((float) probability_NP_and_OW(np1, np2)/((probability_noun_phrase(np2)*probability_opinion_word(np1)))*100000000)/ (float) 1000);
     		
     		
     }
