@@ -213,7 +213,20 @@ public class FeatureExtractor {
     }
 
     public static Boolean isCoref(NounPhrase np1, NounPhrase np2) {
+    	if (np1.getType() == 1 || np2.getType() == 1)
+    		return false;
         return (np1.getRefId() == np2.getId() || np2.getRefId() == np1.getId());
+    }
+    
+    public static Boolean isCorefTest(NounPhrase np1, NounPhrase np2, ArrayList<Integer> list){
+    	if (np1.getType() == 1 || np2.getType() == 1)
+    		return false;
+    	if (np1.getRefId() == np2.getId() || np2.getRefId() == np1.getId())
+    		return true;
+    	else if (list.contains(np2.getRefId()))
+    		return true;
+    	else 
+    		return false;
     }
 
     private static boolean contains3rdTobe(String sequence) {
@@ -287,7 +300,7 @@ public class FeatureExtractor {
         return Math.abs(np1.getSentenceId() - np2.getSentenceId());
     }
 
-    public static boolean is_Proper_name(NounPhrase np) {
+    public static Boolean is_Proper_name(NounPhrase np) {
         //if the first letter of word is lettercase -> false, else continure checking
         if (Character.isUpperCase(np.getNpNode().getLeaves().get(0).toString().charAt(0))) {
             //if the NP is single word
@@ -303,7 +316,9 @@ public class FeatureExtractor {
                 // because "of" and "and" don't need to upper in Proper name, so check.
                 for (int i = 0; i < np.getNpNode().getLeaves().size(); i++) {
                     if ((np.getNpNode().getLeaves().get(i).toString().equals("of"))
-                            || (np.getNpNode().getLeaves().get(i).toString().equals("and"))) {
+                            || (np.getNpNode().getLeaves().get(i).toString().equals("and"))
+                            || (np.getNpNode().getLeaves().get(i).toString().equals("the"))
+                            || (np.getNpNode().getLeaves().get(i).toString().equals("my"))) {
                     } else {
                         if (Character.isLowerCase(np.getNpNode().getLeaves().get(i).toString().charAt(0))) {
                             return false;
@@ -316,6 +331,13 @@ public class FeatureExtractor {
         } else {
             return false;
         }
+    }
+    
+    public static Boolean isBothPropername(NounPhrase np1, NounPhrase np2){
+    	if (is_Proper_name(np1) && is_Proper_name(np2))
+    		return true;
+    	else
+    		return false;
     }
 
     //Check if the adjective is in the List of negative and positive words

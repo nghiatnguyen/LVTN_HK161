@@ -28,7 +28,8 @@ public class Util {
 
     private static final String DISCARDED_PERSONAL_PRONOUNS = ";i;me;we;us;ours;you;he;him;his;she;her;hers;";
 
-    public static void extractFeatures(Review review, BufferedWriter bwtrain) throws IOException {
+    private static ArrayList<Integer> list;
+    public static void extractFeatures(Review review, BufferedWriter bw) throws IOException {
         System.out.println("All NPs in this review:");
         for (NounPhrase np : review.getNounPhrases()) {
             System.out.print(np.getNpNode().getLeaves() + "  ");
@@ -42,32 +43,53 @@ public class Util {
         }
         
         
-    	
-//		for (int i = review.getNounPhrases().size()-1; i > 0; i--){
-//			NounPhrase np2 = review.getNounPhrases().get(i);
-//			if ((np2.getRefId() == -1)|| (np2.getType() == 1)){
-//				
-//			}
-//			else{
-//				for (int j = i-1 ; j >= 0; j-- ){
-//					NounPhrase np1 = review.getNounPhrases().get(j);
-//					createTrain(np1, np2, review, bwtrain);
-//					if (np1.getId() == np2.getRefId())
-//						break;
-//				}
-//			}
-//			
-//		}
-		
-		for (int i = 0; i < review.getNounPhrases().size(); ++i) {
-          NounPhrase np1 = review.getNounPhrases().get(i);
-          for (int j = i + 1; j < review.getNounPhrases().size(); ++j) {
-              NounPhrase np2 = review.getNounPhrases().get(j);
-              if (np1.getType() == 0 || np2.getType() == 0){
-              	createTrain(np1, np2, review, bwtrain);
-              }
-          }
+    	//Create the train dataset
+		for (int i = review.getNounPhrases().size()-1; i > 0; i--){
+			NounPhrase np2 = review.getNounPhrases().get(i);
+			if ((np2.getRefId() == -1)|| (np2.getType() == 1)){
+				
+			}
+			else{
+				for (int j = i-1 ; j >= 0; j-- ){
+					NounPhrase np1 = review.getNounPhrases().get(j);
+					createTrain(np1, np2, review, bw);
+					if (np1.getId() == np2.getRefId())
+						break;
+				}
+			}
+			
 		}
+		
+        
+        //Create the test database
+//		for (int i = 0; i < review.getNounPhrases().size(); ++i) {
+//          NounPhrase np1 = review.getNounPhrases().get(i);
+//          list = new ArrayList<Integer>();
+//          for (int j = i + 1; j < review.getNounPhrases().size(); ++j) {
+//              NounPhrase np2 = review.getNounPhrases().get(j);
+//              if (np1.getType() == 0 || np2.getType() == 0){
+//            	  if ((np1.getId() == np2.getRefId() && np2.getType() != 1)||list.contains(np2.getRefId()))
+//            		  list.add(np2.getId());
+//              	createTest(np1, np2, review, bw);
+//              }
+//          }
+//		}
+        
+        //Check features of each NP
+//        for (int i = 0; i < review.getNounPhrases().size(); ++i) {
+//        	NounPhrase np1 = review.getNounPhrases().get(i);
+//        	list = new ArrayList<Integer>();
+//        	for (int j = i + 1; j < review.getNounPhrases().size(); ++j) {
+//        		NounPhrase np2 = review.getNounPhrases().get(j);
+//        			if ((np1.getId() == np2.getRefId() && np2.getType() != 1)||list.contains(np2.getRefId()))
+//        				list.add(np2.getId());
+//        	}
+//	         createCheck(np1, review, bw);
+//	         for (Integer in : list)
+//	        	 bw.write(in + ",");
+//	         bw.newLine();
+//	         
+//        }
         
 //        for (int i = 0; i < review.getNounPhrases().size(); ++i) {
 //            NounPhrase np1 = review.getNounPhrases().get(i);
@@ -267,28 +289,14 @@ public class Util {
     }
     
     private static void createTrain(NounPhrase np1, NounPhrase np2, Review review, BufferedWriter bwtrain) throws IOException{
-//      System.out.println("COREF: " + FeatureExtractor.isCoref(np1, np2));
-//      System.out.println("NP1 is Pronoun: " + FeatureExtractor.is_Pronoun(np1));
-//      System.out.println("NP2 is Pronoun: " + FeatureExtractor.is_Pronoun(np2));
-//      System.out.println("NP2 is Definite Noun Phrase: " + FeatureExtractor.is_Definite_NP(np2));
-//      System.out.println("NP2 is Demonstrative Noun Phrase: " + FeatureExtractor.is_Demonstrative_NP(np2));
-//      System.out.println("String similarity: " + FeatureExtractor.stringSimilarity(np1, np2, review.getSentences().get(np1.getSentenceId())));
-//      System.out.println("Distance Feature: " + FeatureExtractor.count_Distance(np1, np2));
-//      System.out.println("Number agreement: " + FeatureExtractor.numberAgreementExtract(np1, np2));
-//      System.out.println("comparative indicator-between: " + FeatureExtractor.comparativeIndicatorExtract(review, np1, np2));
-//      System.out.println("is-between: " + FeatureExtractor.isBetweenExtract(review, np1, np2));
-//      System.out.println("has-between: " + FeatureExtractor.has_Between_Extract(review, np1, np2));
-//      System.out.println("***Entity and opinion words association*** " + FeatureExtractor.PMI(np1, np2));
-//      System.out.println("Probability of Opinion Word of NP1: " + FeatureExtractor.probability_opinion_word(np1));
-//      System.out.println("Probability of NP2: " + FeatureExtractor.probability_noun_phrase(np2));
-//      System.out.println("Probability of (NP2 and Opinion Word of NP1): " + FeatureExtractor.probability_NP_and_OW(np1, np2));
-    	bwtrain.write(np1.getReviewId() + ",");
-    	bwtrain.write(np1.getId() + ",");
-    	bwtrain.write(np2.getId() + ",");
+   	 bwtrain.write(np1.getReviewId() + ",");
+   	 bwtrain.write(np1.getId() + ",");
+   	 bwtrain.write(np2.getId() + ",");
      bwtrain.write(FeatureExtractor.is_Pronoun(np1).toString() + ",");
      bwtrain.write(FeatureExtractor.is_Pronoun(np2).toString() + ",");
      bwtrain.write(FeatureExtractor.is_Definite_NP(np2).toString() + ",");
      bwtrain.write(FeatureExtractor.is_Demonstrative_NP(np2).toString() + ",");
+     bwtrain.write(FeatureExtractor.isBothPropername(np1, np2) + ",");
      bwtrain.write(FeatureExtractor.stringSimilarity(np1, np2, review.getSentences().get(np1.getSentenceId())).toString() + ",");
      bwtrain.write(FeatureExtractor.count_Distance(np1, np2) + ",");
      bwtrain.write(FeatureExtractor.numberAgreementExtract(np1, np2) + ",");
@@ -296,12 +304,38 @@ public class Util {
      bwtrain.write(FeatureExtractor.has_Between_Extract(review, np1, np2).toString() + ",");
      bwtrain.write(FeatureExtractor.comparativeIndicatorExtract(review, np1, np2).toString() + ",");
      bwtrain.write(FeatureExtractor.PMI(np1, np2).toString() + ",");
-//     bwtrain.write(FeatureExtractor.probability_NP_and_OW(np1, np2) + ",");
-//     bwtrain.write(FeatureExtractor.probability_opinion_word(np1) + ",");
-//     bwtrain.write(FeatureExtractor.probability_noun_phrase(np2) + ",");
      bwtrain.write(FeatureExtractor.isCoref(np1, np2).toString());
      bwtrain.newLine();
     }
     
+    private static void createTest(NounPhrase np1, NounPhrase np2, Review review, BufferedWriter bwtrain) throws IOException{
+      	 bwtrain.write(np1.getReviewId() + ",");
+      	 bwtrain.write(np1.getId() + ",");
+      	 bwtrain.write(np2.getId() + ",");
+        bwtrain.write(FeatureExtractor.is_Pronoun(np1).toString() + ",");
+        bwtrain.write(FeatureExtractor.is_Pronoun(np2).toString() + ",");
+        bwtrain.write(FeatureExtractor.is_Definite_NP(np2).toString() + ",");
+        bwtrain.write(FeatureExtractor.is_Demonstrative_NP(np2).toString() + ",");
+        bwtrain.write(FeatureExtractor.isBothPropername(np1, np2) + ",");
+        bwtrain.write(FeatureExtractor.stringSimilarity(np1, np2, review.getSentences().get(np1.getSentenceId())).toString() + ",");
+        bwtrain.write(FeatureExtractor.count_Distance(np1, np2) + ",");
+        bwtrain.write(FeatureExtractor.numberAgreementExtract(np1, np2) + ",");
+        bwtrain.write(FeatureExtractor.isBetweenExtract(review, np1, np2).toString() + ",");
+        bwtrain.write(FeatureExtractor.has_Between_Extract(review, np1, np2).toString() + ",");
+        bwtrain.write(FeatureExtractor.comparativeIndicatorExtract(review, np1, np2).toString() + ",");
+        bwtrain.write(FeatureExtractor.PMI(np1, np2).toString() + ",");
+        bwtrain.write(FeatureExtractor.isCorefTest(np1, np2,list).toString());
+        bwtrain.newLine();
+       }
     
+    
+    private static void createCheck(NounPhrase np2, Review review, BufferedWriter bwtrain) throws IOException{
+    	bwtrain.write(np2.getReviewId() + ";" +np2.getId() + ";" + np2.getNpNode().getLeaves().toString() + ";" + np2.getHeadNode().toString() + ";");
+    	bwtrain.write(FeatureExtractor.is_Pronoun(np2).toString() + ";");
+        bwtrain.write(FeatureExtractor.is_Definite_NP(np2).toString() + ";");
+        bwtrain.write(FeatureExtractor.is_Demonstrative_NP(np2).toString() + ";");
+        bwtrain.write(FeatureExtractor.is_Proper_name(np2).toString());
+        bwtrain.newLine();
+    }
+
 }

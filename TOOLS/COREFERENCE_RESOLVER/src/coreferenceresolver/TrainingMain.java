@@ -43,19 +43,23 @@ public class TrainingMain {
         
         
       //Write to train.txt
-//        File ftrain = new File("train.txt");
-//    	FileOutputStream fostrain = new FileOutputStream(ftrain);
-//    	BufferedWriter bwtrain = new BufferedWriter(new OutputStreamWriter(fostrain));
-//    	bwtrain.write("Review,NP1,NP2,NP1isPr,NP2 is Pr,NP2isDefNP,NP2isDemNP,Stringsimilary,Distance,NumberAgreement,isBetween,hasBetween,Comparative,PMI,COREF");
-//		bwtrain.newLine();
+        File ftrain = new File("train.txt");
+    	FileOutputStream fostrain = new FileOutputStream(ftrain);
+    	BufferedWriter bwtrain = new BufferedWriter(new OutputStreamWriter(fostrain));
+    	bwtrain.write("Review,NP1,NP2,NP1isPr,NP2isPr,NP2isDefNP,NP2isDemNP,isBothPropername,Stringsimilary,Distance,NumberAgreement,isBetween,hasBetween,Comparative,PMI,COREF");
+		bwtrain.newLine();
 		
-		//Write to train.txt
-        File ftest = new File("test.txt");
-    	FileOutputStream fostest = new FileOutputStream(ftest);
-    	BufferedWriter bwtest = new BufferedWriter(new OutputStreamWriter(fostest));
-    	bwtest.write("Review,NP1,NP2,NP1isPr,NP2 is Pr,NP2isDefNP,NP2isDemNP,Stringsimilary,Distance,NumberAgreement,isBetween,hasBetween,Comparative,PMI,COREF");
-		bwtest.newLine();
-		
+		//Write to test.txt
+//        File ftest = new File("test.txt");
+//    	FileOutputStream fostest = new FileOutputStream(ftest);
+//    	BufferedWriter bwtest = new BufferedWriter(new OutputStreamWriter(fostest));
+//    	bwtest.write("Review,NP1,NP2,NP1isPr,NP2isPr,NP2isDefNP,NP2isDemNP,isBothPropername,Stringsimilary,Distance,NumberAgreement,isBetween,hasBetween,Comparative,PMI,COREF");
+//		bwtest.newLine();
+    	
+    	//Write to check features of each NP
+//        File fcheck = new File("check.txt");
+//    	FileOutputStream foscheck = new FileOutputStream(fcheck);
+//    	BufferedWriter bwcheck = new BufferedWriter(new OutputStreamWriter(foscheck));	
         try {
             //Init every info
             su.init();
@@ -75,7 +79,7 @@ public class TrainingMain {
 
                 //Extract features
 //                Util.extractFeatures(review,bwtrain);
-                Util.extractFeatures(review,bwtest);
+                Util.extractFeatures(review,bwtrain);
  //               StanfordUtil.test();
 
                 System.out.println("-----END REVIEW-----");
@@ -85,7 +89,8 @@ public class TrainingMain {
         } catch (IOException ex) {
             Logger.getLogger(MarkupMain.class.getName()).log(Level.SEVERE, null, ex);
         }
-//        bwtrain.close();
-        bwtest.close();
+        bwtrain.close();
+//        bwtest.close();
+//        bwcheck.close();
     }
 }
