@@ -20,14 +20,11 @@ import java.util.logging.Logger;
  * @author TRONGNGHIA
  */
 public class TrainingMain {
-
-    /**
-     * @param args the command line arguments
-     * @throws IOException
-     */
-    public static void main(String[] args) throws IOException {
-        File inputFile = new File(".\\input.txt");
-        File markupFile = new File(".\\markup1.out.txt");
+    
+    public static void run(String inputFilePath, String markupFilePath, String outputFilePath, boolean forTraining) throws IOException {
+        File inputFile = new File(inputFilePath);
+        File markupFile = new File(markupFilePath);
+        File outputFile = new File(outputFilePath);
         StanfordUtil su = new StanfordUtil(inputFile);
 
         // read the Dataset
@@ -41,22 +38,34 @@ public class TrainingMain {
         }
         MarkupMain.set_sDataset(sData);
         
-        
-      //Write to train.txt
-        File ftrain = new File("train.txt");
-    	FileOutputStream fostrain = new FileOutputStream(ftrain);
-    	BufferedWriter bwtrain = new BufferedWriter(new OutputStreamWriter(fostrain));
-    	bwtrain.write("Review,NP1,NP2,NP1isPr,NP2isPr,NP2isDefNP,NP2isDemNP,isBothPropername,Stringsimilary,Distance,NumberAgreement,isBetween,hasBetween,Comparative,PMI,COREF");
-		bwtrain.newLine();
-		
-		//Write to test.txt
-//        File ftest = new File("test.txt");
-//    	FileOutputStream fostest = new FileOutputStream(ftest);
-//    	BufferedWriter bwtest = new BufferedWriter(new OutputStreamWriter(fostest));
-//    	bwtest.write("Review,NP1,NP2,NP1isPr,NP2isPr,NP2isDefNP,NP2isDemNP,isBothPropername,Stringsimilary,Distance,NumberAgreement,isBetween,hasBetween,Comparative,PMI,COREF");
-//		bwtest.newLine();
-    	
-    	//Write to check features of each NP
+        FileOutputStream fos = new FileOutputStream(outputFile);
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+        String relationName = forTraining ? "train" : "test";
+        bw.write("@RELATION " + relationName + "\n"
+                + "\n"
+                + "@ATTRIBUTE review REAL\n"
+                + "@ATTRIBUTE np1 REAL\n"
+                + "@ATTRIBUTE np2 REAL\n"
+                + "@ATTRIBUTE npdistance REAL\n"
+                + "@ATTRIBUTE np1ispr {false,true}\n"
+                + "@ATTRIBUTE np2ispr {false,true}\n"
+                + "@ATTRIBUTE np2isdefnp {false,true}\n"
+                + "@ATTRIBUTE np2isdemnp {false,true}\n"
+                + "@ATTRIBUTE isbothpropername {false,true}\n"
+                + "@ATTRIBUTE stringsimilary {false,true}\n"
+                + "@ATTRIBUTE distance REAL\n"
+                + "@ATTRIBUTE numberagreement {false,true}\n"
+                + "@ATTRIBUTE isbetween {false,true}\n"
+                + "@ATTRIBUTE hasbetween {false,true}\n"
+                + "@ATTRIBUTE comparative {false,true}\n"
+                + "@ATTRIBUTE sentiment REAL\n"
+                + "@ATTRIBUTE PMI REAL\n"
+                + "@ATTRIBUTE coref {false,true}\n"
+                + "\n"
+                + "@DATA");
+        bw.newLine();
+
+//        Write to check features of each NP
 //        File fcheck = new File("check.txt");
 //    	FileOutputStream foscheck = new FileOutputStream(fcheck);
 //    	BufferedWriter bwcheck = new BufferedWriter(new OutputStreamWriter(foscheck));	
@@ -64,7 +73,6 @@ public class TrainingMain {
             //Init every info
             su.init();
 
-            int i = 0;
             //Begin create training set
             for (Review review : StanfordUtil.reviews) {
 
@@ -74,23 +82,12 @@ public class TrainingMain {
                 //Read the hand-modified markup file
                 Util.readMarkupFile(markupFile);
 
-                StanfordUtil.test();
-                System.out.println("-----BEGIN REVIEW " + i + "-----");
-
                 //Extract features
-//                Util.extractFeatures(review,bwtrain);
-                Util.extractFeatures(review,bwtrain);
- //               StanfordUtil.test();
-
-                System.out.println("-----END REVIEW-----");
-
-                ++i;
+                Util.extractFeatures(review, bw, forTraining);
             }
         } catch (IOException ex) {
             Logger.getLogger(MarkupMain.class.getName()).log(Level.SEVERE, null, ex);
         }
-        bwtrain.close();
-//        bwtest.close();
-//        bwcheck.close();
+        bw.close();
     }
 }

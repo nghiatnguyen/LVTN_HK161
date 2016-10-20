@@ -25,18 +25,14 @@ public class MarkupMain {
     public static String get_sDataset() {
         return sDataset;
     }
-    
-    public static void set_sDataset(String s){
-    	sDataset = s;
-    }
 
-    /**
-     * @param args the command line arguments
-     * @throws IOException
-     */
-    public static void main(String[] args) throws IOException {
-        File inputFile = new File(".\\input.txt");
-        File markupFile = new File(".\\markup.out.txt");
+    public static void set_sDataset(String s) {
+        sDataset = s;
+    }
+    
+    public static void markup(String inputFilePath, String markupFilePath) throws IOException {
+        File inputFile = new File(inputFilePath);
+        File markupFile = new File(markupFilePath);
         FileWriter fw = new FileWriter(markupFile);
         StanfordUtil su = new StanfordUtil(inputFile);
         //Read the big database to find relation between NP and OW
@@ -57,11 +53,11 @@ public class MarkupMain {
 
             //Begin markup
             for (Review review : StanfordUtil.reviews) {
-//                Review review = StanfordUtil.reviews.get(3);
+                
                 System.out.println("Mark up for review " + i);
                 //Discard all NPs that is Personal Pronoun
                 Util.discardPersonalProNPs(review);
-//
+                
 //                //Create output file for markup
                 Util.initMarkupFile(review, fw);
 

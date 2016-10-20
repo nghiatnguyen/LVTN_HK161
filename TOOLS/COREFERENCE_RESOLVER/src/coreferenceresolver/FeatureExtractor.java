@@ -19,8 +19,8 @@ import edu.stanford.nlp.trees.Tree;
  */
 public class FeatureExtractor {
 
-    private static final String SINGULAR_KEYWORDS = ";it;";
-    private static final String PLURAL_KEYWORDS = ";they;them;";
+    private static final String SINGULAR_KEYWORDS = ";it;this;that;one;";
+    private static final String PLURAL_KEYWORDS = ";they;them;these;those;";
     private static final String[] TO_BEs = {"is", "'s", "are", "'re", "was", "were", "been", "be"};
     private static final String[] SPECIAL_COMPARATIVES = {"inferior", "superior", "junior", "senior", "anterior", "posterior", "prior"};
     private static final String ADJECTIVE = "JJ";
@@ -30,6 +30,7 @@ public class FeatureExtractor {
     private static final String SINGULAR_NOUN = "NN";
     private static final String PLURAL_NOUN = "NNS";
     public static final String COMPARATIVE_VERBS = ";beat;beats;win;wins;";
+    private static final String[] words = MarkupMain.get_sDataset().split("\\.");
     //List of Pronouns include reflexive pronouns, personal pronouns and possessive pronouns.
     private static final ArrayList<String> list_Pronoun = new ArrayList<String>(
             Arrays.asList("i", "you", "he", "she", "it", "we", "you", "they",
@@ -54,12 +55,12 @@ public class FeatureExtractor {
      * @return true if agree, otherwise false
      */
     public static boolean numberAgreementExtract(NounPhrase np1, NounPhrase np2) {
-        if ((np1.getHeadLabel().equals("NN") || np1.getHeadLabel().equals("NNP") || SINGULAR_KEYWORDS.contains(";" + np1.getHeadNode().value() + ";"))
+        if ((np1.getHeadLabel().equals("NN") || np1.getHeadLabel().equals("NNP") || SINGULAR_KEYWORDS.contains(";" + np1.getHeadNode().value().toLowerCase() + ";"))
                 && (np2.getHeadLabel().equals("NN") || np1.getHeadLabel().equals("NNP") || SINGULAR_KEYWORDS.contains(";" + np2.getHeadNode().value().toLowerCase() + ";"))) {
             return true;
         }
 
-        if ((np1.getHeadLabel().equals("NNS") || np1.getHeadLabel().equals("NNPS") || PLURAL_KEYWORDS.contains(";" + np1.getHeadNode().value() + ";"))
+        if ((np1.getHeadLabel().equals("NNS") || np1.getHeadLabel().equals("NNPS") || PLURAL_KEYWORDS.contains(";" + np1.getHeadNode().value().toLowerCase() + ";"))
                 && (np2.getHeadLabel().equals("NNS") || np1.getHeadLabel().equals("NNPS") || PLURAL_KEYWORDS.contains(";" + np2.getHeadNode().value().toLowerCase() + ";"))) {
             return true;
         }
@@ -99,6 +100,37 @@ public class FeatureExtractor {
     }
 
     /**
+     * Check for is-between feature
+     *
+     * @param review np1 np2
+     * @param np1
+     * @param np2
+     * @return true if there is an 'is-like' between 2 NPs, otherwise false
+     */
+    public static Boolean isBetween2Extract(Review review, NounPhrase np1, NounPhrase np2) {
+        if (np1.getReviewId() == np2.getReviewId()) {
+            if (np1.getSentenceId() == np2.getSentenceId()) {
+                Sentence curSentence = review.getSentences().get(np1.getSentenceId());
+                if (np1.getOffsetEnd() < np2.getOffsetBegin()) {
+                    if (np1.getOffsetEnd() + 1 < np2.getOffsetBegin() && contains3rdTobe(curSentence.getRawContent().substring(np1.getOffsetEnd() + 1 - curSentence.getOffsetBegin(), np2.getOffsetBegin() - curSentence.getOffsetBegin()))) {
+                        if (findComparativeIndicator(curSentence, np1, np2).isEmpty() && !hasNpBetween(np1, np2)) {
+                            return true;
+                        }
+                    }
+                } else if (np2.getOffsetEnd() < np1.getOffsetBegin()) {
+                    if (np2.getOffsetEnd() + 1 < np1.getOffsetBegin() && contains3rdTobe(curSentence.getRawContent().substring(np2.getOffsetEnd() + 1 - curSentence.getOffsetBegin(), np1.getOffsetBegin() - curSentence.getOffsetBegin()))) {
+                        if (findComparativeIndicator(curSentence, np1, np2).isEmpty() && !hasNpBetween(np1, np2)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Check for comparativeIndicator-between feature
      *
      * @param review
@@ -116,6 +148,33 @@ public class FeatureExtractor {
                     }
                 } else if (np2.getOffsetEnd() < np1.getOffsetBegin()) {
                     if (!findComparativeIndicator(curSentence, np2, np1).isEmpty()) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Check for comparativeIndicator-between feature
+     *
+     * @param review
+     * @param np1
+     * @param np2
+     * @return true if there is a comparative indicator between, otherwise false
+     */
+    public static Boolean comparativeIndicator2Extract(Review review, NounPhrase np1, NounPhrase np2) {
+        if (np1.getReviewId() == np2.getReviewId()) {
+            if (np1.getSentenceId() == np2.getSentenceId()) {
+                Sentence curSentence = review.getSentences().get(np1.getSentenceId());
+                if (np1.getOffsetEnd() < np2.getOffsetBegin()) {
+                    if (!findComparativeIndicator(curSentence, np1, np2).isEmpty() && !hasNpBetween(np1, np2)) {
+                        return true;
+                    }
+                } else if (np2.getOffsetEnd() < np1.getOffsetBegin()) {
+                    if (!findComparativeIndicator(curSentence, np2, np1).isEmpty() && !hasNpBetween(np1, np2)) {
                         return true;
                     }
                 }
@@ -213,25 +272,40 @@ public class FeatureExtractor {
     }
 
     public static Boolean isCoref(NounPhrase np1, NounPhrase np2) {
-    	if (np1.getType() == 1 || np2.getType() == 1)
-    		return false;
+        if (np1.getType() == 1 || np2.getType() == 1) {
+            return false;
+        }
         return (np1.getRefId() == np2.getId() || np2.getRefId() == np1.getId());
     }
-    
-    public static Boolean isCorefTest(NounPhrase np1, NounPhrase np2, ArrayList<Integer> list){
-    	if (np1.getType() == 1 || np2.getType() == 1)
-    		return false;
-    	if (np1.getRefId() == np2.getId() || np2.getRefId() == np1.getId())
-    		return true;
-    	else if (list.contains(np2.getRefId()))
-    		return true;
-    	else 
-    		return false;
+
+    public static Boolean isCorefTest(NounPhrase np1, NounPhrase np2, ArrayList<Integer> list) {
+        if (np1.getType() == 1 || np2.getType() == 1) {
+            return false;
+        }
+        if (np1.getRefId() == np2.getId() || np2.getRefId() == np1.getId()) {
+            return true;
+        } else if (list.contains(np2.getRefId())) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private static boolean contains3rdTobe(String sequence) {
         for (String aTobeVerb : TO_BEs) {
             if (sequence.contains(aTobeVerb)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean hasNpBetween(NounPhrase np1, NounPhrase np2) {
+        int offsetBeginRange = np1.getOffsetBegin() < np2.getOffsetBegin() ? np1.getOffsetEnd() : np2.getOffsetEnd();
+        int offsetEndRange = np1.getOffsetBegin() < np2.getOffsetBegin() ? np2.getOffsetBegin() : np1.getOffsetBegin();
+        List<NounPhrase> nounPhrases = StanfordUtil.reviews.get(np1.getReviewId()).getSentences().get(np1.getSentenceId()).getNounPhrases();
+        for (NounPhrase np : nounPhrases) {
+            if (np.getOffsetBegin() > offsetBeginRange && np.getOffsetEnd() < offsetEndRange) {
                 return true;
             }
         }
@@ -332,12 +406,13 @@ public class FeatureExtractor {
             return false;
         }
     }
-    
-    public static Boolean isBothPropername(NounPhrase np1, NounPhrase np2){
-    	if (is_Proper_name(np1) && is_Proper_name(np2))
-    		return true;
-    	else
-    		return false;
+
+    public static Boolean isBothPropername(NounPhrase np1, NounPhrase np2) {
+        if (is_Proper_name(np1) && is_Proper_name(np2)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     //Check if the adjective is in the List of negative and positive words
@@ -351,6 +426,48 @@ public class FeatureExtractor {
 
     public static Boolean has_Between_Extract(Review review, NounPhrase np1, NounPhrase np2) {
         if (np1.getSentenceId() == np2.getSentenceId()) {
+            Sentence curSentence = review.getSentences().get(np1.getSentenceId());
+            if (np1.getOffsetEnd() < np2.getOffsetBegin()) {
+                for (int i = 0; i < curSentence.getTokens().size(); i++) {
+                    if (curSentence.getTokens().get(i).getOffsetBegin() > np1.getOffsetEnd()
+                            && curSentence.getTokens().get(i).getOffsetEnd() < np2.getOffsetBegin()) {
+                        if (curSentence.getTokens().get(i).getWord().equals("has")
+                                || curSentence.getTokens().get(i).getWord().equals("have")
+                                || curSentence.getTokens().get(i).getWord().equals("had")) {
+                            if (curSentence.getTokens().get(i + 1).getWord().equals("to")
+                                    || curSentence.getTokens().get(i + 1).getPOS().equals("VBN")) {
+                                return false;
+                            }
+                            return true;
+                        }
+                    }
+                }
+            } else if (np2.getOffsetEnd() < np1.getOffsetBegin()) {
+                for (int i = 0; i < curSentence.getTokens().size(); i++) {
+                    if (curSentence.getTokens().get(i).getOffsetBegin() > np2.getOffsetEnd()
+                            && curSentence.getTokens().get(i).getOffsetEnd() < np1.getOffsetBegin()) {
+                        if (curSentence.getTokens().get(i).getWord().equals("has")
+                                || curSentence.getTokens().get(i).getWord().equals("have")
+                                || curSentence.getTokens().get(i).getWord().equals("had")) {
+                            if (curSentence.getTokens().get(i + 1).getWord().equals("to")
+                                    || curSentence.getTokens().get(i + 1).getPOS().equals("VBN")) {
+                                return false;
+                            }
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public static Boolean has_Between2_Extract(Review review, NounPhrase np1, NounPhrase np2) {
+        if (np1.getSentenceId() == np2.getSentenceId()) {
+            if (hasNpBetween(np1, np2)) {
+                return false;
+            }
             Sentence curSentence = review.getSentences().get(np1.getSentenceId());
             if (np1.getOffsetEnd() < np2.getOffsetBegin()) {
                 for (int i = 0; i < curSentence.getTokens().size(); i++) {
@@ -439,25 +556,36 @@ public class FeatureExtractor {
 
     //To compute the number of times a word appearing in the sentences
     public static int count_word(String word) {
-        String input = MarkupMain.get_sDataset();
-        Matcher m = Pattern.compile("\\b" + word.toLowerCase() + "\\b").matcher(input);
+//        String input = MarkupMain.get_sDataset();
+//        Matcher m = Pattern.compile("\\b" + word.toLowerCase() + "\\b").matcher(input);
         int matches = 0;
-        while (m.find()) {
-            matches++;
+//        while (m.find()) {
+//            matches++;
+//        }
+
+        for (int i = 0; i < words.length; ++i) {
+            if (words[i].contains(" " + word.toLowerCase() + " ")) {
+                ++matches;
+            }
         }
-        System.out.println(matches);
         return matches;
     }
 
     //To compute the number of times 2 words appearing together in the sentences.
     public static int count_two_words(String np, String ow) {
-        String input = MarkupMain.get_sDataset();
-        Matcher m = Pattern.compile("(\\b" + np.toLowerCase() + "\\b)[^.]+(\\b" + ow.toLowerCase() + "\\b)").matcher(input);
+//        String input = MarkupMain.get_sDataset();
+//        Matcher m = Pattern.compile("(\\b" + np.toLowerCase() + "\\b)[^.]+(\\b" + ow.toLowerCase() + "\\b)").matcher(input);
         int matches = 0;
-        while (m.find()) {
-            matches++;
+//        while (m.find()) {
+//            matches++;
+//        }
+        for (int i = 0; i < words.length; ++i) {
+            if ((words[i].contains(" " + np.toLowerCase() + " "))
+                    && (words[i].contains(" " + ow.toLowerCase() + " "))) {
+                ++matches;
+            }
         }
-        System.out.println(matches);
+//        System.out.println(matches);
         return matches;
     }
 
@@ -493,15 +621,14 @@ public class FeatureExtractor {
         }
         return counter;
     }
-    
-    
-    public static Float PMI(NounPhrase np1, NounPhrase np2){
-    	if ((probability_noun_phrase(np2) == 0)||(probability_opinion_word(np1) == 0)||(probability_NP_and_OW(np1, np2) == 0))
-    		return (float) 0;
-    	else
-    		return ((int)((float) probability_NP_and_OW(np1, np2)/((probability_noun_phrase(np2)*probability_opinion_word(np1)))*100000000)/ (float) 1000);
-    		
-    		
+
+    public static Float PMI(NounPhrase np1, NounPhrase np2) {
+        if ((probability_noun_phrase(np2) == 0) || (probability_opinion_word(np1) == 0) || (probability_NP_and_OW(np1, np2) == 0)) {
+            return (float) 0;
+        } else {
+            return ((int) ((float) probability_NP_and_OW(np1, np2) / ((probability_noun_phrase(np2) * probability_opinion_word(np1))) * 100000000) / (float) 1000);
+        }
+
     }
 
     //Algorithm: N2 is considered that has a similar string with N1 if:
@@ -533,5 +660,31 @@ public class FeatureExtractor {
 
         }
         return false;
+    }
+
+    public static int sentimentConsistencyExtract(NounPhrase np1, NounPhrase np2) {
+        if (np1.getReviewId() == np2.getReviewId()) {
+            if (np1.getSentenceId() == np2.getSentenceId() - 1) {
+                List<Sentence> sentences = StanfordUtil.reviews.get(np1.getReviewId()).getSentences();
+                Sentence np1Sentence = sentences.get(np1.getSentenceId());
+                Sentence np2Sentence = sentences.get(np2.getSentenceId());
+                if (!np1Sentence.isComparativeSentence()
+                        && (!np1Sentence.getRawContent().startsWith("But")
+                        || np1Sentence.getRawContent().startsWith("However"))) {
+                    if (np1Sentence.getSentimentLevel() == Sentence.NEUTRAL_SENTIMENT
+                            || np2Sentence.getSentimentLevel() == Sentence.NEUTRAL_SENTIMENT) {
+                        return 2;
+                    } else if ((np1Sentence.getSentimentLevel() == Sentence.NEGATIVE_SENTIMENT
+                            && np2Sentence.getSentimentLevel() == Sentence.NEGATIVE_SENTIMENT)
+                            || (np1Sentence.getSentimentLevel() == Sentence.POSITIVE_SENTIMENT
+                            && np2Sentence.getSentimentLevel() == Sentence.POSITIVE_SENTIMENT)) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                }
+            }
+        }
+        return 2;
     }
 }
