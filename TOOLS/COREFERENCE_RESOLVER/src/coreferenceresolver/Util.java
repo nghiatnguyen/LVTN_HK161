@@ -44,21 +44,21 @@ public class Util {
         
         
     	//Create the train dataset
-		for (int i = review.getNounPhrases().size()-1; i > 0; i--){
-			NounPhrase np2 = review.getNounPhrases().get(i);
-			if ((np2.getRefId() == -1)|| (np2.getType() == 1)){
-				
-			}
-			else{
-				for (int j = i-1 ; j >= 0; j-- ){
-					NounPhrase np1 = review.getNounPhrases().get(j);
-					createTrain(np1, np2, review, bw);
-					if (np1.getId() == np2.getRefId())
-						break;
-				}
-			}
-			
-		}
+//		for (int i = review.getNounPhrases().size()-1; i > 0; i--){
+//			NounPhrase np2 = review.getNounPhrases().get(i);
+//			if ((np2.getRefId() == -1)|| (np2.getType() == 1)){
+//				
+//			}
+//			else{
+//				for (int j = i-1 ; j >= 0; j-- ){
+//					NounPhrase np1 = review.getNounPhrases().get(j);
+//					createTrain(np1, np2, review, bw);
+//					if (np1.getId() == np2.getRefId())
+//						break;
+//				}
+//			}
+//			
+//		}
 		
         
         //Create the test database
@@ -76,20 +76,20 @@ public class Util {
 //		}
         
         //Check features of each NP
-//        for (int i = 0; i < review.getNounPhrases().size(); ++i) {
-//        	NounPhrase np1 = review.getNounPhrases().get(i);
-//        	list = new ArrayList<Integer>();
-//        	for (int j = i + 1; j < review.getNounPhrases().size(); ++j) {
-//        		NounPhrase np2 = review.getNounPhrases().get(j);
-//        			if ((np1.getId() == np2.getRefId() && np2.getType() != 1)||list.contains(np2.getRefId()))
-//        				list.add(np2.getId());
-//        	}
-//	         createCheck(np1, review, bw);
-//	         for (Integer in : list)
-//	        	 bw.write(in + ",");
-//	         bw.newLine();
-//	         
-//        }
+        for (int i = 0; i < review.getNounPhrases().size(); ++i) {
+        	NounPhrase np1 = review.getNounPhrases().get(i);
+        	list = new ArrayList<Integer>();
+        	for (int j = i + 1; j < review.getNounPhrases().size(); ++j) {
+        		NounPhrase np2 = review.getNounPhrases().get(j);
+        			if ((np1.getId() == np2.getRefId() && np2.getType() != 1)||list.contains(np2.getRefId()))
+        				list.add(np2.getId());
+        	}
+	         createCheck(np1, review, bw);
+	         for (Integer in : list)
+	        	 bw.write(in + ",");
+	         bw.newLine();
+	         
+        }
         
 //        for (int i = 0; i < review.getNounPhrases().size(); ++i) {
 //            NounPhrase np1 = review.getNounPhrases().get(i);
@@ -303,7 +303,7 @@ public class Util {
      bwtrain.write(FeatureExtractor.isBetweenExtract(review, np1, np2).toString() + ",");
      bwtrain.write(FeatureExtractor.has_Between_Extract(review, np1, np2).toString() + ",");
      bwtrain.write(FeatureExtractor.comparativeIndicatorExtract(review, np1, np2).toString() + ",");
-     bwtrain.write(FeatureExtractor.PMI(np1, np2).toString() + ",");
+//     bwtrain.write(FeatureExtractor.PMI(np1, np2).toString() + ",");
      bwtrain.write(FeatureExtractor.isCoref(np1, np2).toString());
      bwtrain.newLine();
     }
@@ -323,7 +323,7 @@ public class Util {
         bwtrain.write(FeatureExtractor.isBetweenExtract(review, np1, np2).toString() + ",");
         bwtrain.write(FeatureExtractor.has_Between_Extract(review, np1, np2).toString() + ",");
         bwtrain.write(FeatureExtractor.comparativeIndicatorExtract(review, np1, np2).toString() + ",");
-        bwtrain.write(FeatureExtractor.PMI(np1, np2).toString() + ",");
+//        bwtrain.write(FeatureExtractor.PMI(np1, np2).toString() + ",");
         bwtrain.write(FeatureExtractor.isCorefTest(np1, np2,list).toString());
         bwtrain.newLine();
        }
