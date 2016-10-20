@@ -28,37 +28,16 @@ public class TrainingMain {
         StanfordUtil su = new StanfordUtil(inputFile);
 
         // read the Dataset
-//        File fData = new File(".\\dataset.txt");
-//        FileReader fReaderData = new FileReader(fData);
-//        BufferedReader buffReaderDict = new BufferedReader(fReaderData);
-//        String sData = null;
-//        String line;
-//        while ((line = buffReaderDict.readLine()) != null) {
-//            sData = sData + line + "\n";
-//        }
-//        MarkupMain.set_sDataset(sData);
+        File fData = new File(".\\dataset.txt");
+        FileReader fReaderData = new FileReader(fData);
+        BufferedReader buffReaderDict = new BufferedReader(fReaderData);
+        String sData = null;
+        String line;
+        while ((line = buffReaderDict.readLine()) != null) {
+            sData = sData + line + "\n";
+        }
+        MarkupMain.set_sDataset(sData);
         
-<<<<<<< HEAD
-        
-      //Write to train.txt
-//        File ftrain = new File("train.txt");
-//    	FileOutputStream fostrain = new FileOutputStream(ftrain);
-//    	BufferedWriter bwtrain = new BufferedWriter(new OutputStreamWriter(fostrain));
-//    	bwtrain.write("Review,NP1,NP2,NP1isPr,NP2isPr,NP2isDefNP,NP2isDemNP,isBothPropername,Stringsimilary,Distance,NumberAgreement,isBetween,hasBetween,Comparative,COREF");
-//		bwtrain.newLine();
-		
-		//Write to test.txt
-//        File ftest = new File("test.txt");
-//    	FileOutputStream fostest = new FileOutputStream(ftest);
-//    	BufferedWriter bwtest = new BufferedWriter(new OutputStreamWriter(fostest));
-//    	bwtest.write("Review,NP1,NP2,NP1isPr,NP2isPr,NP2isDefNP,NP2isDemNP,isBothPropername,Stringsimilary,Distance,NumberAgreement,isBetween,hasBetween,Comparative,COREF");
-//		bwtest.newLine();
-    	
-    	//Write to check features of each NP
-        File fcheck = new File("check.txt");
-    	FileOutputStream foscheck = new FileOutputStream(fcheck);
-    	BufferedWriter bwcheck = new BufferedWriter(new OutputStreamWriter(foscheck));	
-=======
         FileOutputStream fos = new FileOutputStream(outputFile);
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
         String relationName = forTraining ? "train" : "test";
@@ -90,14 +69,13 @@ public class TrainingMain {
 //        File fcheck = new File("check.txt");
 //    	FileOutputStream foscheck = new FileOutputStream(fcheck);
 //    	BufferedWriter bwcheck = new BufferedWriter(new OutputStreamWriter(foscheck));	
->>>>>>> cbee46ad9a37728e4124963c1fa703ca37c8a54a
         try {
             //Init every info
             su.init();
 
             //Begin create training set
             for (Review review : StanfordUtil.reviews) {
-
+        	
                 //Discard all NPs that is Personal Pronoun
                 Util.discardPersonalProNPs(review);
 
@@ -105,28 +83,11 @@ public class TrainingMain {
                 Util.readMarkupFile(markupFile);
 
                 //Extract features
-<<<<<<< HEAD
-//                Util.extractFeatures(review,bwtrain);
-//                Util.extractFeatures(review,bwtest);
-                Util.extractFeatures(review,bwcheck);
- //               StanfordUtil.test();
-
-                System.out.println("-----END REVIEW-----");
-
-                ++i;
-=======
                 Util.extractFeatures(review, bw, forTraining);
->>>>>>> cbee46ad9a37728e4124963c1fa703ca37c8a54a
             }
         } catch (IOException ex) {
             Logger.getLogger(MarkupMain.class.getName()).log(Level.SEVERE, null, ex);
         }
-<<<<<<< HEAD
-//        bwtrain.close();
-//        bwtest.close();
-        bwcheck.close();
-=======
         bw.close();
->>>>>>> cbee46ad9a37728e4124963c1fa703ca37c8a54a
     }
 }
