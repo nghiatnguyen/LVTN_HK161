@@ -22,9 +22,11 @@ import edu.stanford.nlp.trees.Tree;
 import edu.stanford.nlp.trees.TreeCoreAnnotations.TreeAnnotation;
 import edu.stanford.nlp.util.CoreMap;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -227,51 +229,117 @@ public class StanfordUtil {
         }
     }
 
-    public static void test() {
-        for (Review testReview : reviews) {
-            for (Sentence sentence : testReview.getSentences()) {
-                System.out.println(sentence.getRawContent());
-                switch (sentence.getSentimentLevel()) {
-                    case Sentence.NEGATIVE_SENTIMENT:
-                        System.out.println("Negative");
-                        break;
-                    case Sentence.NEUTRAL_SENTIMENT:
-                        System.out.println("Neutral");
-                        break;
-                    case Sentence.POSITIVE_SENTIMENT:
-                        System.out.println("Positive");
-                        break;
-                    default:
-                        break;
+    public static void test(String outputFilePath) throws IOException {
+        FileWriter fw = new FileWriter(new File(outputFilePath));
+        BufferedWriter bw = new BufferedWriter(fw);        
+        for (Review review : reviews) {
+            for (int i = 0; i < review.getNounPhrases().size(); ++i) {
+                NounPhrase np1 = review.getNounPhrases().get(i);
+                for (int j = i + 1; j < review.getNounPhrases().size(); ++j) {
+                    NounPhrase np2 = review.getNounPhrases().get(j);
+                    bw.write("-----------NP pair--------------");
+                    bw.newLine();
+                    bw.write(review.getRawContent());
+                    bw.newLine();
+                    bw.write("NP1 id: " + np1.getId());
+                    bw.newLine();
+                    bw.write("NP1 ref: " + np1.getRefId());
+                    bw.newLine();
+                    bw.write("NP1 type: " + np1.getType());
+                    bw.newLine();
+                    bw.write("NP1 words: " + np1.getNpNode().getLeaves());
+                    bw.newLine();
+                    bw.write("NP1 head label: " + np1.getHeadLabel());
+                    bw.newLine();
+                    bw.write("NP1 head: " + np1.getHeadNode());
+                    bw.newLine();
+                    bw.write("NP1 begin: " + np1.getOffsetBegin());
+                    bw.newLine();
+                    bw.write("NP1 review: " + np1.getReviewId());
+                    bw.newLine();
+                    bw.write("NP1 sentence: " + np1.getSentenceId());
+                    bw.newLine();
+                    bw.write("NP1 sentiment: " + StanfordUtil.reviews.get(np1.getReviewId()).getSentences().get(np1.getSentenceId()).getSentimentLevel());
+                    bw.newLine();
+//                System.out.print("Opinion words: ");
+//
+//                for (int k = 0; k < np1.getOpinionWords().size(); k++) {
+//                    System.out.print(np1.getOpinionWords().get(k) + " ; ");
+//                }
+                    bw.newLine();
+                    bw.write("------------");
+                    bw.newLine();
+                    bw.write("NP2 id: " + np2.getId());
+                    bw.newLine();
+                    bw.write("NP2 ref: " + np2.getRefId());
+                    bw.newLine();
+                    bw.write("NP2 type: " + np2.getType());
+                    bw.newLine();
+                    bw.write("NP2 words: " + np2.getNpNode().getLeaves());
+                    bw.newLine();
+                    bw.write("NP2 head label: " + np2.getHeadLabel());
+                    bw.newLine();
+                    bw.write("NP2 head: " + np2.getHeadNode());
+                    bw.newLine();
+                    bw.write("NP2 begin: " + np2.getOffsetBegin());
+                    bw.newLine();
+                    bw.write("NP2 review: " + np2.getReviewId());
+                    bw.newLine();
+                    bw.write("NP2 sentence: " + np2.getSentenceId());
+                    bw.newLine();
+                    bw.write("NP2 sentiment: " + StanfordUtil.reviews.get(np2.getReviewId()).getSentences().get(np2.getSentenceId()).getSentimentLevel());
+                    bw.newLine();
+                    bw.write("------------");
+                    try {
+                        bw.write("COREF: " + FeatureExtractor.isCoref(np1, np2));
+                        bw.newLine();
+                        bw.write("NP1 is Pronoun: " + FeatureExtractor.is_Pronoun(np1));
+                        bw.newLine();
+                        bw.write("NP2 is Pronoun: " + FeatureExtractor.is_Pronoun(np2));
+                        bw.newLine();
+                        bw.write("NP2 is Definite Noun Phrase: " + FeatureExtractor.is_Definite_NP(np2));
+                        bw.newLine();
+                        bw.write("NP2 is Demonstrative Noun Phrase: " + FeatureExtractor.is_Demonstrative_NP(np2));
+                        bw.newLine();
+                        bw.write("String similarity: " + FeatureExtractor.stringSimilarity(np1, np2, review.getSentences().get(np1.getSentenceId())));
+                        bw.newLine();
+                        bw.write("Distance Feature: " + FeatureExtractor.count_Distance(np1, np2));
+                        bw.newLine();
+                        bw.write("Number agreement: " + FeatureExtractor.numberAgreementExtract(np1, np2));
+                        bw.newLine();
+                        bw.write("comparative indicator-between: " + FeatureExtractor.comparativeIndicatorExtract(review, np1, np2));
+                        bw.newLine();
+                        bw.write("is-between: " + FeatureExtractor.isBetweenExtract(review, np1, np2));
+                        bw.newLine();
+                        bw.write("has-between: " + FeatureExtractor.has_Between_Extract(review, np1, np2));
+                        bw.newLine();
+                        bw.write("comparative indicator-between 2: " + FeatureExtractor.comparativeIndicator2Extract(review, np1, np2));
+                        bw.newLine();
+                        bw.write("is-between 2: " + FeatureExtractor.isBetween2Extract(review, np1, np2));
+                        bw.newLine();
+                        bw.write("has-between 2: " + FeatureExtractor.has_Between2_Extract(review, np1, np2));
+                        bw.newLine();
+                        bw.write("Sentiment Consistency: " + FeatureExtractor.sentimentConsistencyExtract(np1, np2));
+                        bw.newLine();
+//                    bw.write("***Entity and opinion words association*** ");
+//                    bw.write("Probability of Opinion Word of NP1: " + FeatureExtractor.probability_opinion_word(np1));
+//                    bw.write("Probability of NP2: " + FeatureExtractor.probability_noun_phrase(np2));
+//                    bw.write("Probability of (NP2 and Opinion Word of NP1): " + FeatureExtractor.probability_NP_and_OW(np1, np2));
 
-                }
-
-                System.out.println("NPs");
-                for (NounPhrase np : sentence.getNounPhrases()) {
-                    System.out.println(np.getNpNode().getLeaves());
-                    System.out.println("Id " + np.getId());
-                    System.out.println("Ref " + np.getRefId());
-                    System.out.println("Type " + np.getType());
-                    System.out.print("Opinion words: ");
-                  
-                   for (int k = 0; k < np.getOpinionWords().size(); k++) {
-                       System.out.print(np.getOpinionWords().get(k) + " ; ");
-                   }
-                   System.out.println();
-                }
-                if (!sentence.getComparativeIndicatorPhrases().isEmpty()) {
-                    System.out.println("Comparative NPs");
-                    for (NounPhrase np : sentence.getNounPhrases()) {
-                        if (np.isSuperior()) {
-                            System.out.println("NP Superior " + np.getNpNode().getLeaves());
-                        }
-                        if (np.isInferior()) {
-                            System.out.println("NP Inferior " + np.getNpNode().getLeaves());
-                        }
+                    } catch (Exception e) {
+                        bw.write(e.getMessage());
+                        bw.newLine();
+                        bw.write("Exception NP1 words: " + np1.getNpNode().getLeaves());
+                        bw.newLine();
+                        bw.write("Exception NP2 words: " + np2.getNpNode().getLeaves());
+                        bw.newLine();
                     }
+
+                    bw.write("------------End of NP pair--------------");
+                    bw.newLine();                                       
                 }
-                System.out.println();
             }
         }
+        bw.close();
     }
 }
