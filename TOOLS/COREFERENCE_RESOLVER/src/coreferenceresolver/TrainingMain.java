@@ -59,7 +59,7 @@ public class TrainingMain {
                 + "@ATTRIBUTE hasbetween {false,true}\n"
                 + "@ATTRIBUTE comparative {false,true}\n"
                 + "@ATTRIBUTE sentiment REAL\n"
-                + "@ATTRIBUTE PMI REAL\n"
+                + "@ATTRIBUTE PMI {0,1,2,3,4,10}\n"
                 + "@ATTRIBUTE coref {false,true}\n"
                 + "\n"
                 + "@DATA");

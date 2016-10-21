@@ -13,6 +13,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -27,6 +28,12 @@ public class Util {
     private static final String DISCARDED_PERSONAL_PRONOUNS = ";i;me;we;us;ours;you;he;him;his;she;her;hers;";
 
     private static ArrayList<Integer> list;
+    
+    private static Boolean checkNPhasOW = false;
+    //Each PMI appears 1 times.
+    private static ArrayList<Float> listAllPMI = new ArrayList<Float>();
+    //List PMI of each NP2 with NP1
+    private static ArrayList<Float> listRawPMI = new ArrayList<Float>();
 
     public static void extractFeatures(Review review, BufferedWriter bw, boolean forTraining) throws IOException {
         System.out.println("All NPs in this review:");
@@ -60,15 +67,40 @@ public class Util {
         } else {
 //            Create the test database
             for (int i = 0; i < review.getNounPhrases().size(); ++i) {
-                NounPhrase np1 = review.getNounPhrases().get(i);
+                checkNPhasOW = false;
+            	NounPhrase np1 = review.getNounPhrases().get(i);
                 list = new ArrayList<Integer>();
+               
+                listAllPMI.clear();
+                listRawPMI.clear();
+                //Find PMI of NP2 with NP1
+                if (np1.getOpinionWords().isEmpty()){
+                	checkNPhasOW = true;
+                }
+                else{
+                	for (int j = i + 1; j < review.getNounPhrases().size(); ++j) {
+                		NounPhrase np2 = review.getNounPhrases().get(j);
+                		if (np1.getType() == 0 || np2.getType() == 0) {
+                			Float rawPMIof2NP = FeatureExtractor.PMI(np1, np2);
+                			listRawPMI.add(rawPMIof2NP);
+                			if (!listAllPMI.contains(rawPMIof2NP))
+                				listAllPMI.add(rawPMIof2NP);
+                		}
+                	}
+                	
+                	Collections.sort(listAllPMI,Collections.reverseOrder());
+                		
+                }	
+                
+                int k = 0;
                 for (int j = i + 1; j < review.getNounPhrases().size(); ++j) {
                     NounPhrase np2 = review.getNounPhrases().get(j);
                     if (np1.getType() == 0 || np2.getType() == 0) {
                         if ((np1.getId() == np2.getRefId() && np2.getType() != 1) || list.contains(np2.getRefId())) {
                             list.add(np2.getId());
                         }
-                        createTest(np1, np2, review, bw);
+                        createTest(np1, np2, review, bw, k);
+                        k++;
                     }
                 }
             }
@@ -248,7 +280,7 @@ public class Util {
         bwtrain.newLine();
     }
 
-    private static void createTest(NounPhrase np1, NounPhrase np2, Review review, BufferedWriter bwtrain) throws IOException {
+    private static void createTest(NounPhrase np1, NounPhrase np2, Review review, BufferedWriter bwtrain, Integer IdPMIinList) throws IOException {
         bwtrain.write(np1.getReviewId() + ",");
         bwtrain.write(np1.getId() + ",");
         bwtrain.write(np2.getId() + ",");
@@ -265,7 +297,15 @@ public class Util {
         bwtrain.write(FeatureExtractor.has_Between_Extract(review, np1, np2).toString() + ",");
         bwtrain.write(FeatureExtractor.comparativeIndicatorExtract(review, np1, np2).toString() + ",");
         bwtrain.write(FeatureExtractor.sentimentConsistencyExtract(np1, np2) + ",");
-        bwtrain.write(FeatureExtractor.PMI(np1, np2).toString() + ",");
+        if (checkNPhasOW == true){
+        	bwtrain.write(10 + ",");
+        }
+        else{
+        	if (listAllPMI.indexOf(listRawPMI.get(IdPMIinList)) < 4)
+        		bwtrain.write(listAllPMI.indexOf(listRawPMI.get(IdPMIinList)) + ",");
+        	else
+        		bwtrain.write(4 + ",");
+        }
         bwtrain.write(FeatureExtractor.isCorefTest(np1, np2, list).toString());
         bwtrain.newLine();
     }

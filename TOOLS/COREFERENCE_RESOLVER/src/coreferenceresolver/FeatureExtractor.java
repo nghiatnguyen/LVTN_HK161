@@ -113,7 +113,37 @@ public class FeatureExtractor {
                 Sentence curSentence = review.getSentences().get(np1.getSentenceId());
                 if (np1.getOffsetEnd() < np2.getOffsetBegin()) {
                     if (np1.getOffsetEnd() + 1 < np2.getOffsetBegin() && contains3rdTobe(curSentence.getRawContent().substring(np1.getOffsetEnd() + 1 - curSentence.getOffsetBegin(), np2.getOffsetBegin() - curSentence.getOffsetBegin()))) {
+                    	if (findComparativeIndicator(curSentence, np1, np2).isEmpty() && !hasNpBetween(np1, np2)) {
+                            return true;
+                        }
+                    }
+                } else if (np2.getOffsetEnd() < np1.getOffsetBegin()) {
+                    if (np2.getOffsetEnd() + 1 < np1.getOffsetBegin() && contains3rdTobe(curSentence.getRawContent().substring(np2.getOffsetEnd() + 1 - curSentence.getOffsetBegin(), np1.getOffsetBegin() - curSentence.getOffsetBegin()))) {
                         if (findComparativeIndicator(curSentence, np1, np2).isEmpty() && !hasNpBetween(np1, np2)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+    /**
+     * Check for is-between feature
+     *
+     * @param review np1 np2
+     * @param np1
+     * @param np2
+     * @return true if there is an 'is-like' between 2 NPs, otherwise false
+     */
+    public static Boolean isBetween3Extract(Review review, NounPhrase np1, NounPhrase np2) {
+        if (np1.getReviewId() == np2.getReviewId()) {
+            if (np1.getSentenceId() == np2.getSentenceId()) {
+                Sentence curSentence = review.getSentences().get(np1.getSentenceId());
+                if (np1.getOffsetEnd() < np2.getOffsetBegin()) {
+                    if (np1.getOffsetEnd() + 1 < np2.getOffsetBegin() && contains3rdTobe(curSentence.getRawContent().substring(np1.getOffsetEnd() + 1 - curSentence.getOffsetBegin(), np2.getOffsetBegin() - curSentence.getOffsetBegin()))) {
+                        if (!hasNpBetween(np1, np2) && (np2.getOffsetBegin() - np1.getOffsetEnd()) < 7) {
                             return true;
                         }
                     }
@@ -308,7 +338,13 @@ public class FeatureExtractor {
             if (np.getOffsetBegin() > offsetBeginRange && np.getOffsetEnd() < offsetEndRange) {
                 return true;
             }
+            // np1 is considered before np2
+            if ((np.getOffsetBegin() == np2.getOffsetBegin()) && 
+            		(np.getNpNode().getLeaves().size() > np2.getNpNode().getLeaves().size())){
+            	return true;
+            }
         }
+        
         return false;
     }
 
