@@ -60,6 +60,7 @@ public class TrainingMain {
                 + "@ATTRIBUTE comparative {false,true}\n"
                 + "@ATTRIBUTE sentiment REAL\n"
                 + "@ATTRIBUTE PMI {0,1,2,3,4,10}\n"
+                + "@ATTRIBUTE isNested {false,true}\n"
                 + "@ATTRIBUTE coref {false,true}\n"
                 + "\n"
                 + "@DATA");
@@ -75,14 +76,17 @@ public class TrainingMain {
 
             //Begin create training set
             for (Review review : StanfordUtil.reviews) {
-        	
                 //Discard all NPs that is Personal Pronoun
                 Util.discardPersonalProNPs(review);
-
-                //Read the hand-modified markup file
-                Util.readMarkupFile(markupFile);
-
+            }
+            
+            //Read the hand-modified markup file
+            Util.readMarkupFile(markupFile);
+            
+            //Begin create training set
+            for (Review review : StanfordUtil.reviews) {
                 //Extract features
+            	
                 Util.extractFeatures(review, bw, forTraining);
             }
         } catch (IOException ex) {

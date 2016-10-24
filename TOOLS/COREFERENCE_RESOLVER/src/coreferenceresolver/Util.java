@@ -1,5 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
+x * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -19,13 +19,16 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import edu.stanford.nlp.maxent.Feature;
+
 /**
  *
  * @author TRONGNGHIA
  */
 public class Util {
 
-    private static final String DISCARDED_PERSONAL_PRONOUNS = ";i;me;we;us;ours;you;he;him;his;she;her;hers;";
+	private static final String DISCARDED_PERSONAL_PRONOUNS = ";i;me;myself;we;us;ourselves;you;yourself;yourselves;he;him;himself;she;her;herself;anyone;someone;somebody;everyone;anybody;everybody;nobody;";
+
 
     private static ArrayList<Integer> list;
     
@@ -192,6 +195,7 @@ public class Util {
 
         int reviewId = 0;
         while ((line = br.readLine()) != null) {
+        	System.out.println(line);
             readMarkup(line, reviewId);
             ++reviewId;
         }
@@ -287,13 +291,15 @@ public class Util {
         bwtrain.write(Math.abs(np2.getId() - np1.getId()) + ",");
         bwtrain.write(FeatureExtractor.is_Pronoun(np1).toString() + ",");
         bwtrain.write(FeatureExtractor.is_Pronoun(np2).toString() + ",");
+        bwtrain.write(np1.getNpNode().toString());
+        bwtrain.write(np2.getNpNode().toString());
         bwtrain.write(FeatureExtractor.is_Definite_NP(np2).toString() + ",");
         bwtrain.write(FeatureExtractor.is_Demonstrative_NP(np2).toString() + ",");
         bwtrain.write(FeatureExtractor.isBothPropername(np1, np2) + ",");
         bwtrain.write(FeatureExtractor.stringSimilarity(np1, np2, review.getSentences().get(np1.getSentenceId())).toString() + ",");
         bwtrain.write(FeatureExtractor.count_Distance(np1, np2) + ",");
         bwtrain.write(FeatureExtractor.numberAgreementExtract(np1, np2) + ",");
-        bwtrain.write(FeatureExtractor.isBetweenExtract(review, np1, np2).toString() + ",");
+        bwtrain.write(FeatureExtractor.isBetween3Extract(review, np1, np2).toString() + ",");
         bwtrain.write(FeatureExtractor.has_Between_Extract(review, np1, np2).toString() + ",");
         bwtrain.write(FeatureExtractor.comparativeIndicatorExtract(review, np1, np2).toString() + ",");
         bwtrain.write(FeatureExtractor.sentimentConsistencyExtract(np1, np2) + ",");
@@ -306,6 +312,7 @@ public class Util {
         	else
         		bwtrain.write(4 + ",");
         }
+        bwtrain.write(FeatureExtractor.isNested(np1, np2).toString() + ",");
         bwtrain.write(FeatureExtractor.isCorefTest(np1, np2, list).toString());
         bwtrain.newLine();
     }

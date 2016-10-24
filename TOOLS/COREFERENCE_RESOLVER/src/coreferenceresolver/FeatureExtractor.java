@@ -723,4 +723,12 @@ public class FeatureExtractor {
         }
         return 2;
     }
+    
+    public static Boolean isNested(NounPhrase np1, NounPhrase np2){
+    	if ((np1.getOffsetBegin() >= np2.getOffsetBegin() && np1.getOffsetEnd() <= np2.getOffsetEnd())
+    			||(np2.getOffsetBegin() >= np1.getOffsetBegin() && np2.getOffsetEnd() <= np1.getOffsetEnd()))
+    		return true;
+    	else
+    		return false;
+    }
 }
