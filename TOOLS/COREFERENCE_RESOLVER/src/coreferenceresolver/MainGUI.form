@@ -30,8 +30,8 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="Training" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <Component id="Training" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="7" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -63,33 +63,33 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="unitTestPathTF" max="32767" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="trainBtn" pref="125" max="32767" attributes="0"/>
-                                      <Component id="testBtn" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="trainingFilePathTF" pref="318" max="32767" attributes="0"/>
-                                      <Component id="testingFilePathTF" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="inputFileBtn" max="32767" attributes="0"/>
-                                      <Component id="markupFileBtn" pref="125" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="inputFilePathTF" pref="318" max="32767" attributes="0"/>
-                                      <Component id="markupFilePathTF" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="inputFileBtn" max="32767" attributes="0"/>
+                              <Component id="markupFileBtn" alignment="0" pref="125" max="32767" attributes="0"/>
+                              <Component id="markupBtn" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="markupBtn" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="markupFilePathTF" max="32767" attributes="0"/>
+                              <Component id="inputFilePathTF" min="-2" pref="395" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="applyClassifierBtn" max="32767" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="resultFilePathTF1" min="-2" pref="395" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="testBtn" pref="125" max="32767" attributes="0"/>
+                                  <Component id="chooseTestingFileBtn" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="testingFilePathTF" min="-2" pref="395" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -103,25 +103,33 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="inputFileBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="inputFilePathTF" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="markupBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="markupFileBtn" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                          <Component id="markupBtn" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="chooseTestingFileBtn" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="testBtn" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="27" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                          <Component id="markupFilePathTF" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="testingFilePathTF" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="markupFileBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="markupFilePathTF" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="applyClassifierBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="resultFilePathTF1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="trainBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="trainingFilePathTF" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="testBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="testingFilePathTF" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="noteTF" pref="37" max="32767" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="noteTF" min="-2" pref="48" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="functionTestBtn" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -135,8 +143,8 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="markupBtn">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Mark up"/>
-            <Property name="toolTipText" type="java.lang.String" value="Create the markup file"/>
+            <Property name="text" type="java.lang.String" value="Create markup file"/>
+            <Property name="toolTipText" type="java.lang.String" value="Create the markup file from input file"/>
           </Properties>
           <AccessibilityProperties>
             <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="markupBtn"/>
@@ -145,17 +153,18 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="markupBtnActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="trainBtn">
+        <Component class="javax.swing.JButton" name="chooseTestingFileBtn">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Create Training file"/>
+            <Property name="text" type="java.lang.String" value="Choose testing file"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="trainBtnActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chooseTestingFileBtnActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="testBtn">
           <Properties>
             <Property name="text" type="java.lang.String" value="Create Testing file"/>
+            <Property name="toolTipText" type="java.lang.String" value="Create Testing file from input file and markup file"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="testBtnActionPerformed"/>
@@ -172,6 +181,7 @@
         <Component class="javax.swing.JButton" name="inputFileBtn">
           <Properties>
             <Property name="text" type="java.lang.String" value="Choose input file"/>
+            <Property name="toolTipText" type="java.lang.String" value="Choose an input file"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inputFileBtnActionPerformed"/>
@@ -180,6 +190,7 @@
         <Component class="javax.swing.JButton" name="markupFileBtn">
           <Properties>
             <Property name="text" type="java.lang.String" value="Choose markup file"/>
+            <Property name="toolTipText" type="java.lang.String" value="Choose a markup file"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="markupFileBtnActionPerformed"/>
@@ -203,11 +214,6 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="markupFilePathTFActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="trainingFilePathTF">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="trainingFilePathTFActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JTextField" name="testingFilePathTF">
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="testingFilePathTFActionPerformed"/>
@@ -216,6 +222,20 @@
         <Component class="javax.swing.JTextField" name="unitTestPathTF">
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="unitTestPathTFActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="applyClassifierBtn">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Apply Classifier"/>
+            <Property name="toolTipText" type="java.lang.String" value="Apply Weka classifier to Testing file (default to J48)"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="applyClassifierBtnActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="resultFilePathTF1">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="resultFilePathTF1ActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

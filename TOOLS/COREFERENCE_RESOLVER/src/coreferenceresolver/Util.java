@@ -19,19 +19,16 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import edu.stanford.nlp.maxent.Feature;
-
 /**
  *
  * @author TRONGNGHIA
  */
 public class Util {
 
-	private static final String DISCARDED_PERSONAL_PRONOUNS = ";i;me;myself;we;us;ourselves;you;yourself;yourselves;he;him;himself;she;her;herself;anyone;someone;somebody;everyone;anybody;everybody;nobody;";
-
+    private static final String DISCARDED_PERSONAL_PRONOUNS = ";i;me;myself;we;us;ourselves;you;yourself;yourselves;he;him;himself;she;her;herself;anyone;someone;somebody;everyone;anybody;everybody;nobody;";
 
     private static ArrayList<Integer> list;
-    
+
     private static Boolean checkNPhasOW = false;
     //Each PMI appears 1 times.
     private static ArrayList<Float> listAllPMI = new ArrayList<Float>();
@@ -71,30 +68,30 @@ public class Util {
 //            Create the test database
             for (int i = 0; i < review.getNounPhrases().size(); ++i) {
                 checkNPhasOW = false;
-            	NounPhrase np1 = review.getNounPhrases().get(i);
+                NounPhrase np1 = review.getNounPhrases().get(i);
                 list = new ArrayList<Integer>();
-               
+
                 listAllPMI.clear();
                 listRawPMI.clear();
                 //Find PMI of NP2 with NP1
-                if (np1.getOpinionWords().isEmpty()){
-                	checkNPhasOW = true;
+                if (np1.getOpinionWords().isEmpty()) {
+                    checkNPhasOW = true;
+                } else {
+                    for (int j = i + 1; j < review.getNounPhrases().size(); ++j) {
+                        NounPhrase np2 = review.getNounPhrases().get(j);
+                        if (np1.getType() == 0 || np2.getType() == 0) {
+                            Float rawPMIof2NP = FeatureExtractor.PMI(np1, np2);
+                            listRawPMI.add(rawPMIof2NP);
+                            if (!listAllPMI.contains(rawPMIof2NP)) {
+                                listAllPMI.add(rawPMIof2NP);
+                            }
+                        }
+                    }
+
+                    Collections.sort(listAllPMI, Collections.reverseOrder());
+
                 }
-                else{
-                	for (int j = i + 1; j < review.getNounPhrases().size(); ++j) {
-                		NounPhrase np2 = review.getNounPhrases().get(j);
-                		if (np1.getType() == 0 || np2.getType() == 0) {
-                			Float rawPMIof2NP = FeatureExtractor.PMI(np1, np2);
-                			listRawPMI.add(rawPMIof2NP);
-                			if (!listAllPMI.contains(rawPMIof2NP))
-                				listAllPMI.add(rawPMIof2NP);
-                		}
-                	}
-                	
-                	Collections.sort(listAllPMI,Collections.reverseOrder());
-                		
-                }	
-                
+
                 int k = 0;
                 for (int j = i + 1; j < review.getNounPhrases().size(); ++j) {
                     NounPhrase np2 = review.getNounPhrases().get(j);
@@ -195,7 +192,7 @@ public class Util {
 
         int reviewId = 0;
         while ((line = br.readLine()) != null) {
-        	System.out.println(line);
+            System.out.println(line);
             readMarkup(line, reviewId);
             ++reviewId;
         }
@@ -303,14 +300,14 @@ public class Util {
         bwtrain.write(FeatureExtractor.has_Between_Extract(review, np1, np2).toString() + ",");
         bwtrain.write(FeatureExtractor.comparativeIndicatorExtract(review, np1, np2).toString() + ",");
         bwtrain.write(FeatureExtractor.sentimentConsistencyExtract(np1, np2) + ",");
-        if (checkNPhasOW == true){
-        	bwtrain.write(10 + ",");
-        }
-        else{
-        	if (listAllPMI.indexOf(listRawPMI.get(IdPMIinList)) < 4)
-        		bwtrain.write(listAllPMI.indexOf(listRawPMI.get(IdPMIinList)) + ",");
-        	else
-        		bwtrain.write(4 + ",");
+        if (checkNPhasOW == true) {
+            bwtrain.write(10 + ",");
+        } else {
+            if (listAllPMI.indexOf(listRawPMI.get(IdPMIinList)) < 4) {
+                bwtrain.write(listAllPMI.indexOf(listRawPMI.get(IdPMIinList)) + ",");
+            } else {
+                bwtrain.write(4 + ",");
+            }
         }
         bwtrain.write(FeatureExtractor.isNested(np1, np2).toString() + ",");
         bwtrain.write(FeatureExtractor.isCorefTest(np1, np2, list).toString());

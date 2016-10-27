@@ -231,7 +231,7 @@ public class StanfordUtil {
 
     public static void test(String outputFilePath) throws IOException {
         FileWriter fw = new FileWriter(new File(outputFilePath));
-        BufferedWriter bw = new BufferedWriter(fw);        
+        BufferedWriter bw = new BufferedWriter(fw);
         for (Review review : reviews) {
             for (int i = 0; i < review.getNounPhrases().size(); ++i) {
                 NounPhrase np1 = review.getNounPhrases().get(i);
@@ -336,7 +336,7 @@ public class StanfordUtil {
                     }
 
                     bw.write("------------End of NP pair--------------");
-                    bw.newLine();                                       
+                    bw.newLine();
                 }
             }
         }

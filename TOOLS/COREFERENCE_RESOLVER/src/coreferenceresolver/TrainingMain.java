@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  * @author TRONGNGHIA
  */
 public class TrainingMain {
-    
+
     public static void run(String inputFilePath, String markupFilePath, String outputFilePath, boolean forTraining) throws IOException {
         File inputFile = new File(inputFilePath);
         File markupFile = new File(markupFilePath);
@@ -37,7 +37,7 @@ public class TrainingMain {
             sData = sData + line + "\n";
         }
         MarkupMain.set_sDataset(sData);
-        
+
         FileOutputStream fos = new FileOutputStream(outputFile);
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
         String relationName = forTraining ? "train" : "test";
@@ -79,14 +79,14 @@ public class TrainingMain {
                 //Discard all NPs that is Personal Pronoun
                 Util.discardPersonalProNPs(review);
             }
-            
+
             //Read the hand-modified markup file
             Util.readMarkupFile(markupFile);
-            
+
             //Begin create training set
             for (Review review : StanfordUtil.reviews) {
                 //Extract features
-            	
+
                 Util.extractFeatures(review, bw, forTraining);
             }
         } catch (IOException ex) {
