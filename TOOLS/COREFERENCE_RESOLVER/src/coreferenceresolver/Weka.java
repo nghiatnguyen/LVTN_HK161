@@ -89,7 +89,10 @@ public class Weka {
                     double index = tree.classifyInstance(test.instance(i));
                     String className = inst.attribute(inst.numAttributes() - 1).value((int)index);
 //                    System.out.println(data.instance(i) + " : " + className);
-                    writer.println(data.instance(i) + " : " + className);
+//                    if (data.instance(i).stringValue(4).equals("true")
+//                    		&& data.instance(i).stringValue(5).equals("true"))
+                    if  (data.instance(i).stringValue(7).equals("true"))
+                    	writer.println(data.instance(i) + " : " + className);
 				}
 				Evaluation eval = new Evaluation(test);
 				eval.evaluateModel(tree,test);
