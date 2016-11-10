@@ -351,11 +351,9 @@ public class Util {
         bwtrain.write(np1.getReviewId() + ",");
         bwtrain.write(np1.getId() + ",");
         bwtrain.write(np2.getId() + ",");
-        bwtrain.write(Math.abs(np2.getId() - np1.getId()) + ",");
+//        bwtrain.write(Math.abs(np2.getId() - np1.getId()) + ",");
         bwtrain.write(FeatureExtractor.is_Pronoun(np1).toString() + ",");
         bwtrain.write(FeatureExtractor.is_Pronoun(np2).toString() + ",");
-        bwtrain.write(np1.getNpNode().toString());
-        bwtrain.write(np2.getNpNode().toString());
         bwtrain.write(FeatureExtractor.is_Definite_NP(np2).toString() + ",");
         bwtrain.write(FeatureExtractor.is_Demonstrative_NP(np2).toString() + ",");
         bwtrain.write(FeatureExtractor.isBothPropername(np1, np2) + ",");
