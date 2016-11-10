@@ -136,7 +136,7 @@ public class Main {
             for (Review review : StanfordUtil.reviews) {
 //                Review review = StanfordUtil.reviews.get(19);
                 //Discard all NPs that is Personal Pronoun
-                Util.discardPersonalProNPs(review);
+                Util.discardUnneccessaryNPs(review);
 
                 //Begin markup
                 System.out.println("-----BEGIN REVIEW-----");

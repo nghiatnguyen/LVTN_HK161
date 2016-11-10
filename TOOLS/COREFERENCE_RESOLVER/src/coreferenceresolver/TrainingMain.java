@@ -77,7 +77,7 @@ public class TrainingMain {
             //Begin create training set
             for (Review review : StanfordUtil.reviews) {
                 //Discard all NPs that is Personal Pronoun
-                Util.discardPersonalProNPs(review);
+                Util.discardUnneccessaryNPs(review);
             }
 
             //Read the hand-modified markup file

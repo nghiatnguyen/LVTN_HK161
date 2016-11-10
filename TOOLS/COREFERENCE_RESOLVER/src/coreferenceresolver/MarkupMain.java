@@ -56,7 +56,7 @@ public class MarkupMain {
                 
                 System.out.println("Mark up for review " + i);
                 //Discard all NPs that is Personal Pronoun
-                Util.discardPersonalProNPs(review);
+                Util.discardUnneccessaryNPs(review);
                 
 //                //Create output file for markup
                 Util.initMarkupFile(review, fw);

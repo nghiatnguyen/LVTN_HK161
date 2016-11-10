@@ -5,6 +5,7 @@ x * To change this license header, choose License Headers in Project Properties.
  */
 package coreferenceresolver;
 
+import edu.stanford.nlp.trees.Tree;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -25,7 +26,14 @@ import java.util.regex.Pattern;
  */
 public class Util {
 
-    private static final String DISCARDED_PERSONAL_PRONOUNS = ";i;me;myself;we;us;ourselves;you;yourself;yourselves;he;him;himself;she;her;herself;anyone;someone;somebody;everyone;anybody;everybody;nobody;";
+    private static final String DISCARDED_PERSONAL_PRONOUNS = ";i;me;myself;we;us;ourselves;you;yourself;yourselves;he;him;himself;she;her;herself;anyone;someone;somebody;everyone;anybody;everybody;nobody;people;";
+
+    private static final String DISCARDED_TIME_NOUNS = ";minute;minutes;hour;hours;day;days;week;weeks;month;months;year;years;january;february;march;april;may;june;july;august;september;october;november;december;monday;tuesday;wednesday;thursday;friday;saturday;sunday;";
+
+    private static final String DISCARDED_EX_NOUN_POS = "EX"; //There
+
+    //private static final String DISCARDED_NUMBER_NOUN_POS = "CD"; //one, two, three
+    private static final String DISCARDED_QUANTITY_NOUNS = ";lot;lots;number;total;";
 
     private static ArrayList<Integer> list;
 
@@ -226,16 +234,29 @@ public class Util {
         }
     }
 
-    public static void discardPersonalProNPs(Review review) {
+    public static void discardUnneccessaryNPs(Review review) {
         List nps = review.getNounPhrases();
         Iterator<NounPhrase> itr = nps.iterator();
 
         while (itr.hasNext()) {
             NounPhrase np = itr.next();
-            if (isDiscardedPersonalPronounNP(np)) {
+            if (isDiscardedConjNP(np)) {
                 itr.remove();
+            } else if (isDiscardedPersonalPronounNP(np) || isDiscardedTimeNP(np) || isDiscardedCurrencyNP(np)
+                    || isDiscardedNPByPOS(np) || isDiscardedQuantityNP(np)) {
+                itr.remove();
+            } //Consider all the NPs that have the same HEAD
+            else {
+                List<NounPhrase> curSentenceNPs = review.getNounPhrases();
+                for (int i = 0; i < curSentenceNPs.size(); ++i) {
+                    if (curSentenceNPs.get(i).getHeadNode().value().equals(np.getHeadNode().value())
+                            && ((curSentenceNPs.get(i).getOffsetBegin() < np.getOffsetBegin() && curSentenceNPs.get(i).getOffsetEnd() >= np.getOffsetEnd())
+                            || (curSentenceNPs.get(i).getOffsetBegin() <= np.getOffsetBegin() && curSentenceNPs.get(i).getOffsetEnd() > np.getOffsetEnd()))) {
+                        itr.remove();
+                        break;
+                    }
+                }
             }
-
         }
 
         for (int i = 0; i < review.getNounPhrases().size(); i++) {
@@ -243,8 +264,53 @@ public class Util {
         }
     }
 
+    //Discard the NP that has many HEADS, in particular it is in the form NP => NP1 (CC|,) NP2 (CC|,) ... 
+    private static boolean isDiscardedConjNP(NounPhrase np) {
+        List<Tree> npChildren = np.getNpNode().getChildrenAsList();
+        for (int i = 0; i < npChildren.size(); ++i) {
+            if (!npChildren.get(i).value().equals("NP") && !npChildren.get(i).value().equals("CC") && !npChildren.get(i).value().equals(",")) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     private static boolean isDiscardedPersonalPronounNP(NounPhrase np) {
         if (DISCARDED_PERSONAL_PRONOUNS.contains(";" + np.getHeadNode().value().toLowerCase() + ";")) {
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean isDiscardedTimeNP(NounPhrase np) {
+        if (DISCARDED_TIME_NOUNS.contains(";" + np.getHeadNode().value().toLowerCase() + ";")) {
+            return true;
+        }
+        if (np.getHeadNode().value().toLowerCase().equals("time") && np.getNpNode().getLeaves().size() == 1) {
+            return true;
+        }
+
+        return false;
+    }
+
+    //Discard all Existential NP: There
+    private static boolean isDiscardedNPByPOS(NounPhrase np) {
+        if (np.getHeadLabel().equals(DISCARDED_EX_NOUN_POS)) {
+            return true;
+        }
+        return false;
+    }
+
+    //Discard all NP indicating quantity: lot, lots, number, total
+    private static boolean isDiscardedQuantityNP(NounPhrase np) {
+        if (DISCARDED_QUANTITY_NOUNS.contains(";" + np.getHeadNode().value().toLowerCase() + ";")) {
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean isDiscardedCurrencyNP(NounPhrase np) {
+        if (np.getHeadNode().value().contains("$")) {
             return true;
         }
         return false;
