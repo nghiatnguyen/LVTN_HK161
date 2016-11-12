@@ -9,12 +9,17 @@ package coreferenceresolver;
  *
  * @author TRONGNGHIA
  */
-public class Token {
+public class Token {    
 
+    public static int NEGATIVE = -1;
+    public static int POSITIVE = 1;
+    public static int NEUTRAL = 0;
+    
     private String word;
     private String POS;
     private int offsetBegin;
     private int offsetEnd;
+    private int opinionOrientation = NEUTRAL;       
 
     /**
      * @return the word
@@ -70,5 +75,19 @@ public class Token {
      */
     public void setOffsetEnd(int offsetEnd) {
         this.offsetEnd = offsetEnd;
+    }
+    
+    /**
+     * @return the opinionOrientation
+     */
+    public int getOpinionOrientation() {
+        return opinionOrientation;
+    }
+
+    /**
+     * @param opinionOrientation the opinionOrientation to set
+     */
+    public void setOpinionOrientation(int opinionOrientation) {
+        this.opinionOrientation = opinionOrientation;
     }
 }

@@ -8,8 +8,6 @@ package coreferenceresolver;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import edu.stanford.nlp.trees.Tree;
 
@@ -114,7 +112,7 @@ public class FeatureExtractor {
                 Sentence curSentence = review.getSentences().get(np1.getSentenceId());
                 if (np1.getOffsetEnd() < np2.getOffsetBegin()) {
                     if (np1.getOffsetEnd() + 1 < np2.getOffsetBegin() && contains3rdTobe(curSentence.getRawContent().substring(np1.getOffsetEnd() + 1 - curSentence.getOffsetBegin(), np2.getOffsetBegin() - curSentence.getOffsetBegin()))) {
-                    	if (findComparativeIndicator(curSentence, np1, np2).isEmpty() && !hasNpBetween(np1, np2)) {
+                        if (findComparativeIndicator(curSentence, np1, np2).isEmpty() && !hasNpBetween(np1, np2)) {
                             return true;
                         }
                     }
@@ -130,6 +128,7 @@ public class FeatureExtractor {
 
         return false;
     }
+
     /**
      * Check for is-between feature
      *
@@ -340,12 +339,12 @@ public class FeatureExtractor {
                 return true;
             }
             // np1 is considered before np2
-            if ((np.getOffsetBegin() == np2.getOffsetBegin()) && 
-            		(np.getNpNode().getLeaves().size() > np2.getNpNode().getLeaves().size())){
-            	return true;
+            if ((np.getOffsetBegin() == np2.getOffsetBegin())
+                    && (np.getNpNode().getLeaves().size() > np2.getNpNode().getLeaves().size())) {
+                return true;
             }
         }
-        
+
         return false;
     }
 
@@ -814,12 +813,13 @@ public class FeatureExtractor {
         }
         return 2;
     }
-    
-    public static Boolean isNested(NounPhrase np1, NounPhrase np2){
-    	if ((np1.getOffsetBegin() >= np2.getOffsetBegin() && np1.getOffsetEnd() <= np2.getOffsetEnd())
-    			||(np2.getOffsetBegin() >= np1.getOffsetBegin() && np2.getOffsetEnd() <= np1.getOffsetEnd()))
-    		return true;
-    	else
-    		return false;
+
+    public static Boolean isNested(NounPhrase np1, NounPhrase np2) {
+        if ((np1.getOffsetBegin() >= np2.getOffsetBegin() && np1.getOffsetEnd() <= np2.getOffsetEnd())
+                || (np2.getOffsetBegin() >= np1.getOffsetBegin() && np2.getOffsetEnd() <= np1.getOffsetEnd())) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

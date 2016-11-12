@@ -63,9 +63,11 @@ public class StanfordUtil {
         BufferedReader bufferedReader = new BufferedReader(fileReader);
 
         String reviewLine;
+        int sentenceId = 0;
         //read input file line by line and count the number sentences of each lines
         while ((reviewLine = bufferedReader.readLine()) != null) {
             Review newReview = new Review();
+            sentenceId = 0;
 
             //Add to reviews list
             newReview.setRawContent(reviewLine);
@@ -74,20 +76,24 @@ public class StanfordUtil {
             document = new Annotation(reviewLine);
 
             // run all Annotators on this text
-            pipeline.annotate(document);
+            pipeline.annotate(document);                       
+            
             List<CoreMap> sentences = document.get(SentencesAnnotation.class);
 
             //Begin extracting from paragraphs
             for (CoreMap sentence : sentences) {
+                Sentence newSentence = new Sentence();
                 // this is the parse tree of the current sentence
                 Tree sentenceTree = sentence.get(TreeAnnotation.class);
-                nounPhraseFindSimple(sentenceTree, newReview);
+                nounPhraseFindSimple(sentenceTree, newReview, newSentence, sentenceId);                
+                newReview.addSentence(newSentence);
+                ++sentenceId;
             }
             reviews.add(newReview);
         }
     }
 
-    public void nounPhraseFindSimple(Tree rootNode, Review review) {
+    public void nounPhraseFindSimple(Tree rootNode, Review review, Sentence sentence, int sentenceId) {
         if (rootNode == null || rootNode.isLeaf()) {
             return;
         }
@@ -104,11 +110,13 @@ public class StanfordUtil {
             np.setOffsetBegin(firstOfs.beginPosition());
             np.setOffsetEnd(lastOfs.endPosition());
             np.setId(review.getNounPhrases().size());
+            np.setSentenceId(sentenceId);
             review.addNounPhrase(np);
+            sentence.addNounPhrase(np);
         }
 
         for (Tree child : rootNode.children()) {
-            nounPhraseFindSimple(child, review);
+            nounPhraseFindSimple(child, review, sentence, sentenceId);
         }
     }
 
@@ -160,6 +168,14 @@ public class StanfordUtil {
                     Token newToken = new Token();
                     // this is the text of the token
                     String word = token.get(TextAnnotation.class);
+                    
+                    //this is the opinion orientation of the token
+                    if (FeatureExtractor.sPositive_words.contains(";" + word.toLowerCase() + ";")){
+                        newToken.setOpinionOrientation(Token.POSITIVE);
+                    }                    
+                    else if (FeatureExtractor.sNegative_words.contains(";" + word.toLowerCase() + ";")){
+                        newToken.setOpinionOrientation(Token.NEGATIVE);
+                    }
 
                     // this is the POS tag of the token
                     String pos = token.get(PartOfSpeechAnnotation.class);
