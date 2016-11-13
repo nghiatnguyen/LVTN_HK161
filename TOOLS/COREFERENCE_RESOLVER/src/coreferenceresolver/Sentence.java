@@ -5,7 +5,9 @@
  */
 package coreferenceresolver;
 
+import edu.stanford.nlp.trees.TypedDependency;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -23,6 +25,8 @@ public class Sentence {
     private int sentimentLevel;
     private List<Token> comparativeIndicatorPhrases;
     private boolean comparativeSentence;
+    private List<OpinionWord> opinionWords;
+    private Collection dependencies;
 
     public static final int NEGATIVE_SENTIMENT = 0;
     public static final int NEUTRAL_SENTIMENT = 1;
@@ -32,6 +36,7 @@ public class Sentence {
         tokens = new ArrayList<>();
         nounPhrases = new ArrayList<>();
         comparativeIndicatorPhrases = new ArrayList<>();
+        opinionWords = new ArrayList<>();
     }
 
     /**
@@ -204,5 +209,65 @@ public class Sentence {
         }
 
         return true;
+    }
+
+    /**
+     * @return the opinionWords
+     */
+    public List<OpinionWord> getOpinionWords() {
+        return opinionWords;
+    }
+
+    /**
+     * @param opinionWordAdded the opinionWord to add
+     */
+    public void addOpinionWord(OpinionWord opinionWordAdded) {
+        this.opinionWords.add(opinionWordAdded);
+    }
+    
+    public void setOpinionForNPs(){    
+        if (this.nounPhrases == null || this.opinionWords == null){
+            return;
+        }
+        
+        for (NounPhrase np: this.nounPhrases){
+            double opinionScore = 0;
+            for (OpinionWord ow: this.opinionWords){
+                double distanceNP_OW = 0;
+                for (Token token: this.tokens){
+                    if (np.getOffsetEnd() < ow.getOffsetBegin() && token.getOffsetBegin() > np.getOffsetEnd() 
+                            && token.getOffsetEnd() < ow.getOffsetBegin()){
+                        ++distanceNP_OW;
+                    }
+                    else if (np.getOffsetBegin() > ow.getOffsetEnd() && token.getOffsetEnd() < np.getOffsetBegin() 
+                            && token.getOffsetBegin() > ow.getOffsetEnd()){
+                        ++distanceNP_OW;
+                    }
+                    
+                }
+                
+                if (np.getOffsetBegin() <= ow.getOffsetBegin() && ow.getOffsetEnd()<= np.getOffsetEnd()){
+                    opinionScore = (double) ow.getSentimentOrientation()/0.5;
+                }
+                else {
+                    opinionScore += (double) ow.getSentimentOrientation()/(distanceNP_OW + 1.0);
+                }                
+            }
+            np.setSentimentOrientation(opinionScore > 0? Util.POSITIVE : opinionScore < 0 ? Util.NEGATIVE : Util.NEUTRAL);
+        }
+    }
+
+    /**
+     * @return the dependencies
+     */
+    public Collection<TypedDependency> getDependencies() {
+        return dependencies;
+    }
+
+    /**
+     * @param dependencies the dependencies to set
+     */
+    public void setDependencies(Collection dependencies) {
+        this.dependencies = dependencies;
     }
 }

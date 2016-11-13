@@ -116,7 +116,7 @@ public class Main {
      */
     public static void main(String[] args) throws IOException {
         // TODO code application logic here
-        File inputFile = new File("E:\\REPOSITORIES\\LVTN_HK161\\TOOLS\\NOUN_PHRASE_FINDER\\DomParser\\input.txt");
+        File inputFile = new File("E:\\REPOSITORIES\\LVTN_HK161\\TOOLS\\COREFERENCE_RESOLVER\\input.txt");
         File outFile = new File(".\\markup.out.txt");
         FileWriter fw = new FileWriter(outFile);
         StanfordUtil su = new StanfordUtil(inputFile);

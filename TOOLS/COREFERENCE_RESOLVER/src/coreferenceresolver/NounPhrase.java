@@ -31,6 +31,7 @@ public class NounPhrase {
     private boolean isSuperior;
     private boolean isInferior;
     private ArrayList<String> opinionWords;
+    private int sentimentOrientation;
 
     /**
      * @return the npNode
@@ -215,5 +216,19 @@ public class NounPhrase {
      */
     public void setType(int type) {
         this.type = type;
+    }
+
+    /**
+     * @return the sentimentOrientation
+     */
+    public int getSentimentOrientation() {
+        return sentimentOrientation;
+    }
+
+    /**
+     * @param sentimentOrientation the sentimentOrientation to set
+     */
+    public void setSentimentOrientation(int sentimentOrientation) {
+        this.sentimentOrientation = sentimentOrientation;
     }
 }

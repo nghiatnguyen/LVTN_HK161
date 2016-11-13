@@ -54,7 +54,7 @@ public class MarkupMain {
             //Begin markup
             for (Review review : StanfordUtil.reviews) {
                 
-                System.out.println("Mark up for review " + i);
+//                System.out.println("Mark up for review " + i);
                 //Discard all NPs that is Personal Pronoun
                 Util.discardUnneccessaryNPs(review);
                 

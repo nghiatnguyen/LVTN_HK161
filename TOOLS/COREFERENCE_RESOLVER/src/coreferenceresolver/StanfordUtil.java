@@ -16,10 +16,13 @@ import edu.stanford.nlp.ling.HasOffset;
 import edu.stanford.nlp.neural.rnn.RNNCoreAnnotations;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+import edu.stanford.nlp.semgraph.SemanticGraph;
+import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations.CollapsedCCProcessedDependenciesAnnotation;
 import edu.stanford.nlp.sentiment.SentimentCoreAnnotations;
 import edu.stanford.nlp.trees.CollinsHeadFinder;
 import edu.stanford.nlp.trees.Tree;
 import edu.stanford.nlp.trees.TreeCoreAnnotations.TreeAnnotation;
+import edu.stanford.nlp.trees.TypedDependency;
 import edu.stanford.nlp.util.CoreMap;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -29,6 +32,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
 
@@ -76,8 +80,8 @@ public class StanfordUtil {
             document = new Annotation(reviewLine);
 
             // run all Annotators on this text
-            pipeline.annotate(document);                       
-            
+            pipeline.annotate(document);
+
             List<CoreMap> sentences = document.get(SentencesAnnotation.class);
 
             //Begin extracting from paragraphs
@@ -85,7 +89,7 @@ public class StanfordUtil {
                 Sentence newSentence = new Sentence();
                 // this is the parse tree of the current sentence
                 Tree sentenceTree = sentence.get(TreeAnnotation.class);
-                nounPhraseFindSimple(sentenceTree, newReview, newSentence, sentenceId);                
+                nounPhraseFindSimple(sentenceTree, newReview, newSentence, sentenceId);
                 newReview.addSentence(newSentence);
                 ++sentenceId;
             }
@@ -162,18 +166,23 @@ public class StanfordUtil {
                 newSentence.setReviewId(reviewId);
                 newSentence.setRawContent(sentence.toString());
                 newSentence.setOffsetBegin(sentenceOffsetBegin);
-                newSentence.setOffsetEnd(sentenceOffsetEnd);
-                newSentence.setSentimentLevel(sentimentLevel);
-                for (CoreLabel token : sentence.get(TokensAnnotation.class)) {
+                newSentence.setOffsetEnd(sentenceOffsetEnd);                               
+                newSentence.setSentimentLevel(sentimentLevel);                
+                
+                //Dependency Parsing
+                SemanticGraph collCCDeps = sentence.get(CollapsedCCProcessedDependenciesAnnotation.class);
+                Collection<TypedDependency> typedDeps = collCCDeps.typedDependencies();
+                newSentence.setDependencies(typedDeps);
+                
+                for (CoreLabel token : sentence.get(TokensAnnotation.class)) {                    
                     Token newToken = new Token();
                     // this is the text of the token
                     String word = token.get(TextAnnotation.class);
-                    
+
                     //this is the opinion orientation of the token
-                    if (FeatureExtractor.sPositive_words.contains(";" + word.toLowerCase() + ";")){
+                    if (FeatureExtractor.sPositive_words.contains(";" + word.toLowerCase() + ";")) {
                         newToken.setOpinionOrientation(Token.POSITIVE);
-                    }                    
-                    else if (FeatureExtractor.sNegative_words.contains(";" + word.toLowerCase() + ";")){
+                    } else if (FeatureExtractor.sNegative_words.contains(";" + word.toLowerCase() + ";")) {
                         newToken.setOpinionOrientation(Token.NEGATIVE);
                     }
 
@@ -190,6 +199,25 @@ public class StanfordUtil {
                     newToken.setPOS(pos);
 
                     newSentence.addToken(newToken);
+
+                    int newTokenSentiment = Util.retrieveOpinion(newToken);
+                    
+                    if ((newTokenSentiment == Util.POSITIVE
+                            || newTokenSentiment == Util.NEGATIVE) && (!pos.equals("IN"))) {                    
+                        OpinionWord newOW = new OpinionWord();
+                        newOW.setOffsetBegin(offsetBegin);
+                        newOW.setOffsetEnd(offsetEnd);
+                        newOW.setWord(word);
+                        for (TypedDependency typedDependency: newSentence.getDependencies()){
+                            if (typedDependency.reln().toString().equals("neg") && typedDependency.gov().value().equals(word)){
+                                newTokenSentiment = Util.reverseSentiment(newTokenSentiment);
+                                break;
+                            }
+                        }
+                        
+                        newOW.setSentimentOrientation(newTokenSentiment);
+                        newSentence.addOpinionWord(newOW);
+                    }
                 }
 
                 // Check if this token is a comparative keyword. If so, its sentence is a comparative sentence
@@ -204,6 +232,8 @@ public class StanfordUtil {
 
                 //Check if there are superior or inferior nounphrases in sentence. If yes, assign them
                 newSentence.initComparativeNPs();
+
+                newSentence.setOpinionForNPs();
 
                 newReview.addSentence(newSentence);
 
@@ -246,114 +276,48 @@ public class StanfordUtil {
     }
 
     public static void test(String outputFilePath) throws IOException {
+        MarkupMain.set_sDataset("no.no");
+        StanfordUtil su = new StanfordUtil(new File("E:\\REPOSITORIES\\LVTN_HK161\\TOOLS\\COREFERENCE_RESOLVER\\input.txt"));
+        su.init();
         FileWriter fw = new FileWriter(new File(outputFilePath));
         BufferedWriter bw = new BufferedWriter(fw);
+
         for (Review review : reviews) {
-            for (int i = 0; i < review.getNounPhrases().size(); ++i) {
-                NounPhrase np1 = review.getNounPhrases().get(i);
-                for (int j = i + 1; j < review.getNounPhrases().size(); ++j) {
-                    NounPhrase np2 = review.getNounPhrases().get(j);
-                    bw.write("-----------NP pair--------------");
-                    bw.newLine();
-                    bw.write(review.getRawContent());
-                    bw.newLine();
-                    bw.write("NP1 id: " + np1.getId());
-                    bw.newLine();
-                    bw.write("NP1 ref: " + np1.getRefId());
-                    bw.newLine();
-                    bw.write("NP1 type: " + np1.getType());
-                    bw.newLine();
-                    bw.write("NP1 words: " + np1.getNpNode().getLeaves());
-                    bw.newLine();
-                    bw.write("NP1 head label: " + np1.getHeadLabel());
-                    bw.newLine();
-                    bw.write("NP1 head: " + np1.getHeadNode());
-                    bw.newLine();
-                    bw.write("NP1 begin: " + np1.getOffsetBegin());
-                    bw.newLine();
-                    bw.write("NP1 review: " + np1.getReviewId());
-                    bw.newLine();
-                    bw.write("NP1 sentence: " + np1.getSentenceId());
-                    bw.newLine();
-                    bw.write("NP1 sentiment: " + StanfordUtil.reviews.get(np1.getReviewId()).getSentences().get(np1.getSentenceId()).getSentimentLevel());
-                    bw.newLine();
-//                System.out.print("Opinion words: ");
-//
-//                for (int k = 0; k < np1.getOpinionWords().size(); k++) {
-//                    System.out.print(np1.getOpinionWords().get(k) + " ; ");
-//                }
-                    bw.newLine();
-                    bw.write("------------");
-                    bw.newLine();
-                    bw.write("NP2 id: " + np2.getId());
-                    bw.newLine();
-                    bw.write("NP2 ref: " + np2.getRefId());
-                    bw.newLine();
-                    bw.write("NP2 type: " + np2.getType());
-                    bw.newLine();
-                    bw.write("NP2 words: " + np2.getNpNode().getLeaves());
-                    bw.newLine();
-                    bw.write("NP2 head label: " + np2.getHeadLabel());
-                    bw.newLine();
-                    bw.write("NP2 head: " + np2.getHeadNode());
-                    bw.newLine();
-                    bw.write("NP2 begin: " + np2.getOffsetBegin());
-                    bw.newLine();
-                    bw.write("NP2 review: " + np2.getReviewId());
-                    bw.newLine();
-                    bw.write("NP2 sentence: " + np2.getSentenceId());
-                    bw.newLine();
-                    bw.write("NP2 sentiment: " + StanfordUtil.reviews.get(np2.getReviewId()).getSentences().get(np2.getSentenceId()).getSentimentLevel());
-                    bw.newLine();
-                    bw.write("------------");
-                    try {
-                        bw.write("COREF: " + FeatureExtractor.isCoref(np1, np2));
-                        bw.newLine();
-                        bw.write("NP1 is Pronoun: " + FeatureExtractor.is_Pronoun(np1));
-                        bw.newLine();
-                        bw.write("NP2 is Pronoun: " + FeatureExtractor.is_Pronoun(np2));
-                        bw.newLine();
-                        bw.write("NP2 is Definite Noun Phrase: " + FeatureExtractor.is_Definite_NP(np2));
-                        bw.newLine();
-                        bw.write("NP2 is Demonstrative Noun Phrase: " + FeatureExtractor.is_Demonstrative_NP(np2));
-                        bw.newLine();
-                        bw.write("String similarity: " + FeatureExtractor.stringSimilarity(np1, np2, review.getSentences().get(np1.getSentenceId())));
-                        bw.newLine();
-                        bw.write("Distance Feature: " + FeatureExtractor.count_Distance(np1, np2));
-                        bw.newLine();
-                        bw.write("Number agreement: " + FeatureExtractor.numberAgreementExtract(np1, np2));
-                        bw.newLine();
-                        bw.write("comparative indicator-between: " + FeatureExtractor.comparativeIndicatorExtract(review, np1, np2));
-                        bw.newLine();
-                        bw.write("is-between: " + FeatureExtractor.isBetweenExtract(review, np1, np2));
-                        bw.newLine();
-                        bw.write("has-between: " + FeatureExtractor.has_Between_Extract(review, np1, np2));
-                        bw.newLine();
-                        bw.write("comparative indicator-between 2: " + FeatureExtractor.comparativeIndicator2Extract(review, np1, np2));
-                        bw.newLine();
-                        bw.write("is-between 2: " + FeatureExtractor.isBetween2Extract(review, np1, np2));
-                        bw.newLine();
-                        bw.write("has-between 2: " + FeatureExtractor.has_Between2_Extract(review, np1, np2));
-                        bw.newLine();
-                        bw.write("Sentiment Consistency: " + FeatureExtractor.sentimentConsistencyExtract(np1, np2));
-                        bw.newLine();
-//                    bw.write("***Entity and opinion words association*** ");
-//                    bw.write("Probability of Opinion Word of NP1: " + FeatureExtractor.probability_opinion_word(np1));
-//                    bw.write("Probability of NP2: " + FeatureExtractor.probability_noun_phrase(np2));
-//                    bw.write("Probability of (NP2 and Opinion Word of NP1): " + FeatureExtractor.probability_NP_and_OW(np1, np2));
+            Util.discardUnneccessaryNPs(review);
+        }
 
-                    } catch (Exception e) {
-                        bw.write(e.getMessage());
-                        bw.newLine();
-                        bw.write("Exception NP1 words: " + np1.getNpNode().getLeaves());
-                        bw.newLine();
-                        bw.write("Exception NP2 words: " + np2.getNpNode().getLeaves());
-                        bw.newLine();
-                    }
-
-                    bw.write("------------End of NP pair--------------");
+        for (Review review : reviews) {
+            bw.write("----New review: ");
+            bw.newLine();
+            int sentenceId = 0;
+            for (Sentence sentence : review.getSentences()) {
+                bw.write(sentence.getRawContent());
+                bw.newLine();
+                bw.write("Dependencies:");
+                for (TypedDependency typedDependency: sentence.getDependencies()){                    
+                    bw.write(typedDependency.reln() + " ");
+                    bw.write(typedDependency.gov().value() + " ");
+                    bw.write(typedDependency.dep().value() + " ");
+                    bw.newLine();
+                }                
+                bw.newLine();
+                bw.write("--Opinion Words in this sentence:");
+                bw.newLine();
+                for (OpinionWord ow : sentence.getOpinionWords()) {
+                    bw.write(ow.getWord() + "\t" + ow.getOffsetBegin() + "\t" + ow.getSentimentOrientation());
                     bw.newLine();
                 }
+                bw.newLine();
+                for (NounPhrase np : review.getNounPhrases()) {
+                    if (np.getSentenceId() == sentenceId) {
+                        bw.write(np.getNpNode().getLeaves().toString());
+                        bw.newLine();
+                        bw.write("Sentiment: " + np.getSentimentOrientation());
+                        bw.newLine();
+                        bw.newLine();
+                    }
+                }
+                ++sentenceId;
             }
         }
         bw.close();

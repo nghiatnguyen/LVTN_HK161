@@ -5,6 +5,8 @@ x * To change this license header, choose License Headers in Project Properties.
  */
 package coreferenceresolver;
 
+import edu.stanford.nlp.ling.CoreAnnotations;
+import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.trees.Tree;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -14,6 +16,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -26,14 +29,22 @@ import java.util.regex.Pattern;
  */
 public class Util {
 
+    public static int POSITIVE = 1;
+    public static int NEGATIVE = -1;
+    public static int NEUTRAL = 0;
+
     private static final String DISCARDED_PERSONAL_PRONOUNS = ";i;me;myself;we;us;ourselves;you;yourself;yourselves;he;him;himself;she;her;herself;anyone;someone;somebody;everyone;anybody;everybody;nobody;people;";
 
     private static final String DISCARDED_TIME_NOUNS = ";minute;minutes;hour;hours;day;days;week;weeks;month;months;year;years;january;february;march;april;may;june;july;august;september;october;november;december;monday;tuesday;wednesday;thursday;friday;saturday;sunday;";
 
-    private static final String DISCARDED_EX_NOUN_POS = "EX"; //There
+    private static final String DISCARDED_STOP_WORDS = ";there;etc;oh;";
 
     //private static final String DISCARDED_NUMBER_NOUN_POS = "CD"; //one, two, three
-    private static final String DISCARDED_QUANTITY_NOUNS = ";lot;lots;number;total;";
+    private static final String DISCARDED_QUANTITY_NOUNS = ";lot;lots;number;total;amount;little;much;many;";
+
+    private static final String DISCARDED_TIME_REGEX = "([0-9]+:[0-9]+)|([0-9]+[ ]*(AM|PM)) | (AM|PM)";
+
+    private static final String DEP_RELATIONS = ";nn;acomp;advmod;amod;det;dobj;infmod;iobj;measure;nsubj;nsubjpass;partmod;prep;rcmod;xcomp;xsubj;";
 
     private static ArrayList<Integer> list;
 
@@ -140,7 +151,7 @@ public class Util {
         String markupReview = review.getRawContent();
         for (int i = 0; i < review.getNounPhrases().size(); ++i) {
             NounPhrase curNp = review.getNounPhrases().get(i);
-            System.out.println(curNp.getNpNode().getLeaves());
+//            System.out.println(curNp.getNpNode().getLeaves());
 
             int openNpOffset = curNp.getOffsetBegin() + i;
             markupReview = markupReview.substring(0, openNpOffset) + "<" + markupReview.substring(openNpOffset);
@@ -159,22 +170,22 @@ public class Util {
 
             NounPhrase curNp = review.getNounPhrases().get(i);
             String rawNp = review.getRawContent().substring(curNp.getOffsetBegin(), curNp.getOffsetEnd());
-            System.out.println("Raw NP " + rawNp);
-            System.out.println("Consider " + markupReview.substring(openNpOffsets.get(i)));
+//            System.out.println("Raw NP " + rawNp);
+//            System.out.println("Consider " + markupReview.substring(openNpOffsets.get(i)));
 
             String regex = specialRegex(rawNp);
-            System.out.println("Regex " + regex);
+//            System.out.println("Regex " + regex);
             pattern = Pattern.compile(regex);
             String subString = markupReview.substring(openNpOffsets.get(i));
             matcher = pattern.matcher(subString);
             if (matcher.find()) {
-                System.out.println("Found: " + matcher.group());
+//                System.out.println("Found: " + matcher.group());
                 int replacedStringIndex = markupReview.substring(openNpOffsets.get(i)).indexOf(matcher.group());
                 subString = markupReview.substring(openNpOffsets.get(i), openNpOffsets.get(i) + replacedStringIndex + matcher.group().length()) + ">" + markupReview.substring(openNpOffsets.get(i) + replacedStringIndex + matcher.group().length());
             }
 
             markupReview = markupReview.substring(0, openNpOffsets.get(i)) + subString;
-            System.out.println("Markup Review " + markupReview);
+//            System.out.println("Markup Review " + markupReview);
         }
 
         int npIndex = -1;
@@ -243,7 +254,7 @@ public class Util {
             if (isDiscardedConjNP(np)) {
                 itr.remove();
             } else if (isDiscardedPersonalPronounNP(np) || isDiscardedTimeNP(np) || isDiscardedCurrencyNP(np)
-                    || isDiscardedNPByPOS(np) || isDiscardedQuantityNP(np)) {
+                    || isDiscardedStopWordNP(np) || isDiscardedQuantityNP(np) || isDiscardedPercentageNP(np)) {
                 itr.remove();
             } //Consider all the NPs that have the same HEAD
             else {
@@ -282,20 +293,46 @@ public class Util {
         return false;
     }
 
+    private static boolean isDiscardedPercentageNP(NounPhrase np) {
+        if (np.getHeadNode().value().contains("%")) {
+            return true;
+        }
+        return false;
+    }
+
     private static boolean isDiscardedTimeNP(NounPhrase np) {
+        //Discard NP with HOUR LITERAL
+        if (np.getHeadNode().value().matches(DISCARDED_TIME_REGEX) || np.getHeadNode().value().toLowerCase().equals("am")
+                || np.getHeadNode().value().toLowerCase().equals("pm")) {
+            return true;
+        }
+
+        //Discard NP with TIME LITERAL
         if (DISCARDED_TIME_NOUNS.contains(";" + np.getHeadNode().value().toLowerCase() + ";")) {
             return true;
         }
-        if (np.getHeadNode().value().toLowerCase().equals("time") && np.getNpNode().getLeaves().size() == 1) {
-            return true;
+        //Discard NP with HEAD "time": the first time, the second time, ...        
+        if (np.getHeadNode().value().toLowerCase().equals("time") || np.getHeadNode().value().toLowerCase().equals("times")) {
+            for (int i = 0; i < np.getNpNode().getLeaves().size(); ++i) {
+                if (np.getNpNode().getLeaves().get(i).value().equals("time") || np.getNpNode().getLeaves().get(i).value().equals("times")) {
+                    //NP starts with "time"
+                    if (i == 0) {
+                        return true;
+                    }
+                    String tokenBeforeHeadPOS = ((CoreLabel) np.getNpNode().getLeaves().get(i - 1).label()).get(CoreAnnotations.PartOfSpeechAnnotation.class);
+                    if (!tokenBeforeHeadPOS.equals("NN") && !tokenBeforeHeadPOS.equals("NNS")) {
+                        return true;
+                    }
+                }
+            }
         }
 
         return false;
     }
 
-    //Discard all Existential NP: There
-    private static boolean isDiscardedNPByPOS(NounPhrase np) {
-        if (np.getHeadLabel().equals(DISCARDED_EX_NOUN_POS)) {
+    //Discard all stop words: there, etc, oh, ...
+    private static boolean isDiscardedStopWordNP(NounPhrase np) {
+        if (DISCARDED_STOP_WORDS.contains(";" + np.getHeadNode().value().toLowerCase() + ";")) {
             return true;
         }
         return false;
@@ -310,10 +347,24 @@ public class Util {
     }
 
     private static boolean isDiscardedCurrencyNP(NounPhrase np) {
-        if (np.getHeadNode().value().contains("$")) {
+        if (np.getHeadNode().value().contains("$") || np.getHeadNode().value().contains("dollar")) {
             return true;
         }
         return false;
+    }
+
+    public static int retrieveOpinion(Token token) {
+        if (FeatureExtractor.sNegative_words.contains(";" + token.getWord() + ";")) {
+            return NEGATIVE;
+        } else if (FeatureExtractor.sPositive_words.contains(";" + token.getWord() + ";")) {
+            return POSITIVE;
+        } else {
+            return NEUTRAL;
+        }
+    }
+
+    public static int reverseSentiment(int sentiment) {
+        return sentiment == POSITIVE ? NEGATIVE : sentiment == NEGATIVE ? POSITIVE : 0;
     }
 
     private static String specialRegex(String sequence) {
