@@ -1,4 +1,4 @@
-package coreferenceresolver;
+package coreferenceresolver.weka;
 
 import weka.classifiers.Evaluation;
 import weka.classifiers.trees.J48;

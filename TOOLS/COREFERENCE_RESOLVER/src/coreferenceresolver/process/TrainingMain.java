@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package coreferenceresolver;
+package coreferenceresolver.process;
 
+import coreferenceresolver.util.Util;
+import coreferenceresolver.util.StanfordUtil;
+import coreferenceresolver.element.Review;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;

@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package coreferenceresolver;
+package coreferenceresolver.gui;
 
+import coreferenceresolver.process.MarkupMain;
+import coreferenceresolver.util.StanfordUtil;
+import coreferenceresolver.process.TrainingMain;
+import coreferenceresolver.weka.Weka;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;

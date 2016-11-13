@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package coreferenceresolver;
+package coreferenceresolver.element;
 
+import coreferenceresolver.util.Util;
 import edu.stanford.nlp.trees.TypedDependency;
 import java.util.ArrayList;
 import java.util.Collection;

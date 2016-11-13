@@ -3,8 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package coreferenceresolver;
+package coreferenceresolver.process;
 
+import coreferenceresolver.util.StanfordUtil;
+import coreferenceresolver.element.NounPhrase;
+import coreferenceresolver.element.Token;
+import coreferenceresolver.element.Review;
+import coreferenceresolver.element.Sentence;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

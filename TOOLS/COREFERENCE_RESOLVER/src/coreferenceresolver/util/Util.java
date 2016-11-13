@@ -3,8 +3,12 @@ x * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package coreferenceresolver;
+package coreferenceresolver.util;
 
+import coreferenceresolver.process.FeatureExtractor;
+import coreferenceresolver.element.NounPhrase;
+import coreferenceresolver.element.Token;
+import coreferenceresolver.element.Review;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.trees.Tree;

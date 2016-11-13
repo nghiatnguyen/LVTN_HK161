@@ -3,8 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package coreferenceresolver;
+package coreferenceresolver.util;
 
+import coreferenceresolver.process.FeatureExtractor;
+import coreferenceresolver.process.MarkupMain;
+import coreferenceresolver.element.NounPhrase;
+import coreferenceresolver.element.OpinionWord;
+import coreferenceresolver.element.Token;
+import coreferenceresolver.element.Review;
+import coreferenceresolver.element.Sentence;
 import edu.stanford.nlp.ling.CoreAnnotations.CharacterOffsetBeginAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.CharacterOffsetEndAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.PartOfSpeechAnnotation;

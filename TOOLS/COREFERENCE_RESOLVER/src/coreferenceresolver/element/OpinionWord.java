@@ -3,23 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package coreferenceresolver;
+package coreferenceresolver.element;
 
 /**
  *
  * @author TRONGNGHIA
  */
-public class Token {    
+public class OpinionWord {
 
-    public static int NEGATIVE = -1;
-    public static int POSITIVE = 1;
-    public static int NEUTRAL = 0;
-    
     private String word;
-    private String POS;
+    private int sentimentOrientation;
     private int offsetBegin;
     private int offsetEnd;
-    private int opinionOrientation = NEUTRAL;       
 
     /**
      * @return the word
@@ -36,17 +31,17 @@ public class Token {
     }
 
     /**
-     * @return the POS
+     * @return the sentimentOrientation
      */
-    public String getPOS() {
-        return POS;
+    public int getSentimentOrientation() {
+        return sentimentOrientation;
     }
 
     /**
-     * @param POS the POS to set
+     * @param sentimentOrientation the sentimentOrientation to set
      */
-    public void setPOS(String POS) {
-        this.POS = POS;
+    public void setSentimentOrientation(int sentimentOrientation) {
+        this.sentimentOrientation = sentimentOrientation;
     }
 
     /**
@@ -75,19 +70,5 @@ public class Token {
      */
     public void setOffsetEnd(int offsetEnd) {
         this.offsetEnd = offsetEnd;
-    }
-    
-    /**
-     * @return the opinionOrientation
-     */
-    public int getOpinionOrientation() {
-        return opinionOrientation;
-    }
-
-    /**
-     * @param opinionOrientation the opinionOrientation to set
-     */
-    public void setOpinionOrientation(int opinionOrientation) {
-        this.opinionOrientation = opinionOrientation;
     }
 }
