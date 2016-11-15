@@ -5,13 +5,20 @@ x * To change this license header, choose License Headers in Project Properties.
  */
 package coreferenceresolver.util;
 
+import coreferenceresolver.element.CRFToken;
 import coreferenceresolver.process.FeatureExtractor;
 import coreferenceresolver.element.NounPhrase;
 import coreferenceresolver.element.Token;
 import coreferenceresolver.element.Review;
+import coreferenceresolver.element.Sentence;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
+import edu.stanford.nlp.pipeline.Annotation;
+import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+import edu.stanford.nlp.trees.CollinsHeadFinder;
 import edu.stanford.nlp.trees.Tree;
+import edu.stanford.nlp.trees.TreeCoreAnnotations;
+import edu.stanford.nlp.util.CoreMap;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -20,10 +27,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -72,21 +79,21 @@ public class Util {
 
         //Create the train dataset
         if (forTraining) {
-            for (int i = review.getNounPhrases().size() - 1; i > 0; i--) {
-                NounPhrase np2 = review.getNounPhrases().get(i);
-                if ((np2.getRefId() == -1) || (np2.getType() == 1)) {
-
-                } else {
-                    for (int j = i - 1; j >= 0; j--) {
-                        NounPhrase np1 = review.getNounPhrases().get(j);
-                        createTrain(np1, np2, review, bw);
-                        if (np1.getId() == np2.getRefId()) {
-                            break;
-                        }
-                    }
-                }
-
-            }
+//            for (int i = review.getNounPhrases().size() - 1; i > 0; i--) {
+//                NounPhrase np2 = review.getNounPhrases().get(i);
+//                if ((np2.getRefId() == -1) || (np2.getType() == 1)) {
+//
+//                } else {
+//                    for (int j = i - 1; j >= 0; j--) {
+//                        NounPhrase np1 = review.getNounPhrases().get(j);
+//                        createTrain(np1, np2, review, bw);
+//                        if (np1.getId() == np2.getRefId()) {
+//                            break;
+//                        }
+//                    }
+//                }
+//
+//            }
         } else {
 //            Create the test database
             for (int i = 0; i < review.getNounPhrases().size(); ++i) {
@@ -128,24 +135,6 @@ public class Util {
                 }
             }
         }
-//       
-//        Check features of each NP
-//        for (int i = 0; i < review.getNounPhrases().size(); ++i) {
-//            NounPhrase np1 = review.getNounPhrases().get(i);
-//            list = new ArrayList<Integer>();
-//            for (int j = i + 1; j < review.getNounPhrases().size(); ++j) {
-//                NounPhrase np2 = review.getNounPhrases().get(j);
-//                if ((np1.getId() == np2.getRefId() && np2.getType() != 1) || list.contains(np2.getRefId())) {
-//                    list.add(np2.getId());
-//                }
-//            }
-//            createCheck(np1, review, bw);
-//            for (Integer in : list) {
-//                bw.write(in + ",");
-//            }
-//            bw.newLine();
-//
-//        }
 
         System.out.println("------------Done--------------");
     }
@@ -261,17 +250,17 @@ public class Util {
                     || isDiscardedStopWordNP(np) || isDiscardedQuantityNP(np) || isDiscardedPercentageNP(np)) {
                 itr.remove();
             } //Consider all the NPs that have the same HEAD
-            else {
-                List<NounPhrase> curSentenceNPs = review.getNounPhrases();
-                for (int i = 0; i < curSentenceNPs.size(); ++i) {
-                    if (curSentenceNPs.get(i).getHeadNode().value().equals(np.getHeadNode().value())
-                            && ((curSentenceNPs.get(i).getOffsetBegin() < np.getOffsetBegin() && curSentenceNPs.get(i).getOffsetEnd() >= np.getOffsetEnd())
-                            || (curSentenceNPs.get(i).getOffsetBegin() <= np.getOffsetBegin() && curSentenceNPs.get(i).getOffsetEnd() > np.getOffsetEnd()))) {
-                        itr.remove();
-                        break;
-                    }
-                }
-            }
+//            else {
+//                List<NounPhrase> curSentenceNPs = review.getNounPhrases();
+//                for (int i = 0; i < curSentenceNPs.size(); ++i) {
+//                    if (curSentenceNPs.get(i).getHeadNode().value().equals(np.getHeadNode().value())
+//                            && ((curSentenceNPs.get(i).getOffsetBegin() < np.getOffsetBegin() && curSentenceNPs.get(i).getOffsetEnd() >= np.getOffsetEnd())
+//                            || (curSentenceNPs.get(i).getOffsetBegin() <= np.getOffsetBegin() && curSentenceNPs.get(i).getOffsetEnd() > np.getOffsetEnd()))) {
+//                        itr.remove();
+//                        break;
+//                    }
+//                }
+//            }
         }
 
         for (int i = 0; i < review.getNounPhrases().size(); i++) {
@@ -281,13 +270,14 @@ public class Util {
 
     //Discard the NP that has many HEADS, in particular it is in the form NP => NP1 (CC|,) NP2 (CC|,) ... 
     private static boolean isDiscardedConjNP(NounPhrase np) {
-        List<Tree> npChildren = np.getNpNode().getChildrenAsList();
-        for (int i = 0; i < npChildren.size(); ++i) {
-            if (!npChildren.get(i).value().equals("NP") && !npChildren.get(i).value().equals("CC") && !npChildren.get(i).value().equals(",")) {
-                return false;
-            }
-        }
-        return true;
+//        List<Tree> npChildren = np.getNpNode().getChildrenAsList();
+//        for (int i = 0; i < npChildren.size(); ++i) {
+//            if (!npChildren.get(i).value().equals("NP") && !npChildren.get(i).value().equals("CC") && !npChildren.get(i).value().equals(",")) {
+//                return false;
+//            }
+//        }
+//        return true;
+            return false;
     }
 
     private static boolean isDiscardedPersonalPronounNP(NounPhrase np) {
@@ -358,9 +348,9 @@ public class Util {
     }
 
     public static int retrieveOpinion(Token token) {
-        if (FeatureExtractor.sNegative_words.contains(";" + token.getWord() + ";")) {
+        if (FeatureExtractor.NEGATIVE_WORDS.contains(";" + token.getWord() + ";")) {
             return NEGATIVE;
-        } else if (FeatureExtractor.sPositive_words.contains(";" + token.getWord() + ";")) {
+        } else if (FeatureExtractor.POSITIVE_WORDS.contains(";" + token.getWord() + ";")) {
             return POSITIVE;
         } else {
             return NEUTRAL;
@@ -369,6 +359,47 @@ public class Util {
 
     public static int reverseSentiment(int sentiment) {
         return sentiment == POSITIVE ? NEGATIVE : sentiment == NEGATIVE ? POSITIVE : 0;
+    }
+    
+    public static Tree[] findPhraseHead(String phraseContent, CollinsHeadFinder headFinder, StanfordCoreNLP pipeline){
+        Tree[] res = new Tree[2];
+        Tree tree = null;
+        Annotation document = pipeline.process(phraseContent);
+        for (CoreMap sentence : document
+                .get(CoreAnnotations.SentencesAnnotation.class)) {
+            tree = sentence.get(TreeCoreAnnotations.TreeAnnotation.class);
+        }
+        res[0] = tree;
+        res[1] = tree.headTerminal(headFinder);
+        return res;
+    }
+    
+    public static void assignNounPhrases(List<NounPhrase> nounPhrases, List<Review> reviews){
+        CollinsHeadFinder headFinder = new CollinsHeadFinder();
+        Properties props = new Properties();
+        props.put("annotators", "tokenize, ssplit, pos, parse");
+        StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
+        for (NounPhrase np: nounPhrases){
+            String npContent = "";
+            for(CRFToken token: np.getListToken()){
+                npContent += token.getWord() + " ";
+            }
+            System.out.println("NP content: " + npContent);//            
+            npContent = npContent.substring(0, npContent.length() - 1);
+            
+            Tree[] res = findPhraseHead(npContent, headFinder, pipeline);
+            np.setNpNode(res[0]);
+            np.setHeadNode(res[1]);
+            
+            Review review = reviews.get(np.getReviewId());
+            review.addNounPhrase(np);
+            Sentence sentence = review.getSentences().get(np.getSentenceId());
+            sentence.addNounPhrase(np);
+            int npOffsetBegin = sentence.getTokens().get(np.getListToken().get(0).getIdInSentence()).getOffsetBegin();
+            np.setOffsetBegin(npOffsetBegin);
+            int npOffsetEnd = sentence.getTokens().get(np.getListToken().get(np.getListToken().size() - 1).getIdInSentence()).getOffsetEnd();
+            np.setOffsetEnd(npOffsetEnd);
+        }
     }
 
     private static String specialRegex(String sequence) {
@@ -381,32 +412,10 @@ public class Util {
                 .replaceAll("\\s", " <*");
     }
 
-    private static void createTrain(NounPhrase np1, NounPhrase np2, Review review, BufferedWriter bwtrain) throws IOException {
-        bwtrain.write(np1.getReviewId() + ",");
-        bwtrain.write(np1.getId() + ",");
-        bwtrain.write(np2.getId() + ",");
-        bwtrain.write(FeatureExtractor.is_Pronoun(np1).toString() + ",");
-        bwtrain.write(FeatureExtractor.is_Pronoun(np2).toString() + ",");
-        bwtrain.write(FeatureExtractor.is_Definite_NP(np2).toString() + ",");
-        bwtrain.write(FeatureExtractor.is_Demonstrative_NP(np2).toString() + ",");
-        bwtrain.write(FeatureExtractor.isBothPropername(np1, np2) + ",");
-        bwtrain.write(FeatureExtractor.stringSimilarity(np1, np2, review.getSentences().get(np1.getSentenceId())).toString() + ",");
-        bwtrain.write(FeatureExtractor.count_Distance(np1, np2) + ",");
-        bwtrain.write(FeatureExtractor.numberAgreementExtract(np1, np2) + ",");
-        bwtrain.write(FeatureExtractor.isBetweenExtract(review, np1, np2).toString() + ",");
-        bwtrain.write(FeatureExtractor.has_Between_Extract(review, np1, np2).toString() + ",");
-        bwtrain.write(FeatureExtractor.comparativeIndicatorExtract(review, np1, np2).toString() + ",");
-        bwtrain.write(FeatureExtractor.sentimentConsistencyExtract(np1, np2) + ",");
-//        bwtrain.write(FeatureExtractor.PMI(np1, np2).toString() + ",");
-        bwtrain.write(FeatureExtractor.isCoref(np1, np2).toString());
-        bwtrain.newLine();
-    }
-
     private static void createTest(NounPhrase np1, NounPhrase np2, Review review, BufferedWriter bwtrain, Integer IdPMIinList) throws IOException {
         bwtrain.write(np1.getReviewId() + ",");
         bwtrain.write(np1.getId() + ",");
         bwtrain.write(np2.getId() + ",");
-//        bwtrain.write(Math.abs(np2.getId() - np1.getId()) + ",");
         bwtrain.write(FeatureExtractor.is_Pronoun(np1).toString() + ",");
         bwtrain.write(FeatureExtractor.is_Pronoun(np2).toString() + ",");
         bwtrain.write(FeatureExtractor.is_Definite_NP(np2).toString() + ",");
@@ -430,15 +439,6 @@ public class Util {
         }
         bwtrain.write(FeatureExtractor.isNested(np1, np2).toString() + ",");
         bwtrain.write(FeatureExtractor.isCorefTest(np1, np2, list).toString());
-        bwtrain.newLine();
-    }
-
-    private static void createCheck(NounPhrase np2, Review review, BufferedWriter bwtrain) throws IOException {
-        bwtrain.write(np2.getReviewId() + ";" + np2.getId() + ";" + np2.getNpNode().getLeaves().toString() + ";" + np2.getHeadNode().toString() + ";");
-        bwtrain.write(FeatureExtractor.is_Pronoun(np2).toString() + ";");
-        bwtrain.write(FeatureExtractor.is_Definite_NP(np2).toString() + ";");
-        bwtrain.write(FeatureExtractor.is_Demonstrative_NP(np2).toString() + ";");
-        bwtrain.write(FeatureExtractor.is_Proper_name(np2).toString());
         bwtrain.newLine();
     }
 }

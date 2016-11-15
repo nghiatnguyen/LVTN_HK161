@@ -30,7 +30,7 @@ public class TrainingMain {
         File outputFile = new File(outputFilePath);
         StanfordUtil su = new StanfordUtil(inputFile);
 
-        // read the Dataset
+        // Read the Dataset
         File fData = new File(".\\dataset.txt");
         FileReader fReaderData = new FileReader(fData);
         BufferedReader buffReaderDict = new BufferedReader(fReaderData);
@@ -69,13 +69,12 @@ public class TrainingMain {
                 + "@DATA");
         bw.newLine();
 
-//        Write to check features of each NP
-//        File fcheck = new File("check.txt");
-//    	FileOutputStream foscheck = new FileOutputStream(fcheck);
-//    	BufferedWriter bwcheck = new BufferedWriter(new OutputStreamWriter(foscheck));	
         try {
             //Init every info
             su.init();
+            
+            //Get all NPs
+//            getNounPhrases();            
 
             //Begin create training set
             for (Review review : StanfordUtil.reviews) {

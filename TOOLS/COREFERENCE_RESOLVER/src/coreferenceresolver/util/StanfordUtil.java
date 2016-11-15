@@ -63,6 +63,10 @@ public class StanfordUtil {
 
     //Just for finding Noun Phrases
     public void simpleInit() throws FileNotFoundException, IOException {
+        String posFilePath = "./input.txt.pos";
+        FileWriter fw = new FileWriter(new File(posFilePath));
+        BufferedWriter bw = new BufferedWriter(fw);
+        
         headFinder = new CollinsHeadFinder();
         props = new Properties();
         props.put("annotators", "tokenize, ssplit, pos, parse");
@@ -94,14 +98,40 @@ public class StanfordUtil {
             //Begin extracting from paragraphs
             for (CoreMap sentence : sentences) {
                 Sentence newSentence = new Sentence();
+                for (CoreLabel token: sentence.get(TokensAnnotation.class)){ 
+                    Token newToken = new Token();
+                    // this is the text of the token
+                    String word = token.get(TextAnnotation.class);
+                    
+                    // this is the POS tag of the token
+                    String pos = token.get(PartOfSpeechAnnotation.class);
+
+                    int offsetBegin = token.get(CharacterOffsetBeginAnnotation.class);
+                    newToken.setOffsetBegin(offsetBegin);
+
+                    int offsetEnd = token.get(CharacterOffsetEndAnnotation.class);
+                    newToken.setOffsetEnd(offsetEnd);
+
+                    newToken.setWord(word);
+                    newToken.setPOS(pos);
+
+                    newSentence.addToken(newToken);                    
+                    bw.write(token.word() + "/" + token.tag() + " ");
+                }
+                bw.newLine();                                                
                 // this is the parse tree of the current sentence
-                Tree sentenceTree = sentence.get(TreeAnnotation.class);
-                nounPhraseFindSimple(sentenceTree, newReview, newSentence, sentenceId);
+//                Tree sentenceTree = sentence.get(TreeAnnotation.class);                
+//                nounPhraseFindSimple(sentenceTree, newReview, newSentence, sentenceId);                
+
                 newReview.addSentence(newSentence);
                 ++sentenceId;
             }
+            //Separate paragraphs
+            bw.write("./.");
+            bw.newLine();
             reviews.add(newReview);
-        }
+        }        
+        bw.close();
     }
 
     public void nounPhraseFindSimple(Tree rootNode, Review review, Sentence sentence, int sentenceId) {
@@ -187,9 +217,9 @@ public class StanfordUtil {
                     String word = token.get(TextAnnotation.class);
 
                     //this is the opinion orientation of the token
-                    if (FeatureExtractor.sPositive_words.contains(";" + word.toLowerCase() + ";")) {
+                    if (FeatureExtractor.POSITIVE_WORDS.contains(";" + word.toLowerCase() + ";")) {
                         newToken.setOpinionOrientation(Token.POSITIVE);
-                    } else if (FeatureExtractor.sNegative_words.contains(";" + word.toLowerCase() + ";")) {
+                    } else if (FeatureExtractor.NEGATIVE_WORDS.contains(";" + word.toLowerCase() + ";")) {
                         newToken.setOpinionOrientation(Token.NEGATIVE);
                     }
 

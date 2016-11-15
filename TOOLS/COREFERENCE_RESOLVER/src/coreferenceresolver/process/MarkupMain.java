@@ -5,14 +5,18 @@
  */
 package coreferenceresolver.process;
 
+import coreferenceresolver.element.NounPhrase;
 import coreferenceresolver.util.Util;
 import coreferenceresolver.util.StanfordUtil;
 import coreferenceresolver.element.Review;
+import coreferenceresolver.util.CrfChunkerUtil;
+import coreferenceresolver.util.ReadCrfChunkerUtil;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -39,7 +43,7 @@ public class MarkupMain {
         FileWriter fw = new FileWriter(markupFile);
         StanfordUtil su = new StanfordUtil(inputFile);
         //Read the big database to find relation between NP and OW
-        // read the Dataset
+        // Read the Dataset
         File fData = new File(".\\dataset.txt");
         FileReader fReaderData = new FileReader(fData);
         buffReaderDict = new BufferedReader(fReaderData);
@@ -51,17 +55,22 @@ public class MarkupMain {
         try {
             //Init every info
             su.simpleInit();
+            
+            //Call CRFChunker, result is in input.txt.pos.chk file
+            CrfChunkerUtil.main(null);
+            
+            //Read from input.txt.pos.chk file. Get all NPs
+            List<NounPhrase> nounPhrases = ReadCrfChunkerUtil.readCrfChunker();
 
-            int i = 0;
-
+            Util.assignNounPhrases(nounPhrases, StanfordUtil.reviews);
+            
             //Begin markup
             for (Review review : StanfordUtil.reviews) {
                 
-//                System.out.println("Mark up for review " + i);
                 //Discard all NPs that is Personal Pronoun
                 Util.discardUnneccessaryNPs(review);
                 
-//                //Create output file for markup
+                //Create output file for markup
                 Util.initMarkupFile(review, fw);
 
             }
