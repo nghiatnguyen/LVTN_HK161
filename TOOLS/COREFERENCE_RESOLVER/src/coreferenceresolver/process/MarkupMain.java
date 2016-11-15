@@ -39,7 +39,7 @@ public class MarkupMain {
         FileWriter fw = new FileWriter(markupFile);
         StanfordUtil su = new StanfordUtil(inputFile);
         //Read the big database to find relation between NP and OW
-        // read the Dataset
+        // Read the Dataset
         File fData = new File(".\\dataset.txt");
         FileReader fReaderData = new FileReader(fData);
         buffReaderDict = new BufferedReader(fReaderData);
@@ -51,17 +51,17 @@ public class MarkupMain {
         try {
             //Init every info
             su.simpleInit();
-
-            int i = 0;
+            
+            //Get all NPs
+//            getNounPhrases();
 
             //Begin markup
             for (Review review : StanfordUtil.reviews) {
                 
-//                System.out.println("Mark up for review " + i);
                 //Discard all NPs that is Personal Pronoun
                 Util.discardUnneccessaryNPs(review);
                 
-//                //Create output file for markup
+                //Create output file for markup
                 Util.initMarkupFile(review, fw);
 
             }
