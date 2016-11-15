@@ -5,14 +5,18 @@
  */
 package coreferenceresolver.process;
 
+import coreferenceresolver.element.NounPhrase;
 import coreferenceresolver.util.Util;
 import coreferenceresolver.util.StanfordUtil;
 import coreferenceresolver.element.Review;
+import coreferenceresolver.util.CrfChunkerUtil;
+import coreferenceresolver.util.ReadCrfChunkerUtil;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -52,9 +56,14 @@ public class MarkupMain {
             //Init every info
             su.simpleInit();
             
-            //Get all NPs
-//            getNounPhrases();
+            //Call CRFChunker, result is in input.txt.pos.chk file
+            CrfChunkerUtil.main(null);
+            
+            //Read from input.txt.pos.chk file. Get all NPs
+            List<NounPhrase> nounPhrases = ReadCrfChunkerUtil.readCrfChunker();
 
+            Util.assignNounPhrases(nounPhrases, StanfordUtil.reviews);
+            
             //Begin markup
             for (Review review : StanfordUtil.reviews) {
                 

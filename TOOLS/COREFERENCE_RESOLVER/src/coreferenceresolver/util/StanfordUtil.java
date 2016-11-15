@@ -97,12 +97,28 @@ public class StanfordUtil {
 
             //Begin extracting from paragraphs
             for (CoreMap sentence : sentences) {
-                for (CoreLabel token: sentence.get(TokensAnnotation.class)){
-                    bw.write(token.word() + "/" + token.tag() + " ");
-//                    System.out.println(token.word() + "/" + token.tag() + " ");
-                }
-                bw.newLine();                                
                 Sentence newSentence = new Sentence();
+                for (CoreLabel token: sentence.get(TokensAnnotation.class)){ 
+                    Token newToken = new Token();
+                    // this is the text of the token
+                    String word = token.get(TextAnnotation.class);
+                    
+                    // this is the POS tag of the token
+                    String pos = token.get(PartOfSpeechAnnotation.class);
+
+                    int offsetBegin = token.get(CharacterOffsetBeginAnnotation.class);
+                    newToken.setOffsetBegin(offsetBegin);
+
+                    int offsetEnd = token.get(CharacterOffsetEndAnnotation.class);
+                    newToken.setOffsetEnd(offsetEnd);
+
+                    newToken.setWord(word);
+                    newToken.setPOS(pos);
+
+                    newSentence.addToken(newToken);                    
+                    bw.write(token.word() + "/" + token.tag() + " ");
+                }
+                bw.newLine();                                                
                 // this is the parse tree of the current sentence
 //                Tree sentenceTree = sentence.get(TreeAnnotation.class);                
 //                nounPhraseFindSimple(sentenceTree, newReview, newSentence, sentenceId);                

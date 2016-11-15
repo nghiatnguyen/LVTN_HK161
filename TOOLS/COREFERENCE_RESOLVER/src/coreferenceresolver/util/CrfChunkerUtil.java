@@ -17,7 +17,7 @@ public class CrfChunkerUtil {
 
         CRFChunker.displayCopyright();
 
-        String modelDir = ".\\model";
+        String modelDir = "C:\\Users\\TRONGNGHIA\\Documents\\NetBeansProjects\\CoreferenceResolver\\src\\model";
         String inputFile = ".\\input.txt.pos";
 
         CRFChunker.main(new String[]{"-modeldir", modelDir, "-inputfile", inputFile});

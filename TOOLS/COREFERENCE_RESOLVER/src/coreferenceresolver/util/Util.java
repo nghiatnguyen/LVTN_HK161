@@ -5,13 +5,20 @@ x * To change this license header, choose License Headers in Project Properties.
  */
 package coreferenceresolver.util;
 
+import coreferenceresolver.element.CRFToken;
 import coreferenceresolver.process.FeatureExtractor;
 import coreferenceresolver.element.NounPhrase;
 import coreferenceresolver.element.Token;
 import coreferenceresolver.element.Review;
+import coreferenceresolver.element.Sentence;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
+import edu.stanford.nlp.pipeline.Annotation;
+import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+import edu.stanford.nlp.trees.CollinsHeadFinder;
 import edu.stanford.nlp.trees.Tree;
+import edu.stanford.nlp.trees.TreeCoreAnnotations;
+import edu.stanford.nlp.util.CoreMap;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -23,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -242,17 +250,17 @@ public class Util {
                     || isDiscardedStopWordNP(np) || isDiscardedQuantityNP(np) || isDiscardedPercentageNP(np)) {
                 itr.remove();
             } //Consider all the NPs that have the same HEAD
-            else {
-                List<NounPhrase> curSentenceNPs = review.getNounPhrases();
-                for (int i = 0; i < curSentenceNPs.size(); ++i) {
-                    if (curSentenceNPs.get(i).getHeadNode().value().equals(np.getHeadNode().value())
-                            && ((curSentenceNPs.get(i).getOffsetBegin() < np.getOffsetBegin() && curSentenceNPs.get(i).getOffsetEnd() >= np.getOffsetEnd())
-                            || (curSentenceNPs.get(i).getOffsetBegin() <= np.getOffsetBegin() && curSentenceNPs.get(i).getOffsetEnd() > np.getOffsetEnd()))) {
-                        itr.remove();
-                        break;
-                    }
-                }
-            }
+//            else {
+//                List<NounPhrase> curSentenceNPs = review.getNounPhrases();
+//                for (int i = 0; i < curSentenceNPs.size(); ++i) {
+//                    if (curSentenceNPs.get(i).getHeadNode().value().equals(np.getHeadNode().value())
+//                            && ((curSentenceNPs.get(i).getOffsetBegin() < np.getOffsetBegin() && curSentenceNPs.get(i).getOffsetEnd() >= np.getOffsetEnd())
+//                            || (curSentenceNPs.get(i).getOffsetBegin() <= np.getOffsetBegin() && curSentenceNPs.get(i).getOffsetEnd() > np.getOffsetEnd()))) {
+//                        itr.remove();
+//                        break;
+//                    }
+//                }
+//            }
         }
 
         for (int i = 0; i < review.getNounPhrases().size(); i++) {
@@ -262,13 +270,14 @@ public class Util {
 
     //Discard the NP that has many HEADS, in particular it is in the form NP => NP1 (CC|,) NP2 (CC|,) ... 
     private static boolean isDiscardedConjNP(NounPhrase np) {
-        List<Tree> npChildren = np.getNpNode().getChildrenAsList();
-        for (int i = 0; i < npChildren.size(); ++i) {
-            if (!npChildren.get(i).value().equals("NP") && !npChildren.get(i).value().equals("CC") && !npChildren.get(i).value().equals(",")) {
-                return false;
-            }
-        }
-        return true;
+//        List<Tree> npChildren = np.getNpNode().getChildrenAsList();
+//        for (int i = 0; i < npChildren.size(); ++i) {
+//            if (!npChildren.get(i).value().equals("NP") && !npChildren.get(i).value().equals("CC") && !npChildren.get(i).value().equals(",")) {
+//                return false;
+//            }
+//        }
+//        return true;
+            return false;
     }
 
     private static boolean isDiscardedPersonalPronounNP(NounPhrase np) {
@@ -350,6 +359,47 @@ public class Util {
 
     public static int reverseSentiment(int sentiment) {
         return sentiment == POSITIVE ? NEGATIVE : sentiment == NEGATIVE ? POSITIVE : 0;
+    }
+    
+    public static Tree[] findPhraseHead(String phraseContent, CollinsHeadFinder headFinder, StanfordCoreNLP pipeline){
+        Tree[] res = new Tree[2];
+        Tree tree = null;
+        Annotation document = pipeline.process(phraseContent);
+        for (CoreMap sentence : document
+                .get(CoreAnnotations.SentencesAnnotation.class)) {
+            tree = sentence.get(TreeCoreAnnotations.TreeAnnotation.class);
+        }
+        res[0] = tree;
+        res[1] = tree.headTerminal(headFinder);
+        return res;
+    }
+    
+    public static void assignNounPhrases(List<NounPhrase> nounPhrases, List<Review> reviews){
+        CollinsHeadFinder headFinder = new CollinsHeadFinder();
+        Properties props = new Properties();
+        props.put("annotators", "tokenize, ssplit, pos, parse");
+        StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
+        for (NounPhrase np: nounPhrases){
+            String npContent = "";
+            for(CRFToken token: np.getListToken()){
+                npContent += token.getWord() + " ";
+            }
+            System.out.println("NP content: " + npContent);//            
+            npContent = npContent.substring(0, npContent.length() - 1);
+            
+            Tree[] res = findPhraseHead(npContent, headFinder, pipeline);
+            np.setNpNode(res[0]);
+            np.setHeadNode(res[1]);
+            
+            Review review = reviews.get(np.getReviewId());
+            review.addNounPhrase(np);
+            Sentence sentence = review.getSentences().get(np.getSentenceId());
+            sentence.addNounPhrase(np);
+            int npOffsetBegin = sentence.getTokens().get(np.getListToken().get(0).getIdInSentence()).getOffsetBegin();
+            np.setOffsetBegin(npOffsetBegin);
+            int npOffsetEnd = sentence.getTokens().get(np.getListToken().get(np.getListToken().size() - 1).getIdInSentence()).getOffsetEnd();
+            np.setOffsetEnd(npOffsetEnd);
+        }
     }
 
     private static String specialRegex(String sequence) {
