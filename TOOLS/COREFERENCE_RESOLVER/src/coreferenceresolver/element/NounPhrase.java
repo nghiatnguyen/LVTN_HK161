@@ -31,11 +31,11 @@ public class NounPhrase {
     private boolean isSuperior;
     private boolean isInferior;
     private ArrayList<String> opinionWords;
-    private ArrayList<CRFToken> listToken;
+    private ArrayList<CRFToken> CRFTokens;
     private int sentimentOrientation;
     
     public NounPhrase(){
-    	this.listToken = new ArrayList<CRFToken>();
+    	this.CRFTokens = new ArrayList<CRFToken>();
     }
 
     /**
@@ -237,12 +237,12 @@ public class NounPhrase {
         this.sentimentOrientation = sentimentOrientation;
     }
 
-    public void addToken(CRFToken e){
-    	this.listToken.add(e);
+    public void addCRFToken(CRFToken e){
+    	this.CRFTokens.add(e);
     }
     
-    public ArrayList<CRFToken> getListToken(){
-    	return this.listToken;
+    public ArrayList<CRFToken> getCRFTokens(){
+    	return this.CRFTokens;
     }
     
 }

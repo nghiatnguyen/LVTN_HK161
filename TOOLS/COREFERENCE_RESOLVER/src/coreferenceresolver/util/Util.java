@@ -30,7 +30,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -51,7 +50,7 @@ public class Util {
     private static final String DISCARDED_STOP_WORDS = ";there;etc;oh;";
 
     //private static final String DISCARDED_NUMBER_NOUN_POS = "CD"; //one, two, three
-    private static final String DISCARDED_QUANTITY_NOUNS = ";lot;lots;number;total;amount;little;much;many;";
+    private static final String DISCARDED_QUANTITY_NOUNS = ";lot;lots;number;total;amount;little;much;many;ton;tons";
 
     private static final String DISCARDED_TIME_REGEX = "([0-9]+:[0-9]+)|([0-9]+[ ]*(AM|PM)) | (AM|PM)";
 
@@ -74,7 +73,7 @@ public class Util {
 
         //Set Opinion Words for Noun Phrases
         for (int i = 0; i < review.getSentences().size(); i++) {
-            FeatureExtractor.set_NP_for_OP_in_sentence(review.getSentences().get(i));
+            FeatureExtractor.setNPForOPInSentence(review.getSentences().get(i));
         }
 
         //Create the train dataset
@@ -375,19 +374,16 @@ public class Util {
     }
     
     public static void assignNounPhrases(List<NounPhrase> nounPhrases, List<Review> reviews){
-        CollinsHeadFinder headFinder = new CollinsHeadFinder();
-        Properties props = new Properties();
-        props.put("annotators", "tokenize, ssplit, pos, parse");
-        StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
+        CollinsHeadFinder headFinder = new CollinsHeadFinder();        
         for (NounPhrase np: nounPhrases){
             String npContent = "";
-            for(CRFToken token: np.getListToken()){
+            for(CRFToken token: np.getCRFTokens()){
                 npContent += token.getWord() + " ";
             }
 //            System.out.println("NP content: " + npContent);//            
             npContent = npContent.substring(0, npContent.length() - 1);
             
-            Tree[] res = findPhraseHead(npContent, headFinder, pipeline);
+            Tree[] res = findPhraseHead(npContent, headFinder, StanfordUtil.pipeline);
             np.setNpNode(res[0]);
             np.setHeadNode(res[1]);
             
@@ -395,9 +391,9 @@ public class Util {
             review.addNounPhrase(np);
             Sentence sentence = review.getSentences().get(np.getSentenceId());
             sentence.addNounPhrase(np);
-            int npOffsetBegin = sentence.getTokens().get(np.getListToken().get(0).getIdInSentence()).getOffsetBegin();
+            int npOffsetBegin = sentence.getTokens().get(np.getCRFTokens().get(0).getIdInSentence()).getOffsetBegin();
             np.setOffsetBegin(npOffsetBegin);
-            int npOffsetEnd = sentence.getTokens().get(np.getListToken().get(np.getListToken().size() - 1).getIdInSentence()).getOffsetEnd();
+            int npOffsetEnd = sentence.getTokens().get(np.getCRFTokens().get(np.getCRFTokens().size() - 1).getIdInSentence()).getOffsetEnd();
             np.setOffsetEnd(npOffsetEnd);
         }
     }
@@ -416,16 +412,16 @@ public class Util {
         bwtrain.write(np1.getReviewId() + ",");
         bwtrain.write(np1.getId() + ",");
         bwtrain.write(np2.getId() + ",");
-        bwtrain.write(FeatureExtractor.is_Pronoun(np1).toString() + ",");
-        bwtrain.write(FeatureExtractor.is_Pronoun(np2).toString() + ",");
-        bwtrain.write(FeatureExtractor.is_Definite_NP(np2).toString() + ",");
-        bwtrain.write(FeatureExtractor.is_Demonstrative_NP(np2).toString() + ",");
+        bwtrain.write(FeatureExtractor.isPronoun(np1).toString() + ",");
+        bwtrain.write(FeatureExtractor.isPronoun(np2).toString() + ",");
+        bwtrain.write(FeatureExtractor.isDefiniteNP(np2).toString() + ",");
+        bwtrain.write(FeatureExtractor.isDemonstrativeNP(np2).toString() + ",");
         bwtrain.write(FeatureExtractor.isBothPropername(np1, np2) + ",");
         bwtrain.write(FeatureExtractor.stringSimilarity(np1, np2, review.getSentences().get(np1.getSentenceId())).toString() + ",");
-        bwtrain.write(FeatureExtractor.count_Distance(np1, np2) + ",");
+        bwtrain.write(FeatureExtractor.countDistance(np1, np2) + ",");
         bwtrain.write(FeatureExtractor.numberAgreementExtract(np1, np2) + ",");
         bwtrain.write(FeatureExtractor.isBetween3Extract(review, np1, np2).toString() + ",");
-        bwtrain.write(FeatureExtractor.has_Between_Extract(review, np1, np2).toString() + ",");
+        bwtrain.write(FeatureExtractor.hasBetweenExtract(review, np1, np2).toString() + ",");
         bwtrain.write(FeatureExtractor.comparativeIndicatorExtract(review, np1, np2).toString() + ",");
         bwtrain.write(FeatureExtractor.sentimentConsistencyExtract(np1, np2) + ",");
         if (checkNPhasOW == true) {

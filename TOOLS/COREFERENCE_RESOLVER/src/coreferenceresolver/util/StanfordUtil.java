@@ -19,16 +19,12 @@ import edu.stanford.nlp.ling.CoreAnnotations.SentencesAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.TextAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.TokensAnnotation;
 import edu.stanford.nlp.ling.CoreLabel;
-import edu.stanford.nlp.ling.HasOffset;
 import edu.stanford.nlp.neural.rnn.RNNCoreAnnotations;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.semgraph.SemanticGraph;
 import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations.CollapsedCCProcessedDependenciesAnnotation;
 import edu.stanford.nlp.sentiment.SentimentCoreAnnotations;
-import edu.stanford.nlp.trees.CollinsHeadFinder;
-import edu.stanford.nlp.trees.Tree;
-import edu.stanford.nlp.trees.TreeCoreAnnotations.TreeAnnotation;
 import edu.stanford.nlp.trees.TypedDependency;
 import edu.stanford.nlp.util.CoreMap;
 import java.io.BufferedReader;
@@ -52,10 +48,10 @@ public class StanfordUtil {
     private File documentFile;
     private Properties props;
     private Annotation document;
-    private CollinsHeadFinder headFinder;
+//    private CollinsHeadFinder headFinder;
     public static List<NounPhrase> nounPhrases;
     public static List<Review> reviews;
-    private StanfordCoreNLP pipeline;
+    public static StanfordCoreNLP pipeline;
 
     public StanfordUtil(File documentFile) {
         this.documentFile = documentFile;
@@ -66,8 +62,7 @@ public class StanfordUtil {
         String posFilePath = "./input.txt.pos";
         FileWriter fw = new FileWriter(new File(posFilePath));
         BufferedWriter bw = new BufferedWriter(fw);
-        
-        headFinder = new CollinsHeadFinder();
+
         props = new Properties();
         props.put("annotators", "tokenize, ssplit, pos, parse");
         pipeline = new StanfordCoreNLP(props);
@@ -98,11 +93,11 @@ public class StanfordUtil {
             //Begin extracting from paragraphs
             for (CoreMap sentence : sentences) {
                 Sentence newSentence = new Sentence();
-                for (CoreLabel token: sentence.get(TokensAnnotation.class)){ 
+                for (CoreLabel token : sentence.get(TokensAnnotation.class)) {
                     Token newToken = new Token();
                     // this is the text of the token
                     String word = token.get(TextAnnotation.class);
-                    
+
                     // this is the POS tag of the token
                     String pos = token.get(PartOfSpeechAnnotation.class);
 
@@ -115,13 +110,10 @@ public class StanfordUtil {
                     newToken.setWord(word);
                     newToken.setPOS(pos);
 
-                    newSentence.addToken(newToken);                    
+                    newSentence.addToken(newToken);
                     bw.write(token.word() + "/" + token.tag() + " ");
                 }
-                bw.newLine();                                                
-                // this is the parse tree of the current sentence
-//                Tree sentenceTree = sentence.get(TreeAnnotation.class);                
-//                nounPhraseFindSimple(sentenceTree, newReview, newSentence, sentenceId);                
+                bw.newLine();
 
                 newReview.addSentence(newSentence);
                 ++sentenceId;
@@ -130,35 +122,8 @@ public class StanfordUtil {
             bw.write("./.");
             bw.newLine();
             reviews.add(newReview);
-        }        
+        }
         bw.close();
-    }
-
-    public void nounPhraseFindSimple(Tree rootNode, Review review, Sentence sentence, int sentenceId) {
-        if (rootNode == null || rootNode.isLeaf()) {
-            return;
-        }
-
-        if (rootNode.value().equals("NP")) {
-            List leaves = rootNode.getLeaves();
-            CoreLabel firstLeafLabel = (CoreLabel) rootNode.getLeaves().get(0).label();
-            HasOffset firstOfs = (HasOffset) firstLeafLabel;
-            CoreLabel lastNodeLabel = (CoreLabel) rootNode.getLeaves().get(leaves.size() - 1).label();
-            HasOffset lastOfs = (HasOffset) lastNodeLabel;
-            NounPhrase np = new NounPhrase();
-            np.setNpNode(rootNode);
-            np.setHeadNode(rootNode.headTerminal(headFinder));
-            np.setOffsetBegin(firstOfs.beginPosition());
-            np.setOffsetEnd(lastOfs.endPosition());
-            np.setId(review.getNounPhrases().size());
-            np.setSentenceId(sentenceId);
-            review.addNounPhrase(np);
-            sentence.addNounPhrase(np);
-        }
-
-        for (Tree child : rootNode.children()) {
-            nounPhraseFindSimple(child, review, sentence, sentenceId);
-        }
     }
 
     public void init() throws FileNotFoundException, IOException {
@@ -166,8 +131,6 @@ public class StanfordUtil {
         props = new Properties();
         props.put("annotators", "tokenize, ssplit, pos, parse, sentiment");
         pipeline = new StanfordCoreNLP(props);
-
-        headFinder = new CollinsHeadFinder();
 
         nounPhrases = new ArrayList<>();
 
@@ -203,15 +166,15 @@ public class StanfordUtil {
                 newSentence.setReviewId(reviewId);
                 newSentence.setRawContent(sentence.toString());
                 newSentence.setOffsetBegin(sentenceOffsetBegin);
-                newSentence.setOffsetEnd(sentenceOffsetEnd);                               
-                newSentence.setSentimentLevel(sentimentLevel);                
-                
+                newSentence.setOffsetEnd(sentenceOffsetEnd);
+                newSentence.setSentimentLevel(sentimentLevel);
+
                 //Dependency Parsing
                 SemanticGraph collCCDeps = sentence.get(CollapsedCCProcessedDependenciesAnnotation.class);
                 Collection<TypedDependency> typedDeps = collCCDeps.typedDependencies();
                 newSentence.setDependencies(typedDeps);
-                
-                for (CoreLabel token : sentence.get(TokensAnnotation.class)) {                    
+
+                for (CoreLabel token : sentence.get(TokensAnnotation.class)) {
                     Token newToken = new Token();
                     // this is the text of the token
                     String word = token.get(TextAnnotation.class);
@@ -238,20 +201,20 @@ public class StanfordUtil {
                     newSentence.addToken(newToken);
 
                     int newTokenSentiment = Util.retrieveOpinion(newToken);
-                    
+
                     if ((newTokenSentiment == Util.POSITIVE
-                            || newTokenSentiment == Util.NEGATIVE) && (!pos.equals("IN"))) {                    
+                            || newTokenSentiment == Util.NEGATIVE) && (!pos.equals("IN"))) {
                         OpinionWord newOW = new OpinionWord();
                         newOW.setOffsetBegin(offsetBegin);
                         newOW.setOffsetEnd(offsetEnd);
                         newOW.setWord(word);
-                        for (TypedDependency typedDependency: newSentence.getDependencies()){
-                            if (typedDependency.reln().toString().equals("neg") && typedDependency.gov().value().equals(word)){
+                        for (TypedDependency typedDependency : newSentence.getDependencies()) {
+                            if (typedDependency.reln().toString().equals("neg") && typedDependency.gov().value().equals(word)) {
                                 newTokenSentiment = Util.reverseSentiment(newTokenSentiment);
                                 break;
                             }
                         }
-                        
+
                         newOW.setSentimentOrientation(newTokenSentiment);
                         newSentence.addOpinionWord(newOW);
                     }
@@ -262,10 +225,6 @@ public class StanfordUtil {
                 if (!comparatives.isEmpty()) {
                     newSentence.setComparativeIndicatorPhrases(comparatives);
                 }
-
-                // this is the parse tree of the current sentence
-                Tree sentenceTree = sentence.get(TreeAnnotation.class);
-                nounPhraseFind(sentenceTree, newReview, newSentence, reviewId, sentenceId);
 
                 //Check if there are superior or inferior nounphrases in sentence. If yes, assign them
                 newSentence.initComparativeNPs();
@@ -279,36 +238,6 @@ public class StanfordUtil {
             }
             reviews.add(newReview);
             ++reviewId;
-        }
-    }
-
-    public void nounPhraseFind(Tree rootNode, Review review, Sentence sentence, int reviewId, int sentenceId) {
-        if (rootNode == null || rootNode.isLeaf()) {
-            return;
-        }
-
-        if (rootNode.value().equals("NP")) {
-            List leaves = rootNode.getLeaves();
-            CoreLabel firstLeafLabel = (CoreLabel) rootNode.getLeaves().get(0).label();
-            HasOffset firstOfs = (HasOffset) firstLeafLabel;
-            CoreLabel lastNodeLabel = (CoreLabel) rootNode.getLeaves().get(leaves.size() - 1).label();
-            HasOffset lastOfs = (HasOffset) lastNodeLabel;
-            NounPhrase np = new NounPhrase();
-            np.setNpNode(rootNode);
-            np.setHeadNode(rootNode.headTerminal(headFinder));
-            np.setOffsetBegin(firstOfs.beginPosition());
-            np.setOffsetEnd(lastOfs.endPosition());
-            np.setReviewId(reviewId);
-            np.setSentenceId(sentenceId);
-            np.setOpinionWord();
-            np.setId(review.getNounPhrases().size());
-            nounPhrases.add(np);
-            review.addNounPhrase(np);
-            sentence.addNounPhrase(np);
-        }
-
-        for (Tree child : rootNode.children()) {
-            nounPhraseFind(child, review, sentence, reviewId, sentenceId);
         }
     }
 
@@ -331,12 +260,12 @@ public class StanfordUtil {
                 bw.write(sentence.getRawContent());
                 bw.newLine();
                 bw.write("Dependencies:");
-                for (TypedDependency typedDependency: sentence.getDependencies()){                    
+                for (TypedDependency typedDependency : sentence.getDependencies()) {
                     bw.write(typedDependency.reln() + " ");
                     bw.write(typedDependency.gov().value() + " ");
                     bw.write(typedDependency.dep().value() + " ");
                     bw.newLine();
-                }                
+                }
                 bw.newLine();
                 bw.write("--Opinion Words in this sentence:");
                 bw.newLine();
