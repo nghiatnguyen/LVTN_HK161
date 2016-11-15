@@ -10,7 +10,7 @@ import coreferenceresolver.util.Util;
 import coreferenceresolver.util.StanfordUtil;
 import coreferenceresolver.element.Review;
 import coreferenceresolver.util.CrfChunkerUtil;
-import coreferenceresolver.util.ReadCrfChunkerUtil;
+import coreferenceresolver.util.CrfChunkerUtil;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -57,10 +57,10 @@ public class MarkupMain {
             su.simpleInit();
             
             //Call CRFChunker, result is in input.txt.pos.chk file
-            CrfChunkerUtil.main(null);
+            CrfChunkerUtil.runChunk();
             
             //Read from input.txt.pos.chk file. Get all NPs
-            List<NounPhrase> nounPhrases = ReadCrfChunkerUtil.readCrfChunker();
+            List<NounPhrase> nounPhrases = CrfChunkerUtil.readCrfChunker();
 
             Util.assignNounPhrases(nounPhrases, StanfordUtil.reviews);
             

@@ -5,9 +5,12 @@
  */
 package coreferenceresolver.process;
 
+import coreferenceresolver.element.NounPhrase;
 import coreferenceresolver.util.Util;
 import coreferenceresolver.util.StanfordUtil;
 import coreferenceresolver.element.Review;
+import coreferenceresolver.util.CrfChunkerUtil;
+import coreferenceresolver.util.CrfChunkerUtil;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -15,6 +18,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -72,9 +76,14 @@ public class TrainingMain {
         try {
             //Init every info
             su.init();
-            
-            //Get all NPs
-//            getNounPhrases();            
+
+            //Call CRFChunker, result is in input.txt.pos.chk file
+            CrfChunkerUtil.runChunk();
+
+            //Read from input.txt.pos.chk file. Get all NPs
+            List<NounPhrase> nounPhrases = CrfChunkerUtil.readCrfChunker();
+
+            Util.assignNounPhrases(nounPhrases, StanfordUtil.reviews);
 
             //Begin create training set
             for (Review review : StanfordUtil.reviews) {

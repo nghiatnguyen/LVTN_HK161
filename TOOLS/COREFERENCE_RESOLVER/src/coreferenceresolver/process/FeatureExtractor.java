@@ -386,7 +386,7 @@ public class FeatureExtractor {
         return COMPARATIVE_VERBS.contains(";" + token.getWord() + ";");
     }
 
-    public static Boolean is_Pronoun(NounPhrase np) {
+    public static Boolean isPronoun(NounPhrase np) {
         if (np.getNpNode().numChildren() == 1) {
             return PRONOUNS.contains(np.getNpNode().getLeaves().get(0).toString().toLowerCase());
         } else {
@@ -394,7 +394,7 @@ public class FeatureExtractor {
         }
     }
 
-    public static Boolean is_Definite_NP(NounPhrase np) {
+    public static Boolean isDefiniteNP(NounPhrase np) {
         if (np.getNpNode().getLeaves().get(0).toString().toLowerCase().equals("the")) {
             return true;
         } else {
@@ -403,18 +403,18 @@ public class FeatureExtractor {
     }
 
     //this, that, these, those
-    public static Boolean is_Demonstrative_NP(NounPhrase np) {        
+    public static Boolean isDemonstrativeNP(NounPhrase np) {        
         return ((np.getNpNode().getLeaves().get(0).toString().toLowerCase().equals("this"))
                 || (np.getNpNode().getLeaves().get(0).toString().toLowerCase().equals("that"))
                 || (np.getNpNode().getLeaves().get(0).toString().toLowerCase().equals("these"))
                 || (np.getNpNode().getLeaves().get(0).toString().toLowerCase().equals("those")));
     }
 
-    public static int count_Distance(NounPhrase np1, NounPhrase np2) {
+    public static int countDistance(NounPhrase np1, NounPhrase np2) {
         return Math.abs(np1.getSentenceId() - np2.getSentenceId());
     }
 
-    public static Boolean is_Proper_name(NounPhrase np) {
+    public static Boolean isProperName(NounPhrase np) {
         //if the first letter of word is lettercase -> false, else continure checking
         if (Character.isUpperCase(np.getNpNode().getLeaves().get(0).toString().charAt(0))) {
             //if the NP is single word
@@ -447,7 +447,7 @@ public class FeatureExtractor {
     }
 
     public static Boolean isBothPropername(NounPhrase np1, NounPhrase np2) {
-        if (is_Proper_name(np1) && is_Proper_name(np2)) {
+        if (isProperName(np1) && isProperName(np2)) {
             return true;
         } else {
             return false;
@@ -455,7 +455,7 @@ public class FeatureExtractor {
     }
 
     //Check if the adjective is in the List of negative and positive words
-    public static boolean check_adj_in_list(String adj) {
+    public static boolean checkAdjInList(String adj) {
         if (NEGATIVE_WORDS.contains(";" + adj + ";") || POSITIVE_WORDS.contains(";" + adj + ";")) {
             return true;
         } else {
@@ -463,7 +463,7 @@ public class FeatureExtractor {
         }
     }
 
-    public static Boolean has_Between_Extract(Review review, NounPhrase np1, NounPhrase np2) {
+    public static Boolean hasBetweenExtract(Review review, NounPhrase np1, NounPhrase np2) {
         if (np1.getSentenceId() == np2.getSentenceId()) {
             Sentence curSentence = review.getSentences().get(np1.getSentenceId());
             if (np1.getOffsetEnd() < np2.getOffsetBegin()) {
@@ -502,7 +502,7 @@ public class FeatureExtractor {
         return false;
     }
 
-    public static Boolean has_Between2_Extract(Review review, NounPhrase np1, NounPhrase np2) {
+    public static Boolean hasBetween2Extract(Review review, NounPhrase np1, NounPhrase np2) {
         if (np1.getSentenceId() == np2.getSentenceId()) {
             if (hasNpBetween(np1, np2)) {
                 return false;
@@ -544,11 +544,11 @@ public class FeatureExtractor {
         return false;
     }
 
-    public static void set_NP_for_OP_in_sentence(Sentence fSentence) {
+    public static void setNPForOPInSentence(Sentence fSentence) {
         for (Token token : fSentence.getTokens()) {
             //get opinion word in the sentence
         	if (token.getPOS().toString().equals("RB")
-                && (check_adj_in_list(token.getWord().toString()))){
+                && (checkAdjInList(token.getWord().toString()))){
         		for (int i = fSentence.getNounPhrases().size() - 1; i >= 0; i--){
         			if (fSentence.getNounPhrases().get(i).getOffsetEnd() < token.getOffsetBegin()){
         				for (Token tk: fSentence.getTokens()){
@@ -572,7 +572,7 @@ public class FeatureExtractor {
         	else if (token.getPOS().toString().equals("JJ")
             		|| token.getPOS().toString().equals("JJS")
             		|| token.getPOS().toString().equals("JJR")
-                    && (check_adj_in_list(token.getWord().toString()))) {
+                    && (checkAdjInList(token.getWord().toString()))) {
 //            	System.out.println(token.getWord().toString() + " ");
                 boolean check = false;
                 //if OW is nested in NP -> OW belongs to that NP
@@ -618,7 +618,7 @@ public class FeatureExtractor {
     }
 
     //To compute the number of times a word appearing in the sentences
-    public static int count_word(String word) {
+    public static int countWord(String word) {
 //        String input = MarkupMain.get_sDataset();
 //        Matcher m = Pattern.compile("\\b" + word.toLowerCase() + "\\b").matcher(input);
         int matches = 0;
@@ -635,7 +635,7 @@ public class FeatureExtractor {
     }
 
     //To compute the number of times 2 words appearing together in the sentences.
-    public static int count_two_words(String np, String ow) {
+    public static int countTwoWords(String np, String ow) {
 //        String input = MarkupMain.get_sDataset();
 //        Matcher m = Pattern.compile("(\\b" + np.toLowerCase() + "\\b)[^.]+(\\b" + ow.toLowerCase() + "\\b)").matcher(input);
         int matches = 0;
@@ -652,7 +652,7 @@ public class FeatureExtractor {
         return matches;
     }
 
-    public static int count_sentences() {
+    public static int countSentences() {
         int counter = 0;
         for (int i = 0; i < MarkupMain.get_sDataset().length(); i++) {
             if (MarkupMain.get_sDataset().charAt(i) == '.') {
@@ -662,34 +662,34 @@ public class FeatureExtractor {
         return counter;
     }
 
-    public static int probability_noun_phrase(NounPhrase np) {
-        return count_word(np.getHeadNode().toString());
+    public static int probabilityNounPhrase(NounPhrase np) {
+        return countWord(np.getHeadNode().toString());
     }
 
     //If a NP has more than 1 OW, then Probability of OWs is sum of all
-    public static int probability_opinion_word(NounPhrase np) {
+    public static int probabilityOpinionWord(NounPhrase np) {
         int counter = 0;
         for (String s : np.getOpinionWords()) {
-            counter = counter + count_word(s);
+            counter = counter + countWord(s);
         }
         return counter;
     }
 
     //probability of NP2 and OWs of NP1
     //If a NP has more than 1 OW, then Probability of OWs is sum of all
-    public static int probability_NP_and_OW(NounPhrase np1, NounPhrase np2) {
+    public static int probabilityNPAndOW(NounPhrase np1, NounPhrase np2) {
         int counter = 0;
         for (String s : np1.getOpinionWords()) {
-            counter = counter + count_two_words(np2.getHeadNode().toString(), s);
+            counter = counter + countTwoWords(np2.getHeadNode().toString(), s);
         }
         return counter;
     }
 
     public static Float PMI(NounPhrase np1, NounPhrase np2) {
-        if ((probability_noun_phrase(np2) == 0) || (probability_opinion_word(np1) == 0) || (probability_NP_and_OW(np1, np2) == 0)) {
+        if ((probabilityNounPhrase(np2) == 0) || (probabilityOpinionWord(np1) == 0) || (probabilityNPAndOW(np1, np2) == 0)) {
             return (float) 0;
         } else {
-            return ((int) ((float) probability_NP_and_OW(np1, np2) / ((probability_noun_phrase(np2) * probability_opinion_word(np1))) * 100000000) / (float) 1000);
+            return ((int) ((float) probabilityNPAndOW(np1, np2) / ((probabilityNounPhrase(np2) * probabilityOpinionWord(np1))) * 100000000) / (float) 1000);
         }
 
     }
@@ -733,14 +733,14 @@ public class FeatureExtractor {
     
     //Check if NP1 and NP2 are pronoun
     public static Boolean isBothPronoun(NounPhrase np1, NounPhrase np2){
-    	if (is_Pronoun(np1) && is_Pronoun(np2))
+    	if (isPronoun(np1) && isPronoun(np2))
     		return true;
     	return false;
     }
     
     //Check if NP1 and NP2 are not pronoun and not proper name
     public static Boolean isBothNormal(NounPhrase np1, NounPhrase np2){
-    	if ((!is_Pronoun(np1)) && (!is_Pronoun(np2)) && (!is_Proper_name(np1)) && (!is_Proper_name(np2)))
+    	if ((!isPronoun(np1)) && (!isPronoun(np2)) && (!isProperName(np1)) && (!isProperName(np2)))
     		return true;
     	return false;
     }
