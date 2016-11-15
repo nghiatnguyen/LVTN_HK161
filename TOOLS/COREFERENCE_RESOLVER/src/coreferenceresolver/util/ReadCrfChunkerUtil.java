@@ -62,6 +62,7 @@ public class ReadCrfChunkerUtil {
 				}
 				else if (str.indexOf("I-NP") != -1){
 					CRFToken tk = new CRFToken();
+					
 					tk.setWord(str.substring(0,str.indexOf("/")));
 					tk.setIdInSentence(id);
 					listTam.add(tk);
@@ -83,7 +84,6 @@ public class ReadCrfChunkerUtil {
 					sentenceId ++;
 				}
 				}
-			
 			if (strLine.equals("././O"))
 				reviewId ++;
 		}

@@ -145,19 +145,36 @@ public class Main {
                             }
                         }
                     } else {
-                        int f_sub = -1000;
-                        int f_id = 0;
-                        for (int i = 0; i < fSentence.getNounPhrases().size(); i++) {
-                            int f_sub_tam = fSentence.getNounPhrases().get(i).getOffsetEnd() - token.getOffsetBegin();
-                            if ((f_sub_tam < 0) && (f_sub_tam) > f_sub) {
-                                f_sub = f_sub_tam;
-                                f_id = i;
-                            }
-                        }
-                        if (f_id != 0) {
-                            fSentence.getNounPhrases().get(f_id).addOpinionWord(token.getWord().toString());
-//                            System.out.println(fSentence.getNounPhrases().get(f_id).getNpNode().toString());
-                        }
+                    	boolean check1 = false;
+                    	for (NounPhrase np : fSentence.getNounPhrases())
+                    		if ((np.getOffsetBegin() - token.getOffsetEnd()) > 0){
+                    			if ((np.getOffsetBegin() - token.getOffsetEnd()) <= 2){
+                    				check1 = true;
+                    				np.addOpinionWord(token.getWord().toString());
+                    			}
+                    			break;
+                    		}
+                    	if (check1 == false){
+                    		for (int j = fSentence.getNounPhrases().size() - 1; j >= 0; j--)
+                    			if (fSentence.getNounPhrases().get(j).getOffsetEnd() < token.getOffsetBegin()){
+                    				fSentence.getNounPhrases().get(j).addOpinionWord(token.getWord());
+                    				break;
+                    			}
+                    	}
+//                        int f_sub = -1000;
+//                        int f_id = 0;
+//                        for (int i = 0; i < fSentence.getNounPhrases().size(); i++) {
+//                            int f_sub_tam = fSentence.getNounPhrases().get(i).getOffsetEnd() - token.getOffsetBegin();
+//                            if ((f_sub_tam < 0) && (f_sub_tam) > f_sub) {
+//                                f_sub = f_sub_tam;
+//                                f_id = i;
+//                            }
+//                        }
+//                        if (f_id != 0) {
+//                            fSentence.getNounPhrases().get(f_id).addOpinionWord(token.getWord().toString());
+////                            System.out.println(fSentence.getNounPhrases().get(f_id).getNpNode().toString());
+//                        }
+                    	
                     }
                 }
             }
