@@ -384,7 +384,7 @@ public class Util {
             for(CRFToken token: np.getListToken()){
                 npContent += token.getWord() + " ";
             }
-            System.out.println("NP content: " + npContent);//            
+//            System.out.println("NP content: " + npContent);//            
             npContent = npContent.substring(0, npContent.length() - 1);
             
             Tree[] res = findPhraseHead(npContent, headFinder, pipeline);
