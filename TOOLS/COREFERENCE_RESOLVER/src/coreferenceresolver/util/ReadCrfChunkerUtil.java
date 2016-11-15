@@ -68,16 +68,20 @@ public class ReadCrfChunkerUtil {
 
                 id = id + 1;
 
-                if (str.indexOf("././O") != -1) {
-                    NounPhrase np = new NounPhrase();
-                    np.setSentenceId(sentenceId);
-                    np.setId(idNP);
-                    np.setReviewId(reviewId);
-                    for (CRFToken s : listTam) {
-                        np.addToken(s);
+                if (str.indexOf("././O") != -1 || str.indexOf("!/./O") != -1 || str.indexOf("?/./O") != -1) {
+                    if (listTam.size() == 0){}
+                    else{
+                        NounPhrase np = new NounPhrase();
+                        np.setSentenceId(sentenceId);
+                        np.setId(idNP);
+                        np.setReviewId(reviewId);
+                        for (CRFToken s : listTam) {
+                            np.addToken(s);
+                        }
+                        listNP.add(np);
+                        idNP++;
+                        listTam.clear();
                     }
-                    listNP.add(np);
-                    idNP++;
                     id = 0;
                     sentenceId++;
                 }
