@@ -10,7 +10,6 @@ import coreferenceresolver.util.Util;
 import coreferenceresolver.util.StanfordUtil;
 import coreferenceresolver.element.Review;
 import coreferenceresolver.util.CrfChunkerUtil;
-import coreferenceresolver.util.CrfChunkerUtil;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;

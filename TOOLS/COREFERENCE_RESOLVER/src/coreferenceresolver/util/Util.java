@@ -50,7 +50,7 @@ public class Util {
     private static final String DISCARDED_STOP_WORDS = ";there;etc;oh;";
 
     //private static final String DISCARDED_NUMBER_NOUN_POS = "CD"; //one, two, three
-    private static final String DISCARDED_QUANTITY_NOUNS = ";lot;lots;number;total;amount;little;much;many;ton;tons";
+    private static final String DISCARDED_QUANTITY_NOUNS = ";lot;lots;number;total;amount;little;much;many;ton;tons;plenty;";
 
     private static final String DISCARDED_TIME_REGEX = "([0-9]+:[0-9]+)|([0-9]+[ ]*(AM|PM)) | (AM|PM)";
 
@@ -436,5 +436,12 @@ public class Util {
         bwtrain.write(FeatureExtractor.isNested(np1, np2).toString() + ",");
         bwtrain.write(FeatureExtractor.isCorefTest(np1, np2, list).toString());
         bwtrain.newLine();
+    }
+    
+    public void generateCorefChains() throws FileNotFoundException{
+//        FileReader fr = new FileReader(".\\classified_result.txt");
+//        BufferedReader br = new BufferedReader(fr);
+//        String line = "";
+//        while (())
     }
 }

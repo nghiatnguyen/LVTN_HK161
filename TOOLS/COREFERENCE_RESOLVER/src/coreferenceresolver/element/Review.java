@@ -17,10 +17,12 @@ public class Review {
     private List<Sentence> sentences;
     private List<NounPhrase> nounPhrases;
     private String rawContent;
+    private List<CorefChain> corefChains;
 
     public Review() {
         sentences = new ArrayList<>();
         nounPhrases = new ArrayList<>();
+        corefChains = new ArrayList<>();
     }
 
     /**
@@ -63,5 +65,34 @@ public class Review {
      */
     public void addNounPhrase(NounPhrase nounPhraseAdded) {
         this.nounPhrases.add(nounPhraseAdded);
+    }
+
+    /**
+     * @return the corefChains
+     */
+    public List<CorefChain> getCorefChains() {
+        return corefChains;
+    }
+
+    /**
+     * @param np1Id, np2Id
+     */
+    public void addCorefChain(int np1Id, int np2Id) {
+        for (CorefChain cc: this.corefChains){
+            for (int npId: cc.getChain()){
+                if (npId == np1Id){
+                    cc.addCoref(np2Id);
+                    return;
+                }
+                else if (npId == np2Id){
+                    cc.addCoref(np1Id);
+                    return;
+                }
+            }
+        }
+        CorefChain newCC = new CorefChain();
+        newCC.addCoref(np1Id);
+        newCC.addCoref(np2Id);
+        this.corefChains.add(newCC);
     }
 }

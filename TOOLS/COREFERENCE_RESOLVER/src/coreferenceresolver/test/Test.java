@@ -5,13 +5,12 @@
  */
 package coreferenceresolver.test;
 
-import coreferenceresolver.element.NounPhrase;
-import coreferenceresolver.util.CrfChunkerUtil;
+import coreferenceresolver.element.CorefChain;
+import coreferenceresolver.element.Review;
 import coreferenceresolver.util.StanfordUtil;
+import coreferenceresolver.weka.Weka;
 import java.io.IOException;
-import java.io.File;
-import java.util.List;
-import coreferenceresolver.element.CRFToken;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,26 +18,24 @@ import coreferenceresolver.element.CRFToken;
  */
 public class Test {
 
-    public static void main(String... args) throws IOException {
-        StanfordUtil su = new StanfordUtil(new File("E:\\REPOSITORIES\\LVTN_HK161\\TOOLS\\COREFERENCE_RESOLVER\\input2.txt"));
-        //Init every info
-        su.simpleInit();
-
-        //Call CRFChunker, result is in input.txt.pos.chk file
-        CrfChunkerUtil.runChunk();
-
-        //Read from input.txt.pos.chk file. Get all NPs
-        List<NounPhrase> nps = CrfChunkerUtil.readCrfChunker();
-        for (NounPhrase np : nps) {
-            System.out.println("New NP");
-            System.out.println("NP: " + np.getId());
-            System.out.println("NP review id: " + np.getReviewId());
-            System.out.println("NP sentence id: " + np.getSentenceId());
-            for (CRFToken token : np.getCRFTokens()) {
-                System.out.println("Token word: " + token.getWord());
-                System.out.println("Token id: " + token.getIdInSentence());
+    public static void main(String... args) throws IOException, Exception {
+        StanfordUtil.reviews = new ArrayList<>();
+        for (int i = 0; i < 50; ++i){
+            Review review = new Review();
+            StanfordUtil.reviews.add(review);
+        }
+        Weka.j48Classify(".\\test.arff", ".\\classified.txt");
+        for (Review review: StanfordUtil.reviews){
+            if (review.getCorefChains().size() > 0){
+                System.out.println("NEW REVIEW: ");
+            }            
+            for (CorefChain cc: review.getCorefChains()){
+                System.out.println("New chain: ");
+                for (int coref: cc.getChain()){
+                    System.out.print(coref + " ");
+                }
+                System.out.println();
             }
-            System.out.println();
         }
     }
 }
