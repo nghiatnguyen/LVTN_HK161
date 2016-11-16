@@ -25,6 +25,8 @@ import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.semgraph.SemanticGraph;
 import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations.CollapsedCCProcessedDependenciesAnnotation;
 import edu.stanford.nlp.sentiment.SentimentCoreAnnotations;
+import edu.stanford.nlp.trees.Tree;
+import edu.stanford.nlp.trees.TreeCoreAnnotations;
 import edu.stanford.nlp.trees.TypedDependency;
 import edu.stanford.nlp.util.CoreMap;
 import java.io.BufferedReader;
@@ -95,11 +97,15 @@ public class StanfordUtil {
                 Sentence newSentence = new Sentence();
                 for (CoreLabel token : sentence.get(TokensAnnotation.class)) {
                     Token newToken = new Token();
+                    
+                    Tree tokenTree = token.get(TreeCoreAnnotations.TreeAnnotation.class);
                     // this is the text of the token
                     String word = token.get(TextAnnotation.class);
 
                     // this is the POS tag of the token
                     String pos = token.get(PartOfSpeechAnnotation.class);
+                    
+                    newToken.setTokenTree(tokenTree);
 
                     int offsetBegin = token.get(CharacterOffsetBeginAnnotation.class);
                     newToken.setOffsetBegin(offsetBegin);

@@ -108,7 +108,7 @@ public class Weka {
             double index = tree.classifyInstance(test.instance(i));
             String classPredicted = inst.classAttribute().value((int) index);
             String classActual = inst.classAttribute().value((int) test.instance(i).classValue());
-            System.out.println("Class Predicted = " + classPredicted);
+//            System.out.println("Class Predicted = " + classPredicted);
 
             //If 2 instances is coref, consider to add them to COREFs chain of the review
             if (classPredicted.equals("true")) {
@@ -116,13 +116,13 @@ public class Weka {
                 int np1Id = (int) data.instance(i).value(1);
                 int np2Id = (int) data.instance(i).value(2);
                 
-                System.out.println("Review: " + reviewId);
-                System.out.println("NP1: " + np1Id);
-                System.out.println("NP2: " + np2Id);
+//                System.out.println("Review: " + reviewId);
+//                System.out.println("NP1: " + np1Id);
+//                System.out.println("NP2: " + np2Id);
 
                 StanfordUtil.reviews.get(reviewId).addCorefChain(np1Id, np2Id);                
             }
-            System.out.println("Class Actual = " + classActual);
+//            System.out.println("Class Actual = " + classActual);
         }
         Evaluation eval = new Evaluation(test);
         eval.evaluateModel(tree, test);
