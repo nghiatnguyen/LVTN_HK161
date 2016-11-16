@@ -50,7 +50,7 @@ public class Util {
     private static final String DISCARDED_STOP_WORDS = ";there;etc;oh;";
 
     //private static final String DISCARDED_NUMBER_NOUN_POS = "CD"; //one, two, three
-    private static final String DISCARDED_QUANTITY_NOUNS = ";lot;lots;number;total;amount;little;much;many;ton;tons";
+    private static final String DISCARDED_QUANTITY_NOUNS = ";lot;lots;number;total;amount;little;much;many;ton;tons;plenty;some;";
 
     private static final String DISCARDED_TIME_REGEX = "([0-9]+:[0-9]+)|([0-9]+[ ]*(AM|PM)) | (AM|PM)";
 
@@ -276,18 +276,18 @@ public class Util {
 //            }
 //        }
 //        return true;
-            return false;
+        return false;
     }
 
     private static boolean isDiscardedPersonalPronounNP(NounPhrase np) {
-        if (DISCARDED_PERSONAL_PRONOUNS.contains(";" + np.getHeadNode().value().toLowerCase() + ";")) {
+        if (np.getHeadNode() != null && DISCARDED_PERSONAL_PRONOUNS.contains(";" + np.getHeadNode().value().toLowerCase() + ";")) {
             return true;
         }
         return false;
     }
 
     private static boolean isDiscardedPercentageNP(NounPhrase np) {
-        if (np.getHeadNode().value().contains("%")) {
+        if (np.getHeadNode() != null && np.getHeadNode().value().contains("%")) {
             return true;
         }
         return false;
@@ -295,17 +295,17 @@ public class Util {
 
     private static boolean isDiscardedTimeNP(NounPhrase np) {
         //Discard NP with HOUR LITERAL
-        if (np.getHeadNode().value().matches(DISCARDED_TIME_REGEX) || np.getHeadNode().value().toLowerCase().equals("am")
-                || np.getHeadNode().value().toLowerCase().equals("pm")) {
+        if (np.getHeadNode() != null && (np.getHeadNode().value().matches(DISCARDED_TIME_REGEX) || np.getHeadNode().value().toLowerCase().equals("am")
+                || np.getHeadNode().value().toLowerCase().equals("pm"))) {
             return true;
         }
 
         //Discard NP with TIME LITERAL
-        if (DISCARDED_TIME_NOUNS.contains(";" + np.getHeadNode().value().toLowerCase() + ";")) {
+        if (np.getHeadNode() != null && DISCARDED_TIME_NOUNS.contains(";" + np.getHeadNode().value().toLowerCase() + ";")) {
             return true;
         }
         //Discard NP with HEAD "time": the first time, the second time, ...        
-        if (np.getHeadNode().value().toLowerCase().equals("time") || np.getHeadNode().value().toLowerCase().equals("times")) {
+        if (np.getHeadNode() != null && (np.getHeadNode().value().toLowerCase().equals("time") || np.getHeadNode().value().toLowerCase().equals("times"))) {
             for (int i = 0; i < np.getNpNode().getLeaves().size(); ++i) {
                 if (np.getNpNode().getLeaves().get(i).value().equals("time") || np.getNpNode().getLeaves().get(i).value().equals("times")) {
                     //NP starts with "time"
@@ -325,7 +325,7 @@ public class Util {
 
     //Discard all stop words: there, etc, oh, ...
     private static boolean isDiscardedStopWordNP(NounPhrase np) {
-        if (DISCARDED_STOP_WORDS.contains(";" + np.getHeadNode().value().toLowerCase() + ";")) {
+        if (np.getHeadNode() != null && DISCARDED_STOP_WORDS.contains(";" + np.getHeadNode().value().toLowerCase() + ";")) {
             return true;
         }
         return false;
@@ -333,14 +333,14 @@ public class Util {
 
     //Discard all NP indicating quantity: lot, lots, number, total
     private static boolean isDiscardedQuantityNP(NounPhrase np) {
-        if (DISCARDED_QUANTITY_NOUNS.contains(";" + np.getHeadNode().value().toLowerCase() + ";")) {
+        if (np.getHeadNode() != null && DISCARDED_QUANTITY_NOUNS.contains(";" + np.getHeadNode().value().toLowerCase() + ";")) {
             return true;
         }
         return false;
     }
 
     private static boolean isDiscardedCurrencyNP(NounPhrase np) {
-        if (np.getHeadNode().value().contains("$") || np.getHeadNode().value().contains("dollar")) {
+        if (np.getHeadNode() != null && (np.getHeadNode().value().contains("$") || np.getHeadNode().value().contains("dollar"))) {
             return true;
         }
         return false;
@@ -359,38 +359,60 @@ public class Util {
     public static int reverseSentiment(int sentiment) {
         return sentiment == POSITIVE ? NEGATIVE : sentiment == NEGATIVE ? POSITIVE : 0;
     }
-    
-    public static Tree[] findPhraseHead(String phraseContent, CollinsHeadFinder headFinder, StanfordCoreNLP pipeline){
+
+    public static Tree[] findPhraseHead(String phraseContent, CollinsHeadFinder headFinder, StanfordCoreNLP pipeline) {
         Tree[] res = new Tree[2];
-        Tree tree = null;
+        Tree npNodeTree = null;
+        Tree sentenceTree = null;
         Annotation document = pipeline.process(phraseContent);
         for (CoreMap sentence : document
                 .get(CoreAnnotations.SentencesAnnotation.class)) {
-            tree = sentence.get(TreeCoreAnnotations.TreeAnnotation.class);
+            sentenceTree = sentence.get(TreeCoreAnnotations.TreeAnnotation.class);
+            npNodeTree = findNPNode(sentenceTree);            
         }
-        res[0] = tree;
-        res[1] = tree.headTerminal(headFinder);
+        res[0] = sentenceTree;
+        res[1] = npNodeTree == null ? null : npNodeTree.headTerminal(headFinder);
         return res;
     }
-    
-    public static void assignNounPhrases(List<NounPhrase> nounPhrases, List<Review> reviews){
-        CollinsHeadFinder headFinder = new CollinsHeadFinder();        
-        for (NounPhrase np: nounPhrases){
+
+    private static Tree findNPNode(Tree rootTree) { 
+        Tree res = null;
+        if (!rootTree.isLeaf() && rootTree.value().equals("NP")) {            
+            return rootTree;
+        } 
+        for (Tree child : rootTree.children()) {
+            res = findNPNode(child);
+        }
+        return res;
+    }
+
+    public static void assignNounPhrases(List<NounPhrase> nounPhrases, List<Review> reviews) {
+        CollinsHeadFinder headFinder = new CollinsHeadFinder();
+        for (NounPhrase np : nounPhrases) {
             String npContent = "";
-            for(CRFToken token: np.getCRFTokens()){
+            for (CRFToken token : np.getCRFTokens()) {
                 npContent += token.getWord() + " ";
             }
 //            System.out.println("NP content: " + npContent);//            
             npContent = npContent.substring(0, npContent.length() - 1);
-            
-            Tree[] res = findPhraseHead(npContent, headFinder, StanfordUtil.pipeline);
-            np.setNpNode(res[0]);
-            np.setHeadNode(res[1]);
-            
+
+//            Tree[] res = findPhraseHead(npContent, headFinder, StanfordUtil.pipeline);
+//            np.setNpNode(res[0]);
+//            np.setHeadNode(res[1]);
+
             Review review = reviews.get(np.getReviewId());
             review.addNounPhrase(np);
             Sentence sentence = review.getSentences().get(np.getSentenceId());
             sentence.addNounPhrase(np);
+            
+            Tree npNode = null;
+            for (CRFToken cRFToken: np.getCRFTokens()){
+                Tree cRFTokenTree = sentence.getTokens().get(cRFToken.getIdInSentence()).getTokenTree();
+                npNode.add(cRFTokenTree);
+            }
+            np.setNpNode(npNode);
+            np.setHeadNode(npNode.headTerminal(headFinder));
+            
             int npOffsetBegin = sentence.getTokens().get(np.getCRFTokens().get(0).getIdInSentence()).getOffsetBegin();
             np.setOffsetBegin(npOffsetBegin);
             int npOffsetEnd = sentence.getTokens().get(np.getCRFTokens().get(np.getCRFTokens().size() - 1).getIdInSentence()).getOffsetEnd();

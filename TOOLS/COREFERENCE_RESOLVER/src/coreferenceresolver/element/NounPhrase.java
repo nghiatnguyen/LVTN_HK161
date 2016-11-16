@@ -64,8 +64,10 @@ public class NounPhrase {
      */
     public void setHeadNode(Tree headNode) {
         this.headNode = headNode;
-        CoreLabel label = (CoreLabel) headNode.label();
-        this.setHeadLabel(label.get(CoreAnnotations.PartOfSpeechAnnotation.class));
+        if (this.headNode != null){
+            CoreLabel label =  (CoreLabel) headNode.label();
+            this.setHeadLabel(label.get(CoreAnnotations.PartOfSpeechAnnotation.class));
+        }        
     }
 
     /**

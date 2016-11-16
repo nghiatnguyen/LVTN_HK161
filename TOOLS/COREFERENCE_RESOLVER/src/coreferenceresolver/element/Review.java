@@ -17,10 +17,12 @@ public class Review {
     private List<Sentence> sentences;
     private List<NounPhrase> nounPhrases;
     private String rawContent;
+    private List<CorefChain> corefChains;
 
     public Review() {
         sentences = new ArrayList<>();
         nounPhrases = new ArrayList<>();
+        corefChains = new ArrayList<>();
     }
 
     /**
@@ -63,5 +65,44 @@ public class Review {
      */
     public void addNounPhrase(NounPhrase nounPhraseAdded) {
         this.nounPhrases.add(nounPhraseAdded);
+    }
+
+    /**
+     * @return the corefChains
+     */
+    public List<CorefChain> getCorefChains() {
+        return corefChains;
+    }
+
+    /**
+     * @param np1Id, np2Id
+     */
+    public void addCorefChain(int np1Id, int np2Id) {
+        int np1ChainExisted = -1;
+        int np2ChainExisted = -1;
+        int chainNo = 0;
+        for (CorefChain cc: this.corefChains){
+            for (int npId: cc.getChain()){
+                if (npId == np1Id){
+                    np1ChainExisted = chainNo;
+                }
+                else if (npId == np2Id){
+                    np2ChainExisted = chainNo;
+                }
+            }
+            ++chainNo;
+        }
+        if (np1ChainExisted != -1 && np2ChainExisted == -1){
+            this.corefChains.get(np1ChainExisted).addCoref(np2Id);
+        }
+        else if (np2ChainExisted != -1 && np1ChainExisted == -1){
+            this.corefChains.get(np2ChainExisted).addCoref(np1Id);
+        }
+        else if (np2ChainExisted == -1 && np1ChainExisted == -1){
+            CorefChain newCC = new CorefChain();
+            newCC.addCoref(np1Id);
+            newCC.addCoref(np2Id);
+            this.corefChains.add(newCC);
+        }        
     }
 }

@@ -1,5 +1,6 @@
 package coreferenceresolver.weka;
 
+import coreferenceresolver.util.StanfordUtil;
 import weka.classifiers.Evaluation;
 import weka.classifiers.trees.J48;
 import weka.core.Instances;
@@ -13,7 +14,7 @@ import java.util.Random;
 
 public class Weka {
 
-    public static void j48Classify(String testFilePath, String resultFilePath) throws Exception {                
+    public static void j48Classify(String testFilePath, String resultFilePath) throws Exception {
         BufferedReader reader = new BufferedReader(
                 new FileReader(testFilePath));
         Instances data = new Instances(reader);
@@ -105,23 +106,30 @@ public class Weka {
         tree.buildClassifier(inst);
         for (int i = 0; i < test.numInstances(); i++) {
             double index = tree.classifyInstance(test.instance(i));
-            String className = inst.attribute(inst.numAttributes() - 1).value((int) index);
-//                    System.out.println(data.instance(i) + " : " + className);
-//                    if (data.instance(i).stringValue(4).equals("true")
-//                    		&& data.instance(i).stringValue(5).equals("true"))
-                    if  (data.instance(i).stringValue(7).equals("true"))
-                    	writer.println(data.instance(i) + " : " + className);
-				}
-				Evaluation eval = new Evaluation(test);
-				eval.evaluateModel(tree,test);
-//				System.out.println(eval.toSummaryString("=== Result: ===", false));
-//			    System.out.println(eval.toClassDetailsString());
-//			    System.out.println(eval.toMatrixString());
+            String classPredicted = inst.classAttribute().value((int) index);
+            String classActual = inst.classAttribute().value((int) test.instance(i).classValue());
+//            System.out.println("Class Predicted = " + classPredicted);
+
+            //If 2 instances is coref, consider to add them to COREFs chain of the review
+            if (classPredicted.equals("true")) {
+                int reviewId = (int) data.instance(i).value(0);
+                int np1Id = (int) data.instance(i).value(1);
+                int np2Id = (int) data.instance(i).value(2);
+                
+//                System.out.println("Review: " + reviewId);
+//                System.out.println("NP1: " + np1Id);
+//                System.out.println("NP2: " + np2Id);
+
+                StanfordUtil.reviews.get(reviewId).addCorefChain(np1Id, np2Id);                
+            }
+//            System.out.println("Class Actual = " + classActual);
+        }
+        Evaluation eval = new Evaluation(test);
+        eval.evaluateModel(tree, test);
         writer.println(eval.toSummaryString("=== Result: ===", false));
         writer.println(eval.toClassDetailsString());
         writer.println(eval.toMatrixString());
         writer.close();
         System.out.println("Done");
-
     }
 }

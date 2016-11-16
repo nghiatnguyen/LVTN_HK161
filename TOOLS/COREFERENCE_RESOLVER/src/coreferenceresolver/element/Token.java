@@ -5,6 +5,8 @@
  */
 package coreferenceresolver.element;
 
+import edu.stanford.nlp.trees.Tree;
+
 /**
  *
  * @author TRONGNGHIA
@@ -20,6 +22,7 @@ public class Token {
     private int offsetBegin;
     private int offsetEnd;
     private int opinionOrientation = NEUTRAL;       
+    private Tree tokenTree;
 
     /**
      * @return the word
@@ -89,5 +92,19 @@ public class Token {
      */
     public void setOpinionOrientation(int opinionOrientation) {
         this.opinionOrientation = opinionOrientation;
+    }
+
+    /**
+     * @return the tokenTree
+     */
+    public Tree getTokenTree() {
+        return tokenTree;
+    }
+
+    /**
+     * @param tokenTree the tokenTree to set
+     */
+    public void setTokenTree(Tree tokenTree) {
+        this.tokenTree = tokenTree;
     }
 }
