@@ -23,7 +23,7 @@ public class Test {
         StanfordUtil su = new StanfordUtil(new File("E:\\REPOSITORIES\\LVTN_HK161\\TOOLS\\COREFERENCE_RESOLVER\\input2.txt"));
         //Init every info
         su.simpleInit();
-
+        
         //Call CRFChunker, result is in input.txt.pos.chk file
         CrfChunkerUtil.runChunk();
 

@@ -49,7 +49,7 @@ public class ReadCrfChunkerUtil {
                         np.setId(idNP);
                         np.setReviewId(reviewId);
                         for (CRFToken s : listTam) {
-                            np.addToken(s);
+                            np.addCRFToken(s);
                         }
                         listNP.add(np);
                         idNP++;
@@ -76,7 +76,7 @@ public class ReadCrfChunkerUtil {
                         np.setId(idNP);
                         np.setReviewId(reviewId);
                         for (CRFToken s : listTam) {
-                            np.addToken(s);
+                            np.addCRFToken(s);
                         }
                         listNP.add(np);
                         idNP++;
