@@ -11,6 +11,7 @@ import coreferenceresolver.element.NounPhrase;
 import coreferenceresolver.element.Token;
 import coreferenceresolver.element.Review;
 import coreferenceresolver.element.Sentence;
+import static coreferenceresolver.util.StanfordUtil.pipeline;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
@@ -368,18 +369,18 @@ public class Util {
         for (CoreMap sentence : document
                 .get(CoreAnnotations.SentencesAnnotation.class)) {
             sentenceTree = sentence.get(TreeCoreAnnotations.TreeAnnotation.class);
-            npNodeTree = findNPNode(sentenceTree);            
+            npNodeTree = findNPNode(sentenceTree);
         }
         res[0] = sentenceTree;
         res[1] = npNodeTree == null ? null : npNodeTree.headTerminal(headFinder);
         return res;
     }
 
-    private static Tree findNPNode(Tree rootTree) { 
+    private static Tree findNPNode(Tree rootTree) {
         Tree res = null;
-        if (!rootTree.isLeaf() && rootTree.value().equals("NP")) {            
+        if (!rootTree.isLeaf() && rootTree.value().equals("NP")) {
             return rootTree;
-        } 
+        }
         for (Tree child : rootTree.children()) {
             res = findNPNode(child);
         }
@@ -399,25 +400,37 @@ public class Util {
 //            Tree[] res = findPhraseHead(npContent, headFinder, StanfordUtil.pipeline);
 //            np.setNpNode(res[0]);
 //            np.setHeadNode(res[1]);
-
             Review review = reviews.get(np.getReviewId());
             review.addNounPhrase(np);
             Sentence sentence = review.getSentences().get(np.getSentenceId());
             sentence.addNounPhrase(np);
-            
-            Tree npNode = null;
-            for (CRFToken cRFToken: np.getCRFTokens()){
+
+            //Initiate a NP Tree
+            Tree npNode = initNPTree();
+            for (CRFToken cRFToken : np.getCRFTokens()) {
                 Tree cRFTokenTree = sentence.getTokens().get(cRFToken.getIdInSentence()).getTokenTree();
-                npNode.add(cRFTokenTree);
+                npNode.addChild(cRFTokenTree);
             }
             np.setNpNode(npNode);
             np.setHeadNode(npNode.headTerminal(headFinder));
-            
+
             int npOffsetBegin = sentence.getTokens().get(np.getCRFTokens().get(0).getIdInSentence()).getOffsetBegin();
             np.setOffsetBegin(npOffsetBegin);
             int npOffsetEnd = sentence.getTokens().get(np.getCRFTokens().get(np.getCRFTokens().size() - 1).getIdInSentence()).getOffsetEnd();
             np.setOffsetEnd(npOffsetEnd);
         }
+    }
+
+    private static Tree initNPTree() {
+        Annotation document = new Annotation("Dog");
+        StanfordUtil.pipeline.annotate(document);
+        Tree node = null;
+        List<CoreMap> sentences = document.get(CoreAnnotations.SentencesAnnotation.class);
+        for (CoreMap sentence : sentences) {
+            node = sentence.get(TreeCoreAnnotations.TreeAnnotation.class).children()[0];
+        }
+        node.removeChild(0);
+        return node;
     }
 
     private static String specialRegex(String sequence) {

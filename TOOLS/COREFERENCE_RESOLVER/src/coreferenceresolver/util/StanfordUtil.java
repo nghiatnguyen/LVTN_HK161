@@ -95,10 +95,12 @@ public class StanfordUtil {
             //Begin extracting from paragraphs
             for (CoreMap sentence : sentences) {
                 Sentence newSentence = new Sentence();
+                List<Tree> sentenceTreeLeaves = sentence.get(TreeCoreAnnotations.TreeAnnotation.class).getLeaves();
+                int i = 0;
                 for (CoreLabel token : sentence.get(TokensAnnotation.class)) {
                     Token newToken = new Token();
                     
-                    Tree tokenTree = token.get(TreeCoreAnnotations.TreeAnnotation.class);
+                    Tree tokenTree = sentenceTreeLeaves.get(i);
                     // this is the text of the token
                     String word = token.get(TextAnnotation.class);
 
@@ -118,6 +120,7 @@ public class StanfordUtil {
 
                     newSentence.addToken(newToken);
                     bw.write(token.word() + "/" + token.tag() + " ");
+                    ++i;
                 }
                 bw.newLine();
 
