@@ -109,7 +109,9 @@ public class Weka {
             String classPredicted = inst.classAttribute().value((int) index);
             String classActual = inst.classAttribute().value((int) test.instance(i).classValue());
 //            System.out.println("Class Predicted = " + classPredicted);
-
+           for (int j = 0; j < data.numAttributes(); j++)
+        	   writer.print(data.instance(i).value(j) + ",");
+           writer.println(" : " + classPredicted);
             //If 2 instances is coref, consider to add them to COREFs chain of the review
             if (classPredicted.equals("true")) {
                 int reviewId = (int) data.instance(i).value(0);
