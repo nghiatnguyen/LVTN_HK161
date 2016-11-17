@@ -61,23 +61,14 @@ public class MarkupMain {
             //Read from input.txt.pos.chk file. Get all NPs
             List<NounPhrase> nounPhrases = CrfChunkerUtil.readCrfChunker();
 
-            Util.assignNounPhrases(nounPhrases, StanfordUtil.reviews);
-
-            for (NounPhrase np : nounPhrases) {
-                System.out.print(np.getNpNode().getLeaves() + "\t");
-                if (np.getHeadNode() != null) {
-                    System.out.print("Head: " + np.getHeadNode().getLeaves() + "\t");
-                    System.out.print("Head Label: " + np.getHeadLabel());
-                }
-                System.out.println();
-            }
+            Util.assignNounPhrases(nounPhrases, StanfordUtil.reviews);            
 
             //Begin markup
             for (Review review : StanfordUtil.reviews) {
 
                 //Discard all NPs that is Personal Pronoun
-                Util.discardUnneccessaryNPs(review);
-
+                Util.discardUnneccessaryNPs(review);                
+                
                 //Create output file for markup
                 Util.initMarkupFile(review, fw);
             }

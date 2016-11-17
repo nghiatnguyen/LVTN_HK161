@@ -114,11 +114,7 @@ public class Weka {
             if (classPredicted.equals("true")) {
                 int reviewId = (int) data.instance(i).value(0);
                 int np1Id = (int) data.instance(i).value(1);
-                int np2Id = (int) data.instance(i).value(2);
-                
-//                System.out.println("Review: " + reviewId);
-//                System.out.println("NP1: " + np1Id);
-//                System.out.println("NP2: " + np2Id);
+                int np2Id = (int) data.instance(i).value(2);                
 
                 StanfordUtil.reviews.get(reviewId).addCorefChain(np1Id, np2Id);                
             }
