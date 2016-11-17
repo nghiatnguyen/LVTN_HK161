@@ -11,11 +11,9 @@ import coreferenceresolver.element.NounPhrase;
 import coreferenceresolver.element.Token;
 import coreferenceresolver.element.Review;
 import coreferenceresolver.element.Sentence;
-import static coreferenceresolver.util.StanfordUtil.pipeline;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
-import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.trees.CollinsHeadFinder;
 import edu.stanford.nlp.trees.Tree;
 import edu.stanford.nlp.trees.TreeCoreAnnotations;
@@ -77,61 +75,42 @@ public class Util {
             FeatureExtractor.setNPForOPInSentence(review.getSentences().get(i));
         }
 
-        //Create the train dataset
-        if (forTraining) {
-//            for (int i = review.getNounPhrases().size() - 1; i > 0; i--) {
-//                NounPhrase np2 = review.getNounPhrases().get(i);
-//                if ((np2.getRefId() == -1) || (np2.getType() == 1)) {
-//
-//                } else {
-//                    for (int j = i - 1; j >= 0; j--) {
-//                        NounPhrase np1 = review.getNounPhrases().get(j);
-//                        createTrain(np1, np2, review, bw);
-//                        if (np1.getId() == np2.getRefId()) {
-//                            break;
-//                        }
-//                    }
-//                }
-//
-//            }
-        } else {
-//            Create the test database
-            for (int i = 0; i < review.getNounPhrases().size(); ++i) {
-                checkNPhasOW = false;
-                NounPhrase np1 = review.getNounPhrases().get(i);
-                list = new ArrayList<Integer>();
+        //Create the test dataset
+        for (int i = 0; i < review.getNounPhrases().size(); ++i) {
+            checkNPhasOW = false;
+            NounPhrase np1 = review.getNounPhrases().get(i);
+            list = new ArrayList<Integer>();
 
-                listAllPMI.clear();
-                listRawPMI.clear();
-                //Find PMI of NP2 with NP1
-                if (np1.getOpinionWords().isEmpty()) {
-                    checkNPhasOW = true;
-                } else {
-                    for (int j = i + 1; j < review.getNounPhrases().size(); ++j) {
-                        NounPhrase np2 = review.getNounPhrases().get(j);
-                        if (np1.getType() == 0 || np2.getType() == 0) {
-                            Float rawPMIof2NP = FeatureExtractor.PMI(np1, np2);
-                            listRawPMI.add(rawPMIof2NP);
-                            if (!listAllPMI.contains(rawPMIof2NP)) {
-                                listAllPMI.add(rawPMIof2NP);
-                            }
-                        }
-                    }
-
-                    Collections.sort(listAllPMI, Collections.reverseOrder());
-
-                }
-
-                int k = 0;
+            listAllPMI.clear();
+            listRawPMI.clear();
+            //Find PMI of NP2 with NP1
+            if (np1.getOpinionWords().isEmpty()) {
+                checkNPhasOW = true;
+            } else {
                 for (int j = i + 1; j < review.getNounPhrases().size(); ++j) {
                     NounPhrase np2 = review.getNounPhrases().get(j);
                     if (np1.getType() == 0 || np2.getType() == 0) {
-                        if ((np1.getId() == np2.getRefId() && np2.getType() != 1) || list.contains(np2.getRefId())) {
-                            list.add(np2.getId());
+                        Float rawPMIof2NP = FeatureExtractor.PMI(np1, np2);
+                        listRawPMI.add(rawPMIof2NP);
+                        if (!listAllPMI.contains(rawPMIof2NP)) {
+                            listAllPMI.add(rawPMIof2NP);
                         }
-                        createTest(np1, np2, review, bw, k);
-                        k++;
                     }
+                }
+
+                Collections.sort(listAllPMI, Collections.reverseOrder());
+
+            }
+
+            int k = 0;
+            for (int j = i + 1; j < review.getNounPhrases().size(); ++j) {
+                NounPhrase np2 = review.getNounPhrases().get(j);
+                if (np1.getType() == 0 || np2.getType() == 0) {
+                    if ((np1.getId() == np2.getRefId() && np2.getType() != 1) || list.contains(np2.getRefId())) {
+                        list.add(np2.getId());
+                    }
+                    createTest(np1, np2, review, bw, k);
+                    k++;
                 }
             }
         }
@@ -244,40 +223,15 @@ public class Util {
        
         while (itr.hasNext()) { 
             NounPhrase np = itr.next();
-            if (isDiscardedConjNP(np)) {
-                itr.remove();
-            } else if (isDiscardedPersonalPronounNP(np) || isDiscardedTimeNP(np) || isDiscardedCurrencyNP(np)
+            if (isDiscardedPersonalPronounNP(np) || isDiscardedTimeNP(np) || isDiscardedCurrencyNP(np)
                     || isDiscardedStopWordNP(np) || isDiscardedQuantityNP(np) || isDiscardedPercentageNP(np)) {
             	itr.remove();
-            } //Consider all the NPs that have the same HEAD
-//            else {
-//                List<NounPhrase> curSentenceNPs = review.getNounPhrases();
-//                for (int i = 0; i < curSentenceNPs.size(); ++i) {
-//                    if (curSentenceNPs.get(i).getHeadNode().value().equals(np.getHeadNode().value())
-//                            && ((curSentenceNPs.get(i).getOffsetBegin() < np.getOffsetBegin() && curSentenceNPs.get(i).getOffsetEnd() >= np.getOffsetEnd())
-//                            || (curSentenceNPs.get(i).getOffsetBegin() <= np.getOffsetBegin() && curSentenceNPs.get(i).getOffsetEnd() > np.getOffsetEnd()))) {
-//                        itr.remove();
-//                        break;
-//                    }
-//                }
-//            }
+            }
         }
 
         for (int i = 0; i < review.getNounPhrases().size(); i++) {
             review.getNounPhrases().get(i).setId(i);
         }
-    }
-
-    //Discard the NP that has many HEADS, in particular it is in the form NP => NP1 (CC|,) NP2 (CC|,) ... 
-    private static boolean isDiscardedConjNP(NounPhrase np) {
-//        List<Tree> npChildren = np.getNpNode().getChildrenAsList();
-//        for (int i = 0; i < npChildren.size(); ++i) {
-//            if (!npChildren.get(i).value().equals("NP") && !npChildren.get(i).value().equals("CC") && !npChildren.get(i).value().equals(",")) {
-//                return false;
-//            }
-//        }
-//        return true;
-        return false;
     }
 
     private static boolean isDiscardedPersonalPronounNP(NounPhrase np) {
@@ -361,49 +315,15 @@ public class Util {
         return sentiment == POSITIVE ? NEGATIVE : sentiment == NEGATIVE ? POSITIVE : 0;
     }
 
-    public static Tree[] findPhraseHead(String phraseContent, CollinsHeadFinder headFinder, StanfordCoreNLP pipeline) {
-        Tree[] res = new Tree[2];
-        Tree npNodeTree = null;
-        Tree sentenceTree = null;
-        Annotation document = pipeline.process(phraseContent);
-        for (CoreMap sentence : document
-                .get(CoreAnnotations.SentencesAnnotation.class)) {
-            sentenceTree = sentence.get(TreeCoreAnnotations.TreeAnnotation.class);
-            npNodeTree = findNPNode(sentenceTree);
-        }
-        res[0] = sentenceTree;
-        res[1] = npNodeTree == null ? null : npNodeTree.headTerminal(headFinder);
-        return res;
-    }
-
-    private static Tree findNPNode(Tree rootTree) {
-        Tree res = null;
-        if (!rootTree.isLeaf() && rootTree.value().equals("NP")) {
-            return rootTree;
-        }
-        for (Tree child : rootTree.children()) {
-            res = findNPNode(child);
-        }
-        return res;
-    }
-
     public static void assignNounPhrases(List<NounPhrase> nounPhrases, List<Review> reviews) {
         CollinsHeadFinder headFinder = new CollinsHeadFinder();
         for (NounPhrase np : nounPhrases) {
+            Review review = reviews.get(np.getReviewId());
+            Sentence sentence = review.getSentences().get(np.getSentenceId());
             String npContent = "";
             for (CRFToken token : np.getCRFTokens()) {
                 npContent += token.getWord() + " ";
             }
-//            System.out.println("NP content: " + npContent);//            
-            npContent = npContent.substring(0, npContent.length() - 1);
-
-//            Tree[] res = findPhraseHead(npContent, headFinder, StanfordUtil.pipeline);
-//            np.setNpNode(res[0]);
-//            np.setHeadNode(res[1]);
-            Review review = reviews.get(np.getReviewId());
-            review.addNounPhrase(np);
-            Sentence sentence = review.getSentences().get(np.getSentenceId());
-            sentence.addNounPhrase(np);
 
             //Initiate a NP Tree
             Tree npNode = initNPTree();
@@ -418,6 +338,9 @@ public class Util {
             np.setOffsetBegin(npOffsetBegin);
             int npOffsetEnd = sentence.getTokens().get(np.getCRFTokens().get(np.getCRFTokens().size() - 1).getIdInSentence()).getOffsetEnd();
             np.setOffsetEnd(npOffsetEnd);
+
+            review.addNounPhrase(np);
+            sentence.addNounPhrase(np);
         }
     }
 

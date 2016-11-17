@@ -35,7 +35,8 @@ public class NounPhrase {
     private int sentimentOrientation;
     
     public NounPhrase(){
-    	this.CRFTokens = new ArrayList<CRFToken>();
+    	this.CRFTokens = new ArrayList<>();
+        this.opinionWords =  new ArrayList<>();
     	this.opinionWords = new ArrayList<String>();
     }
 

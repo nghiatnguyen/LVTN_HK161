@@ -5,6 +5,7 @@
  */
 package coreferenceresolver.process;
 
+import coreferenceresolver.element.CRFToken;
 import coreferenceresolver.element.NounPhrase;
 import coreferenceresolver.util.Util;
 import coreferenceresolver.util.StanfordUtil;
@@ -86,17 +87,16 @@ public class TrainingMain {
 
             //Begin create training set
             for (Review review : StanfordUtil.reviews) {
-                //Discard all NPs that is Personal Pronoun
+            //Discard all NPs that is Personal Pronoun
                 Util.discardUnneccessaryNPs(review);
-            }
+            }                        
 
             //Read the hand-modified markup file
             Util.readMarkupFile(markupFile);
 
             //Begin create training set
-            for (Review review : StanfordUtil.reviews) {
+            for (Review review : StanfordUtil.reviews) {                
                 //Extract features
-
                 Util.extractFeatures(review, bw, forTraining);
             }
         } catch (IOException ex) {

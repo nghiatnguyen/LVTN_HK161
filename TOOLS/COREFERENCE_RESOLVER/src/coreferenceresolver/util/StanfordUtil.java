@@ -167,7 +167,7 @@ public class StanfordUtil {
             List<CoreMap> sentences = document.get(SentencesAnnotation.class);
 
             //Begin extracting from paragraphs
-            for (CoreMap sentence : sentences) {
+            for (CoreMap sentence : sentences) {                                
                 int sentenceOffsetBegin = sentence.get(CharacterOffsetBeginAnnotation.class);
                 int sentenceOffsetEnd = sentence.get(CharacterOffsetEndAnnotation.class);
                 int sentimentLevel = RNNCoreAnnotations.getPredictedClass(sentence.get(SentimentCoreAnnotations.SentimentAnnotatedTree.class));
@@ -182,11 +182,18 @@ public class StanfordUtil {
                 SemanticGraph collCCDeps = sentence.get(CollapsedCCProcessedDependenciesAnnotation.class);
                 Collection<TypedDependency> typedDeps = collCCDeps.typedDependencies();
                 newSentence.setDependencies(typedDeps);
+                
+                List<Tree> sentenceTreeLeaves = sentence.get(TreeCoreAnnotations.TreeAnnotation.class).getLeaves();
+                int i = 0;
 
                 for (CoreLabel token : sentence.get(TokensAnnotation.class)) {
                     Token newToken = new Token();
                     // this is the text of the token
                     String word = token.get(TextAnnotation.class);
+                    
+                    Tree tokenTree = sentenceTreeLeaves.get(i);
+                    
+                    newToken.setTokenTree(tokenTree);
 
                     //this is the opinion orientation of the token
                     if (FeatureExtractor.POSITIVE_WORDS.contains(";" + word.toLowerCase() + ";")) {
@@ -227,6 +234,7 @@ public class StanfordUtil {
                         newOW.setSentimentOrientation(newTokenSentiment);
                         newSentence.addOpinionWord(newOW);
                     }
+                    ++i;
                 }
 
                 // Check if this token is a comparative keyword. If so, its sentence is a comparative sentence

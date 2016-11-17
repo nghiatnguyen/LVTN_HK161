@@ -20,10 +20,10 @@ public class Weka {
         Instances data = new Instances(reader);
         reader.close();
 
-        //Remove 1st and 4th features
+        //Remove 1st feature
         String[] options = new String[2];
         options[0] = "-R";                                    // "range"
-        options[1] = "1,4";                                     // first attribute
+        options[1] = "1";                                     // first attribute
         Remove remove = new Remove();                         // new instance of filter
         remove.setOptions(options);                           // set options
         remove.setInputFormat(data);                          // inform filter about dataset **AFTER** setting options
@@ -32,30 +32,7 @@ public class Weka {
         newData.setClassIndex(newData.numAttributes() - 1);
 
 //		useCrossValidation(newData);
-        useTestSet(newData, testFilePath, resultFilePath);
-    }
-
-    public static void main(String[] agrs) throws Exception {
-
-        BufferedReader reader = new BufferedReader(
-                new FileReader(".\\test.arff"));
-        Instances data = new Instances(reader);
-        reader.close();
-
-        //Remove 1st and 4th features
-        String[] options = new String[2];
-        options[0] = "-R";                                    // "range"
-        options[1] = "1,4";                                     // first attribute
-        Remove remove = new Remove();                         // new instance of filter
-        remove.setOptions(options);                           // set options
-        remove.setInputFormat(data);                          // inform filter about dataset **AFTER** setting options
-        Instances newData = Filter.useFilter(data, remove);   // apply filter
-        // setting class attribute 
-        newData.setClassIndex(newData.numAttributes() - 1);
-
-//		useCrossValidation(newData);
-        useTestSet(newData, ".\\test.arff", ".\\result.txt");
-
+        useTestSet(options, newData, testFilePath, resultFilePath);
     }
 
     public static void useCrossValidation(Instances inst) throws Exception {
@@ -89,13 +66,10 @@ public class Weka {
         System.out.println(eval.toMatrixString());
     }
 
-    public static void useTestSet(Instances inst, String testFilePath, String resultFilePath) throws Exception {
+    public static void useTestSet(String[] options, Instances inst, String testFilePath, String resultFilePath) throws Exception {
         Instances data = new Instances(new BufferedReader(new FileReader(testFilePath)));
         PrintWriter writer = new PrintWriter(resultFilePath, "UTF-8");
-        //Remove 1st and 4th features
-        String[] options = new String[2];
-        options[0] = "-R";                                    // "range"
-        options[1] = "1,4";                                     // first attribute
+
         Remove remove = new Remove();                         // new instance of filter
         remove.setOptions(options);                           // set options
         remove.setInputFormat(data);                          // inform filter about dataset **AFTER** setting options
@@ -109,20 +83,14 @@ public class Weka {
             String classPredicted = inst.classAttribute().value((int) index);
             String classActual = inst.classAttribute().value((int) test.instance(i).classValue());
 //            System.out.println("Class Predicted = " + classPredicted);
-           for (int j = 0; j < data.numAttributes(); j++)
-        	   writer.print(data.instance(i).value(j) + ",");
-           writer.println(" : " + classPredicted);
+
             //If 2 instances is coref, consider to add them to COREFs chain of the review
             if (classPredicted.equals("true")) {
                 int reviewId = (int) data.instance(i).value(0);
                 int np1Id = (int) data.instance(i).value(1);
                 int np2Id = (int) data.instance(i).value(2);
-                
-//                System.out.println("Review: " + reviewId);
-//                System.out.println("NP1: " + np1Id);
-//                System.out.println("NP2: " + np2Id);
 
-                StanfordUtil.reviews.get(reviewId).addCorefChain(np1Id, np2Id);                
+                StanfordUtil.reviews.get(reviewId).addCorefChain(np1Id, np2Id);
             }
 //            System.out.println("Class Actual = " + classActual);
         }
