@@ -10,7 +10,6 @@ import coreferenceresolver.element.NounPhrase;
 import coreferenceresolver.element.Review;
 import coreferenceresolver.util.StanfordUtil;
 import java.awt.Color;
-import java.awt.ComponentOrientation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;

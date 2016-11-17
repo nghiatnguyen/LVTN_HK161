@@ -11,11 +11,9 @@ import coreferenceresolver.element.NounPhrase;
 import coreferenceresolver.element.Token;
 import coreferenceresolver.element.Review;
 import coreferenceresolver.element.Sentence;
-import static coreferenceresolver.util.StanfordUtil.pipeline;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
-import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.trees.CollinsHeadFinder;
 import edu.stanford.nlp.trees.Tree;
 import edu.stanford.nlp.trees.TreeCoreAnnotations;
@@ -317,36 +315,9 @@ public class Util {
         return sentiment == POSITIVE ? NEGATIVE : sentiment == NEGATIVE ? POSITIVE : 0;
     }
 
-    public static Tree[] findPhraseHead(String phraseContent, CollinsHeadFinder headFinder, StanfordCoreNLP pipeline) {
-        Tree[] res = new Tree[2];
-        Tree npNodeTree = null;
-        Tree sentenceTree = null;
-        Annotation document = pipeline.process(phraseContent);
-        for (CoreMap sentence : document
-                .get(CoreAnnotations.SentencesAnnotation.class)) {
-            sentenceTree = sentence.get(TreeCoreAnnotations.TreeAnnotation.class);
-            npNodeTree = findNPNode(sentenceTree);
-        }
-        res[0] = sentenceTree;
-        res[1] = npNodeTree == null ? null : npNodeTree.headTerminal(headFinder);
-        return res;
-    }
-
-    private static Tree findNPNode(Tree rootTree) {
-        Tree res = null;
-        if (!rootTree.isLeaf() && rootTree.value().equals("NP")) {
-            return rootTree;
-        }
-        for (Tree child : rootTree.children()) {
-            res = findNPNode(child);
-        }
-        return res;
-    }
-
     public static void assignNounPhrases(List<NounPhrase> nounPhrases, List<Review> reviews) {
         CollinsHeadFinder headFinder = new CollinsHeadFinder();
         for (NounPhrase np : nounPhrases) {
-            System.out.println("NP");
             Review review = reviews.get(np.getReviewId());
             Sentence sentence = review.getSentences().get(np.getSentenceId());
             String npContent = "";
@@ -354,13 +325,9 @@ public class Util {
                 npContent += token.getWord() + " ";
             }
 
-            npContent = npContent.substring(0, npContent.length() - 1);
-
             //Initiate a NP Tree
             Tree npNode = initNPTree();
             for (CRFToken cRFToken : np.getCRFTokens()) {
-                System.out.print("CRFTokenID: " + cRFToken.getIdInSentence() + "\t");
-                System.out.println();
                 Tree cRFTokenTree = sentence.getTokens().get(cRFToken.getIdInSentence()).getTokenTree();
                 npNode.addChild(cRFTokenTree);
             }
@@ -374,7 +341,6 @@ public class Util {
 
             review.addNounPhrase(np);
             sentence.addNounPhrase(np);
-
         }
     }
 

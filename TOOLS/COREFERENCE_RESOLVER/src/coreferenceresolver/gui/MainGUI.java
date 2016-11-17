@@ -8,6 +8,7 @@ package coreferenceresolver.gui;
 import coreferenceresolver.process.MarkupMain;
 import coreferenceresolver.util.StanfordUtil;
 import coreferenceresolver.process.TrainingMain;
+import coreferenceresolver.process.WekaMain;
 import coreferenceresolver.weka.Weka;
 import java.awt.Desktop;
 import java.io.File;
@@ -448,10 +449,12 @@ public class MainGUI extends javax.swing.JFrame {
             @Override
             public void run() {
                 try {
-                    Weka.j48Classify(testingFilePathTF.getText(), resultFilePathTF1.getText());
+//                    Weka.j48Classify(testingFilePathTF.getText(), resultFilePathTF1.getText());
+                    WekaMain.run(inputFilePathTF.getText(), testingFilePathTF.getText(), resultFilePathTF1.getText());
                     noteTF.setText("Create result file done!");
                     String folderPathOpen = resultFilePathTF1.getText().substring(0, resultFilePathTF1.getText().lastIndexOf(File.separatorChar));                    
                     Desktop.getDesktop().open(new File(folderPathOpen));
+                    ClassifiedResultGUI.main(null);
                 } catch (Exception ex) {
                     Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }               

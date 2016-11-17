@@ -95,11 +95,7 @@ public class TrainingMain {
             Util.readMarkupFile(markupFile);
 
             //Begin create training set
-            for (Review review : StanfordUtil.reviews) {
-                for (NounPhrase np: review.getNounPhrases()){
-                    System.out.print(np.getId() + "\t");
-                }
-                System.out.println();
+            for (Review review : StanfordUtil.reviews) {                
                 //Extract features
                 Util.extractFeatures(review, bw, forTraining);
             }
