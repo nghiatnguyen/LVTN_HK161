@@ -51,7 +51,7 @@ public class Util {
     private static final String DISCARDED_STOP_WORDS = ";there;etc;oh;";
 
     //private static final String DISCARDED_NUMBER_NOUN_POS = "CD"; //one, two, three
-    private static final String DISCARDED_QUANTITY_NOUNS = ";lot;lots;number;total;amount;little;much;many;ton;tons;plenty;some;";
+    private static final String DISCARDED_QUANTITY_NOUNS = ";lot;lots;number;total;amount;little;much;many;ton;tons;plenty;some;bit;";
 
     private static final String DISCARDED_TIME_REGEX = "([0-9]+:[0-9]+)|([0-9]+[ ]*(AM|PM)) | (AM|PM)";
 
@@ -241,14 +241,14 @@ public class Util {
     public static void discardUnneccessaryNPs(Review review) {
         List nps = review.getNounPhrases();
         Iterator<NounPhrase> itr = nps.iterator();
-
-        while (itr.hasNext()) {
+       
+        while (itr.hasNext()) { 
             NounPhrase np = itr.next();
             if (isDiscardedConjNP(np)) {
                 itr.remove();
             } else if (isDiscardedPersonalPronounNP(np) || isDiscardedTimeNP(np) || isDiscardedCurrencyNP(np)
                     || isDiscardedStopWordNP(np) || isDiscardedQuantityNP(np) || isDiscardedPercentageNP(np)) {
-                itr.remove();
+            	itr.remove();
             } //Consider all the NPs that have the same HEAD
 //            else {
 //                List<NounPhrase> curSentenceNPs = review.getNounPhrases();
@@ -333,7 +333,7 @@ public class Util {
     }
 
     //Discard all NP indicating quantity: lot, lots, number, total
-    private static boolean isDiscardedQuantityNP(NounPhrase np) {
+    public static boolean isDiscardedQuantityNP(NounPhrase np) {
         if (np.getHeadNode() != null && DISCARDED_QUANTITY_NOUNS.contains(";" + np.getHeadNode().value().toLowerCase() + ";")) {
             return true;
         }
