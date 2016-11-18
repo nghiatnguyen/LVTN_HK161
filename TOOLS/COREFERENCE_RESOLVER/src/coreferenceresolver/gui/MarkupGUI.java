@@ -150,7 +150,9 @@ public class MarkupGUI extends JFrame {
                                         markupReviews.get(i).getNounPhrases().get(j).setType(0);
                                     } else if (newType.equals("Other")) {
                                         markupReviews.get(i).getNounPhrases().get(j).setType(1);
-                                    }
+                                    } else if (newType.equals("Candidate")) {
+                                        markupReviews.get(i).getNounPhrases().get(j).setType(2);
+                                    }                                    
                                     ++j;
                                 }
                                 ++i;
@@ -322,13 +324,15 @@ public class MarkupGUI extends JFrame {
         element.refSpinner = refSpinner;
 
         //TYPE        
-        String[] typeValues = {"Object/Attribute", "Other"};
+        String[] typeValues = {"Object/Attribute", "Other", "Candidate"};
         SpinnerModel typeSpinnerModel = new SpinnerListModel(typeValues);
         JSpinner typeSpinner = new JSpinner(typeSpinnerModel);
         if (np.getType() == 0) {
             typeSpinner.setValue(typeValues[0]);
-        } else {
+        } else if (np.getType() == 1){
             typeSpinner.setValue(typeValues[1]);
+        } else if (np.getType() == 2){
+            typeSpinner.setValue(typeValues[2]);
         }
         element.typeSpinner = typeSpinner;
 
