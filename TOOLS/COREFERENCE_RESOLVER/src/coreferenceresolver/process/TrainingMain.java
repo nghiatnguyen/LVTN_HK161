@@ -34,6 +34,7 @@ public class TrainingMain {
         StanfordUtil su = new StanfordUtil(inputFile);
 
         // Read the Dataset
+        System.out.println("Reading dataset");
         File fData = new File(".\\dataset.txt");
         FileReader fReaderData = new FileReader(fData);
         BufferedReader buffReaderDict = new BufferedReader(fReaderData);
@@ -42,6 +43,7 @@ public class TrainingMain {
         while ((line = buffReaderDict.readLine()) != null) {
             sData = sData + line + "\n";
         }
+        System.out.println("End of Reading dataset");
         MarkupMain.set_sDataset(sData);
 
         FileOutputStream fos = new FileOutputStream(outputFile);
@@ -58,7 +60,12 @@ public class TrainingMain {
                 + "@ATTRIBUTE np2isdefnp {false,true}\n"
                 + "@ATTRIBUTE np2isdemnp {false,true}\n"
                 + "@ATTRIBUTE isbothpropername {false,true}\n"
-                + "@ATTRIBUTE stringsimilary {false,true}\n"
+                + "@ATTRIBUTE isbothpronoun {false,true}\n"
+                + "@ATTRIBUTE isbothnormal {false,true}\n"
+                + "@ATTRIBUTE issubstring {false,true}\n"
+                + "@ATTRIBUTE isheadmatch {false,true}\n"
+                + "@ATTRIBUTE isexactmatch {false,true}\n"
+                + "@ATTRIBUTE ismatchafterremovedetermine {false,true}\n"
                 + "@ATTRIBUTE distance REAL\n"
                 + "@ATTRIBUTE numberagreement {false,true}\n"
                 + "@ATTRIBUTE isbetween {false,true}\n"
@@ -72,7 +79,6 @@ public class TrainingMain {
                 + "@ATTRIBUTE exactMatch REAL\n"
                 + "@ATTRIBUTE matchAfterRemoveDetermine REAL\n"
                 + "@ATTRIBUTE PMI {0,1,2,3,4,10}\n"
-                + "@ATTRIBUTE isNested {false,true}\n"
                 + "@ATTRIBUTE coref {false,true}\n"
                 + "\n"
                 + "@DATA");

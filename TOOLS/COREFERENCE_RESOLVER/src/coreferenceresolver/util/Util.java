@@ -219,12 +219,13 @@ public class Util {
     public static void discardUnneccessaryNPs(Review review) {
         List nps = review.getNounPhrases();
         Iterator<NounPhrase> itr = nps.iterator();
-
-        while (itr.hasNext()) {
+       
+        while (itr.hasNext()) { 
             NounPhrase np = itr.next();
             if (isDiscardedPersonalPronounNP(np) || isDiscardedTimeNP(np) || isDiscardedCurrencyNP(np)
-                    || isDiscardedStopWordNP(np) || isDiscardedQuantityNP(np) || isDiscardedPercentageNP(np)) {
-                itr.remove();
+                    || isDiscardedStopWordNP(np) || isDiscardedQuantityNP(np) || isDiscardedPercentageNP(np)
+                    || isDiscardedWrongCase(np)) {
+            	itr.remove();
             }
         }
 
@@ -286,11 +287,20 @@ public class Util {
     }
 
     //Discard all NP indicating quantity: lot, lots, number, total
-    private static boolean isDiscardedQuantityNP(NounPhrase np) {
+    public static boolean isDiscardedQuantityNP(NounPhrase np) {
         if (np.getHeadNode() != null && DISCARDED_QUANTITY_NOUNS.contains(";" + np.getHeadNode().value().toLowerCase() + ";")) {
             return true;
         }
         return false;
+    }
+    
+    //Discard NP type " 's "
+    public static boolean isDiscardedWrongCase(NounPhrase np){
+    	if (np.getHeadNode() != null && 
+    			(np.getHeadLabel().equals("POS")
+    				||np.getHeadLabel().equals("RB")))
+    		return true;
+    	return false;
     }
 
     private static boolean isDiscardedCurrencyNP(NounPhrase np) {
@@ -373,12 +383,17 @@ public class Util {
         bwtrain.write(FeatureExtractor.isPronoun(np2).toString() + ",");
         bwtrain.write(FeatureExtractor.isDefiniteNP(np2).toString() + ",");
         bwtrain.write(FeatureExtractor.isDemonstrativeNP(np2).toString() + ",");
-        bwtrain.write(FeatureExtractor.isBothPropername(np1, np2) + ",");
-        bwtrain.write(FeatureExtractor.stringSimilarity(np1, np2, review.getSentences().get(np1.getSentenceId())).toString() + ",");
+        bwtrain.write(FeatureExtractor.isBothPropername(np1, np2).toString() + ",");
+        bwtrain.write(FeatureExtractor.isBothPronoun(np1, np2) + ",");
+        bwtrain.write(FeatureExtractor.isBothNormal(np1, np2) + ",");
+        bwtrain.write(FeatureExtractor.isSubString(np1, np2) + ",");
+        bwtrain.write(FeatureExtractor.isHeadMatch(np1, np2) + ",");
+        bwtrain.write(FeatureExtractor.isExactMatch(np1, np2) + ",");
+        bwtrain.write(FeatureExtractor.isMatchAfterRemoveDetermine(np1, np2) + ",");
         bwtrain.write(FeatureExtractor.countDistance(np1, np2) + ",");
         bwtrain.write(FeatureExtractor.numberAgreementExtract(np1, np2) + ",");
         bwtrain.write(FeatureExtractor.isBetween3Extract(review, np1, np2).toString() + ",");
-        bwtrain.write(FeatureExtractor.hasBetweenExtract(review, np1, np2).toString() + ",");
+        bwtrain.write(FeatureExtractor.hasBetween2Extract(review, np1, np2).toString() + ",");
         bwtrain.write(FeatureExtractor.comparativeIndicatorExtract(review, np1, np2).toString() + ",");
         bwtrain.write(FeatureExtractor.sentimentConsistencyExtract(np1, np2) + ",");
         bwtrain.write(FeatureExtractor.isBothPronoun(np1, np2) + ",");
@@ -397,7 +412,6 @@ public class Util {
                 bwtrain.write(4 + ",");
             }
         }
-        bwtrain.write(FeatureExtractor.isNested(np1, np2).toString() + ",");
         bwtrain.write(FeatureExtractor.isCorefTest(np1, np2, list).toString());
         bwtrain.newLine();
     }

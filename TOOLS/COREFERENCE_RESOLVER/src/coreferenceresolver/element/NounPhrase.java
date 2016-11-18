@@ -37,6 +37,7 @@ public class NounPhrase {
     public NounPhrase(){
     	this.CRFTokens = new ArrayList<>();
         this.opinionWords =  new ArrayList<>();
+    	this.opinionWords = new ArrayList<String>();
     }
 
     /**
