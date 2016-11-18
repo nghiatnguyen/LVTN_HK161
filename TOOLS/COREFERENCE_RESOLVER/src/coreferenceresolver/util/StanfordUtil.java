@@ -94,7 +94,12 @@ public class StanfordUtil {
 
             //Begin extracting from paragraphs
             for (CoreMap sentence : sentences) {
+                int sentenceOffsetBegin = sentence.get(CharacterOffsetBeginAnnotation.class);
+                int sentenceOffsetEnd = sentence.get(CharacterOffsetEndAnnotation.class);
                 Sentence newSentence = new Sentence();
+                newSentence.setRawContent(sentence.toString());
+                newSentence.setOffsetBegin(sentenceOffsetBegin);
+                newSentence.setOffsetEnd(sentenceOffsetEnd);
                 List<Tree> sentenceTreeLeaves = sentence.get(TreeCoreAnnotations.TreeAnnotation.class).getLeaves();
                 int i = 0;
                 for (CoreLabel token : sentence.get(TokensAnnotation.class)) {

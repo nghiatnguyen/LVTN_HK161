@@ -59,6 +59,10 @@ public class CrfChunkerUtil {
                         np.setSentenceId(sentenceId);
                         np.setId(idNP);
                         np.setReviewId(reviewId);
+                        if ((listTam.size() != 0) 
+                        		&& (listTam.get(listTam.size() - 1).getWord().equals("-RRB-")
+                        				|| listTam.get(listTam.size() - 1).getWord().equals("-LRB-")))
+                        				listTam.remove(listTam.size() - 1);
                         for (CRFToken s : listTam) {
                             np.addCRFToken(s);
                         }
@@ -86,6 +90,10 @@ public class CrfChunkerUtil {
                         np.setSentenceId(sentenceId);
                         np.setId(idNP);
                         np.setReviewId(reviewId);
+                        if ((listTam.size() != 0) 
+                        		&& (listTam.get(listTam.size() - 1).getWord().equals("-RRB-")
+                        				|| listTam.get(listTam.size() - 1).getWord().equals("-LRB-")))
+                        				listTam.remove(listTam.size() - 1);
                         for (CRFToken s : listTam) {
                             np.addCRFToken(s);
                         }
