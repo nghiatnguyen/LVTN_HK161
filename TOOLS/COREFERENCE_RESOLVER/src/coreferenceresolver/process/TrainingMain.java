@@ -5,7 +5,6 @@
  */
 package coreferenceresolver.process;
 
-import coreferenceresolver.element.CRFToken;
 import coreferenceresolver.element.NounPhrase;
 import coreferenceresolver.util.Util;
 import coreferenceresolver.util.StanfordUtil;
@@ -66,6 +65,12 @@ public class TrainingMain {
                 + "@ATTRIBUTE hasbetween {false,true}\n"
                 + "@ATTRIBUTE comparative {false,true}\n"
                 + "@ATTRIBUTE sentiment REAL\n"
+                + "@ATTRIBUTE bothPronoun REAL\n"
+                + "@ATTRIBUTE bothNormal REAL\n"
+                + "@ATTRIBUTE subString REAL\n"
+                + "@ATTRIBUTE headMatch REAL\n"
+                + "@ATTRIBUTE exactMatch REAL\n"
+                + "@ATTRIBUTE matchAfterRemoveDetermine REAL\n"
                 + "@ATTRIBUTE PMI {0,1,2,3,4,10}\n"
                 + "@ATTRIBUTE isNested {false,true}\n"
                 + "@ATTRIBUTE coref {false,true}\n"
@@ -92,7 +97,7 @@ public class TrainingMain {
             }                        
 
             //Read the hand-modified markup file
-            Util.readMarkupFile(markupFile);
+            Util.readMarkupFile(StanfordUtil.reviews, markupFile);
 
             //Begin create training set
             for (Review review : StanfordUtil.reviews) {                

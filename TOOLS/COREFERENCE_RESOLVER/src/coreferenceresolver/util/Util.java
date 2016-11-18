@@ -49,7 +49,7 @@ public class Util {
     private static final String DISCARDED_STOP_WORDS = ";there;etc;oh;";
 
     //private static final String DISCARDED_NUMBER_NOUN_POS = "CD"; //one, two, three
-    private static final String DISCARDED_QUANTITY_NOUNS = ";lot;lots;number;total;amount;little;much;many;ton;tons;plenty;some;";
+    private static final String DISCARDED_QUANTITY_NOUNS = ";lot;lots;number;total;amount;little;much;many;ton;tons;plenty;some;bit;";
 
     private static final String DISCARDED_TIME_REGEX = "([0-9]+:[0-9]+)|([0-9]+[ ]*(AM|PM)) | (AM|PM)";
 
@@ -177,20 +177,19 @@ public class Util {
         fw.write("\n");
     }
 
-    public static void readMarkupFile(File markupFile) throws FileNotFoundException, IOException {
+    public static void readMarkupFile(List<Review> reviews, File markupFile) throws FileNotFoundException, IOException {
         BufferedReader br = new BufferedReader(new FileReader(markupFile));
         String line = "";
 
         int reviewId = 0;
-        while ((line = br.readLine()) != null) {
-            System.out.println(line);
-            readMarkup(line, reviewId);
+        while ((line = br.readLine()) != null) {            
+            readMarkup(reviews, line, reviewId);
             ++reviewId;
         }
     }
 
-    private static void readMarkup(String markupLine, int reviewId) {
-        List<NounPhrase> nounPhrases = StanfordUtil.reviews.get(reviewId).getNounPhrases();
+    private static void readMarkup(List<Review> reviews, String markupLine, int reviewId) {
+        List<NounPhrase> nounPhrases = reviews.get(reviewId).getNounPhrases();
         int charId = 0;
         int npId = 0;
         while (charId < markupLine.length()) {
@@ -382,6 +381,13 @@ public class Util {
         bwtrain.write(FeatureExtractor.hasBetweenExtract(review, np1, np2).toString() + ",");
         bwtrain.write(FeatureExtractor.comparativeIndicatorExtract(review, np1, np2).toString() + ",");
         bwtrain.write(FeatureExtractor.sentimentConsistencyExtract(np1, np2) + ",");
+        bwtrain.write(FeatureExtractor.isBothPronoun(np1, np2) + ",");
+        bwtrain.write(FeatureExtractor.isBothNormal(np1, np2) + ",");
+        bwtrain.write(FeatureExtractor.isSubString(np1, np2) + ",");
+        bwtrain.write(FeatureExtractor.isHeadMatch(np1, np2) + ",");
+        bwtrain.write(FeatureExtractor.isExactMatch(np1, np2) + ",");
+        bwtrain.write(FeatureExtractor.isMatchAfterRemoveDetermine(np1, np2) + ",");
+        
         if (checkNPhasOW == true) {
             bwtrain.write(10 + ",");
         } else {

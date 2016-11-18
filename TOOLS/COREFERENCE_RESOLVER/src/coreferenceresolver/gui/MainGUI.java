@@ -9,7 +9,6 @@ import coreferenceresolver.process.MarkupMain;
 import coreferenceresolver.util.StanfordUtil;
 import coreferenceresolver.process.TrainingMain;
 import coreferenceresolver.process.WekaMain;
-import coreferenceresolver.weka.Weka;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;

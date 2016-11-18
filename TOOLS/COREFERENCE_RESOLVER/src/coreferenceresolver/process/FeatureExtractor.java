@@ -33,7 +33,7 @@ public class FeatureExtractor {
     private static final String SINGULAR_NOUN = "NN";
     private static final String PLURAL_NOUN = "NNS";
     public static final String COMPARATIVE_VERBS = ";beat;beats;win;wins;";
-    private static final String[] words = MarkupMain.get_sDataset().split("\\.");    
+    private static final String[] words = MarkupMain.get_sDataset().split("\\.");
     //List of Pronouns include reflexive pronouns, personal pronouns and possessive pronouns.
     private static final ArrayList<String> PRONOUNS = new ArrayList<String>(
             Arrays.asList("i", "you", "he", "she", "it", "we", "you", "they",
@@ -403,7 +403,7 @@ public class FeatureExtractor {
     }
 
     //this, that, these, those
-    public static Boolean isDemonstrativeNP(NounPhrase np) {        
+    public static Boolean isDemonstrativeNP(NounPhrase np) {
         return ((np.getNpNode().getLeaves().get(0).toString().toLowerCase().equals("this"))
                 || (np.getNpNode().getLeaves().get(0).toString().toLowerCase().equals("that"))
                 || (np.getNpNode().getLeaves().get(0).toString().toLowerCase().equals("these"))
@@ -431,7 +431,7 @@ public class FeatureExtractor {
                 for (int i = 0; i < np.getNpNode().getLeaves().size(); i++) {
                     if ((np.getNpNode().getLeaves().get(i).toString().equals("of"))
                             || (np.getNpNode().getLeaves().get(i).toString().equals("and"))
-                            ||(DETERMINES.contains(np.getNpNode().getLeaves().get(i).toString().toLowerCase()))) {
+                            || (DETERMINES.contains(np.getNpNode().getLeaves().get(i).toString().toLowerCase()))) {
                     } else {
                         if (Character.isLowerCase(np.getNpNode().getLeaves().get(i).toString().charAt(0))) {
                             return false;
@@ -547,39 +547,39 @@ public class FeatureExtractor {
     public static void setNPForOPInSentence(Sentence fSentence) {
         for (Token token : fSentence.getTokens()) {
             //get opinion word in the sentence
-        	if (token.getPOS().toString().equals("RB")
-                && (checkAdjInList(token.getWord().toString()))){
-        		for (int i = fSentence.getNounPhrases().size() - 1; i >= 0; i--){
-        			if (fSentence.getNounPhrases().get(i).getOffsetEnd() < token.getOffsetBegin()){
-        				for (Token tk: fSentence.getTokens()){
-        					if ((tk.getOffsetBegin() > fSentence.getNounPhrases().get(i).getOffsetEnd())
-        							&& (tk.getOffsetEnd() < token.getOffsetBegin())){
-        						if (tk.getPOS().toString().equals("VB")
-        								|| tk.getPOS().toString().equals("VBD")
-        								|| tk.getPOS().toString().equals("VBG")
-        								|| tk.getPOS().toString().equals("VBN")
-        								|| tk.getPOS().toString().equals("VBP")
-        								|| tk.getPOS().toString().equals("VBZ"))
-        							break;
-        					}
-        				}
-//        				System.out.println(token.getWord().toString() + " ");
-        				fSentence.getNounPhrases().get(i).addOpinionWord(token.getWord().toString());
-        			}
-        			break;
-        		}
-        	}
-        	else if (token.getPOS().toString().equals("JJ")
-            		|| token.getPOS().toString().equals("JJS")
-            		|| token.getPOS().toString().equals("JJR")
-                    && (checkAdjInList(token.getWord().toString()))) {
-//            	System.out.println(token.getWord().toString() + " ");
+            if (token.getPOS().equals("RB")
+                    && (checkAdjInList(token.getWord()))) {
+                for (int i = fSentence.getNounPhrases().size() - 1; i >= 0; i--) {
+                    if (fSentence.getNounPhrases().get(i).getOffsetEnd() < token.getOffsetBegin()) {
+                        for (Token tk : fSentence.getTokens()) {
+                            if ((tk.getOffsetBegin() > fSentence.getNounPhrases().get(i).getOffsetEnd())
+                                    && (tk.getOffsetEnd() < token.getOffsetBegin())) {
+                                if (tk.getPOS().equals("VB")
+                                        || tk.getPOS().equals("VBD")
+                                        || tk.getPOS().equals("VBG")
+                                        || tk.getPOS().equals("VBN")
+                                        || tk.getPOS().equals("VBP")
+                                        || tk.getPOS().equals("VBZ")) {
+                                    break;
+                                }
+                            }
+                        }
+//        				System.out.println(token.getWord() + " ");
+                        fSentence.getNounPhrases().get(i).addOpinionWord(token.getWord());
+                    }
+                    break;
+                }
+            } else if (token.getPOS().equals("JJ")
+                    || token.getPOS().equals("JJS")
+                    || token.getPOS().equals("JJR")
+                    && (checkAdjInList(token.getWord()))) {
+//            	System.out.println(token.getWord() + " ");
                 boolean check = false;
                 //if OW is nested in NP -> OW belongs to that NP
                 for (NounPhrase np : fSentence.getNounPhrases()) {
                     if (np.getOffsetBegin() <= token.getOffsetBegin()
                             && np.getOffsetEnd() >= token.getOffsetEnd()) {
-                        np.addOpinionWord(token.getWord().toString());
+                        np.addOpinionWord(token.getWord());
                         check = true;
 //                        System.out.println(np.getNpNode().toString());
                     }
@@ -587,11 +587,11 @@ public class FeatureExtractor {
 
                 if (check == false) {
                     //If the sentence is a exclamatory sentence 
-                    if ((fSentence.getRawContent().indexOf("how " + token.getWord().toString()) != -1)
-                            || (fSentence.getRawContent().indexOf("How " + token.getWord().toString()) != -1)) {
+                    if ((fSentence.getRawContent().indexOf("how " + token.getWord()) != -1)
+                            || (fSentence.getRawContent().indexOf("How " + token.getWord()) != -1)) {
                         for (NounPhrase np : fSentence.getNounPhrases()) {
                             if (np.getOffsetBegin() > token.getOffsetEnd()) {
-                                np.addOpinionWord(token.getWord().toString());
+                                np.addOpinionWord(token.getWord());
 //                                System.out.println(np.getNpNode().toString());
                                 break;
                             }
@@ -607,7 +607,7 @@ public class FeatureExtractor {
                             }
                         }
                         if (f_id != 0) {
-                            fSentence.getNounPhrases().get(f_id).addOpinionWord(token.getWord().toString());
+                            fSentence.getNounPhrases().get(f_id).addOpinionWord(token.getWord());
 //                            System.out.println(fSentence.getNounPhrases().get(f_id).getNpNode().toString());
                         }
                     }
@@ -694,11 +694,12 @@ public class FeatureExtractor {
 
     }
 
-    
-/**************************************
- * Some functions relates to String match
- * 
- * ***********************************/    
+    /**
+     * ************************************
+     * Some functions relates to String match
+     *
+     * **********************************
+     */
     //Algorithm: N2 is considered that has a similar string with N1 if:
     //Main noun of N2 is the same as the main noun of N1 and
     //N1 includes all Nouns, adjactives of N2
@@ -729,69 +730,83 @@ public class FeatureExtractor {
         }
         return false;
     }
-    
-    
+
     //Check if NP1 and NP2 are pronoun
-    public static Boolean isBothPronoun(NounPhrase np1, NounPhrase np2){
-    	if (isPronoun(np1) && isPronoun(np2))
-    		return true;
-    	return false;
+    public static Boolean isBothPronoun(NounPhrase np1, NounPhrase np2) {
+        if (isPronoun(np1) && isPronoun(np2)) {
+            return true;
+        }
+        return false;
     }
-    
+
     //Check if NP1 and NP2 are not pronoun and not proper name
-    public static Boolean isBothNormal(NounPhrase np1, NounPhrase np2){
-    	if ((!isPronoun(np1)) && (!isPronoun(np2)) && (!isProperName(np1)) && (!isProperName(np2)))
-    		return true;
-    	return false;
+    public static Boolean isBothNormal(NounPhrase np1, NounPhrase np2) {
+        if ((!isPronoun(np1)) && (!isPronoun(np2)) && (!isProperName(np1)) && (!isProperName(np2))) {
+            return true;
+        }
+        return false;
     }
-    
+
     // Check if NP1 is substring of NP2 or inverse
-    public static Boolean isSubString(NounPhrase np1, NounPhrase np2, Sentence sen1, Sentence sen2){
-    	String str_np1 = " " + sen1.getRawContent().substring(np1.getOffsetBegin() - sen1.getOffsetBegin(), np1.getOffsetEnd() - sen1.getOffsetBegin()) + " ";
-    	String str_np2 = " " + sen2.getRawContent().substring(np2.getOffsetBegin() - sen2.getOffsetBegin(), np2.getOffsetEnd() - sen2.getOffsetBegin()) + " ";
-    	if (str_np1.toLowerCase().contains(str_np2.toLowerCase()) 
-    			|| str_np2.toLowerCase().contains(str_np1.toLowerCase()))
-    		return true;
-    	return false;
+    public static Boolean isSubString(NounPhrase np1, NounPhrase np2) {
+        Sentence sen1 = StanfordUtil.reviews.get(np1.getReviewId()).getSentences().get(np1.getSentenceId());
+        Sentence sen2 = StanfordUtil.reviews.get(np2.getReviewId()).getSentences().get(np2.getSentenceId());
+        String str_np1 = " " + sen1.getRawContent().substring(np1.getOffsetBegin() - sen1.getOffsetBegin(), np1.getOffsetEnd() - sen1.getOffsetBegin()) + " ";
+        String str_np2 = " " + sen2.getRawContent().substring(np2.getOffsetBegin() - sen2.getOffsetBegin(), np2.getOffsetEnd() - sen2.getOffsetBegin()) + " ";
+        if (str_np1.toLowerCase().contains(str_np2.toLowerCase())
+                || str_np2.toLowerCase().contains(str_np1.toLowerCase())) {
+            return true;
+        }
+        return false;
     }
-    
+
     // Check if the head noun of NP1 is the same with the head noun of NP2
-    public static Boolean isHeadMatch(NounPhrase np1, NounPhrase np2){
-    	if (np1.getHeadNode().toString().toLowerCase().equals(np2.getHeadNode().toString().toLowerCase()))
-    		return true;
-    	return false;
+    public static Boolean isHeadMatch(NounPhrase np1, NounPhrase np2) {
+        if (np1.getHeadNode().toString().toLowerCase().equals(np2.getHeadNode().toString().toLowerCase())) {
+            return true;
+        }
+        return false;
     }
-    
+
     //Check if NP1 is the same with NP2
-    public static Boolean isExactMatch(NounPhrase np1, NounPhrase np2, Sentence sen1, Sentence sen2){
-    	String str_np1 = sen1.getRawContent().substring(np1.getOffsetBegin() - sen1.getOffsetBegin(), np1.getOffsetEnd() - sen1.getOffsetBegin());
-    	String str_np2 = sen2.getRawContent().substring(np2.getOffsetBegin() - sen2.getOffsetBegin(), np2.getOffsetEnd() - sen2.getOffsetBegin());
-    	if (str_np1.toLowerCase().equals(str_np2.toLowerCase()))
-    		return true;
-    	return false;
+    public static Boolean isExactMatch(NounPhrase np1, NounPhrase np2) {
+        Sentence sen1 = StanfordUtil.reviews.get(np1.getReviewId()).getSentences().get(np1.getSentenceId());
+        Sentence sen2 = StanfordUtil.reviews.get(np2.getReviewId()).getSentences().get(np2.getSentenceId());
+        String str_np1 = sen1.getRawContent().substring(np1.getOffsetBegin() - sen1.getOffsetBegin(), np1.getOffsetEnd() - sen1.getOffsetBegin());
+        String str_np2 = sen2.getRawContent().substring(np2.getOffsetBegin() - sen2.getOffsetBegin(), np2.getOffsetEnd() - sen2.getOffsetBegin());
+        if (str_np1.toLowerCase().equals(str_np2.toLowerCase())) {
+            return true;
+        }
+        return false;
     }
-    
+
     //Check if NP1 is the same with NP2 after remove somes determines like: the, this, that, these, those, her,...
-    public static Boolean isMatchAfterRemoveDetermine(NounPhrase np1, NounPhrase np2, Sentence sen1, Sentence sen2){
-    	String str_np1 = sen1.getRawContent().substring(np1.getOffsetBegin() - sen1.getOffsetBegin(), np1.getOffsetEnd() - sen1.getOffsetBegin());
-    	String str_np2 = sen2.getRawContent().substring(np2.getOffsetBegin() - sen2.getOffsetBegin(), np2.getOffsetEnd() - sen2.getOffsetBegin());
-    	if (str_np1.contains(" ")){
-    		if (DETERMINES.contains(str_np1.substring(0,str_np1.indexOf(" ")).toLowerCase()))
-    			str_np1 = str_np1.substring(str_np1.indexOf(" ") + 1);
-    	}
-    	if (str_np2.contains(" ")){
-    		if (DETERMINES.contains(str_np2.substring(0,str_np2.indexOf(" ")).toLowerCase()))
-    			str_np2 = str_np2.substring(str_np2.indexOf(" ") + 1);
-    	}
-    	if (str_np1.toLowerCase().equals(str_np2.toLowerCase()))
-    		return true;
-    	return false;
+    public static Boolean isMatchAfterRemoveDetermine(NounPhrase np1, NounPhrase np2) {
+        Sentence sen1 = StanfordUtil.reviews.get(np1.getReviewId()).getSentences().get(np1.getSentenceId());
+        Sentence sen2 = StanfordUtil.reviews.get(np2.getReviewId()).getSentences().get(np2.getSentenceId());
+        String str_np1 = sen1.getRawContent().substring(np1.getOffsetBegin() - sen1.getOffsetBegin(), np1.getOffsetEnd() - sen1.getOffsetBegin());
+        String str_np2 = sen2.getRawContent().substring(np2.getOffsetBegin() - sen2.getOffsetBegin(), np2.getOffsetEnd() - sen2.getOffsetBegin());
+        if (str_np1.contains(" ")) {
+            if (DETERMINES.contains(str_np1.substring(0, str_np1.indexOf(" ")).toLowerCase())) {
+                str_np1 = str_np1.substring(str_np1.indexOf(" ") + 1);
+            }
+        }
+        if (str_np2.contains(" ")) {
+            if (DETERMINES.contains(str_np2.substring(0, str_np2.indexOf(" ")).toLowerCase())) {
+                str_np2 = str_np2.substring(str_np2.indexOf(" ") + 1);
+            }
+        }
+        if (str_np1.toLowerCase().equals(str_np2.toLowerCase())) {
+            return true;
+        }
+        return false;
     }
 
-/*********************
- * End some functions relating to String match 
- * *********************/
-
+    /**
+     * *******************
+     * End some functions relating to String match 
+ * ********************
+     */
     public static int sentimentConsistencyExtract(NounPhrase np1, NounPhrase np2) {
         if (np1.getReviewId() == np2.getReviewId()) {
             if (np1.getSentenceId() == np2.getSentenceId() - 1) {

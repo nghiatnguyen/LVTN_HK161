@@ -18,11 +18,15 @@ public class Review {
     private List<NounPhrase> nounPhrases;
     private String rawContent;
     private List<CorefChain> corefChains;
+    private List<Integer> markupOpens;
+    private List<Integer> markupCloses;
 
     public Review() {
         sentences = new ArrayList<>();
         nounPhrases = new ArrayList<>();
         corefChains = new ArrayList<>();
+        markupOpens = new ArrayList<>();
+        markupCloses = new ArrayList<>();
     }
 
     /**
@@ -104,5 +108,33 @@ public class Review {
             newCC.addCoref(np2Id);
             this.corefChains.add(newCC);
         }        
+    }
+
+    /**
+     * @return the markupOpens
+     */
+    public List<Integer> getMarkupOpens() {
+        return markupOpens;
+    }
+
+    /**
+     * @param markupOpen the markupOpen to add
+     */
+    public void addMarkupOpen(int markupOpen) {
+        this.markupOpens.add(markupOpen);
+    }
+
+    /**
+     * @return the markupCloses
+     */
+    public List<Integer> getMarkupCloses() {
+        return markupCloses;
+    }
+
+    /**
+     * @param markupClose the markupClose to add
+     */
+    public void addMarkupClose(int markupClose) {
+        this.markupCloses.add(markupClose);
     }
 }
