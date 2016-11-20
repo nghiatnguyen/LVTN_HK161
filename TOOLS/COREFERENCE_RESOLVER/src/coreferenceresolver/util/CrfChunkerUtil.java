@@ -61,8 +61,12 @@ public class CrfChunkerUtil {
                         np.setReviewId(reviewId);
                         if ((listTam.size() != 0) 
                         		&& (listTam.get(listTam.size() - 1).getWord().equals("-RRB-")
-                        				|| listTam.get(listTam.size() - 1).getWord().equals("-LRB-")))
+                        				|| listTam.get(listTam.size() - 1).getWord().equals("-LRB-")
+                        				|| listTam.get(listTam.size() - 1).getWord().equals("so")))
                         				listTam.remove(listTam.size() - 1);
+                        
+                        if ((listTam.get(0).getWord().equals("'s") || listTam.get(0).getWord().toLowerCase().equals("even")) && (listTam.size() >= 2))
+                        	listTam.remove(0);
                         for (CRFToken s : listTam) {
                             np.addCRFToken(s);
                         }

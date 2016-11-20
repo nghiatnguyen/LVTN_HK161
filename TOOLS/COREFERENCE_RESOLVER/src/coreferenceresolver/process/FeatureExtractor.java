@@ -333,13 +333,11 @@ public class FeatureExtractor {
         return (np1.getRefId() == np2.getId() || np2.getRefId() == np1.getId());
     }
 
-    public static Boolean isCorefTest(NounPhrase np1, NounPhrase np2, ArrayList<Integer> list) {
+    public static Boolean isCorefTest(NounPhrase np1, NounPhrase np2) {
         if (np1.getType() == 1 || np2.getType() == 1) {
             return false;
-        }
-        if (np1.getRefId() == np2.getId() || np2.getRefId() == np1.getId()) {
-            return true;
-        } else if (list.contains(np2.getRefId())) {
+        } 
+        if (np1.getRefId() == np2.getId() || np2.getRefId() == np1.getId() || np1.getRefId() == np2.getRefId()) {
             return true;
         } else {
             return false;

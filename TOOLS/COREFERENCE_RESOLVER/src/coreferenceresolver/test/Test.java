@@ -44,10 +44,10 @@ public class Test {
         Weka.j48Classify(".\\test.arff", ".\\classified.txt");
         int reviewNo = 0;
         for (Review review : StanfordUtil.reviews) {
-            if (review.getCorefChains().size() > 0) {
+            if (review.getCorefChainsPredict().size() > 0) {
                 System.out.println("--REVIEW " + reviewNo + "--");
             }
-            for (CorefChain cc : review.getCorefChains()) {
+            for (CorefChain cc : review.getCorefChainsPredict()) {
                 System.out.println("New chain: ");
                 for (int coref : cc.getChain()) {
                     System.out.print(coref + " ");

@@ -32,7 +32,7 @@ public class Weka {
         newData.setClassIndex(newData.numAttributes() - 1);
 
 //		useCrossValidation(newData);
-        useTestSet(options, newData, testFilePath, resultFilePath);
+        useTestSet(newData, testFilePath, resultFilePath);
     }
 
     public static void useCrossValidation(Instances inst) throws Exception {
@@ -66,11 +66,14 @@ public class Weka {
         System.out.println(eval.toMatrixString());
     }
 
-    public static void useTestSet(String[] options, Instances inst, String testFilePath, String resultFilePath) throws Exception {
+    public static void useTestSet(Instances inst, String testFilePath, String resultFilePath) throws Exception {
         Instances data = new Instances(new BufferedReader(new FileReader(testFilePath)));
         PrintWriter writer = new PrintWriter(resultFilePath, "UTF-8");
 
-        Remove remove = new Remove();                         // new instance of filter
+        Remove remove = new Remove(); 
+        String[] options = new String[2];
+        options[0] = "-R";                                    // "range"
+        options[1] = "1";    // new instance of filter
         remove.setOptions(options);                           // set options
         remove.setInputFormat(data);                          // inform filter about dataset **AFTER** setting options
         Instances test = Filter.useFilter(data, remove);   // apply filter
@@ -83,16 +86,29 @@ public class Weka {
             String classPredicted = inst.classAttribute().value((int) index);
             String classActual = inst.classAttribute().value((int) test.instance(i).classValue());
 //            System.out.println("Class Predicted = " + classPredicted);
+            
+            if (classActual.equals("true")) {
+                int reviewId = (int) data.instance(i).value(0);
+                int np1Id = (int) data.instance(i).value(1);
+                int np2Id = (int) data.instance(i).value(2);
 
+                StanfordUtil.reviews.get(reviewId).addCorefChainActual(np1Id, np2Id);
+            }
+            
+            
             //If 2 instances is coref, consider to add them to COREFs chain of the review
             if (classPredicted.equals("true")) {
                 int reviewId = (int) data.instance(i).value(0);
                 int np1Id = (int) data.instance(i).value(1);
                 int np2Id = (int) data.instance(i).value(2);
 
-                StanfordUtil.reviews.get(reviewId).addCorefChain(np1Id, np2Id);
+                StanfordUtil.reviews.get(reviewId).addCorefChainPredict(np1Id, np2Id);
             }
 //            System.out.println("Class Actual = " + classActual);
+            for (int j = 0; j < data.numAttributes(); j++){
+            	writer.print(data.instance(i).value(j) + ",");
+            }
+            writer.println();
         }
         Evaluation eval = new Evaluation(test);
         eval.evaluateModel(tree, test);

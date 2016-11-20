@@ -5,17 +5,21 @@
  */
 package coreferenceresolver.process;
 
+import coreferenceresolver.element.CorefChain;
 import coreferenceresolver.element.NounPhrase;
 import coreferenceresolver.element.Review;
 import coreferenceresolver.util.CrfChunkerUtil;
 import coreferenceresolver.util.StanfordUtil;
 import coreferenceresolver.util.Util;
 import coreferenceresolver.weka.Weka;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import weka.classifiers.Evaluation;
 
 /**
  *
@@ -46,6 +50,19 @@ public class WekaMain {
             }
 
             Weka.j48Classify(testFilePath, resultFilePath);
+            
+            //Evaluation MUC score
+//            for (Review review : StanfordUtil.reviews) {
+//            	for (CorefChain cf : review.getCorefChainsPredict()){
+//            		System.out.println("*****" + cf.getChain().toString());
+//            	}
+//                for (CorefChain cf : review.getCorefChainsActual()){
+//                	System.out.println("Chain: " +  cf.getChain().toString() + 
+//                			"Size: " + coreferenceresolver.test.Evaluation.findSize(cf)
+//                			+ "Numpartitions: " + coreferenceresolver.test.Evaluation.findNumPartitions(cf, review.getCorefChainsPredict()));
+//                }
+//            }
+            coreferenceresolver.test.Evaluation.scoreMUC(StanfordUtil.reviews);
 
         } catch (IOException ex) {
             Logger.getLogger(MarkupMain.class.getName()).log(Level.SEVERE, null, ex);
