@@ -337,11 +337,13 @@ public class FeatureExtractor {
         if (np1.getType() == 1 || np2.getType() == 1) {
             return false;
         } 
-        if (np1.getRefId() == np2.getId() || np2.getRefId() == np1.getId() || np1.getRefId() == np2.getRefId()) {
+        if (np1.getRefId() == np2.getId() || np2.getRefId() == np1.getId()) {
             return true;
-        } else {
+        } 
+        else if (np1.getRefId() == np2.getRefId() && np1.getRefId() != -1)
+        	return true;
+        else 
             return false;
-        }
     }
 
     private static boolean contains3rdTobe(String sequence) {

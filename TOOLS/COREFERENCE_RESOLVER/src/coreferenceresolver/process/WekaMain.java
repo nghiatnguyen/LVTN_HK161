@@ -51,17 +51,22 @@ public class WekaMain {
 
             Weka.j48Classify(testFilePath, resultFilePath);
             
+            int No = 0;
             //Evaluation MUC score
-//            for (Review review : StanfordUtil.reviews) {
-//            	for (CorefChain cf : review.getCorefChainsPredict()){
-//            		System.out.println("*****" + cf.getChain().toString());
-//            	}
-//                for (CorefChain cf : review.getCorefChainsActual()){
-//                	System.out.println("Chain: " +  cf.getChain().toString() + 
-//                			"Size: " + coreferenceresolver.test.Evaluation.findSize(cf)
-//                			+ "Numpartitions: " + coreferenceresolver.test.Evaluation.findNumPartitions(cf, review.getCorefChainsPredict()));
-//                }
-//            }
+            for (Review review : StanfordUtil.reviews) {
+            	System.out.println("--------Review " + No + "-----------");
+            	for (CorefChain cf : review.getCorefChainsPredict()){
+            		System.out.println("Predict chain: " + cf.getChain().toString()+ 
+                			"; Size: " + coreferenceresolver.test.Evaluation.findSize(cf)
+                			+ "; Numpartitions: " + coreferenceresolver.test.Evaluation.findNumPartitions(cf, review.getCorefChainsActual()));
+            	}
+                for (CorefChain cf : review.getCorefChainsActual()){
+                	System.out.println("Actual Chain: " +  cf.getChain().toString() + 
+                			"; Size: " + coreferenceresolver.test.Evaluation.findSize(cf)
+                			+ "; Numpartitions: " + coreferenceresolver.test.Evaluation.findNumPartitions(cf, review.getCorefChainsPredict()));
+                }
+                No++;
+            }
             coreferenceresolver.test.Evaluation.scoreMUC(StanfordUtil.reviews);
 
         } catch (IOException ex) {
