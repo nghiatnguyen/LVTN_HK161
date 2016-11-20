@@ -51,7 +51,7 @@ public class Evaluation {
 				SumNumeratorPrecision = SumNumeratorPrecision + findSize(cf) - findNumPartitions(cf, re.getCorefChainsActual());
 				SumDenominatorPrecision = SumDenominatorPrecision + findSize(cf) - 1;
 			}
-		Float precision = ((float)SumNumeratorRecall)/SumDenominatorRecall;
+		Float precision = ((float)SumNumeratorPrecision)/SumDenominatorPrecision;
 		
 		System.out.println("Recall: " + recall);
 		System.out.println("Precision: " + precision);
