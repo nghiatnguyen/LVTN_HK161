@@ -33,11 +33,10 @@ public class NounPhrase {
     private ArrayList<String> opinionWords;
     private ArrayList<CRFToken> CRFTokens;
     private int sentimentOrientation;
-    
-    public NounPhrase(){
-    	this.CRFTokens = new ArrayList<>();
-        this.opinionWords =  new ArrayList<>();
-    	this.opinionWords = new ArrayList<String>();
+
+    public NounPhrase() {
+        this.CRFTokens = new ArrayList<>();
+        this.opinionWords = new ArrayList<>();
     }
 
     /**
@@ -66,10 +65,10 @@ public class NounPhrase {
      */
     public void setHeadNode(Tree headNode) {
         this.headNode = headNode;
-        if (this.headNode != null){
-            CoreLabel label =  (CoreLabel) headNode.label();
+        if (this.headNode != null) {
+            CoreLabel label = (CoreLabel) headNode.label();
             this.setHeadLabel(label.get(CoreAnnotations.PartOfSpeechAnnotation.class));
-        }        
+        }
     }
 
     /**
@@ -167,10 +166,6 @@ public class NounPhrase {
         return opinionWords;
     }
 
-    public void setOpinionWord() {
-        this.opinionWords = new ArrayList<String>();
-    }
-
     /**
      * @return the isSuperior
      */
@@ -241,12 +236,12 @@ public class NounPhrase {
         this.sentimentOrientation = sentimentOrientation;
     }
 
-    public void addCRFToken(CRFToken e){
-    	this.CRFTokens.add(e);
+    public void addCRFToken(CRFToken e) {
+        this.CRFTokens.add(e);
     }
-    
-    public ArrayList<CRFToken> getCRFTokens(){
-    	return this.CRFTokens;
+
+    public ArrayList<CRFToken> getCRFTokens() {
+        return this.CRFTokens;
     }
-    
+
 }

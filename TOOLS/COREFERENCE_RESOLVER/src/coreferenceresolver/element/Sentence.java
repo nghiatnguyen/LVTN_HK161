@@ -226,14 +226,14 @@ public class Sentence {
         this.opinionWords.add(opinionWordAdded);
     }
     
-    public void setOpinionForNPs(){    
-        if (this.nounPhrases == null || this.opinionWords == null){
+    public void setOpinionForNPs(){            
+        if (this.nounPhrases == null || this.opinionWords == null){            
             return;
-        }
+        }                        
         
-        for (NounPhrase np: this.nounPhrases){
+        for (NounPhrase np: this.nounPhrases){            
             double opinionScore = 0;
-            for (OpinionWord ow: this.opinionWords){
+            for (OpinionWord ow: this.opinionWords){                
                 double distanceNP_OW = 0;
                 for (Token token: this.tokens){
                     if (np.getOffsetEnd() < ow.getOffsetBegin() && token.getOffsetBegin() > np.getOffsetEnd() 

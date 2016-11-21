@@ -41,7 +41,7 @@ public class Test {
             Review review = new Review();
             StanfordUtil.reviews.add(review);
         }
-        Weka.j48Classify(".\\test.arff", ".\\classified.txt");
+        Weka.j48Classify(".\\test.arff", ".\\test.arff", ".\\classified.txt");
         int reviewNo = 0;
         for (Review review : StanfordUtil.reviews) {
             if (review.getCorefChainsPredict().size() > 0) {

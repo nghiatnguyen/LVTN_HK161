@@ -27,7 +27,7 @@ import java.util.logging.Logger;
  */
 public class TrainingMain {
 
-    public static void run(String inputFilePath, String markupFilePath, String outputFilePath, boolean forTraining) throws IOException {
+    public static void run(String inputFilePath, String markupFilePath, String outputFilePath, boolean forTraining) throws IOException, Exception {
         File inputFile = new File(inputFilePath);
         File markupFile = new File(markupFilePath);
         File outputFile = new File(outputFilePath);
@@ -63,7 +63,7 @@ public class TrainingMain {
                 + "@ATTRIBUTE isbetween {false,true}\n"
                 + "@ATTRIBUTE hasbetween {false,true}\n"
                 + "@ATTRIBUTE comparative {false,true}\n"
-//                + "@ATTRIBUTE sentiment REAL\n"
+                //                + "@ATTRIBUTE sentiment REAL\n"
                 + "@ATTRIBUTE bothpropername {false,true}\n"
                 + "@ATTRIBUTE bothPronoun {false,true}\n"
                 + "@ATTRIBUTE bothNormal {false,true}\n"
@@ -78,6 +78,7 @@ public class TrainingMain {
         bw.newLine();
 
         try {
+            FeatureExtractor.loadSDict();
             //Init every info
             su.init();
 
@@ -86,20 +87,21 @@ public class TrainingMain {
 
             //Read from input.txt.pos.chk file. Get all NPs
             List<NounPhrase> nounPhrases = CrfChunkerUtil.readCrfChunker();
+            
+            Util.checkPOSFilesMatchingInput(StanfordUtil.reviews);
 
-            Util.assignNounPhrases(nounPhrases, StanfordUtil.reviews);
+            Util.assignNounPhrases(nounPhrases, StanfordUtil.reviews);                        
 
             //Begin create training set
-            for (Review review : StanfordUtil.reviews) {
-            //Discard all NPs that is Personal Pronoun
+            StanfordUtil.reviews.forEach((review) -> {
                 Util.discardUnneccessaryNPs(review);
-            }                        
+            });
 
             //Read the hand-modified markup file
             Util.readMarkupFile(StanfordUtil.reviews, markupFile);
 
             //Begin create training set
-            for (Review review : StanfordUtil.reviews) {                
+            for (Review review : StanfordUtil.reviews) {
                 //Extract features
                 Util.extractFeatures(review, bw, forTraining);
             }

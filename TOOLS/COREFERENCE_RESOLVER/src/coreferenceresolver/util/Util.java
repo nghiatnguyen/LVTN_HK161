@@ -25,6 +25,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -62,11 +64,11 @@ public class Util {
     private static ArrayList<Float> listRawPMI = new ArrayList<Float>();
 
     public static void extractFeatures(Review review, BufferedWriter bw, boolean forTraining) throws IOException {
-        System.out.println("All NPs in this review:");
-        for (NounPhrase np : review.getNounPhrases()) {
-            System.out.print(np.getNpNode().getLeaves() + "  ");
-        }
-        System.out.println();
+//        System.out.println("All NPs in this review:");
+//        for (NounPhrase np : review.getNounPhrases()) {
+//            System.out.print(np.getNpNode().getLeaves() + "  ");
+//        }
+//        System.out.println();
 
         //Set Opinion Words for Noun Phrases
         for (int i = 0; i < review.getSentences().size(); i++) {
@@ -176,7 +178,7 @@ public class Util {
         String line = "";
 
         int reviewId = 0;
-        while ((line = br.readLine()) != null) {            
+        while ((line = br.readLine()) != null) {
             readMarkup(reviews, line, reviewId);
             ++reviewId;
         }
@@ -213,13 +215,13 @@ public class Util {
     public static void discardUnneccessaryNPs(Review review) {
         List nps = review.getNounPhrases();
         Iterator<NounPhrase> itr = nps.iterator();
-       
-        while (itr.hasNext()) { 
+
+        while (itr.hasNext()) {
             NounPhrase np = itr.next();
             if (isDiscardedPersonalPronounNP(np) || isDiscardedTimeNP(np) || isDiscardedCurrencyNP(np)
                     || isDiscardedStopWordNP(np) || isDiscardedQuantityNP(np) || isDiscardedPercentageNP(np)
                     || isDiscardedWrongCase(np)) {
-            	itr.remove();
+                itr.remove();
             }
         }
 
@@ -287,14 +289,15 @@ public class Util {
         }
         return false;
     }
-    
+
     //Discard NP type " 's "
-    public static boolean isDiscardedWrongCase(NounPhrase np){
-    	if (np.getHeadNode() != null && 
-    			(np.getHeadLabel().equals("POS")
-    				||np.getHeadLabel().equals("RB")))
-    		return true;
-    	return false;
+    public static boolean isDiscardedWrongCase(NounPhrase np) {
+        if (np.getHeadNode() != null
+                && (np.getHeadLabel().equals("POS")
+                || np.getHeadLabel().equals("RB"))) {
+            return true;
+        }
+        return false;
     }
 
     private static boolean isDiscardedCurrencyNP(NounPhrase np) {
@@ -305,9 +308,9 @@ public class Util {
     }
 
     public static int retrieveOpinion(Token token) {
-        if (FeatureExtractor.NEGATIVE_WORDS.contains(";" + token.getWord() + ";")) {
+        if (FeatureExtractor.NEGATIVE_WORDS.contains(";" + token.getWord().toLowerCase() + ";")) {
             return NEGATIVE;
-        } else if (FeatureExtractor.POSITIVE_WORDS.contains(";" + token.getWord() + ";")) {
+        } else if (FeatureExtractor.POSITIVE_WORDS.contains(";" + token.getWord().toLowerCase() + ";")) {
             return POSITIVE;
         } else {
             return NEUTRAL;
@@ -344,6 +347,7 @@ public class Util {
 
             review.addNounPhrase(np);
             sentence.addNounPhrase(np);
+            sentence.setOpinionForNPs();
         }
     }
 
@@ -390,7 +394,7 @@ public class Util {
         bwtrain.write(FeatureExtractor.isHeadMatch(np1, np2) + ",");
         bwtrain.write(FeatureExtractor.isExactMatch(np1, np2) + ",");
         bwtrain.write(FeatureExtractor.isMatchAfterRemoveDetermine(np1, np2) + ",");
-        
+
         if (checkNPhasOW == true) {
             bwtrain.write(10 + ",");
         } else {
@@ -402,5 +406,17 @@ public class Util {
         }
         bwtrain.write(FeatureExtractor.isCorefTest(np1, np2).toString());
         bwtrain.newLine();
+    }
+
+    public static void checkPOSFilesMatchingInput(List<Review> reviews) throws Exception {
+        long numOfLinesCheck = Files.lines(Paths.get(".\\input.txt.pos.chk")).count();
+        int totalSentences = 0;
+        for (Review review : reviews) {
+            totalSentences += review.getSentences().size();
+        }
+
+        if (numOfLinesCheck != totalSentences + reviews.size()) {
+            throw new Exception("The file input.txt.pos or input.txt.pos.chk in current dir is not matching the input file");
+        }
     }
 }

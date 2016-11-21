@@ -58,14 +58,14 @@ public class ClassifiedResultGUI extends javax.swing.JFrame {
     private void highlightReview(Review review) throws BadLocationException{
         StyledDocument doc = resultJTxtPane.getStyledDocument();
         int curLen = doc.getLength();
-        doc.insertString(curLen, "\n" + review.getRawContent(), null);
+        doc.insertString(curLen, "\n\n" + review.getRawContent(), null);
         for (int i = 0; i < review.getCorefChainsPredict().size(); ++i){
             CorefChain cc = review.getCorefChainsPredict().get(i);
             for (int j = 0; j < cc.getChain().size(); ++j){
                 NounPhrase np = review.getNounPhrases().get(cc.getChain().get(j));
                 int npOffsetBegin = np.getOffsetBegin();
                 int npOffsetEnd = np.getOffsetEnd();
-                resultJTxtPane.getHighlighter().addHighlight(curLen + 1 + npOffsetBegin, curLen + 1 + npOffsetEnd,
+                resultJTxtPane.getHighlighter().addHighlight(curLen + 2 + npOffsetBegin, curLen + 2 + npOffsetEnd,
                 highlightPainters.get(i));
             }
         }
