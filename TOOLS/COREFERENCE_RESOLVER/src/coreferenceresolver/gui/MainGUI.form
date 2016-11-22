@@ -29,10 +29,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="Training" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="7" max="32767" attributes="0"/>
-          </Group>
+          <Component id="Training" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -58,11 +55,6 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="noteTF" max="32767" attributes="0"/>
-                      <Group type="102" attributes="0">
-                          <Component id="functionTestBtn" min="-2" pref="197" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="unitTestPathTF" max="32767" attributes="0"/>
-                      </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="inputFileBtn" max="32767" attributes="0"/>
@@ -81,13 +73,17 @@
                           <Component id="resultFilePathTF1" min="-2" pref="395" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="testBtn" pref="125" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="trainingBtn" alignment="0" max="32767" attributes="0"/>
+                              <Component id="chooseTrainingFileBtn" alignment="0" max="32767" attributes="0"/>
                               <Component id="chooseTestingFileBtn" max="32767" attributes="0"/>
+                              <Component id="testBtn" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="testingFilePathTF" min="-2" pref="395" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="testingFilePathTF" pref="395" max="32767" attributes="0"/>
+                              <Component id="trainingFilePathTF" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -102,38 +98,45 @@
                       <Component id="inputFileBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="inputFilePathTF" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                           <Component id="markupFileBtn" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="markupBtn" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace pref="34" max="32767" attributes="0"/>
                           <Component id="chooseTestingFileBtn" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="testBtn" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="27" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                           <Component id="markupFilePathTF" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="testingFilePathTF" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="chooseTrainingFileBtn" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="trainingBtn" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="trainingFilePathTF" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="applyClassifierBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="resultFilePathTF1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                   <Component id="noteTF" min="-2" pref="48" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="functionTestBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="unitTestPathTF" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -141,8 +144,11 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="markupBtn">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="66" green="ff" red="ff" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Create markup file"/>
-            <Property name="toolTipText" type="java.lang.String" value="Create the markup file from input file"/>
+            <Property name="toolTipText" type="java.lang.String" value="Create the markup file from input file. The &quot;input.txt.pos&quot; and &quot;input.txt.pos.chk&quot; files are also generated in the current directory."/>
           </Properties>
           <AccessibilityProperties>
             <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="markupBtn"/>
@@ -153,6 +159,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="chooseTestingFileBtn">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="cc" green="ff" red="cc" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Choose testing file"/>
           </Properties>
           <Events>
@@ -161,19 +170,14 @@
         </Component>
         <Component class="javax.swing.JButton" name="testBtn">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="cc" green="ff" red="cc" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Create Testing file"/>
-            <Property name="toolTipText" type="java.lang.String" value="Create Testing file from input file and markup file"/>
+            <Property name="toolTipText" type="java.lang.String" value="Create Testing file from input file and markup file. The matching &quot;input.txt.pos&quot; and &quot;input.txt.pos.chk&quot; files are needed in current dir."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="testBtnActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="functionTestBtn">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Function Test StanfordUtil.test()"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="functionTestBtnActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="inputFileBtn">
@@ -187,6 +191,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="markupFileBtn">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="66" green="ff" red="ff" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Choose markup file"/>
             <Property name="toolTipText" type="java.lang.String" value="Choose a markup file"/>
           </Properties>
@@ -217,15 +224,13 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="testingFilePathTFActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="unitTestPathTF">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="unitTestPathTFActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JButton" name="applyClassifierBtn">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="33" green="0" red="ff" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Apply Classifier"/>
-            <Property name="toolTipText" type="java.lang.String" value="Apply Weka classifier to Testing file (default to J48)"/>
+            <Property name="toolTipText" type="java.lang.String" value="Apply Weka classifier to Testing file (default to J48). The matching &quot;input.txt.pos&quot; and &quot;input.txt.pos.chk&quot; files are needed in current dir."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="applyClassifierBtnActionPerformed"/>
@@ -234,6 +239,34 @@
         <Component class="javax.swing.JTextField" name="resultFilePathTF1">
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="resultFilePathTF1ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="chooseTrainingFileBtn">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="99" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Choose training file"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chooseTrainingFileBtnActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="trainingBtn">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="99" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Create training file"/>
+            <Property name="toolTipText" type="java.lang.String" value="Create Training file from input file and markup file. The matching &quot;input.txt.pos&quot; and &quot;input.txt.pos.chk&quot; files are needed in current dir."/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="trainingBtnActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="trainingFilePathTF">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="trainingFilePathTFActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

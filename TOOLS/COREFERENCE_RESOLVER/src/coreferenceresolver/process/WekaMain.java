@@ -19,15 +19,13 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import weka.classifiers.Evaluation;
-
 /**
  *
  * @author TRONGNGHIA
  */
 public class WekaMain {
 
-    public static void run(String inputFilePath, String testFilePath, String resultFilePath) throws Exception {
+    public static void run(String inputFilePath, String trainingFilePath, String testFilePath, String resultFilePath) throws Exception {
         File inputFile = new File(inputFilePath);
         StanfordUtil su = new StanfordUtil(inputFile);
 
@@ -42,15 +40,15 @@ public class WekaMain {
             List<NounPhrase> nounPhrases = CrfChunkerUtil.readCrfChunker();
 
             Util.assignNounPhrases(nounPhrases, StanfordUtil.reviews);
-
-            //Begin markup
-            for (Review review : StanfordUtil.reviews) {
-                //Discard all NPs that is Personal Pronoun
+            
+            Util.checkPOSFilesMatchingInput(StanfordUtil.reviews);
+            
+            for (Review review : StanfordUtil.reviews) {                
                 Util.discardUnneccessaryNPs(review);
             }
 
-            Weka.j48Classify(testFilePath, resultFilePath);
-            
+            Weka.j48Classify(trainingFilePath, testFilePath, resultFilePath);
+
             int No = 0;
             //Evaluation MUC score
 //            for (Review review : StanfordUtil.reviews) {

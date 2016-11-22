@@ -250,7 +250,7 @@ public class StanfordUtil {
 
                 //Check if there are superior or inferior nounphrases in sentence. If yes, assign them
                 newSentence.initComparativeNPs();
-
+                
                 newSentence.setOpinionForNPs();
 
                 newReview.addSentence(newSentence);
