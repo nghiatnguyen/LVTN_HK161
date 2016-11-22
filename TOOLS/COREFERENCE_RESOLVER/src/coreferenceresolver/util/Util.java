@@ -72,25 +72,66 @@ public class Util {
         for (int i = 0; i < review.getSentences().size(); i++) {
             FeatureExtractor.setNPForOPInSentence(review.getSentences().get(i));
         }
+        
 
-        //Create the test dataset
-        for (int i = 0; i < review.getNounPhrases().size(); ++i) {
+//        //Create the test dataset
+//        for (int i = 0; i < review.getNounPhrases().size(); ++i) {
+//            checkNPhasOW = false;
+//            NounPhrase np1 = review.getNounPhrases().get(i);
+//
+//            listAllPMI.clear();
+//            listRawPMI.clear();
+//            //Find PMI of NP2 with NP1
+//            if (np1.getOpinionWords().isEmpty()) {
+//                checkNPhasOW = true;
+//            } else {
+//                for (int j = i + 1; j < review.getNounPhrases().size(); ++j) {
+//                    NounPhrase np2 = review.getNounPhrases().get(j);
+//                    if (np1.getType() == 0 || np2.getType() == 0 || np1.getType() == 2 || np2.getType() == 2) {
+//                        Float rawPMIof2NP = FeatureExtractor.PMI(np1, np2);
+//                        listRawPMI.add(rawPMIof2NP);
+//                        if (!listAllPMI.contains(rawPMIof2NP)) {
+//                            listAllPMI.add(rawPMIof2NP);
+//                        }
+//                    }
+//                }
+//
+//                Collections.sort(listAllPMI, Collections.reverseOrder());
+//
+//            }
+//
+//            int k = 0;
+//            for (int j = i + 1; j < review.getNounPhrases().size(); ++j) {
+//                NounPhrase np2 = review.getNounPhrases().get(j);
+//                if (np1.getType() == 0 || np2.getType() == 0 || np2.getType() == 2 || np1.getType() == 2) {
+//                    createTest(np1, np2, review, bw, k);
+//                    k++;
+//                }
+//            }
+//        }
+        
+        
+        for (int i = review.getNounPhrases().size() - 1; i >= 1; i--) {
             checkNPhasOW = false;
-            NounPhrase np1 = review.getNounPhrases().get(i);
+            NounPhrase np2 = review.getNounPhrases().get(i);
 
             listAllPMI.clear();
             listRawPMI.clear();
             //Find PMI of NP2 with NP1
-            if (np1.getOpinionWords().isEmpty()) {
+            if (np2.getOpinionWords().isEmpty()) {
                 checkNPhasOW = true;
             } else {
-                for (int j = i + 1; j < review.getNounPhrases().size(); ++j) {
-                    NounPhrase np2 = review.getNounPhrases().get(j);
+                for (int j = 0; j < i; j++) {
+                    NounPhrase np1 = review.getNounPhrases().get(j);
                     if (np1.getType() == 0 || np2.getType() == 0 || np1.getType() == 2 || np2.getType() == 2) {
-                        Float rawPMIof2NP = FeatureExtractor.PMI(np1, np2);
-                        listRawPMI.add(rawPMIof2NP);
-                        if (!listAllPMI.contains(rawPMIof2NP)) {
-                            listAllPMI.add(rawPMIof2NP);
+//                        if (FeatureExtractor.isPronoun(np1) || FeatureExtractor.isNotObject(np1))
+//                        	listRawPMI.add((float) -1);
+//                        else {
+	                    	Float rawPMIof2NP = FeatureExtractor.PMI(np2, np1);
+	                        listRawPMI.add(rawPMIof2NP);
+	                        if (!listAllPMI.contains(rawPMIof2NP)) {
+	                            listAllPMI.add(rawPMIof2NP);
+//	                        }
                         }
                     }
                 }
@@ -100,8 +141,8 @@ public class Util {
             }
 
             int k = 0;
-            for (int j = i + 1; j < review.getNounPhrases().size(); ++j) {
-                NounPhrase np2 = review.getNounPhrases().get(j);
+            for (int j = 0; j < i; ++j) {
+                NounPhrase np1 = review.getNounPhrases().get(j);
                 if (np1.getType() == 0 || np2.getType() == 0 || np2.getType() == 2 || np1.getType() == 2) {
                     createTest(np1, np2, review, bw, k);
                     k++;
@@ -186,6 +227,7 @@ public class Util {
         List<NounPhrase> nounPhrases = reviews.get(reviewId).getNounPhrases();
         int charId = 0;
         int npId = 0;
+
         while (charId < markupLine.length()) {
             if (markupLine.charAt(charId) == '<') {
                 String corefInfo = "";
@@ -393,11 +435,21 @@ public class Util {
         
         if (checkNPhasOW == true) {
             bwtrain.write(10 + ",");
-        } else {
-            if (listAllPMI.indexOf(listRawPMI.get(IdPMIinList)) < 4) {
+        } 
+        else if (np2.getType() == 0){
+        	bwtrain.write(12 + ",");
+        }
+        else {
+//        	if (listAllPMI.indexOf(listRawPMI.get(IdPMIinList)) == -1)
+//        		bwtrain.write(11 + ",");
+        	if (listRawPMI.get(IdPMIinList) == 0)
+        		bwtrain.write(4 + ",");
+        	else if (listAllPMI.indexOf(listRawPMI.get(IdPMIinList)) < 4) {
+//        		System.out.println("Review: " + np1.getReviewId() +"ID NP1: " + np1.getId() + "ID NP2: " + np2.getId() + " PMI: "+ listRawPMI.get(IdPMIinList));
                 bwtrain.write(listAllPMI.indexOf(listRawPMI.get(IdPMIinList)) + ",");
             } else {
                 bwtrain.write(4 + ",");
+//                System.out.println("Review: " + np1.getReviewId() +"ID NP1: " + np1.getId() + "ID NP2: " + np2.getId() + " PMI: "+ listRawPMI.get(IdPMIinList));
             }
         }
         bwtrain.write(FeatureExtractor.isCorefTest(np1, np2).toString());

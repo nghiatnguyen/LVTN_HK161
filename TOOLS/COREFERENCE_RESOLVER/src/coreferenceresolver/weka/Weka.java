@@ -23,7 +23,7 @@ public class Weka {
         //Remove 1st feature
         String[] options = new String[2];
         options[0] = "-R";                                    // "range"
-        options[1] = "1";                                     // first attribute
+        options[1] = "1,2,3";                                     // first attribute
         Remove remove = new Remove();                         // new instance of filter
         remove.setOptions(options);                           // set options
         remove.setInputFormat(data);                          // inform filter about dataset **AFTER** setting options
@@ -73,7 +73,7 @@ public class Weka {
         Remove remove = new Remove(); 
         String[] options = new String[2];
         options[0] = "-R";                                    // "range"
-        options[1] = "1";    // new instance of filter
+        options[1] = "1,2,3";    // new instance of filter
         remove.setOptions(options);                           // set options
         remove.setInputFormat(data);                          // inform filter about dataset **AFTER** setting options
         Instances test = Filter.useFilter(data, remove);   // apply filter
@@ -105,10 +105,10 @@ public class Weka {
                 StanfordUtil.reviews.get(reviewId).addCorefChainPredict(np1Id, np2Id);
             }
 //            System.out.println("Class Actual = " + classActual);
-            for (int j = 0; j < data.numAttributes(); j++){
-            	writer.print(data.instance(i).value(j) + ",");
-            }
-            writer.println();
+//            for (int j = 0; j < data.numAttributes(); j++){
+//            	writer.print(data.instance(i).value(j) + ",");
+//            }
+//            writer.println();
         }
         Evaluation eval = new Evaluation(test);
         eval.evaluateModel(tree, test);

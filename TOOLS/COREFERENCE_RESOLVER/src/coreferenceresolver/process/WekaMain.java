@@ -53,21 +53,23 @@ public class WekaMain {
             
             int No = 0;
             //Evaluation MUC score
-            for (Review review : StanfordUtil.reviews) {
-            	System.out.println("--------Review " + No + "-----------");
-            	for (CorefChain cf : review.getCorefChainsPredict()){
-            		System.out.println("Predict chain: " + cf.getChain().toString()+ 
-                			"; Size: " + coreferenceresolver.test.Evaluation.findSize(cf)
-                			+ "; Numpartitions: " + coreferenceresolver.test.Evaluation.findNumPartitions(cf, review.getCorefChainsActual()));
-            	}
-                for (CorefChain cf : review.getCorefChainsActual()){
-                	System.out.println("Actual Chain: " +  cf.getChain().toString() + 
-                			"; Size: " + coreferenceresolver.test.Evaluation.findSize(cf)
-                			+ "; Numpartitions: " + coreferenceresolver.test.Evaluation.findNumPartitions(cf, review.getCorefChainsPredict()));
-                }
-                No++;
-            }
+//            for (Review review : StanfordUtil.reviews) {
+//            	System.out.println("--------Review " + No + "-----------");
+//            	for (CorefChain cf : review.getCorefChainsPredict()){
+//            		System.out.println("Predict chain: " + cf.getChain().toString()+ 
+//                			"; Size: " + coreferenceresolver.test.Evaluation.findSize(cf)
+//                			+ "; Numpartitions: " + coreferenceresolver.test.Evaluation.findNumPartitions(cf, review.getCorefChainsActual()));
+//            	}
+//                for (CorefChain cf : review.getCorefChainsActual()){
+//                	System.out.println("Actual Chain: " +  cf.getChain().toString() + 
+//                			"; Size: " + coreferenceresolver.test.Evaluation.findSize(cf)
+//                			+ "; Numpartitions: " + coreferenceresolver.test.Evaluation.findNumPartitions(cf, review.getCorefChainsPredict()));
+//                }
+//                No++;
+//            }
             coreferenceresolver.test.Evaluation.scoreMUC(StanfordUtil.reviews);
+            coreferenceresolver.test.Evaluation.scoreB3(StanfordUtil.reviews);
+            coreferenceresolver.test.Evaluation.scoreCEAF4(StanfordUtil.reviews);
 
         } catch (IOException ex) {
             Logger.getLogger(MarkupMain.class.getName()).log(Level.SEVERE, null, ex);

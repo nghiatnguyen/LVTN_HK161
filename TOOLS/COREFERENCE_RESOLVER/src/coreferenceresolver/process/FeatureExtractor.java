@@ -26,6 +26,7 @@ public class FeatureExtractor {
 
     private static final String SINGULAR_KEYWORDS = ";it;this;that;one;";
     private static final String PLURAL_KEYWORDS = ";they;them;these;those;";
+    private static final String NOT_OBJECTS = ";this;that;these;those;what;which;where;";
     private static final String[] TO_BEs = {"is", "'s", "are", "'re", "was", "were", "been", "be"};
     private static final String[] SPECIAL_COMPARATIVES = {"inferior", "superior", "junior", "senior", "anterior", "posterior", "prior"};
     private static final String ADJECTIVE = "JJ";
@@ -421,6 +422,12 @@ public class FeatureExtractor {
             return false;
         }
     }
+    
+    public static Boolean isNotObject(NounPhrase np){
+    	if (np.getNpNode().getLeaves().size() == 1 && NOT_OBJECTS.contains(np.getNpNode().getLeaves().get(0).toString().toLowerCase()))
+    		return true;
+    	return false;
+    }
 
     //this, that, these, those
     public static Boolean isDemonstrativeNP(NounPhrase np) {
@@ -593,7 +600,29 @@ public class FeatureExtractor {
         for (int i = 0; i < words.length; ++i) {
             if ((words[i].contains(" " + np.toLowerCase() + " "))
                     && (words[i].contains(" " + ow.toLowerCase() + " "))) {
-                ++matches;
+//            	boolean check = false;
+//            	int index1 = words[i].indexOf(" " + np.toLowerCase() + " ");
+//            	while (index1 >= 0) {
+//            	    int index2 = words[i].indexOf(" " + ow.toLowerCase() + " ");
+//                	while (index2 >= 0) {
+//                		int count = 0;
+//                		String line = "";
+//                		if (index1 < index2){
+//                			line = words[i].substring(index1, index2 + 1);
+//                			count = line.length() - line.replace(" ", "").length();
+//                		}
+//                		else{
+//                			line = words[i].substring(index2, index1 + 1);
+//                			count = line.length() - line.replace(" ", "").length();
+//                		}
+//                		if (count <= 3)
+//                			check = true;
+//                	    index2 = words[i].indexOf(" " + ow.toLowerCase() + " ", index2 + 1);
+//                	}
+//            	    index1 = words[i].indexOf(" " + np.toLowerCase() + " ", index1 + 1);
+//            	}
+//            	if (check == true)
+            		++matches;
             }
         }
 //        System.out.println(matches);

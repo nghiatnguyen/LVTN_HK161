@@ -71,7 +71,7 @@ public class TrainingMain {
                 + "@ATTRIBUTE headMatch {false,true}\n"
                 + "@ATTRIBUTE exactMatch {false,true}\n"
                 + "@ATTRIBUTE matchAfterRemoveDetermine {false,true}\n"
-                + "@ATTRIBUTE PMI {0,1,2,3,4,10}\n"
+                + "@ATTRIBUTE PMI {0,1,2,3,4,10,12}\n"
                 + "@ATTRIBUTE coref {false,true}\n"
                 + "\n"
                 + "@DATA");
@@ -99,6 +99,10 @@ public class TrainingMain {
             Util.readMarkupFile(StanfordUtil.reviews, markupFile);
 
             //Begin create training set
+            for (Review review : StanfordUtil.reviews) {                
+                //Extract features
+                Util.extractFeatures(review, bw, forTraining);
+            }
             for (Review review : StanfordUtil.reviews) {                
                 //Extract features
                 Util.extractFeatures(review, bw, forTraining);
