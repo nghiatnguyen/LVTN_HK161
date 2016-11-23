@@ -21,6 +21,7 @@ public class Review {
     private List<CorefChain> corefChainsActual;
     private List<Integer> markupOpens;
     private List<Integer> markupCloses;
+    private List<Integer> simpleNpTypes;
 
     public Review() {
         sentences = new ArrayList<>();
@@ -29,6 +30,7 @@ public class Review {
         corefChainsActual = new ArrayList<>();
         markupOpens = new ArrayList<>();
         markupCloses = new ArrayList<>();
+        simpleNpTypes = new ArrayList<>();
     }
 
     /**
@@ -172,5 +174,19 @@ public class Review {
      */
     public void addMarkupClose(int markupClose) {
         this.markupCloses.add(markupClose);
+    }
+    
+    /**
+     * @return the markupCloses
+     */
+    public List<Integer> getSimpleNpTypes() {
+        return this.simpleNpTypes;
+    }
+
+    /**
+     * @param simpleNpType the simpleNpType to add
+     */
+    public void addSimpleNpType(int simpleNpType) {
+        this.simpleNpTypes.add(simpleNpType);
     }
 }

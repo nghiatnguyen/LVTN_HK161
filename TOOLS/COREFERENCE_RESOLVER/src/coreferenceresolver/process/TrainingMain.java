@@ -65,6 +65,8 @@ public class TrainingMain {
                 + "@ATTRIBUTE comparative {false,true}\n"
                 //                + "@ATTRIBUTE sentiment REAL\n"
                 + "@ATTRIBUTE bothpropername {false,true}\n"
+                + "@ATTRIBUTE np1propername {false,true}\n"
+                + "@ATTRIBUTE np2propername {false,true}\n"
                 + "@ATTRIBUTE bothPronoun {false,true}\n"
                 + "@ATTRIBUTE bothNormal {false,true}\n"
                 + "@ATTRIBUTE subString {false,true}\n"
@@ -72,6 +74,7 @@ public class TrainingMain {
                 + "@ATTRIBUTE exactMatch {false,true}\n"
                 + "@ATTRIBUTE matchAfterRemoveDetermine {false,true}\n"
                 + "@ATTRIBUTE PMI {0,1,2,3,4,10,12}\n"
+                + "@ATTRIBUTE headPhone {false,true}\n"
                 + "@ATTRIBUTE coref {false,true}\n"
                 + "\n"
                 + "@DATA");
@@ -104,11 +107,7 @@ public class TrainingMain {
             for (Review review : StanfordUtil.reviews) {
                 //Extract features
                 Util.extractFeatures(review, bw, forTraining);
-            }
-            for (Review review : StanfordUtil.reviews) {                
-                //Extract features
-                Util.extractFeatures(review, bw, forTraining);
-            }
+            }            
         } catch (IOException ex) {
             Logger.getLogger(MarkupMain.class.getName()).log(Level.SEVERE, null, ex);
         }

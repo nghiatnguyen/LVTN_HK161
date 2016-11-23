@@ -8,6 +8,9 @@ package coreferenceresolver.process;
 import coreferenceresolver.element.CorefChain;
 import coreferenceresolver.element.NounPhrase;
 import coreferenceresolver.element.Review;
+import static coreferenceresolver.process.Evaluation.scoreB3;
+import static coreferenceresolver.process.Evaluation.scoreCEAF4;
+import static coreferenceresolver.process.Evaluation.scoreMUC;
 import coreferenceresolver.util.CrfChunkerUtil;
 import coreferenceresolver.util.StanfordUtil;
 import coreferenceresolver.util.Util;
@@ -51,23 +54,23 @@ public class WekaMain {
 
             int No = 0;
             //Evaluation MUC score
-//            for (Review review : StanfordUtil.reviews) {
-//            	System.out.println("--------Review " + No + "-----------");
-//            	for (CorefChain cf : review.getCorefChainsPredict()){
-//            		System.out.println("Predict chain: " + cf.getChain().toString()+ 
-//                			"; Size: " + coreferenceresolver.test.Evaluation.findSize(cf)
-//                			+ "; Numpartitions: " + coreferenceresolver.test.Evaluation.findNumPartitions(cf, review.getCorefChainsActual()));
-//            	}
-//                for (CorefChain cf : review.getCorefChainsActual()){
-//                	System.out.println("Actual Chain: " +  cf.getChain().toString() + 
-//                			"; Size: " + coreferenceresolver.test.Evaluation.findSize(cf)
-//                			+ "; Numpartitions: " + coreferenceresolver.test.Evaluation.findNumPartitions(cf, review.getCorefChainsPredict()));
-//                }
-//                No++;
-//            }
-            coreferenceresolver.test.Evaluation.scoreMUC(StanfordUtil.reviews);
-            coreferenceresolver.test.Evaluation.scoreB3(StanfordUtil.reviews);
-            coreferenceresolver.test.Evaluation.scoreCEAF4(StanfordUtil.reviews);
+            for (Review review : StanfordUtil.reviews) {
+            	System.out.println("--------Review " + No + "-----------");
+            	for (CorefChain cf : review.getCorefChainsPredict()){
+            		System.out.println("Predict chain: " + cf.getChain().toString()+ 
+                			"; Size: " + coreferenceresolver.process.Evaluation.findSize(cf)
+                			+ "; Numpartitions: " + coreferenceresolver.process.Evaluation.findNumPartitions(cf, review.getCorefChainsActual()));
+            	}
+                for (CorefChain cf : review.getCorefChainsActual()){
+                	System.out.println("Actual Chain: " +  cf.getChain().toString() + 
+                			"; Size: " + coreferenceresolver.process.Evaluation.findSize(cf)
+                			+ "; Numpartitions: " + coreferenceresolver.process.Evaluation.findNumPartitions(cf, review.getCorefChainsPredict()));
+                }
+                No++;
+            }
+            scoreMUC(StanfordUtil.reviews);
+            scoreB3(StanfordUtil.reviews);
+            scoreCEAF4(StanfordUtil.reviews);
 
         } catch (IOException ex) {
             Logger.getLogger(MarkupMain.class.getName()).log(Level.SEVERE, null, ex);

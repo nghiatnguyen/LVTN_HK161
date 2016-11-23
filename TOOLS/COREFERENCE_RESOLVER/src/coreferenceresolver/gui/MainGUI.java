@@ -16,18 +16,22 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import org.apache.commons.io.FileUtils;
 
 /**
  *
  * @author TRONGNGHIA
  */
 public class MainGUI extends javax.swing.JFrame {
+    
+    private String defaulPath = "";
 
     /**
      * Creates new form MainGUI
      */
-    public MainGUI() {
+    public MainGUI() throws IOException {
         initComponents();
+        defaulPath = FileUtils.readFileToString(new File(".\\src\\coreferenceresolver\\gui\\defaultpath"));                
         markupBtn.setEnabled(false);
         testBtn.setEnabled(false);
         trainingBtn.setEnabled(false);
@@ -95,7 +99,7 @@ public class MainGUI extends javax.swing.JFrame {
 
             public void insertUpdate(DocumentEvent e) {
                 if (trainingFilePathTF.getText() != null && !trainingFilePathTF.getText().equals("")
-                    && inputFilePathTF.getText() != null && !inputFilePathTF.getText().equals("")) {
+                        && inputFilePathTF.getText() != null && !inputFilePathTF.getText().equals("")) {
                     applyClassifierBtn.setEnabled(true);
                 }
             }
@@ -120,6 +124,12 @@ public class MainGUI extends javax.swing.JFrame {
                 }
             }
         });
+        
+        inputFilePathTF.setText(defaulPath + File.separatorChar + "input_test.txt");
+        markupFilePathTF.setText(defaulPath + File.separatorChar + "input_test.txt.markup");
+        trainingFilePathTF.setText(defaulPath + File.separatorChar + "train.arff");
+        testingFilePathTF.setText(defaulPath + File.separatorChar + "test.arff");
+        
     }
 
     /**
@@ -270,23 +280,21 @@ public class MainGUI extends javax.swing.JFrame {
                             .addComponent(markupFileBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
                             .addComponent(markupBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addGroup(TrainingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(markupFilePathTF)
-                            .addComponent(inputFilePathTF, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TrainingLayout.createSequentialGroup()
-                        .addComponent(applyClassifierBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(resultFilePathTF1, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TrainingLayout.createSequentialGroup()
                         .addGroup(TrainingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(trainingBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(chooseTrainingFileBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(chooseTestingFileBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(testBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(markupFilePathTF)
+                            .addComponent(inputFilePathTF)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TrainingLayout.createSequentialGroup()
+                        .addGroup(TrainingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(applyClassifierBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(trainingBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(chooseTrainingFileBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(chooseTestingFileBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(testBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addGroup(TrainingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(TrainingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(testingFilePathTF, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
-                            .addComponent(trainingFilePathTF))))
+                            .addComponent(trainingFilePathTF)
+                            .addComponent(resultFilePathTF1))))
                 .addContainerGap())
         );
         TrainingLayout.setVerticalGroup(
@@ -349,12 +357,14 @@ public class MainGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void markupBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_markupBtnActionPerformed
-        JFileChooser inputFileChooser = new JFileChooser(".");
+        JFileChooser inputFileChooser = new JFileChooser(defaulPath);
         inputFileChooser.setDialogTitle("Choose where your markup file saved");
         inputFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
         if (inputFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-            markupFilePathTF.setText(inputFileChooser.getSelectedFile().getAbsolutePath() + File.separator + "markup.out.txt");
+            String[] inputFilePath = inputFilePathTF.getText().split("\\\\");
+            String inputFileName = inputFilePath[inputFilePath.length - 1];
+            markupFilePathTF.setText(inputFileChooser.getSelectedFile().getAbsolutePath() + File.separator + inputFileName + ".markup");
             noteTF.setText("Markup waiting ...");
         } else {
             return;
@@ -376,7 +386,7 @@ public class MainGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_markupBtnActionPerformed
 
     private void inputFileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputFileBtnActionPerformed
-        JFileChooser inputFileChooser = new JFileChooser(".");
+        JFileChooser inputFileChooser = new JFileChooser(defaulPath);
         inputFileChooser.setDialogTitle("Choose an input file");
         inputFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
@@ -391,7 +401,7 @@ public class MainGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_inputFilePathTFActionPerformed
 
     private void markupFileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_markupFileBtnActionPerformed
-        JFileChooser inputFileChooser = new JFileChooser(".");
+        JFileChooser inputFileChooser = new JFileChooser(defaulPath);
         inputFileChooser.setDialogTitle("Choose an markup file");
         inputFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
@@ -406,7 +416,7 @@ public class MainGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_markupFilePathTFActionPerformed
 
     private void chooseTestingFileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseTestingFileBtnActionPerformed
-        JFileChooser inputFileChooser = new JFileChooser(".");
+        JFileChooser inputFileChooser = new JFileChooser(defaulPath);
         inputFileChooser.setDialogTitle("Choose an testing file");
         inputFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
@@ -418,7 +428,7 @@ public class MainGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_chooseTestingFileBtnActionPerformed
 
     private void testBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testBtnActionPerformed
-        JFileChooser inputFileChooser = new JFileChooser(".");
+        JFileChooser inputFileChooser = new JFileChooser(defaulPath);
         inputFileChooser.setDialogTitle("Choose where your testing file saved");
         inputFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
@@ -453,7 +463,7 @@ public class MainGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_resultFilePathTF1ActionPerformed
 
     private void applyClassifierBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyClassifierBtnActionPerformed
-        JFileChooser inputFileChooser = new JFileChooser(".");
+        JFileChooser inputFileChooser = new JFileChooser(defaulPath);
         inputFileChooser.setDialogTitle("Choose where your classified result file saved");
         inputFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
@@ -482,7 +492,7 @@ public class MainGUI extends javax.swing.JFrame {
 
     private void trainingBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trainingBtnActionPerformed
         // TODO add your handling code here:
-        JFileChooser inputFileChooser = new JFileChooser(".");
+        JFileChooser inputFileChooser = new JFileChooser(defaulPath);
         inputFileChooser.setDialogTitle("Choose where your training file saved");
         inputFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
@@ -514,7 +524,7 @@ public class MainGUI extends javax.swing.JFrame {
 
     private void chooseTrainingFileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseTrainingFileBtnActionPerformed
         // TODO add your handling code here:
-        JFileChooser inputFileChooser = new JFileChooser(".");
+        JFileChooser inputFileChooser = new JFileChooser(defaulPath);
         inputFileChooser.setDialogTitle("Choose a training file");
         inputFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
@@ -555,7 +565,11 @@ public class MainGUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainGUI().setVisible(true);
+                try {
+                    new MainGUI().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

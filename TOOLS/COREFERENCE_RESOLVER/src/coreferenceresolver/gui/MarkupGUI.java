@@ -48,6 +48,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingWorker;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
+import org.apache.commons.io.FileUtils;
 
 /**
  *
@@ -55,12 +56,21 @@ import javax.swing.text.DefaultHighlighter;
  */
 public class MarkupGUI extends JFrame {
 
+    private String defaulPath = "";
     private static List<Review> markupReviews;
     private static List<ReviewElement> reviewElements;
-    private static DefaultHighlighter.DefaultHighlightPainter highlightPainter
+    private static DefaultHighlighter.DefaultHighlightPainter objectHighlightPainter
             = new DefaultHighlighter.DefaultHighlightPainter(Color.yellow);
+    private static DefaultHighlighter.DefaultHighlightPainter otherHighlightPainter
+            = new DefaultHighlighter.DefaultHighlightPainter(Color.cyan);
+    private static DefaultHighlighter.DefaultHighlightPainter candidateHighlightPainter
+            = new DefaultHighlighter.DefaultHighlightPainter(Color.green);
+    private static DefaultHighlighter.DefaultHighlightPainter[] highlightPainters
+            = {objectHighlightPainter, otherHighlightPainter, candidateHighlightPainter};
+    private static Color[] COLORS = {Color.yellow, Color.cyan, Color.green};
 
-    public MarkupGUI() {
+    public MarkupGUI() throws IOException {
+        defaulPath = FileUtils.readFileToString(new File(".\\src\\coreferenceresolver\\gui\\defaultpath"));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(900, 600);
         this.setLayout(new BorderLayout());
@@ -85,7 +95,7 @@ public class MarkupGUI extends JFrame {
         //IMPORT BUTTON
         importMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JFileChooser markupFileChooser = new JFileChooser(".");
+                JFileChooser markupFileChooser = new JFileChooser(defaulPath);
                 markupFileChooser.setDialogTitle("Choose your markup file");
                 markupFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
@@ -123,7 +133,7 @@ public class MarkupGUI extends JFrame {
         //EXPORT BUTTON: GET NEW VALUE (REF, TYPE) OF NPs      
         exportMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JFileChooser markupFileChooser = new JFileChooser(".");
+                JFileChooser markupFileChooser = new JFileChooser(defaulPath);
                 markupFileChooser.setDialogTitle("Choose where your markup file saved");
                 markupFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
@@ -152,7 +162,7 @@ public class MarkupGUI extends JFrame {
                                         markupReviews.get(i).getNounPhrases().get(j).setType(1);
                                     } else if (newType.equals("Candidate")) {
                                         markupReviews.get(i).getNounPhrases().get(j).setType(2);
-                                    }                                    
+                                    }
                                     ++j;
                                 }
                                 ++i;
@@ -200,7 +210,12 @@ public class MarkupGUI extends JFrame {
                 if (line.charAt(i) == '<') {
                     ++numberOfNps;
                     review.addMarkupOpen(i);
+                    boolean checkTypeChar = false;
                     for (int j = i; j < line.length(); ++j) {
+                        if (!checkTypeChar && line.charAt(j) == ' ') {
+                            review.addSimpleNpType(Character.getNumericValue(line.charAt(j - 1)));
+                            checkTypeChar = true;
+                        }
                         if (line.charAt(j) == '>') {
                             review.addMarkupClose(j);
                             break;
@@ -211,6 +226,7 @@ public class MarkupGUI extends JFrame {
             for (int npId = 0; npId < numberOfNps; ++npId) {
                 MarkupNounPhrase np = new MarkupNounPhrase();
                 np.content = review.getRawContent().substring(review.getMarkupOpens().get(npId), review.getMarkupCloses().get(npId));
+                np.setType(review.getSimpleNpTypes().get(npId));
                 review.addNounPhrase(np);
             }
 
@@ -282,7 +298,8 @@ public class MarkupGUI extends JFrame {
 
         for (int i = 0; i < review.getMarkupOpens().size(); ++i) {
             try {
-                reviewContentTxtArea.getHighlighter().addHighlight(review.getMarkupOpens().get(i), review.getMarkupCloses().get(i), highlightPainter);
+                reviewContentTxtArea.getHighlighter().addHighlight(review.getMarkupOpens().get(i), review.getMarkupCloses().get(i),
+                        highlightPainters[review.getSimpleNpTypes().get(i)]);
             } catch (BadLocationException ex) {
                 Logger.getLogger(MarkupGUI.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -315,6 +332,7 @@ public class MarkupGUI extends JFrame {
         JTextArea npContentTxtArea = new JTextArea();
         npContentTxtArea.setEditable(false);
         npContentTxtArea.setText(((MarkupNounPhrase) np).content);
+        npContentTxtArea.setBackground(COLORS[np.getType()]);
         markupPanel.add(npContentTxtArea);
 
         //REF
@@ -327,13 +345,8 @@ public class MarkupGUI extends JFrame {
         String[] typeValues = {"Object/Attribute", "Other", "Candidate"};
         SpinnerModel typeSpinnerModel = new SpinnerListModel(typeValues);
         JSpinner typeSpinner = new JSpinner(typeSpinnerModel);
-        if (np.getType() == 0) {
-            typeSpinner.setValue(typeValues[0]);
-        } else if (np.getType() == 1){
-            typeSpinner.setValue(typeValues[1]);
-        } else if (np.getType() == 2){
-            typeSpinner.setValue(typeValues[2]);
-        }
+        typeSpinner.setValue(typeValues[np.getType()]);
+
         element.typeSpinner = typeSpinner;
 
         //REF + TYPE
@@ -380,7 +393,11 @@ public class MarkupGUI extends JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MarkupGUI().setVisible(true);
+                try {
+                    new MarkupGUI().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(MarkupGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

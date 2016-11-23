@@ -104,14 +104,14 @@ public class StanfordUtil {
                 int i = 0;
                 for (CoreLabel token : sentence.get(TokensAnnotation.class)) {
                     Token newToken = new Token();
-                    
+
                     Tree tokenTree = sentenceTreeLeaves.get(i);
                     // this is the text of the token
                     String word = token.get(TextAnnotation.class);
 
                     // this is the POS tag of the token
                     String pos = token.get(PartOfSpeechAnnotation.class);
-                    
+
                     newToken.setTokenTree(tokenTree);
 
                     int offsetBegin = token.get(CharacterOffsetBeginAnnotation.class);
@@ -141,7 +141,9 @@ public class StanfordUtil {
     }
 
     public void init() throws FileNotFoundException, IOException {
-
+        String posFilePath = "./input.txt.pos";
+        FileWriter fw = new FileWriter(new File(posFilePath));
+        BufferedWriter bw = new BufferedWriter(fw);
         props = new Properties();
         props.put("annotators", "tokenize, ssplit, pos, parse, sentiment");
         pipeline = new StanfordCoreNLP(props);
@@ -172,7 +174,7 @@ public class StanfordUtil {
             List<CoreMap> sentences = document.get(SentencesAnnotation.class);
 
             //Begin extracting from paragraphs
-            for (CoreMap sentence : sentences) {                                
+            for (CoreMap sentence : sentences) {
                 int sentenceOffsetBegin = sentence.get(CharacterOffsetBeginAnnotation.class);
                 int sentenceOffsetEnd = sentence.get(CharacterOffsetEndAnnotation.class);
                 int sentimentLevel = RNNCoreAnnotations.getPredictedClass(sentence.get(SentimentCoreAnnotations.SentimentAnnotatedTree.class));
@@ -187,7 +189,7 @@ public class StanfordUtil {
                 SemanticGraph collCCDeps = sentence.get(CollapsedCCProcessedDependenciesAnnotation.class);
                 Collection<TypedDependency> typedDeps = collCCDeps.typedDependencies();
                 newSentence.setDependencies(typedDeps);
-                
+
                 List<Tree> sentenceTreeLeaves = sentence.get(TreeCoreAnnotations.TreeAnnotation.class).getLeaves();
                 int i = 0;
 
@@ -195,9 +197,9 @@ public class StanfordUtil {
                     Token newToken = new Token();
                     // this is the text of the token
                     String word = token.get(TextAnnotation.class);
-                    
+
                     Tree tokenTree = sentenceTreeLeaves.get(i);
-                    
+
                     newToken.setTokenTree(tokenTree);
 
                     //this is the opinion orientation of the token
@@ -239,6 +241,7 @@ public class StanfordUtil {
                         newOW.setSentimentOrientation(newTokenSentiment);
                         newSentence.addOpinionWord(newOW);
                     }
+                    bw.write(token.word() + "/" + token.tag() + " ");
                     ++i;
                 }
 
@@ -250,7 +253,7 @@ public class StanfordUtil {
 
                 //Check if there are superior or inferior nounphrases in sentence. If yes, assign them
                 newSentence.initComparativeNPs();
-                
+
                 newSentence.setOpinionForNPs();
 
                 newReview.addSentence(newSentence);
@@ -258,9 +261,12 @@ public class StanfordUtil {
                 ++sentenceId;
 
             }
+            bw.write("./.");
+            bw.newLine();
             reviews.add(newReview);
             ++reviewId;
         }
+        bw.close();
     }
 
     public static void test(String outputFilePath) throws IOException {

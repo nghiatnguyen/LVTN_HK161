@@ -37,25 +37,30 @@ public class Test {
 
     public static void main(String... args) throws IOException, Exception {
         StanfordUtil.reviews = new ArrayList<>();
+        Review review1 = new Review();
+        review1.setRawContent("Review hfisdhfisdf Review asdasd1 Review dasdasd1 Reviewsdasdasd 1");
+        Review review2 = new Review();
+        review2.setRawContent("@");
         for (int i = 0; i < 50; ++i) {
-            Review review = new Review();
-            StanfordUtil.reviews.add(review);
+            StanfordUtil.reviews.add(review1);
         }
-        Weka.j48Classify(".\\test.arff", ".\\test.arff", ".\\classified.txt");
-        int reviewNo = 0;
-        for (Review review : StanfordUtil.reviews) {
-            if (review.getCorefChainsPredict().size() > 0) {
-                System.out.println("--REVIEW " + reviewNo + "--");
-            }
-            for (CorefChain cc : review.getCorefChainsPredict()) {
-                System.out.println("New chain: ");
-                for (int coref : cc.getChain()) {
-                    System.out.print(coref + " ");
-                }
-                System.out.println();
-            }
-            ++reviewNo;
-        }        
+        StanfordUtil.reviews.add(review2);
+        
+//        Weka.j48Classify(".\\test.arff", ".\\test.arff", ".\\classified.txt");
+//        int reviewNo = 0;
+//        for (Review review : StanfordUtil.reviews) {
+//            if (review.getCorefChainsPredict().size() > 0) {
+//                System.out.println("--REVIEW " + reviewNo + "--");
+//            }
+//            for (CorefChain cc : review.getCorefChainsPredict()) {
+//                System.out.println("New chain: ");
+//                for (int coref : cc.getChain()) {
+//                    System.out.print(coref + " ");
+//                }
+//                System.out.println();
+//            }
+//            ++reviewNo;
+//        }        
 //        CollinsHeadFinder headFinder = new CollinsHeadFinder();
 //        Properties props = new Properties();
 //        props.put("annotators", "tokenize, ssplit, pos, parse");
@@ -137,10 +142,10 @@ public class Test {
 //        StanfordUtil.reviews.add(review2);
 //        
 //        ClassifiedResultGUI.main(args);
-
-        String inputFilePath = "E:\\REPOSITORIES\\LVTN_HK161\\TOOLS\\COREFERENCE_RESOLVER\\input.txt";
-        String markupFilePath = "F:\\markup.out.txt";
-        String outFilePath = "F:\\test.arff";
-        TrainingMain.run(inputFilePath, markupFilePath, outFilePath, true);
+//        String inputFilePath = "E:\\REPOSITORIES\\LVTN_HK161\\TOOLS\\COREFERENCE_RESOLVER\\input.txt";
+//        String markupFilePath = "F:\\markup.out.txt";
+//        String outFilePath = "F:\\test.arff";
+//        TrainingMain.run(inputFilePath, markupFilePath, outFilePath, true);
+        ClassifiedResultGUI.main(args);
     }
 }

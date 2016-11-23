@@ -783,6 +783,11 @@ public class FeatureExtractor {
         }
         return false;
     }
+    
+    public static boolean isPhoneHead(NounPhrase np1, NounPhrase np2){
+        return (np1.getHeadNode().toString().toLowerCase().equals("phone")
+                || np2.getHeadNode().toString().toLowerCase().equals("phone"));
+    }
 
     /**
      * *******************
