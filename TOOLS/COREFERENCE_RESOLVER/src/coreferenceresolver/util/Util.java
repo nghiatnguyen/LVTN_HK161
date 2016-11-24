@@ -87,7 +87,7 @@ public class Util {
             } else {
                 for (int j = 0; j < i; j++) {
                     NounPhrase np1 = review.getNounPhrases().get(j);
-                    if (np1.getType() == 0 || np2.getType() == 0 || np1.getType() == 2 || np2.getType() == 2) {
+                    if (np1.getType() == 0 || np2.getType() == 0 || np1.getType() == 2 || np2.getType() == 2 || np1.getType() == 3 || np2.getType() == 3) {
 //                    if (np1.getType() == 0 || np2.getType() == 0) {
 //                        if (FeatureExtractor.isPronoun(np1) || FeatureExtractor.isNotObject(np1))
 //                        	listRawPMI.add((float) -1);
@@ -108,7 +108,7 @@ public class Util {
             int k = 0;
             for (int j = 0; j < i; ++j) {
                 NounPhrase np1 = review.getNounPhrases().get(j);
-                if (np1.getType() == 0 || np2.getType() == 0 || np2.getType() == 2 || np1.getType() == 2) {
+                if (np1.getType() == 0 || np2.getType() == 0 || np2.getType() == 2 || np1.getType() == 2 || np1.getType() == 3 || np2.getType() == 3) {
                     createTest(np1, np2, review, bw, k);
                     k++;
                 }
@@ -205,7 +205,7 @@ public class Util {
 
                 }
                 String[] corefInfos = corefInfo.split(",");
-                int refId = corefInfos[1].equals("/") ? -1 : Integer.valueOf(corefInfos[1]);
+                int refId = Integer.valueOf(corefInfos[1]);
                 int type = Integer.valueOf(corefInfos[2]);
                 nounPhrases.get(npId).setRefId(refId);
                 nounPhrases.get(npId).setType(type);

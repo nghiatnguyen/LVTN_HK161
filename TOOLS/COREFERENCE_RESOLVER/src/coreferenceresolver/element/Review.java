@@ -19,18 +19,14 @@ public class Review {
     private String rawContent;
     private List<CorefChain> corefChainsPredict;
     private List<CorefChain> corefChainsActual;
-    private List<Integer> markupOpens;
-    private List<Integer> markupCloses;
-    private List<Integer> simpleNpTypes;
+    private List<CorefChain> corefChains;    
 
     public Review() {
         sentences = new ArrayList<>();
         nounPhrases = new ArrayList<>();
         corefChainsPredict = new ArrayList<>();
-        corefChainsActual = new ArrayList<>();
-        markupOpens = new ArrayList<>();
-        markupCloses = new ArrayList<>();
-        simpleNpTypes = new ArrayList<>();
+        corefChainsActual = new ArrayList<>();  
+        corefChains = new ArrayList<>();
     }
 
     /**
@@ -146,47 +142,38 @@ public class Review {
             newCC.addCoref(np2Id);
             this.corefChainsActual.add(newCC);
         }        
+    }    
+
+    /**
+     * @return the corefChains
+     */
+    public List<CorefChain> getCorefChains() {
+        return corefChains;
     }
 
     /**
-     * @return the markupOpens
+     * @param corefChain the corefChain to set
      */
-    public List<Integer> getMarkupOpens() {
-        return markupOpens;
-    }
-
-    /**
-     * @param markupOpen the markupOpen to add
-     */
-    public void addMarkupOpen(int markupOpen) {
-        this.markupOpens.add(markupOpen);
-    }
-
-    /**
-     * @return the markupCloses
-     */
-    public List<Integer> getMarkupCloses() {
-        return markupCloses;
-    }
-
-    /**
-     * @param markupClose the markupClose to add
-     */
-    public void addMarkupClose(int markupClose) {
-        this.markupCloses.add(markupClose);
-    }
-    
-    /**
-     * @return the markupCloses
-     */
-    public List<Integer> getSimpleNpTypes() {
-        return this.simpleNpTypes;
-    }
-
-    /**
-     * @param simpleNpType the simpleNpType to add
-     */
-    public void addSimpleNpType(int simpleNpType) {
-        this.simpleNpTypes.add(simpleNpType);
+    public void addCorefChain(NounPhrase np) {
+        if (np.getType() == 1){
+            return;
+        }
+        if (np.getRefId() == -1){
+            np.setChainId(this.corefChains.size());
+            CorefChain newCC = new CorefChain();
+            newCC.addCoref(np.getId());
+            this.corefChains.add(newCC);
+        }
+        else {
+            int ccId = 0;
+            for (CorefChain cc: this.corefChains){
+                //If the checking NP has REF equals to one of the HEAD of this review's chains
+                if (np.getRefId() == cc.getChain().get(0)){
+                    cc.addCoref(np.getId());
+                    np.setChainId(ccId);
+                }
+                ++ccId;
+            }   
+        }             
     }
 }

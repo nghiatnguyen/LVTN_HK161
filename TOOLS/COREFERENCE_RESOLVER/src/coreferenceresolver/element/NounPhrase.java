@@ -28,11 +28,13 @@ public class NounPhrase {
     private int id;
     private int refId;
     private int type;
+    private int chainId = -1;
     private boolean isSuperior;
     private boolean isInferior;
     private ArrayList<String> opinionWords;
     private ArrayList<CRFToken> CRFTokens;
     private int sentimentOrientation;
+    public Object highlighterTag;
 
     public NounPhrase() {
         this.CRFTokens = new ArrayList<>();
@@ -220,6 +222,20 @@ public class NounPhrase {
      */
     public void setType(int type) {
         this.type = type;
+    }
+
+    /**
+     * @return the chainId
+     */
+    public int getChainId() {
+        return chainId;
+    }
+
+    /**
+     * @param chainId the chainId to set
+     */
+    public void setChainId(int chainId) {
+        this.chainId = chainId;
     }
 
     /**
