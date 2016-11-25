@@ -5,23 +5,22 @@
  */
 package coreferenceresolver.element;
 
+import coreferenceresolver.util.Util;
 import edu.stanford.nlp.trees.Tree;
+import edu.stanford.nlp.trees.TypedDependency;
+import java.util.Collection;
 
 /**
  *
  * @author TRONGNGHIA
  */
-public class Token {    
+public class Token {
 
-    public static int NEGATIVE = -1;
-    public static int POSITIVE = 1;
-    public static int NEUTRAL = 0;
-    
     private String word;
     private String POS;
     private int offsetBegin;
     private int offsetEnd;
-    private int opinionOrientation = NEUTRAL;       
+    private int sentimentOrientation = Util.NEUTRAL;
     private Tree tokenTree;
 
     /**
@@ -79,19 +78,28 @@ public class Token {
     public void setOffsetEnd(int offsetEnd) {
         this.offsetEnd = offsetEnd;
     }
-    
+
     /**
-     * @return the opinionOrientation
+     * @return the sentimentOrientation
      */
-    public int getOpinionOrientation() {
-        return opinionOrientation;
+    public int getSentimentOrientation() {
+        return sentimentOrientation;
     }
 
     /**
-     * @param opinionOrientation the opinionOrientation to set
+     * @param newTokenSentiment the sentimentOrientation to set
      */
-    public void setOpinionOrientation(int opinionOrientation) {
-        this.opinionOrientation = opinionOrientation;
+    public void setSentimentOrientation(int newTokenSentiment, Collection<TypedDependency> typedDeps) {
+        if ((newTokenSentiment == Util.POSITIVE
+                || newTokenSentiment == Util.NEGATIVE) && (!this.POS.equals("IN"))) {
+            for (TypedDependency typedDependency : typedDeps) {
+                if (typedDependency.reln().toString().equals("neg") && typedDependency.gov().value().equals(word)) {
+                    newTokenSentiment = Util.reverseSentiment(newTokenSentiment);
+                    break;
+                }
+            }
+        }
+        this.sentimentOrientation = newTokenSentiment;
     }
 
     /**

@@ -10,11 +10,9 @@ import coreferenceresolver.util.Util;
 import coreferenceresolver.util.StanfordUtil;
 import coreferenceresolver.element.Review;
 import coreferenceresolver.util.CrfChunkerUtil;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.List;
@@ -33,18 +31,7 @@ public class TrainingMain {
         File outputFile = new File(outputFilePath);
         StanfordUtil su = new StanfordUtil(inputFile);
 
-        // Read the Dataset
-        System.out.println("Reading dataset");
-        File fData = new File(".\\dataset.txt");
-        FileReader fReaderData = new FileReader(fData);
-        BufferedReader buffReaderDict = new BufferedReader(fReaderData);
-        String sData = null;
-        String line;
-        while ((line = buffReaderDict.readLine()) != null) {
-            sData = sData + line + "\n";
-        }
-        System.out.println("End of Reading dataset");
-        MarkupMain.set_sDataset(sData);
+        Util.readDataset();
 
         FileOutputStream fos = new FileOutputStream(outputFile);
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
@@ -54,27 +41,27 @@ public class TrainingMain {
                 + "@ATTRIBUTE review REAL\n"
                 + "@ATTRIBUTE np1 REAL\n"
                 + "@ATTRIBUTE np2 REAL\n"
-                + "@ATTRIBUTE np1ispr {false,true}\n"
-                + "@ATTRIBUTE np2ispr {false,true}\n"
-                + "@ATTRIBUTE np2isdefnp {false,true}\n"
-                + "@ATTRIBUTE np2isdemnp {false,true}\n"
-                + "@ATTRIBUTE distance REAL\n"
-                + "@ATTRIBUTE numberagreement {false,true}\n"
-                + "@ATTRIBUTE isbetween {false,true}\n"
-                + "@ATTRIBUTE hasbetween {false,true}\n"
-                + "@ATTRIBUTE comparative {false,true}\n"
-                //                + "@ATTRIBUTE sentiment REAL\n"
-                + "@ATTRIBUTE bothpropername {false,true}\n"
-                + "@ATTRIBUTE np1propername {false,true}\n"
-                + "@ATTRIBUTE np2propername {false,true}\n"
-                + "@ATTRIBUTE bothPronoun {false,true}\n"
-                + "@ATTRIBUTE bothNormal {false,true}\n"
-                + "@ATTRIBUTE subString {false,true}\n"
-                + "@ATTRIBUTE headMatch {false,true}\n"
-                + "@ATTRIBUTE exactMatch {false,true}\n"
-                + "@ATTRIBUTE matchAfterRemoveDetermine {false,true}\n"
-                + "@ATTRIBUTE PMI {0,1,2,3,4,10,12}\n"
-                + "@ATTRIBUTE headPhone {false,true}\n"
+                //                + "@ATTRIBUTE np1ispr {false,true}\n"
+                //                + "@ATTRIBUTE np2ispr {false,true}\n"
+                //                + "@ATTRIBUTE np2isdefnp {false,true}\n"
+                //                + "@ATTRIBUTE np2isdemnp {false,true}\n"
+                //                + "@ATTRIBUTE distance REAL\n"
+                //                + "@ATTRIBUTE numberagreement {false,true}\n"
+                //                + "@ATTRIBUTE isbetween {false,true}\n"
+                //                + "@ATTRIBUTE hasbetween {false,true}\n"
+                //                + "@ATTRIBUTE comparative {false,true}\n"
+                + "@ATTRIBUTE sentiment REAL\n"
+                //                + "@ATTRIBUTE bothpropername {false,true}\n"
+                //                + "@ATTRIBUTE np1propername {false,true}\n"
+                //                + "@ATTRIBUTE np2propername {false,true}\n"
+                //                + "@ATTRIBUTE bothPronoun {false,true}\n"
+                //                + "@ATTRIBUTE bothNormal {false,true}\n"
+                //                + "@ATTRIBUTE subString {false,true}\n"
+                //                + "@ATTRIBUTE headMatch {false,true}\n"
+                //                + "@ATTRIBUTE exactMatch {false,true}\n"
+                //                + "@ATTRIBUTE matchAfterRemoveDetermine {false,true}\n"
+                //                + "@ATTRIBUTE PMI {0,1,2,3,4,10,12}\n"
+                //                + "@ATTRIBUTE headPhone {false,true}\n"
                 + "@ATTRIBUTE coref {false,true}\n"
                 + "\n"
                 + "@DATA");
@@ -83,19 +70,23 @@ public class TrainingMain {
         try {
             FeatureExtractor.loadSDict();
             //Init every info
-            su.init();
+            su.init(false);
 
             //Call CRFChunker, result is in input.txt.pos.chk file
             CrfChunkerUtil.runChunk();
 
             //Read from input.txt.pos.chk file. Get all NPs
             List<NounPhrase> nounPhrases = CrfChunkerUtil.readCrfChunker();
-            
+
             Util.checkPOSFilesMatchingInput(StanfordUtil.reviews);
 
-            Util.assignNounPhrases(nounPhrases, StanfordUtil.reviews);                        
+            //Assign NPs obtained from Chunker to StanfordUtil reviews
+            Util.assignNounPhrases(nounPhrases, StanfordUtil.reviews);
 
-            //Begin create training set
+            //Initialize sentiment and comparatives for each NP in each review
+            Util.initSentimentAndComparativesForNPs();
+
+            //Discard some NPs
             StanfordUtil.reviews.forEach((review) -> {
                 Util.discardUnneccessaryNPs(review);
             });
@@ -107,7 +98,7 @@ public class TrainingMain {
             for (Review review : StanfordUtil.reviews) {
                 //Extract features
                 Util.extractFeatures(review, bw, forTraining);
-            }            
+            }
         } catch (IOException ex) {
             Logger.getLogger(MarkupMain.class.getName()).log(Level.SEVERE, null, ex);
         }

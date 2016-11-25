@@ -8,9 +8,7 @@ package coreferenceresolver.process;
 import coreferenceresolver.element.CorefChain;
 import coreferenceresolver.element.NounPhrase;
 import coreferenceresolver.element.Review;
-import static coreferenceresolver.process.Evaluation.scoreB3;
-import static coreferenceresolver.process.Evaluation.scoreCEAF4;
-import static coreferenceresolver.process.Evaluation.scoreMUC;
+import coreferenceresolver.process.Evaluation;
 import coreferenceresolver.util.CrfChunkerUtil;
 import coreferenceresolver.util.StanfordUtil;
 import coreferenceresolver.util.Util;
@@ -34,7 +32,7 @@ public class WekaMain {
 
         try {
             //Init every info
-            su.simpleInit();
+            su.init(true);
 
             //Call CRFChunker, result is in input.txt.pos.chk file
             CrfChunkerUtil.runChunk();
@@ -42,6 +40,7 @@ public class WekaMain {
             //Read from input.txt.pos.chk file. Get all NPs
             List<NounPhrase> nounPhrases = CrfChunkerUtil.readCrfChunker();
 
+            //Assign NPs obtained from Chunker to StanfordUtil reviews
             Util.assignNounPhrases(nounPhrases, StanfordUtil.reviews);
             
             Util.checkPOSFilesMatchingInput(StanfordUtil.reviews);
@@ -68,9 +67,10 @@ public class WekaMain {
                 }
                 No++;
             }
-            scoreMUC(StanfordUtil.reviews);
-            scoreB3(StanfordUtil.reviews);
-            scoreCEAF4(StanfordUtil.reviews);
+            //TODO Write these to file
+            Evaluation.scoreMUC(StanfordUtil.reviews);
+            Evaluation.scoreB3(StanfordUtil.reviews);
+            Evaluation.scoreCEAF4(StanfordUtil.reviews);
 
         } catch (IOException ex) {
             Logger.getLogger(MarkupMain.class.getName()).log(Level.SEVERE, null, ex);
