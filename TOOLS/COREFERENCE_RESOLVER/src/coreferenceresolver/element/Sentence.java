@@ -24,19 +24,15 @@ public class Sentence {
     private int offsetBegin;
     private int offsetEnd;
     private int sentimentLevel;
-    private List<Token> comparativeIndicatorPhrases;
+    private List<Token> comparativeIndicatorTokens;
     private boolean comparativeSentence;
-    private List<OpinionWord> opinionWords;
+    private List<Token> opinionWords;
     private Collection dependencies;
-
-    public static final int NEGATIVE_SENTIMENT = 0;
-    public static final int NEUTRAL_SENTIMENT = 1;
-    public static final int POSITIVE_SENTIMENT = 2;
 
     public Sentence() {
         tokens = new ArrayList<>();
         nounPhrases = new ArrayList<>();
-        comparativeIndicatorPhrases = new ArrayList<>();
+        comparativeIndicatorTokens = new ArrayList<>();
         opinionWords = new ArrayList<>();
     }
 
@@ -52,6 +48,9 @@ public class Sentence {
      */
     public void addToken(Token tokenAdded) {
         this.tokens.add(tokenAdded);
+        if (tokenAdded.getSentimentOrientation() != Util.NEUTRAL) {
+            this.opinionWords.add(tokenAdded);
+        }
     }
 
     /**
@@ -124,14 +123,14 @@ public class Sentence {
         switch (sentimentLevel) {
             case 0:
             case 1:
-                this.sentimentLevel = NEGATIVE_SENTIMENT;
+                this.sentimentLevel = Util.NEGATIVE;
                 break;
             case 2:
-                this.sentimentLevel = NEUTRAL_SENTIMENT;
+                this.sentimentLevel = Util.NEUTRAL;
                 break;
             case 3:
             case 4:
-                this.sentimentLevel = POSITIVE_SENTIMENT;
+                this.sentimentLevel = Util.POSITIVE;
                 break;
             default:
                 break;
@@ -139,19 +138,19 @@ public class Sentence {
     }
 
     /**
-     * @return the comparativeIndicatorPhrases
+     * @return the comparativeIndicatorTokens
      */
-    public List<Token> getComparativeIndicatorPhrases() {
-        return comparativeIndicatorPhrases;
+    public List<Token> getComparativeIndicatorTokens() {
+        return comparativeIndicatorTokens;
     }
 
     /**
-     * @param comparativeIndicatorPhrases the comparativeIndicatorPhrases to set
+     * @param comparativeIndicatorTokens the comparativeIndicatorTokens to set
      */
-    public void setComparativeIndicatorPhrases(List<Token> comparativeIndicatorPhrases) {
-        this.comparativeIndicatorPhrases = comparativeIndicatorPhrases;
-        if (!this.comparativeIndicatorPhrases.isEmpty()) {
-            comparativeSentence = true;
+    public void initComparatives(List<Token> comparativeIndicatorTokens) {
+        this.comparativeIndicatorTokens = comparativeIndicatorTokens;
+        if (!this.comparativeIndicatorTokens.isEmpty()) {
+            this.comparativeSentence = true;            
         }
     }
 
@@ -183,13 +182,13 @@ public class Sentence {
      * @return
      */
     public boolean initComparativeNPs() {
-        //If the sentence has no sentences or no comparatives or has neutral sentiment, return
-        if (nounPhrases.size() <= 0 || comparativeIndicatorPhrases.isEmpty() || sentimentLevel == NEUTRAL_SENTIMENT) {
+        //If the sentence has no NPs or no comparatives or has neutral sentiment, return
+        if (this.nounPhrases.size() <= 0 || this.comparativeIndicatorTokens.isEmpty() || this.sentimentLevel == Util.NEUTRAL) {
             return false;
         }
 
-        int comparativesOffsetBegin = comparativeIndicatorPhrases.get(0).getOffsetBegin();
-        int comparativesOffsetEnd = comparativeIndicatorPhrases.get(comparativeIndicatorPhrases.size() - 1).getOffsetEnd();
+        int comparativesOffsetBegin = this.comparativeIndicatorTokens.get(0).getOffsetBegin();
+        int comparativesOffsetEnd = this.comparativeIndicatorTokens.get(comparativeIndicatorTokens.size() - 1).getOffsetEnd();
         int maxNearestSmallerNp = 0;
         int minNearestBiggerNp = nounPhrases.size() - 1;
         for (int i = 1; i < nounPhrases.size(); ++i) {
@@ -203,10 +202,10 @@ public class Sentence {
         }
 
         if (minNearestBiggerNp != maxNearestSmallerNp) {
-            nounPhrases.get(minNearestBiggerNp).setSuperior(sentimentLevel == POSITIVE_SENTIMENT);
-            nounPhrases.get(minNearestBiggerNp).setInferior(sentimentLevel == NEGATIVE_SENTIMENT);
-            nounPhrases.get(maxNearestSmallerNp).setSuperior(sentimentLevel == NEGATIVE_SENTIMENT);
-            nounPhrases.get(maxNearestSmallerNp).setInferior(sentimentLevel == POSITIVE_SENTIMENT);
+            nounPhrases.get(minNearestBiggerNp).setSuperior(sentimentLevel == Util.POSITIVE);
+            nounPhrases.get(minNearestBiggerNp).setInferior(sentimentLevel == Util.NEGATIVE);
+            nounPhrases.get(maxNearestSmallerNp).setSuperior(sentimentLevel == Util.NEGATIVE);
+            nounPhrases.get(maxNearestSmallerNp).setInferior(sentimentLevel == Util.POSITIVE);
         }
 
         return true;
@@ -215,46 +214,43 @@ public class Sentence {
     /**
      * @return the opinionWords
      */
-    public List<OpinionWord> getOpinionWords() {
+    public List<Token> getOpinionWords() {
         return opinionWords;
     }
 
     /**
      * @param opinionWordAdded the opinionWord to add
      */
-    public void addOpinionWord(OpinionWord opinionWordAdded) {
+    public void addOpinionWord(Token opinionWordAdded) {
         this.opinionWords.add(opinionWordAdded);
     }
-    
-    public void setOpinionForNPs(){            
-        if (this.nounPhrases == null || this.opinionWords == null){            
+
+    public void setSentimentForNPs() {
+        if (this.nounPhrases == null || this.opinionWords == null) {
             return;
-        }                        
-        
-        for (NounPhrase np: this.nounPhrases){            
-            double opinionScore = 0;
-            for (OpinionWord ow: this.opinionWords){                
+        }
+
+        for (NounPhrase np : this.nounPhrases) {
+            double sentimentScore = 0;
+            for (Token owToken : this.opinionWords) {
                 double distanceNP_OW = 0;
-                for (Token token: this.tokens){
-                    if (np.getOffsetEnd() < ow.getOffsetBegin() && token.getOffsetBegin() > np.getOffsetEnd() 
-                            && token.getOffsetEnd() < ow.getOffsetBegin()){
+                for (Token token : this.tokens) {
+                    if (np.getOffsetEnd() < owToken.getOffsetBegin() && token.getOffsetBegin() > np.getOffsetEnd()
+                            && token.getOffsetEnd() < owToken.getOffsetBegin()) {
+                        ++distanceNP_OW;
+                    } else if (np.getOffsetBegin() > owToken.getOffsetEnd() && token.getOffsetEnd() < np.getOffsetBegin()
+                            && token.getOffsetBegin() > owToken.getOffsetEnd()) {
                         ++distanceNP_OW;
                     }
-                    else if (np.getOffsetBegin() > ow.getOffsetEnd() && token.getOffsetEnd() < np.getOffsetBegin() 
-                            && token.getOffsetBegin() > ow.getOffsetEnd()){
-                        ++distanceNP_OW;
-                    }
-                    
                 }
-                
-                if (np.getOffsetBegin() <= ow.getOffsetBegin() && ow.getOffsetEnd()<= np.getOffsetEnd()){
-                    opinionScore = (double) ow.getSentimentOrientation()/0.5;
+
+                if (np.getOffsetBegin() <= owToken.getOffsetBegin() && owToken.getOffsetEnd() <= np.getOffsetEnd()) {
+                    sentimentScore = (double) owToken.getSentimentOrientation() / 0.5;
+                } else {
+                    sentimentScore += (double) owToken.getSentimentOrientation() / (distanceNP_OW + 1.0);
                 }
-                else {
-                    opinionScore += (double) ow.getSentimentOrientation()/(distanceNP_OW + 1.0);
-                }                
             }
-            np.setSentimentOrientation(opinionScore > 0? Util.POSITIVE : opinionScore < 0 ? Util.NEGATIVE : Util.NEUTRAL);
+            np.setSentimentOrientation(sentimentScore > 0 ? Util.POSITIVE : sentimentScore < 0 ? Util.NEGATIVE : Util.NEUTRAL);
         }
     }
 

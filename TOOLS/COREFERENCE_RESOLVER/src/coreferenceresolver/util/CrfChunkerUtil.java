@@ -25,7 +25,7 @@ public class CrfChunkerUtil {
     
     public static ArrayList<NounPhrase> readCrfChunker() throws FileNotFoundException, IOException {       
         String inputFilePath = ".\\input.txt.pos.chk";
-        ArrayList<NounPhrase> listNP = new ArrayList<NounPhrase>();
+        ArrayList<NounPhrase> listNP = new ArrayList<>();
 
         // Open the file
         FileInputStream fstream = new FileInputStream(inputFilePath);
