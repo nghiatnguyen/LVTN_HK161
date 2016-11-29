@@ -573,13 +573,7 @@ public class FeatureExtractor {
 
     //To compute the number of times a word appearing in the sentences
     public static int countWord(String word) {
-//        String input = MarkupMain.get_sDataset();
-//        Matcher m = Pattern.compile("\\b" + word.toLowerCase() + "\\b").matcher(input);
         int matches = 0;
-//        while (m.find()) {
-//            matches++;
-//        }
-
         for (int i = 0; i < WORDS.length; ++i) {
             if (WORDS[i].contains(" " + word.toLowerCase() + " ")) {
                 ++matches;
@@ -589,42 +583,25 @@ public class FeatureExtractor {
     }
 
     //To compute the number of times 2 words appearing together in the sentences.
-    public static int countTwoWords(String np, String ow) {
-//        String input = MarkupMain.get_sDataset();
-//        Matcher m = Pattern.compile("(\\b" + np.toLowerCase() + "\\b)[^.]+(\\b" + ow.toLowerCase() + "\\b)").matcher(input);
+    public static int countTwoWords(NounPhrase np2, String ow) {
         int matches = 0;
-//        while (m.find()) {
-//            matches++;
-//        }
-        for (int i = 0; i < WORDS.length; ++i) {
-            if ((WORDS[i].contains(" " + np.toLowerCase() + " "))
-                    && (WORDS[i].contains(" " + ow.toLowerCase() + " "))) {
-//            	boolean check = false;
-//            	int index1 = words[i].indexOf(" " + np.toLowerCase() + " ");
-//            	while (index1 >= 0) {
-//            	    int index2 = words[i].indexOf(" " + ow.toLowerCase() + " ");
-//                	while (index2 >= 0) {
-//                		int count = 0;
-//                		String line = "";
-//                		if (index1 < index2){
-//                			line = words[i].substring(index1, index2 + 1);
-//                			count = line.length() - line.replace(" ", "").length();
-//                		}
-//                		else{
-//                			line = words[i].substring(index2, index1 + 1);
-//                			count = line.length() - line.replace(" ", "").length();
-//                		}
-//                		if (count <= 3)
-//                			check = true;
-//                	    index2 = words[i].indexOf(" " + ow.toLowerCase() + " ", index2 + 1);
-//                	}
-//            	    index1 = words[i].indexOf(" " + np.toLowerCase() + " ", index1 + 1);
-//            	}
-//            	if (check == true)
-                ++matches;
-            }
+        String np = np2.getHeadNode().toString();
+        if (np2.getType() == 0){
+        	for (int i = 0; i < WORDS.length; ++i) {
+	            if ((WORDS[i].contains(" " + np.toLowerCase() + " ") || WORDS[i].contains(" phone "))
+	                    && (WORDS[i].contains(" " + ow.toLowerCase() + " "))) {
+	                ++matches;
+	            }
+	        }
         }
-//        System.out.println(matches);
+        else{
+	        for (int i = 0; i < WORDS.length; ++i) {
+	            if ((WORDS[i].contains(" " + np.toLowerCase() + " "))
+	                    && (WORDS[i].contains(" " + ow.toLowerCase() + " "))) {
+	                ++matches;
+	            }
+	        }
+        }
         return matches;
     }
 
@@ -638,36 +615,37 @@ public class FeatureExtractor {
         return counter;
     }
 
-    public static int probabilityNounPhrase(NounPhrase np) {
-        return countWord(np.getHeadNode().toString());
+    public static int probabilityNounPhrase(NounPhrase np) { 	
+    	if (np.getType() == 0){
+    		int matches = 0;
+    		for (int i = 0; i < WORDS.length; ++i) {
+            	if (WORDS[i].contains(" " + np.getHeadNode().toString().toLowerCase() + " ")
+            			|| WORDS[i].contains(" phone "))
+                    ++matches;
+            } 
+    		return matches;
+    	}
+    	else{
+    		return countWord(np.getHeadNode().toString());
+    	}
     }
 
-    //If a NP has more than 1 OW, then Probability of OWs is sum of all
-    public static int probabilityOpinionWord(NounPhrase np) {
-        int counter = 0;
-        for (String s : np.getOpinionWords()) {
-            counter = counter + countWord(s);
-        }
-        return counter;
-    }
-
-    //probability of NP2 and OWs of NP1
-    //If a NP has more than 1 OW, then Probability of OWs is sum of all
-    public static int probabilityNPAndOW(NounPhrase np1, NounPhrase np2) {
-        int counter = 0;
-        for (String s : np1.getOpinionWords()) {
-            counter = counter + countTwoWords(np2.getHeadNode().toString(), s);
-        }
-        return counter;
-    }
-
-    public static Float PMI(NounPhrase np1, NounPhrase np2) {
-        if ((probabilityNounPhrase(np2) == 0) || (probabilityOpinionWord(np1) == 0) || (probabilityNPAndOW(np1, np2) == 0)) {
+    
+    //PMI of NP2 and 1 OW of NP1
+    public static Float onePMI(NounPhrase np2, String ow) {
+        if ((probabilityNounPhrase(np2) == 0) || (countWord(ow) == 0) || (countTwoWords(np2, ow) == 0)) {
             return (float) 0;
         } else {
-            return ((int) ((float) probabilityNPAndOW(np1, np2) / ((probabilityNounPhrase(np2) * probabilityOpinionWord(np1))) * 100000000) / (float) 1000);
+            return ((int) ((float) countTwoWords(np2, ow) / ((probabilityNounPhrase(np2) * countWord(ow))) * 100000000) / (float) 1000);
         }
 
+    }
+   //PMI of NP2 and all OWs of NP1
+    public static Float PMI(NounPhrase np1, NounPhrase np2) {
+        float sum = 0;
+        for (String ow: np1.getOpinionWords())
+        	sum = sum + onePMI(np2, ow);
+        return sum;
     }
 
     /**

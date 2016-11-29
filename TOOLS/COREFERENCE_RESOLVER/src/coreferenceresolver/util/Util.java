@@ -79,27 +79,27 @@ public class Util {
         }
 
         for (int i = review.getNounPhrases().size() - 1; i >= 1; i--) {
-            checkNPhasOW = false;
+            checkNPhasOW = true;
             NounPhrase np2 = review.getNounPhrases().get(i);
 
             listAllPMI.clear();
             listRawPMI.clear();
             //Find PMI of NP2 with NP1
             if (np2.getOpinionWords().isEmpty()) {
-                checkNPhasOW = true;
+                checkNPhasOW = false;
             } else {
-                for (int j = 0; j < i; j++) {
+                for (int j = i - 1; j >= 0; j--) {
                     NounPhrase np1 = review.getNounPhrases().get(j);
                     if (np1.getType() == 0 || np2.getType() == 0 || np1.getType() == 2 || np2.getType() == 2 || np1.getType() == 3 || np2.getType() == 3) {
-//                    if (np1.getType() == 0 || np2.getType() == 0) {
-//                        if (FeatureExtractor.isPronoun(np1) || FeatureExtractor.isNotObject(np1))
-//                        	listRawPMI.add((float) -1);
-//                        else {
+                        //If NP1 is Pronoun or "this,that,these,those,what,which,..." -> don't need pay attention. Value rawPMI is -1.
+                    	if (FeatureExtractor.isPronoun(np1) || FeatureExtractor.isNotObject(np1))
+                        	listRawPMI.add((float) -1);
+                        else {
                         Float rawPMIof2NP = FeatureExtractor.PMI(np2, np1);
                         listRawPMI.add(rawPMIof2NP);
                         if (!listAllPMI.contains(rawPMIof2NP)) {
                             listAllPMI.add(rawPMIof2NP);
-//	                        }
+	                        }
                         }
                     }
                 }
@@ -108,14 +108,56 @@ public class Util {
 
             }
 
+            //Create all pair of 2 NPs
             int k = 0;
-            for (int j = 0; j < i; ++j) {
+            for (int j = i - 1; j >= 0; j--) {
                 NounPhrase np1 = review.getNounPhrases().get(j);
                 if (np1.getType() == 0 || np2.getType() == 0 || np2.getType() == 2 || np1.getType() == 2 || np1.getType() == 3 || np2.getType() == 3) {
                     createTest(np1, np2, review, bw, k);
                     k++;
                 }
             }
+            
+            //Each True pair is created from 2 closest NPs which coreference each other. 
+//            int k = 0;
+//            for (int j = i - 1; j >= 0; j--) {
+//                NounPhrase np1 = review.getNounPhrases().get(j);
+//                if (np1.getType() == 0 || np2.getType() == 0 || np2.getType() == 2 || np1.getType() == 2 || np1.getType() == 3 || np2.getType() == 3) {
+//                    createTest(np1, np2, review, bw, k);
+//                    k++;
+//                    if (FeatureExtractor.isCorefTest(np1, np2))
+//                    	break;
+//                }
+//            }
+            
+            //Each True pair is created from 2 closest NPs which coreference each other. 
+            //If NP2 is not pronoun, than closest NP1 which coreferences with NP2 is not pronoun.
+//          int k = 0;
+//          if (FeatureExtractor.isPronoun(np2)){
+//        	  for (int j = i - 1; j >= 0; j--) {
+//                  NounPhrase np1 = review.getNounPhrases().get(j);
+//                  if (np1.getType() == 0 || np2.getType() == 0 || np2.getType() == 2 || np1.getType() == 2 || np1.getType() == 3 || np2.getType() == 3) {
+//                	  if (FeatureExtractor.isCorefTest(np1, np2) && FeatureExtractor.isPronoun(np1)){}
+//                	  else{ 
+//	                	  createTest(np1, np2, review, bw, k);
+//	                      k++;
+//                	  }
+//                	  if (FeatureExtractor.isCorefTest(np1, np2) && !FeatureExtractor.isPronoun(np1))
+//                		  break;
+//                  }
+//              }
+//          }
+//          else{
+//        	  for (int j = i - 1; j >= 0; j--) {
+//                  NounPhrase np1 = review.getNounPhrases().get(j);
+//                  if (np1.getType() == 0 || np2.getType() == 0 || np2.getType() == 2 || np1.getType() == 2 || np1.getType() == 3 || np2.getType() == 3) {
+//                      createTest(np1, np2, review, bw, k);
+//                      k++;
+//                      if (FeatureExtractor.isCorefTest(np1, np2))
+//                      	break;
+//                  }
+//              }
+//          }
         }        
     }
 
@@ -425,14 +467,14 @@ public class Util {
 //        bwtrain.write(FeatureExtractor.isExactMatch(np1, np2) + ",");
 //        bwtrain.write(FeatureExtractor.isMatchAfterRemoveDetermine(np1, np2) + ",");        
 
-//        if (checkNPhasOW == true) {
+//        if (checkNPhasOW == false) {
 //            bwtrain.write(10 + ",");
-//        } else if (np2.getType() == 0) {
+//        } else if (np2.getType() == 0 || np2.getType() == 2){
 //            bwtrain.write(12 + ",");
 //        } else {
-////        	if (listAllPMI.indexOf(listRawPMI.get(IdPMIinList)) == -1)
+//        	  if (listAllPMI.indexOf(listRawPMI.get(IdPMIinList)) == -1)
 ////        		bwtrain.write(11 + ",");
-//            if (listRawPMI.get(IdPMIinList) == 0) {
+//            else if (listRawPMI.get(IdPMIinList) == 0) {
 //                bwtrain.write(4 + ",");
 //            } else if (listAllPMI.indexOf(listRawPMI.get(IdPMIinList)) < 4) {
 ////        		System.out.println("Review: " + np1.getReviewId() +"ID NP1: " + np1.getId() + "ID NP2: " + np2.getId() + " PMI: "+ listRawPMI.get(IdPMIinList));
