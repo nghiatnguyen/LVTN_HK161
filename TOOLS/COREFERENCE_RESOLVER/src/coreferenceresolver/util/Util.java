@@ -228,8 +228,8 @@ public class Util {
     private static void readMarkup(List<Review> reviews, String markupLine, int reviewId) {
         List<NounPhrase> nounPhrases = reviews.get(reviewId).getNounPhrases();
         int charId = 0;
-        int npId = 0;
-
+        int npId = 0;        
+        
         while (charId < markupLine.length()) {
             if (markupLine.charAt(charId) == '<') {
                 String corefInfo = "";
@@ -243,7 +243,8 @@ public class Util {
                 }
                 String[] corefInfos = corefInfo.split(",");
                 int refId = Integer.valueOf(corefInfos[1]);
-                int type = Integer.valueOf(corefInfos[2]);
+                int type = Integer.valueOf(corefInfos[2]);    
+//                System.out.println("NP " + nounPhrases.get(npId).getReviewId() + " " + nounPhrases.get(npId).getId() + " type " + type);
                 nounPhrases.get(npId).setRefId(refId);
                 nounPhrases.get(npId).setType(type);
                 ++npId;
@@ -264,6 +265,15 @@ public class Util {
                     || isDiscardedStopWordNP(np) || isDiscardedQuantityNP(np) || isDiscardedPercentageNP(np)
                     || isDiscardedWrongCase(np)) {
                 itr.remove();
+                
+                Iterator<NounPhrase> sentNPsItr = review.getSentences().get(np.getSentenceId()).getNounPhrases().iterator();
+                while (sentNPsItr.hasNext()) {
+                    NounPhrase npSent = sentNPsItr.next();
+                    if (npSent.getId() == np.getId()){
+                        sentNPsItr.remove();
+                        break;
+                    }
+                }
             }
         }
 
@@ -365,7 +375,7 @@ public class Util {
 
     public static void assignNounPhrases(List<NounPhrase> nounPhrases, List<Review> reviews) {
         CollinsHeadFinder headFinder = new CollinsHeadFinder();
-        for (NounPhrase np : nounPhrases) {            
+        for (NounPhrase np : nounPhrases) {                          
             Review review = reviews.get(np.getReviewId());
             Sentence sentence = review.getSentences().get(np.getSentenceId());
             String npContent = "";
@@ -375,7 +385,7 @@ public class Util {
 
             //Initiate a NP Tree
             Tree npNode = initNPTree();
-            for (CRFToken cRFToken : np.getCRFTokens()) {
+            for (CRFToken cRFToken : np.getCRFTokens()) {                
                 Tree cRFTokenTree = sentence.getTokens().get(cRFToken.getIdInSentence()).getTokenTree();
                 npNode.addChild(cRFTokenTree);
             }
@@ -447,43 +457,43 @@ public class Util {
         bwtrain.write(np1.getReviewId() + ",");
         bwtrain.write(np1.getId() + ",");
         bwtrain.write(np2.getId() + ",");
-//        bwtrain.write(FeatureExtractor.isPronoun(np1).toString() + ",");
-//        bwtrain.write(FeatureExtractor.isPronoun(np2).toString() + ",");
-//        bwtrain.write(FeatureExtractor.isDefiniteNP(np2).toString() + ",");
-//        bwtrain.write(FeatureExtractor.isDemonstrativeNP(np2).toString() + ",");
-//        bwtrain.write(FeatureExtractor.countDistance(np1, np2) + ",");
-//        bwtrain.write(FeatureExtractor.numberAgreementExtract(np1, np2) + ",");
-//        bwtrain.write(FeatureExtractor.isBetween3Extract(review, np1, np2).toString() + ",");
-//        bwtrain.write(FeatureExtractor.hasBetween2Extract(review, np1, np2).toString() + ",");
-//        bwtrain.write(FeatureExtractor.comparativeIndicatorExtract(review, np1, np2).toString() + ",");
+        bwtrain.write(FeatureExtractor.isPronoun(np1).toString() + ",");
+        bwtrain.write(FeatureExtractor.isPronoun(np2).toString() + ",");
+        bwtrain.write(FeatureExtractor.isDefiniteNP(np2).toString() + ",");
+        bwtrain.write(FeatureExtractor.isDemonstrativeNP(np2).toString() + ",");
+        bwtrain.write(FeatureExtractor.countDistance(np1, np2) + ",");
+        bwtrain.write(FeatureExtractor.numberAgreementExtract(np1, np2) + ",");
+        bwtrain.write(FeatureExtractor.isBetween3Extract(review, np1, np2).toString() + ",");
+        bwtrain.write(FeatureExtractor.hasBetween2Extract(review, np1, np2).toString() + ",");
+        bwtrain.write(FeatureExtractor.comparativeIndicatorExtract(review, np1, np2).toString() + ",");
         bwtrain.write(FeatureExtractor.sentimentConsistencyExtract(np1, np2) + ",");
-//        bwtrain.write(FeatureExtractor.isBothPropername(np1, np2).toString() + ",");
-//        bwtrain.write(FeatureExtractor.hasProperName(np1, StanfordUtil.reviews.get(np1.getReviewId()).getSentences().get(np1.getSentenceId())).toString() + ",");
-//        bwtrain.write(FeatureExtractor.hasProperName(np1, StanfordUtil.reviews.get(np2.getReviewId()).getSentences().get(np2.getSentenceId())).toString() + ",");
-//        bwtrain.write(FeatureExtractor.isBothPronoun(np1, np2) + ",");
-//        bwtrain.write(FeatureExtractor.isBothNormal(np1, np2) + ",");
-//        bwtrain.write(FeatureExtractor.isSubString(np1, np2) + ",");
-//        bwtrain.write(FeatureExtractor.isHeadMatch(np1, np2) + ",");
-//        bwtrain.write(FeatureExtractor.isExactMatch(np1, np2) + ",");
-//        bwtrain.write(FeatureExtractor.isMatchAfterRemoveDetermine(np1, np2) + ",");        
+        bwtrain.write(FeatureExtractor.isBothPropername(np1, np2).toString() + ",");
+        bwtrain.write(FeatureExtractor.hasProperName(np1, StanfordUtil.reviews.get(np1.getReviewId()).getSentences().get(np1.getSentenceId())).toString() + ",");
+        bwtrain.write(FeatureExtractor.hasProperName(np1, StanfordUtil.reviews.get(np2.getReviewId()).getSentences().get(np2.getSentenceId())).toString() + ",");
+        bwtrain.write(FeatureExtractor.isBothPronoun(np1, np2) + ",");
+        bwtrain.write(FeatureExtractor.isBothNormal(np1, np2) + ",");
+        bwtrain.write(FeatureExtractor.isSubString(np1, np2) + ",");
+        bwtrain.write(FeatureExtractor.isHeadMatch(np1, np2) + ",");
+        bwtrain.write(FeatureExtractor.isExactMatch(np1, np2) + ",");
+        bwtrain.write(FeatureExtractor.isMatchAfterRemoveDetermine(np1, np2) + ",");        
 
-//        if (checkNPhasOW == false) {
-//            bwtrain.write(10 + ",");
-//        } else if (np2.getType() == 0 || np2.getType() == 2){
-//            bwtrain.write(12 + ",");
-//        } else {
-//        	  if (listAllPMI.indexOf(listRawPMI.get(IdPMIinList)) == -1)
-////        		bwtrain.write(11 + ",");
-//            else if (listRawPMI.get(IdPMIinList) == 0) {
-//                bwtrain.write(4 + ",");
-//            } else if (listAllPMI.indexOf(listRawPMI.get(IdPMIinList)) < 4) {
-////        		System.out.println("Review: " + np1.getReviewId() +"ID NP1: " + np1.getId() + "ID NP2: " + np2.getId() + " PMI: "+ listRawPMI.get(IdPMIinList));
-//                bwtrain.write(listAllPMI.indexOf(listRawPMI.get(IdPMIinList)) + ",");
-//            } else {
-//                bwtrain.write(4 + ",");
-////                System.out.println("Review: " + np1.getReviewId() +"ID NP1: " + np1.getId() + "ID NP2: " + np2.getId() + " PMI: "+ listRawPMI.get(IdPMIinList));
-//            }
-//        }
+        if (checkNPhasOW == false) {
+            bwtrain.write(10 + ",");
+        } else if (np2.getType() == 0 || np2.getType() == 2){
+            bwtrain.write(12 + ",");
+        } else {
+        	  if (listAllPMI.indexOf(listRawPMI.get(IdPMIinList)) == -1)
+        		bwtrain.write(11 + ",");
+            else if (listRawPMI.get(IdPMIinList) == 0) {
+                bwtrain.write(4 + ",");
+            } else if (listAllPMI.indexOf(listRawPMI.get(IdPMIinList)) < 4) {
+//        		System.out.println("Review: " + np1.getReviewId() +"ID NP1: " + np1.getId() + "ID NP2: " + np2.getId() + " PMI: "+ listRawPMI.get(IdPMIinList));
+                bwtrain.write(listAllPMI.indexOf(listRawPMI.get(IdPMIinList)) + ",");
+            } else {
+                bwtrain.write(4 + ",");
+//                System.out.println("Review: " + np1.getReviewId() +"ID NP1: " + np1.getId() + "ID NP2: " + np2.getId() + " PMI: "+ listRawPMI.get(IdPMIinList));
+            }
+        }
 //        bwtrain.write(FeatureExtractor.isPhoneHead(np1, np2) + ",");
         bwtrain.write(FeatureExtractor.isCorefTest(np1, np2).toString());
         bwtrain.newLine();

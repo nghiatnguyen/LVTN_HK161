@@ -25,25 +25,40 @@ public class Test {
         String markupFile = "E:\\REPOSITORIES\\LVTN_HK161\\DATASET\\input_test.txt.markup";
         String outputFile = "E:\\REPOSITORIES\\LVTN_HK161\\DATASET\\demo_test.txt";
         TrainingMain.run(inputFile, markupFile, outputFile, true);
-//        new StanfordUtil(new File(inputFile)).init();
         for (Review review: StanfordUtil.reviews){
             System.out.println("NEW REVIEW");
             for (Sentence sentence: review.getSentences()){
                 System.out.println(sentence.getRawContent());                
                 System.out.println("Sentiment " + sentence.getSentimentLevel());
                 System.out.println("Is Comparative Sentence " + sentence.isComparativeSentence());
+                System.out.println("Comparative tokens ");
+                for (Token token: sentence.getComparativeIndicatorTokens()){
+                    System.out.print(token.getWord() + " ");
+                }
+                System.out.println();
                 System.out.println("Opinion Words");
                 for (Token tok: sentence.getOpinionWords()){
                     System.out.println(tok.getWord() + " " + tok.getSentimentOrientation());
                 }  
                 System.out.println("NP");
                 for (NounPhrase np: sentence.getNounPhrases()){
-                    for (CRFToken tok: np.getCRFTokens()){
-                        System.out.print(tok.getWord() + " ");
+                    if (np.isSuperiorEntity()){
+                        System.out.println("Is superior ");
+                        System.out.println("Type " + np.getType());
+                        for (CRFToken tok: np.getCRFTokens()){                            
+                            System.out.print(tok.getWord() + " ");                        
+                        }
                         System.out.println();
-                    }
-                    System.out.println(np.getSentimentOrientation() + " " + np.isSuperior() 
-                            + " " + np.isInferior());
+                    }  
+                    
+                    if (np.isInferiorEntity()){
+                        System.out.println("Is inferior ");
+                        System.out.println("Type " + np.getType());
+                        for (CRFToken tok: np.getCRFTokens()){                            
+                            System.out.print(tok.getWord() + " ");                        
+                        }
+                        System.out.println();
+                    }  
                 }  
                 System.out.println("----------");
             }

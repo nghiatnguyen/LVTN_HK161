@@ -5,6 +5,7 @@
  */
 package coreferenceresolver.element;
 
+import coreferenceresolver.process.FeatureExtractor;
 import coreferenceresolver.util.Util;
 import edu.stanford.nlp.trees.TypedDependency;
 import java.util.ArrayList;
@@ -150,7 +151,7 @@ public class Sentence {
     public void initComparatives(List<Token> comparativeIndicatorTokens) {
         this.comparativeIndicatorTokens = comparativeIndicatorTokens;
         if (!this.comparativeIndicatorTokens.isEmpty()) {
-            this.comparativeSentence = true;            
+            this.comparativeSentence = true;
         }
     }
 
@@ -181,34 +182,132 @@ public class Sentence {
      *
      * @return
      */
-    public boolean initComparativeNPs() {
+    public void initComparativeNPs() {
         //If the sentence has no NPs or no comparatives or has neutral sentiment, return
-        if (this.nounPhrases.size() <= 0 || this.comparativeIndicatorTokens.isEmpty() || this.sentimentLevel == Util.NEUTRAL) {
-            return false;
+        if (this.nounPhrases.size() <= 0 || this.comparativeIndicatorTokens.isEmpty()) {
+            return;
         }
 
         int comparativesOffsetBegin = this.comparativeIndicatorTokens.get(0).getOffsetBegin();
         int comparativesOffsetEnd = this.comparativeIndicatorTokens.get(comparativeIndicatorTokens.size() - 1).getOffsetEnd();
-        int maxNearestSmallerNp = 0;
-        int minNearestBiggerNp = nounPhrases.size() - 1;
-        for (int i = 1; i < nounPhrases.size(); ++i) {
+
+        int leftNearestEntityNp = 0;
+        int rightNearestEntityNp = nounPhrases.size() - 1;                
+
+        for (int i = 1; i < nounPhrases.size() - 1; ++i) {
+            NounPhrase curNp = nounPhrases.get(i);               
+            //Only consider Object Name
+            if (curNp.getType() != 0) {
+                continue;
+            }
+
+            if (curNp.getOffsetEnd() < comparativesOffsetBegin && curNp.getOffsetEnd() > nounPhrases.get(leftNearestEntityNp).getOffsetEnd()) {
+                leftNearestEntityNp = i;
+            }            
+        }
+        
+        for (int i = nounPhrases.size() - 1; i >= 0; --i) {
             NounPhrase curNp = nounPhrases.get(i);
-            if (curNp.getOffsetEnd() < comparativesOffsetBegin && curNp.getOffsetEnd() > nounPhrases.get(maxNearestSmallerNp).getOffsetEnd()) {
-                maxNearestSmallerNp = i;
+            //Only consider Object Name
+            if (curNp.getType() != 0) {
+                continue;
             }
-            if (curNp.getOffsetBegin() > comparativesOffsetEnd && curNp.getOffsetBegin() < nounPhrases.get(minNearestBiggerNp).getOffsetBegin()) {
-                minNearestBiggerNp = i;
-            }
+
+            if (curNp.getOffsetBegin() > comparativesOffsetEnd && curNp.getOffsetBegin() < nounPhrases.get(rightNearestEntityNp).getOffsetBegin()) {
+                rightNearestEntityNp = i;
+            }            
+        }                                                     
+        
+        System.out.println("DEBUG BEFORE " + nounPhrases.get(leftNearestEntityNp).getReviewId() + " "
+                + nounPhrases.get(leftNearestEntityNp).getId() + " "
+                + nounPhrases.get(leftNearestEntityNp).getType() + " "
+                + nounPhrases.get(rightNearestEntityNp).getId() +
+                " " + nounPhrases.get(rightNearestEntityNp).getType());
+        
+        //If cannot find 2 Object Names around comparatives
+        if (nounPhrases.get(leftNearestEntityNp).getType() != 0
+                || nounPhrases.get(rightNearestEntityNp).getType() != 0) {
+            return;
+        }   
+        
+        System.out.println("DEBUG AFTER " + nounPhrases.get(leftNearestEntityNp).getReviewId() + " "
+                + nounPhrases.get(leftNearestEntityNp).getId() + " "
+                + nounPhrases.get(leftNearestEntityNp).getType() + " "
+                + nounPhrases.get(rightNearestEntityNp).getId() +
+                " " + nounPhrases.get(rightNearestEntityNp).getType());
+
+        //beat, win, outperform, the left nearest NP is superior
+        if (FeatureExtractor.COMPARATIVE_VERBS.contains(";" + this.comparativeIndicatorTokens.get(0).getWord().toLowerCase() + ";")) {
+            nounPhrases.get(leftNearestEntityNp).setSuperiorEntity(true);
+            nounPhrases.get(rightNearestEntityNp).setInferiorEntity(true);
+            return;
+        }                
+
+        //comparative indicators obviously
+        Token affectedToken = null; //more/less/same
+        Token sentimentToken = null; //adj/adv
+        if (this.comparativeIndicatorTokens.get(0).getWord().equals("more")
+                || this.comparativeIndicatorTokens.get(0).getWord().equals("less")
+                || this.comparativeIndicatorTokens.get(0).getWord().equals("same")) {
+            affectedToken = this.comparativeIndicatorTokens.get(0);
+            sentimentToken = this.comparativeIndicatorTokens.get(1);            
+        } else{
+            sentimentToken = this.comparativeIndicatorTokens.get(0);
         }
 
-        if (minNearestBiggerNp != maxNearestSmallerNp) {
-            nounPhrases.get(minNearestBiggerNp).setSuperior(sentimentLevel == Util.POSITIVE);
-            nounPhrases.get(minNearestBiggerNp).setInferior(sentimentLevel == Util.NEGATIVE);
-            nounPhrases.get(maxNearestSmallerNp).setSuperior(sentimentLevel == Util.NEGATIVE);
-            nounPhrases.get(maxNearestSmallerNp).setInferior(sentimentLevel == Util.POSITIVE);
+        //same: return
+        if (affectedToken != null && affectedToken.getWord().toLowerCase().equals("same")) {
+            return;
+        }                           
+        
+        if (affectedToken != null && affectedToken.getWord().toLowerCase().equals("more")) {
+            if (sentimentToken != null && sentimentToken.getSentimentOrientation() == Util.POSITIVE) {
+                nounPhrases.get(leftNearestEntityNp).setSuperiorEntity(true);
+                nounPhrases.get(rightNearestEntityNp).setInferiorEntity(true);
+                return;
+            } else if (sentimentToken != null && sentimentToken.getSentimentOrientation() == Util.NEGATIVE) {
+                nounPhrases.get(leftNearestEntityNp).setInferiorEntity(true);
+                nounPhrases.get(rightNearestEntityNp).setSuperiorEntity(true);
+                return;
+            }            
         }
 
-        return true;
+        if (affectedToken != null && affectedToken.getWord().toLowerCase().equals("less")) {
+            if (sentimentToken != null && sentimentToken.getSentimentOrientation() == Util.POSITIVE) {
+                nounPhrases.get(leftNearestEntityNp).setInferiorEntity(true);
+                nounPhrases.get(rightNearestEntityNp).setSuperiorEntity(true);
+                return;
+            } else if (sentimentToken != null && sentimentToken.getSentimentOrientation() == Util.NEGATIVE) {
+                nounPhrases.get(leftNearestEntityNp).setSuperiorEntity(true);
+                nounPhrases.get(rightNearestEntityNp).setInferiorEntity(true);
+                return;
+            }            
+        }
+        
+        if (affectedToken == null && sentimentToken != null){
+            if (sentimentToken.getSentimentOrientation() == Util.POSITIVE){
+                nounPhrases.get(leftNearestEntityNp).setSuperiorEntity(true);
+                nounPhrases.get(rightNearestEntityNp).setInferiorEntity(true);
+                return;
+            }
+            else if (sentimentToken.getSentimentOrientation() == Util.NEGATIVE){
+                nounPhrases.get(leftNearestEntityNp).setInferiorEntity(true);
+                nounPhrases.get(rightNearestEntityNp).setSuperiorEntity(true);
+                return;
+            }
+        }
+        
+        //"than" only, consider the sentiment of the whole sentence
+        if (this.sentimentLevel == Util.POSITIVE){
+            nounPhrases.get(leftNearestEntityNp).setSuperiorEntity(true);
+            nounPhrases.get(rightNearestEntityNp).setInferiorEntity(true);   
+        }
+        else if (this.sentimentLevel == Util.NEGATIVE){
+            nounPhrases.get(leftNearestEntityNp).setInferiorEntity(true);
+            nounPhrases.get(rightNearestEntityNp).setSuperiorEntity(true);   
+        }                
+
+        return;
     }
 
     /**
