@@ -509,20 +509,8 @@ public class Util {
 //                System.out.println("Review: " + np1.getReviewId() +"ID NP1: " + np1.getId() + "ID NP2: " + np2.getId() + " PMI: "+ listRawPMI.get(IdPMIinList));
             }
         }
-//        bwtrain.write(FeatureExtractor.isPhoneHead(np1, np2) + ",");
+        bwtrain.write(FeatureExtractor.isClausePhraseNP(np2) + ",");
         bwtrain.write(FeatureExtractor.isCorefTest(np1, np2).toString());
         bwtrain.newLine();
-    }
-
-    public static void checkPOSFilesMatchingInput(List<Review> reviews) throws Exception {
-        long numOfLinesCheck = Files.lines(Paths.get(".\\input.txt.pos.chk")).count();
-        int totalSentences = 0;
-        for (Review review : reviews) {
-            totalSentences += review.getSentences().size();
-        }
-
-        if (numOfLinesCheck != totalSentences + reviews.size()) {
-            throw new Exception("The file input.txt.pos or input.txt.pos.chk in current dir is not matching the input file");
-        }
-    }
+    }   
 }

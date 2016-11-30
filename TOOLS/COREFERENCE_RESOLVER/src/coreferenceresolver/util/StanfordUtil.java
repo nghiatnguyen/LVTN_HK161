@@ -119,7 +119,7 @@ public class StanfordUtil {
                     Token newToken = new Token();                                                                     
                     
                     Tree tokenTree = sentenceTreeLeaves.get(i);
-                    newToken.setTokenTree(tokenTree);
+                    newToken.setTokenTree(tokenTree);                                        
 
                     String word = token.get(TextAnnotation.class);
                     newToken.setWord(word);
@@ -133,7 +133,13 @@ public class StanfordUtil {
                     int offsetEnd = token.get(CharacterOffsetEndAnnotation.class);
                     newToken.setOffsetEnd(offsetEnd);  
                                         
-                    if(!simpleInit){                                                
+                    if(!simpleInit){           
+                        //Check NP relative clause
+                        Tree twoLevelsAncestor = tokenTree.ancestor(2, sentence.get(TreeCoreAnnotations.TreeAnnotation.class));
+                        if (twoLevelsAncestor.value().equals("WHNP")){
+                            newToken.setClausePhraseWord(true);
+                        }
+                        
                          //Calculate sentiment for this token
                         int newTokenSentiment = Util.retrieveOriginalSentiment(newToken.getWord());
                         newToken.setSentimentOrientation(newTokenSentiment, newSentence.getDependencies());
@@ -146,6 +152,7 @@ public class StanfordUtil {
                 bw.newLine();
 
                 if (!simpleInit){
+                    
                     //Check if this sentence contains a comparative indicator. 
                     //If yes, it is a comparative sentence. Identify which NP is superior or inferior in this sentence
                     List<Token> comparativeTokens = FeatureExtractor.findComparativeIndicator(newSentence, null, null);

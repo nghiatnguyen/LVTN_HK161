@@ -62,6 +62,7 @@ public class TrainingMain {
                 + "@ATTRIBUTE matchAfterRemoveDetermine {false,true}\n"
                 + "@ATTRIBUTE PMI {0,1,2,3,4,10,11,12}\n"
                 //                + "@ATTRIBUTE headPhone {false,true}\n"
+                + "@ATTRIBUTE relativeClause {false,true}\n"
                 + "@ATTRIBUTE coref {false,true}\n"
                 + "\n"
                 + "@DATA");
@@ -70,7 +71,9 @@ public class TrainingMain {
         try {
             FeatureExtractor.loadSDict();
             //Init every info
+            System.out.println("Stanford Init");
             su.init(false);
+            System.out.println("End of Stanford Init");
 
             //Call CRFChunker, result is in input.txt.pos.chk file
             CrfChunkerUtil.runChunk();
@@ -78,10 +81,8 @@ public class TrainingMain {
             //Read from input.txt.pos.chk file. Get all NPs
             List<NounPhrase> nounPhrases = CrfChunkerUtil.readCrfChunker();
 
-            Util.checkPOSFilesMatchingInput(StanfordUtil.reviews);
-
             //Assign NPs obtained from Chunker to StanfordUtil reviews
-            Util.assignNounPhrases(nounPhrases, StanfordUtil.reviews);                       
+            Util.assignNounPhrases(nounPhrases, StanfordUtil.reviews);
 
             //Discard some NPs
             StanfordUtil.reviews.forEach((review) -> {
@@ -90,7 +91,7 @@ public class TrainingMain {
 
             //Read the hand-modified markup file
             Util.readMarkupFile(StanfordUtil.reviews, markupFile);
-            
+
             //Initialize sentiment and comparatives for each NP in each review
             Util.initSentimentAndComparativesForNPs();
 

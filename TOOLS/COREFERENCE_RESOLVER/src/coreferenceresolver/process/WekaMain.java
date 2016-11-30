@@ -42,10 +42,8 @@ public class WekaMain {
 
             //Assign NPs obtained from Chunker to StanfordUtil reviews
             Util.assignNounPhrases(nounPhrases, StanfordUtil.reviews);
-            
-            Util.checkPOSFilesMatchingInput(StanfordUtil.reviews);
-            
-            for (Review review : StanfordUtil.reviews) {                
+
+            for (Review review : StanfordUtil.reviews) {
                 Util.discardUnneccessaryNPs(review);
             }
 
@@ -54,23 +52,23 @@ public class WekaMain {
             int No = 0;
             //Evaluation MUC score
             for (Review review : StanfordUtil.reviews) {
-            	System.out.println("--------Review " + No + "-----------");
-            	for (CorefChain cf : review.getCorefChainsPredict()){
-            		System.out.println("Predict chain: " + cf.getChain().toString()+ 
-                			"; Size: " + coreferenceresolver.process.Evaluation.findSize(cf)
-                			+ "; Numpartitions: " + coreferenceresolver.process.Evaluation.findNumPartitions(cf, review.getCorefChainsActual()));
-            	}
-                for (CorefChain cf : review.getCorefChainsActual()){
-                	System.out.println("Actual Chain: " +  cf.getChain().toString() + 
-                			"; Size: " + coreferenceresolver.process.Evaluation.findSize(cf)
-                			+ "; Numpartitions: " + coreferenceresolver.process.Evaluation.findNumPartitions(cf, review.getCorefChainsPredict()));
+                System.out.println("--------Review " + No + "-----------");
+                for (CorefChain cf : review.getCorefChainsPredict()) {
+                    System.out.println("Predict chain: " + cf.getChain().toString()
+                            + "; Size: " + coreferenceresolver.process.Evaluation.findSize(cf)
+                            + "; Numpartitions: " + coreferenceresolver.process.Evaluation.findNumPartitions(cf, review.getCorefChainsActual()));
+                }
+                for (CorefChain cf : review.getCorefChainsActual()) {
+                    System.out.println("Actual Chain: " + cf.getChain().toString()
+                            + "; Size: " + coreferenceresolver.process.Evaluation.findSize(cf)
+                            + "; Numpartitions: " + coreferenceresolver.process.Evaluation.findNumPartitions(cf, review.getCorefChainsPredict()));
                 }
                 No++;
             }
             //TODO Write these to file
             Evaluation.scoreMUC(StanfordUtil.reviews);
             Evaluation.scoreB3(StanfordUtil.reviews);
-//            Evaluation.scoreCEAF4(StanfordUtil.reviews);
+            Evaluation.scoreCEAF4(StanfordUtil.reviews);
 
         } catch (IOException ex) {
             Logger.getLogger(MarkupMain.class.getName()).log(Level.SEVERE, null, ex);

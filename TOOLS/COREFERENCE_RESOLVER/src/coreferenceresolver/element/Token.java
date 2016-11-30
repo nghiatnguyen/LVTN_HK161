@@ -22,6 +22,7 @@ public class Token {
     private int offsetEnd;
     private int sentimentOrientation = Util.NEUTRAL;
     private Tree tokenTree;
+    private boolean isClausePhraseWord;
 
     /**
      * @return the word
@@ -94,8 +95,10 @@ public class Token {
                 || newTokenSentiment == Util.NEGATIVE) && (!this.POS.equals("IN"))) {
             for (TypedDependency typedDependency : typedDeps) {
                 if (typedDependency.reln().toString().equals("neg") && typedDependency.gov().value().equals(word)) {
-                    newTokenSentiment = Util.reverseSentiment(newTokenSentiment);
-                    break;
+                    newTokenSentiment = Util.reverseSentiment(newTokenSentiment);                    
+                }
+                if (typedDependency.reln().toString().equals("mark") && typedDependency.gov().value().equals(word)) {
+                    newTokenSentiment = Util.reverseSentiment(newTokenSentiment);                    
                 }
             }
         }
@@ -114,5 +117,19 @@ public class Token {
      */
     public void setTokenTree(Tree tokenTree) {
         this.tokenTree = tokenTree;
+    }
+
+    /**
+     * @return the isClausePhraseWord
+     */
+    public boolean isClausePhraseWord() {
+        return isClausePhraseWord;
+    }
+
+    /**
+     * @param isClausePhraseWord the isClausePhraseWord to set
+     */
+    public void setClausePhraseWord(boolean isClausePhraseWord) {
+        this.isClausePhraseWord = isClausePhraseWord;
     }
 }
