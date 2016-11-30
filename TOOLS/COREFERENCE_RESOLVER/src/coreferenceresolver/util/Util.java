@@ -90,7 +90,7 @@ public class Util {
             } else {
                 for (int j = i - 1; j >= 0; j--) {
                     NounPhrase np1 = review.getNounPhrases().get(j);
-                    if (np1.getType() == 0 || np2.getType() == 0 || np1.getType() == 3 || np2.getType() == 3) {
+                    if (np1.getType() == 0 || np2.getType() == 0 || np2.getType() == 2 || np1.getType() == 2 || np1.getType() == 3 || np2.getType() == 3) {
                         //If NP1 is Pronoun or "this,that,these,those,what,which,..." -> don't need pay attention. Value rawPMI is -1.
                         Float rawPMIof2NP = FeatureExtractor.PMI(np2, np1);
                         listRawPMI.add(rawPMIof2NP);
