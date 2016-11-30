@@ -101,6 +101,7 @@ public class Review {
             }
             ++chainNo;
         }
+//        System.out.println("DEBUG " + np1ChainExisted + " " + np2ChainExisted);
         if (np1ChainExisted != -1 && np2ChainExisted == -1){
             this.corefChainsPredict.get(np1ChainExisted).addCoref(np2Id);
         }
@@ -112,32 +113,39 @@ public class Review {
             newCC.addCoref(np1Id);
             newCC.addCoref(np2Id);
             this.corefChainsPredict.add(newCC);
+        }       
+        else{
+//            System.out.println("DEBUG " + np1ChainExisted + " " + np2ChainExisted);
+            int npChainBefore = np1ChainExisted > np2ChainExisted? np2ChainExisted: np1ChainExisted;
+            int npChainAfter = np1ChainExisted > np2ChainExisted? np1ChainExisted: np2ChainExisted; 
+            
+            //2 NP already exist in a same chain
+            if (npChainBefore == npChainAfter){
+                return;
+            }
+            
+            //2 NP already exist in 2 different chains
+            CorefChain newChain = new CorefChain();
+            for (Integer npId: this.corefChainsPredict.get(npChainAfter).getChain()){                                
+                newChain.addCoref(npId);
+            }
+            Iterator<CorefChain> itr = this.corefChainsPredict.iterator();  
+            int i = 0;
+            //Remove the chain after
+            while (itr.hasNext()){
+                CorefChain cc = itr.next();
+                if (i == npChainBefore){
+                    for (Integer npId: newChain.getChain()){
+                        cc.addCoref(npId);                    
+                    }                    
+                }
+                if (i == npChainAfter){
+                    itr.remove();
+                    break;
+                }
+                ++i;
+            }
         }
-//        else{
-//        	int npChainBefore = np1ChainExisted > np2ChainExisted? np2ChainExisted: np1ChainExisted;
-//        	int npChainAfter = np1ChainExisted > np2ChainExisted? np1ChainExisted: np2ChainExisted;
-//        	CorefChain corefChainNP1 = new CorefChain();
-//        	for (int npId: this.corefChainsPredict.get(npChainAfter).getChain()){
-//        		corefChainNP1.addCoref(npId);
-//        	}
-//        	
-//        	this.corefChainsPredict.remove(npChainAfter);
-//        	for(int npId: corefChainNP1.getChain())
-//        		this.corefChainsPredict.get(npChainBefore).addCoref(npId);
-//        	        	 
-////        	Iterator<CorefChain> itr = this.corefChainsPredict.iterator();
-////        	int i = 0;
-////        	while (itr.hasNext()){
-////        		if (i == npChainAfter){         			
-////        			itr.remove();        			
-////        		}
-////        		if (i == npChainBefore){         			
-////        			CorefChain cc = itr.next();
-////        			cc = corefChainNP1;
-////        		}
-////        		++i;
-////        	}
-//        }
     }
     
     

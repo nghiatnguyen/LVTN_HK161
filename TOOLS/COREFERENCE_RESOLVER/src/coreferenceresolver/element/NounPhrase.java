@@ -29,8 +29,8 @@ public class NounPhrase {
     private int refId;
     private int type;
     private int chainId = -1;
-    private boolean isSuperior;
-    private boolean isInferior;
+    private boolean isSuperiorEntity;
+    private boolean isInferiorEntity;
     private ArrayList<String> opinionWords;
     private ArrayList<CRFToken> CRFTokens;
     private int sentimentOrientation;
@@ -169,31 +169,31 @@ public class NounPhrase {
     }
 
     /**
-     * @return the isSuperior
+     * @return the isSuperiorEntity
      */
-    public boolean isSuperior() {
-        return isSuperior;
+    public boolean isSuperiorEntity() {
+        return isSuperiorEntity;
     }
 
     /**
-     * @param isSuperior the isSuperior to set
+     * @param isSuperiorEntity the isSuperiorEntity to set
      */
-    public void setSuperior(boolean isSuperior) {
-        this.isSuperior = isSuperior;
+    public void setSuperiorEntity(boolean isSuperiorEntity) {
+        this.isSuperiorEntity = isSuperiorEntity;
     }
 
     /**
-     * @return the isInferior
+     * @return the isInferiorEntity
      */
-    public boolean isInferior() {
-        return isInferior;
+    public boolean isInferiorEntity() {
+        return isInferiorEntity;
     }
 
     /**
-     * @param isInferior the isInferior to set
+     * @param isInferiorEntity the isInferiorEntity to set
      */
-    public void setInferior(boolean isInferior) {
-        this.isInferior = isInferior;
+    public void setInferiorEntity(boolean isInferiorEntity) {
+        this.isInferiorEntity = isInferiorEntity;
     }
 
     /**

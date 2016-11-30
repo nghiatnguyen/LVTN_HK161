@@ -41,28 +41,27 @@ public class TrainingMain {
                 + "@ATTRIBUTE review REAL\n"
                 + "@ATTRIBUTE np1 REAL\n"
                 + "@ATTRIBUTE np2 REAL\n"
-                                + "@ATTRIBUTE np1ispr {false,true}\n"
-                                + "@ATTRIBUTE np2ispr {false,true}\n"
-                                + "@ATTRIBUTE np2isdefnp {false,true}\n"
-                                + "@ATTRIBUTE np2isdemnp {false,true}\n"
-                                + "@ATTRIBUTE distance REAL\n"
-                                + "@ATTRIBUTE numberagreement {false,true}\n"
-                                + "@ATTRIBUTE isbetween {false,true}\n"
-                                + "@ATTRIBUTE hasbetween {false,true}\n"
-                                + "@ATTRIBUTE comparative {false,true}\n"
-                                + "@ATTRIBUTE sentiment REAL\n"
-                                + "@ATTRIBUTE bothpropername {false,true}\n"
-                                + "@ATTRIBUTE np1propername {false,true}\n"
-                                + "@ATTRIBUTE np2propername {false,true}\n"
-                                + "@ATTRIBUTE bothPronoun {false,true}\n"
-                                + "@ATTRIBUTE bothNormal {false,true}\n"
-                                + "@ATTRIBUTE subString {false,true}\n"
-                                + "@ATTRIBUTE headMatch {false,true}\n"
-                                + "@ATTRIBUTE exactMatch {false,true}\n"
-                                + "@ATTRIBUTE matchAfterRemoveDetermine {false,true}\n"
-                                + "@ATTRIBUTE PMI {0,1,2,3,4,10}\n"
-//                                + "@ATTRIBUTE np1Type {0,1,2}\n"
-//                                + "@ATTRIBUTE headPhone {false,true}\n"
+                + "@ATTRIBUTE np1ispr {false,true}\n"
+                + "@ATTRIBUTE np2ispr {false,true}\n"
+                + "@ATTRIBUTE np2isdefnp {false,true}\n"
+                + "@ATTRIBUTE np2isdemnp {false,true}\n"
+                + "@ATTRIBUTE distance REAL\n"
+                + "@ATTRIBUTE numberagreement {false,true}\n"
+                + "@ATTRIBUTE isbetween {false,true}\n"
+                + "@ATTRIBUTE hasbetween {false,true}\n"
+                + "@ATTRIBUTE comparative {false,true}\n"
+                + "@ATTRIBUTE sentiment REAL\n"
+                + "@ATTRIBUTE bothpropername {false,true}\n"
+                + "@ATTRIBUTE np1propername {false,true}\n"
+                + "@ATTRIBUTE np2propername {false,true}\n"
+                + "@ATTRIBUTE bothPronoun {false,true}\n"
+                + "@ATTRIBUTE bothNormal {false,true}\n"
+                + "@ATTRIBUTE subString {false,true}\n"
+                + "@ATTRIBUTE headMatch {false,true}\n"
+                + "@ATTRIBUTE exactMatch {false,true}\n"
+                + "@ATTRIBUTE matchAfterRemoveDetermine {false,true}\n"
+                + "@ATTRIBUTE PMI {0,1,2,3,4,10,11,12}\n"
+                //                + "@ATTRIBUTE headPhone {false,true}\n"
                 + "@ATTRIBUTE coref {false,true}\n"
                 + "\n"
                 + "@DATA");
@@ -82,10 +81,7 @@ public class TrainingMain {
             Util.checkPOSFilesMatchingInput(StanfordUtil.reviews);
 
             //Assign NPs obtained from Chunker to StanfordUtil reviews
-            Util.assignNounPhrases(nounPhrases, StanfordUtil.reviews);
-
-            //Initialize sentiment and comparatives for each NP in each review
-            Util.initSentimentAndComparativesForNPs();
+            Util.assignNounPhrases(nounPhrases, StanfordUtil.reviews);                       
 
             //Discard some NPs
             StanfordUtil.reviews.forEach((review) -> {
@@ -94,6 +90,9 @@ public class TrainingMain {
 
             //Read the hand-modified markup file
             Util.readMarkupFile(StanfordUtil.reviews, markupFile);
+            
+            //Initialize sentiment and comparatives for each NP in each review
+            Util.initSentimentAndComparativesForNPs();
 
             //Begin create training set
             for (Review review : StanfordUtil.reviews) {

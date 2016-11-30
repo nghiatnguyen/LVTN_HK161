@@ -1,6 +1,8 @@
 package coreferenceresolver.weka;
 
+import coreferenceresolver.gui.WekaTreeGUI;
 import coreferenceresolver.util.StanfordUtil;
+import java.awt.BorderLayout;
 import weka.classifiers.Evaluation;
 import weka.classifiers.trees.J48;
 import weka.core.Instances;
@@ -14,6 +16,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Random;
+import javax.swing.JFrame;
+import weka.gui.treevisualizer.PlaceNode2;
+import weka.gui.treevisualizer.TreeVisualizer;
 
 public class Weka {
 
@@ -73,7 +78,7 @@ public class Weka {
         Instances testInstances = new Instances(new BufferedReader(new FileReader(testFilePath)));
         PrintWriter writer = new PrintWriter(resultFilePath, "UTF-8");
 
-        Remove remove = new Remove(); 
+        Remove remove = new Remove();
         String[] options = new String[2];
         options[0] = "-R";                                    // "range"
         options[1] = "1,2,3";    // new instance of filter
@@ -88,7 +93,7 @@ public class Weka {
             double index = tree.classifyInstance(newTestInstances.instance(i));
             String classPredicted = newTestInstances.classAttribute().value((int) index);
             String classActual = newTestInstances.classAttribute().value((int) newTestInstances.instance(i).classValue());
-            
+
             if (classActual.equals("true")) {
                 int reviewId = (int) testInstances.instance(i).value(0);
                 int np1Id = (int) testInstances.instance(i).value(1);
@@ -96,14 +101,14 @@ public class Weka {
 
                 StanfordUtil.reviews.get(reviewId).addCorefChainActual(np1Id, np2Id);
             }
-            
-            
+
             //If 2 instances is coref, consider to add them to COREFs chain of the review
             if (classPredicted.equals("true")) {
                 int reviewId = (int) testInstances.instance(i).value(0);
                 int np1Id = (int) testInstances.instance(i).value(1);
                 int np2Id = (int) testInstances.instance(i).value(2);
 
+                System.out.println(reviewId + " " + np1Id + " " + np2Id + " " + testInstances.instance(i).value(12));
                 StanfordUtil.reviews.get(reviewId).addCorefChainPredict(np1Id, np2Id);
             }
             System.out.println("Class Actual = " + classActual);
@@ -119,10 +124,12 @@ public class Weka {
         writer.println(eval.toClassDetailsString());
         writer.println(eval.toMatrixString());
         writer.close();
+
         System.out.println("Done");
+        new WekaTreeGUI(tree).main(null);
     }
-    
-    public static void trainJustOpinionWords(String trainingFilePath, String testFilePath) throws Exception{
+
+    public static void trainJustOpinionWords(String trainingFilePath, String testFilePath) throws Exception {
         BufferedReader reader = new BufferedReader(
                 new FileReader(trainingFilePath));
         Instances trainInstances = new Instances(reader);
@@ -139,12 +146,12 @@ public class Weka {
         newTrainInstances.setClassIndex(newTrainInstances.numAttributes() - 1);
         useTestSetOpinionWords(newTrainInstances, testFilePath);
     }
-    
+
     public static void useTestSetOpinionWords(Instances trainInstances, String testFilePath) throws Exception {
         Instances testInstances = new Instances(new BufferedReader(new FileReader(testFilePath)));
         PrintWriter writer = new PrintWriter(new File(".\\trang.txt"), "UTF-8");
 
-        Remove remove = new Remove(); 
+        Remove remove = new Remove();
         String[] options = new String[2];
         options[0] = "-R";                                    // "range"
         options[1] = "1,2,3";    // new instance of filter
@@ -159,7 +166,7 @@ public class Weka {
             double index = tree.classifyInstance(newTestInstances.instance(i));
             String classPredicted = newTestInstances.classAttribute().value((int) index);
             String classActual = newTestInstances.classAttribute().value((int) newTestInstances.instance(i).classValue());
-            
+
             if (classActual.equals("true")) {
                 int reviewId = (int) testInstances.instance(i).value(0);
                 int np1Id = (int) testInstances.instance(i).value(1);
@@ -167,8 +174,7 @@ public class Weka {
 
                 StanfordUtil.reviews.get(reviewId).addCorefChainActual(np1Id, np2Id);
             }
-            
-            
+
             //If 2 instances is coref, consider to add them to COREFs chain of the review
             if (classPredicted.equals("true")) {
                 int reviewId = (int) testInstances.instance(i).value(0);

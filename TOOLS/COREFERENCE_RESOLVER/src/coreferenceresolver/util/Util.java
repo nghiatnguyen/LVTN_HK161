@@ -236,8 +236,8 @@ public class Util {
     private static void readMarkup(List<Review> reviews, String markupLine, int reviewId) {
         List<NounPhrase> nounPhrases = reviews.get(reviewId).getNounPhrases();
         int charId = 0;
-        int npId = 0;
-
+        int npId = 0;        
+        
         while (charId < markupLine.length()) {
             if (markupLine.charAt(charId) == '<') {
                 String corefInfo = "";
@@ -251,7 +251,8 @@ public class Util {
                 }
                 String[] corefInfos = corefInfo.split(",");
                 int refId = Integer.valueOf(corefInfos[1]);
-                int type = Integer.valueOf(corefInfos[2]);
+                int type = Integer.valueOf(corefInfos[2]);    
+//                System.out.println("NP " + nounPhrases.get(npId).getReviewId() + " " + nounPhrases.get(npId).getId() + " type " + type);
                 nounPhrases.get(npId).setRefId(refId);
                 nounPhrases.get(npId).setType(type);
                 ++npId;
@@ -272,6 +273,15 @@ public class Util {
                     || isDiscardedStopWordNP(np) || isDiscardedQuantityNP(np) || isDiscardedPercentageNP(np)
                     || isDiscardedWrongCase(np)) {
                 itr.remove();
+                
+                Iterator<NounPhrase> sentNPsItr = review.getSentences().get(np.getSentenceId()).getNounPhrases().iterator();
+                while (sentNPsItr.hasNext()) {
+                    NounPhrase npSent = sentNPsItr.next();
+                    if (npSent.getId() == np.getId()){
+                        sentNPsItr.remove();
+                        break;
+                    }
+                }
             }
         }
 
@@ -373,7 +383,7 @@ public class Util {
 
     public static void assignNounPhrases(List<NounPhrase> nounPhrases, List<Review> reviews) {
         CollinsHeadFinder headFinder = new CollinsHeadFinder();
-        for (NounPhrase np : nounPhrases) {            
+        for (NounPhrase np : nounPhrases) {                          
             Review review = reviews.get(np.getReviewId());
             Sentence sentence = review.getSentences().get(np.getSentenceId());
             String npContent = "";
@@ -383,7 +393,7 @@ public class Util {
 
             //Initiate a NP Tree
             Tree npNode = initNPTree();
-            for (CRFToken cRFToken : np.getCRFTokens()) {
+            for (CRFToken cRFToken : np.getCRFTokens()) {                
                 Tree cRFTokenTree = sentence.getTokens().get(cRFToken.getIdInSentence()).getTokenTree();
                 npNode.addChild(cRFTokenTree);
             }
