@@ -960,13 +960,25 @@ public class FeatureExtractor {
     }
     
     //Word starts a relative clause: that, which, //
-    public static boolean isClausePhraseNP(NounPhrase np){
-        List<CRFToken> npCrfTokens = np.getCRFTokens();
-        if (npCrfTokens.size() == 1){
-            List<Token> npSentTokens = StanfordUtil.reviews.get(np.getReviewId()).getSentences().get(np.getSentenceId()).getTokens();
-            if (npSentTokens.get(npCrfTokens.get(0).getIdInSentence()).isClausePhraseWord()){
-                return true;
-            }                
+    public static boolean isClausePhraseNPs(NounPhrase np1, NounPhrase np2){
+        if (np1.getReviewId() == np2.getReviewId()){
+            if (np1.getSentenceId() == np2.getSentenceId()){
+                int np1OffsetBegin = np1.getOffsetBegin();
+                int np2OffsetBegin = np2.getOffsetBegin();                
+                NounPhrase npBefore = np1OffsetBegin > np2OffsetBegin? np2: np1;
+                NounPhrase npAfter = np1OffsetBegin > np2OffsetBegin? np1: np2;
+                
+                //<=3 Only consider the case that the two NPs stand nearly to each other
+                if (npAfter.getOffsetBegin() - npBefore.getOffsetEnd() <= 3){
+                    List<CRFToken> npCrfTokens = npAfter.getCRFTokens();
+                    if (npCrfTokens.size() == 1){
+                        List<Token> npSentTokens = StanfordUtil.reviews.get(npAfter.getReviewId()).getSentences().get(npAfter.getSentenceId()).getTokens();
+                        if (npSentTokens.get(npCrfTokens.get(0).getIdInSentence()).isClausePhraseWord()){
+                            return true;
+                        }                
+                    }
+                }
+            }
         }
         return false;
     }

@@ -53,7 +53,7 @@ public class WekaMain {
             //Evaluation MUC score
             for (Review review : StanfordUtil.reviews) {
                 System.out.println("--------Review " + No + "-----------");
-                for (CorefChain cf : review.getCorefChainsPredict()) {
+                for (CorefChain cf : review.getCorefChainsPredicted()) {
                     System.out.println("Predict chain: " + cf.getChain().toString()
                             + "; Size: " + coreferenceresolver.process.Evaluation.findSize(cf)
                             + "; Numpartitions: " + coreferenceresolver.process.Evaluation.findNumPartitions(cf, review.getCorefChainsActual()));
@@ -61,7 +61,7 @@ public class WekaMain {
                 for (CorefChain cf : review.getCorefChainsActual()) {
                     System.out.println("Actual Chain: " + cf.getChain().toString()
                             + "; Size: " + coreferenceresolver.process.Evaluation.findSize(cf)
-                            + "; Numpartitions: " + coreferenceresolver.process.Evaluation.findNumPartitions(cf, review.getCorefChainsPredict()));
+                            + "; Numpartitions: " + coreferenceresolver.process.Evaluation.findNumPartitions(cf, review.getCorefChainsPredicted()));
                 }
                 No++;
             }

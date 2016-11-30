@@ -35,13 +35,20 @@ public class ClassifiedResultGUI extends javax.swing.JFrame {
     private List<DefaultHighlighter.DefaultHighlightPainter> highlightPainters;
 
     private String demoText = "";
+    
+    private boolean forPredicting;
 
     /**
      * Creates new form ClassifiedResultGUI
      */
-    public ClassifiedResultGUI() throws BadLocationException {
-        initComponents();
+    public ClassifiedResultGUI(boolean forPredicting) throws BadLocationException {
+        initComponents();                
+        
+        this.forPredicting = forPredicting;
 
+        String title = forPredicting? "PREDICTED CHAINS": "ACTUAL CHAINS";
+        this.setTitle(title);
+        
         this.highlightSearchTags = new ArrayList<>();
 
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -95,7 +102,7 @@ public class ClassifiedResultGUI extends javax.swing.JFrame {
 
         resultJTxtPane.setText(demoText);
 
-        for (int i = 0; i < StanfordUtil.reviews.size(); ++i) {
+        for (int i = 0; i < StanfordUtil.reviews.size(); ++i) {            
             highlightReview(StanfordUtil.reviews.get(i));
         }
     }
@@ -103,9 +110,10 @@ public class ClassifiedResultGUI extends javax.swing.JFrame {
     private void highlightReview(Review review) throws BadLocationException {
         StyledDocument doc = resultJTxtPane.getStyledDocument();
         int curLen = doc.getLength();
-        doc.insertString(curLen, "\n\n" + review.getRawContent(), null);
-        for (int i = 0; i < review.getCorefChainsPredict().size(); ++i) {
-            CorefChain cc = review.getCorefChainsPredict().get(i);
+        doc.insertString(curLen, "\n\n" + review.getRawContent(), null);        
+        List<CorefChain> considerCorefChain = this.forPredicting? review.getCorefChainsPredicted(): review.getCorefChainsActual();
+        for (int i = 0; i < considerCorefChain.size(); ++i) {
+            CorefChain cc = considerCorefChain.get(i);
             for (int j = 0; j < cc.getChain().size(); ++j) {
                 NounPhrase np = review.getNounPhrases().get(cc.getChain().get(j));
                 int npOffsetBegin = np.getOffsetBegin();
@@ -212,7 +220,7 @@ public class ClassifiedResultGUI extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void render(boolean forPredicting) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -240,7 +248,7 @@ public class ClassifiedResultGUI extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new ClassifiedResultGUI()
+                    new ClassifiedResultGUI(forPredicting)
                             .setVisible(true);
                 } catch (BadLocationException ex) {
                     Logger.getLogger(ClassifiedResultGUI.class.getName()).log(Level.SEVERE, null, ex);

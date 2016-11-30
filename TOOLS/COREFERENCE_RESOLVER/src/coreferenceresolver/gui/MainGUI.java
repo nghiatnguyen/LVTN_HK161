@@ -482,7 +482,10 @@ public class MainGUI extends javax.swing.JFrame {
                     noteTF.setText("Create result file done!");
                     String folderPathOpen = resultFilePathTF1.getText().substring(0, resultFilePathTF1.getText().lastIndexOf(File.separatorChar));
                     Desktop.getDesktop().open(new File(folderPathOpen));
-                    ClassifiedResultGUI.main(null);
+                    //Open the window for predicted chains                    
+                    ClassifiedResultGUI.render(true);
+                    //Open the window for actual chains                    
+                    ClassifiedResultGUI.render(false);
                 } catch (Exception ex) {
                     Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }

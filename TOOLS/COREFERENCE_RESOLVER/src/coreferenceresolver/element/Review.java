@@ -18,14 +18,14 @@ public class Review {
     private List<Sentence> sentences;
     private List<NounPhrase> nounPhrases;
     private String rawContent;
-    private List<CorefChain> corefChainsPredict;
+    private List<CorefChain> corefChainsPredicted;
     private List<CorefChain> corefChainsActual;
     private List<CorefChain> corefChains;    
 
     public Review() {
         sentences = new ArrayList<>();
         nounPhrases = new ArrayList<>();
-        corefChainsPredict = new ArrayList<>();
+        corefChainsPredicted = new ArrayList<>();
         corefChainsActual = new ArrayList<>();  
         corefChains = new ArrayList<>();
     }
@@ -75,8 +75,8 @@ public class Review {
     /**
      * @return the corefChains
      */
-    public List<CorefChain> getCorefChainsPredict() {
-        return corefChainsPredict;
+    public List<CorefChain> getCorefChainsPredicted() {
+        return corefChainsPredicted;
     }
     
     public List<CorefChain> getCorefChainsActual(){
@@ -90,7 +90,7 @@ public class Review {
         int np1ChainExisted = -1;
         int np2ChainExisted = -1;
         int chainNo = 0;
-        for (CorefChain cc: this.corefChainsPredict){
+        for (CorefChain cc: this.corefChainsPredicted){
             for (int npId: cc.getChain()){
                 if (npId == np1Id){
                     np1ChainExisted = chainNo;
@@ -103,16 +103,16 @@ public class Review {
         }
 //        System.out.println("DEBUG " + np1ChainExisted + " " + np2ChainExisted);
         if (np1ChainExisted != -1 && np2ChainExisted == -1){
-            this.corefChainsPredict.get(np1ChainExisted).addCoref(np2Id);
+            this.corefChainsPredicted.get(np1ChainExisted).addCoref(np2Id);
         }
         else if (np2ChainExisted != -1 && np1ChainExisted == -1){
-            this.corefChainsPredict.get(np2ChainExisted).addCoref(np1Id);
+            this.corefChainsPredicted.get(np2ChainExisted).addCoref(np1Id);
         }
         else if (np2ChainExisted == -1 && np1ChainExisted == -1){
             CorefChain newCC = new CorefChain();
             newCC.addCoref(np1Id);
             newCC.addCoref(np2Id);
-            this.corefChainsPredict.add(newCC);
+            this.corefChainsPredicted.add(newCC);
         }       
         else{
 //            System.out.println("DEBUG " + np1ChainExisted + " " + np2ChainExisted);
@@ -126,10 +126,10 @@ public class Review {
             
             //2 NP already exist in 2 different chains
             CorefChain newChain = new CorefChain();
-            for (Integer npId: this.corefChainsPredict.get(npChainAfter).getChain()){                                
+            for (Integer npId: this.corefChainsPredicted.get(npChainAfter).getChain()){                                
                 newChain.addCoref(npId);
             }
-            Iterator<CorefChain> itr = this.corefChainsPredict.iterator();  
+            Iterator<CorefChain> itr = this.corefChainsPredicted.iterator();  
             int i = 0;
             //Remove the chain after
             while (itr.hasNext()){

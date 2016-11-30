@@ -44,7 +44,7 @@ public class Evaluation {
 
         for (Review re : listReview) {
             for (CorefChain cf : re.getCorefChainsActual()) {
-                SumNumeratorRecall = SumNumeratorRecall + findSize(cf) - findNumPartitions(cf, re.getCorefChainsPredict());
+                SumNumeratorRecall = SumNumeratorRecall + findSize(cf) - findNumPartitions(cf, re.getCorefChainsPredicted());
                 SumDenominatorRecall = SumDenominatorRecall + findSize(cf) - 1;
             }
         }
@@ -55,7 +55,7 @@ public class Evaluation {
         int SumDenominatorPrecision = 0;
 
         for (Review re : listReview) {
-            for (CorefChain cf : re.getCorefChainsPredict()) {
+            for (CorefChain cf : re.getCorefChainsPredicted()) {
                 SumNumeratorPrecision = SumNumeratorPrecision + findSize(cf) - findNumPartitions(cf, re.getCorefChainsActual());
                 SumDenominatorPrecision = SumDenominatorPrecision + findSize(cf) - 1;
             }
@@ -99,7 +99,7 @@ public class Evaluation {
                     int numOfEntityChainReal = 0;
                     int numOfEntityChainPredict = 0;
                     boolean check = true;
-                    for (CorefChain cf1 : re.getCorefChainsPredict()) {
+                    for (CorefChain cf1 : re.getCorefChainsPredicted()) {
                         if (cf1.getChain().contains(in)) {
                             check = false;
                             numOfEntityIntersecting = numOfEntityIntersecting(cf1.getChain(), cf.getChain());
@@ -153,14 +153,14 @@ public class Evaluation {
         for (int idreview = 0; idreview < reviews.size(); idreview++) {
             int min = 0;
 //		System.out.print("-----------Review " + idreview);
-            if (reviews.get(idreview).getCorefChainsActual().size() > reviews.get(idreview).getCorefChainsPredict().size()) {
-                min = reviews.get(idreview).getCorefChainsPredict().size();
+            if (reviews.get(idreview).getCorefChainsActual().size() > reviews.get(idreview).getCorefChainsPredicted().size()) {
+                min = reviews.get(idreview).getCorefChainsPredicted().size();
             } else {
                 min = reviews.get(idreview).getCorefChainsActual().size();
             }
 
             List<CorefChain> listEntityReal = reviews.get(idreview).getCorefChainsActual();
-            List<CorefChain> listEntityPredict = reviews.get(idreview).getCorefChainsPredict();
+            List<CorefChain> listEntityPredict = reviews.get(idreview).getCorefChainsPredicted();
             List<Float> listValueOf2Mentions = new ArrayList<>();
             ArrayList<ArrayList<Integer>> listPairMentions = new ArrayList<ArrayList<Integer>>();
             for (int i = 0; i < listEntityReal.size(); i++) {
