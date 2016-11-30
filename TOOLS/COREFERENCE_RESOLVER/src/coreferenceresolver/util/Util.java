@@ -90,17 +90,13 @@ public class Util {
             } else {
                 for (int j = i - 1; j >= 0; j--) {
                     NounPhrase np1 = review.getNounPhrases().get(j);
-                    if (np1.getType() == 0 || np2.getType() == 0 || np1.getType() == 2 || np2.getType() == 2 || np1.getType() == 3 || np2.getType() == 3) {
+                    if (np1.getType() == 0 || np2.getType() == 0 || np1.getType() == 3 || np2.getType() == 3) {
                         //If NP1 is Pronoun or "this,that,these,those,what,which,..." -> don't need pay attention. Value rawPMI is -1.
-                    	if (FeatureExtractor.isPronoun(np1) || FeatureExtractor.isNotObject(np1))
-                        	listRawPMI.add((float) -1);
-                        else {
                         Float rawPMIof2NP = FeatureExtractor.PMI(np2, np1);
                         listRawPMI.add(rawPMIof2NP);
                         if (!listAllPMI.contains(rawPMIof2NP)) {
                             listAllPMI.add(rawPMIof2NP);
 	                        }
-                        }
                     }
                 }
 
@@ -127,6 +123,18 @@ public class Util {
 //                    k++;
 //                    if (FeatureExtractor.isCorefTest(np1, np2))
 //                    	break;
+//                }
+//            }
+//            
+            //Create if NP1 or NP2 has TYPE is 0,3
+//            int k = 0;
+//            for (int j = i - 1; j >= 0; j--) {
+//                NounPhrase np1 = review.getNounPhrases().get(j);
+//                if (np1.getType() == 0 || np2.getType() == 0 || np1.getType() == 3 || np2.getType() == 3) {
+//                    createTest(np1, np2, review, bw, k);
+//                    k++;
+////                    if (FeatureExtractor.isCorefTest(np1, np2))
+////                    	break;
 //                }
 //            }
             
@@ -447,43 +455,39 @@ public class Util {
         bwtrain.write(np1.getReviewId() + ",");
         bwtrain.write(np1.getId() + ",");
         bwtrain.write(np2.getId() + ",");
-//        bwtrain.write(FeatureExtractor.isPronoun(np1).toString() + ",");
-//        bwtrain.write(FeatureExtractor.isPronoun(np2).toString() + ",");
-//        bwtrain.write(FeatureExtractor.isDefiniteNP(np2).toString() + ",");
-//        bwtrain.write(FeatureExtractor.isDemonstrativeNP(np2).toString() + ",");
-//        bwtrain.write(FeatureExtractor.countDistance(np1, np2) + ",");
-//        bwtrain.write(FeatureExtractor.numberAgreementExtract(np1, np2) + ",");
-//        bwtrain.write(FeatureExtractor.isBetween3Extract(review, np1, np2).toString() + ",");
-//        bwtrain.write(FeatureExtractor.hasBetween2Extract(review, np1, np2).toString() + ",");
-//        bwtrain.write(FeatureExtractor.comparativeIndicatorExtract(review, np1, np2).toString() + ",");
+        bwtrain.write(FeatureExtractor.isPronoun(np1).toString() + ",");
+        bwtrain.write(FeatureExtractor.isPronoun(np2).toString() + ",");
+        bwtrain.write(FeatureExtractor.isDefiniteNP(np2).toString() + ",");
+        bwtrain.write(FeatureExtractor.isDemonstrativeNP(np2).toString() + ",");
+        bwtrain.write(FeatureExtractor.countDistance(np1, np2) + ",");
+        bwtrain.write(FeatureExtractor.numberAgreementExtract(np1, np2) + ",");
+        bwtrain.write(FeatureExtractor.isBetween3Extract(review, np1, np2).toString() + ",");
+        bwtrain.write(FeatureExtractor.hasBetween2Extract(review, np1, np2).toString() + ",");
+        bwtrain.write(FeatureExtractor.comparativeIndicatorExtract(review, np1, np2).toString() + ",");
         bwtrain.write(FeatureExtractor.sentimentConsistencyExtract(np1, np2) + ",");
-//        bwtrain.write(FeatureExtractor.isBothPropername(np1, np2).toString() + ",");
-//        bwtrain.write(FeatureExtractor.hasProperName(np1, StanfordUtil.reviews.get(np1.getReviewId()).getSentences().get(np1.getSentenceId())).toString() + ",");
-//        bwtrain.write(FeatureExtractor.hasProperName(np1, StanfordUtil.reviews.get(np2.getReviewId()).getSentences().get(np2.getSentenceId())).toString() + ",");
-//        bwtrain.write(FeatureExtractor.isBothPronoun(np1, np2) + ",");
-//        bwtrain.write(FeatureExtractor.isBothNormal(np1, np2) + ",");
-//        bwtrain.write(FeatureExtractor.isSubString(np1, np2) + ",");
-//        bwtrain.write(FeatureExtractor.isHeadMatch(np1, np2) + ",");
-//        bwtrain.write(FeatureExtractor.isExactMatch(np1, np2) + ",");
-//        bwtrain.write(FeatureExtractor.isMatchAfterRemoveDetermine(np1, np2) + ",");        
+        bwtrain.write(FeatureExtractor.isBothPropername(np1, np2).toString() + ",");
+        bwtrain.write(FeatureExtractor.hasProperName(np1, StanfordUtil.reviews.get(np1.getReviewId()).getSentences().get(np1.getSentenceId())).toString() + ",");
+        bwtrain.write(FeatureExtractor.hasProperName(np2, StanfordUtil.reviews.get(np2.getReviewId()).getSentences().get(np2.getSentenceId())).toString() + ",");
+        bwtrain.write(FeatureExtractor.isBothPronoun(np1, np2) + ",");
+        bwtrain.write(FeatureExtractor.isBothNormal(np1, np2) + ",");
+        bwtrain.write(FeatureExtractor.isSubString(np1, np2) + ",");
+        bwtrain.write(FeatureExtractor.isHeadMatch(np1, np2) + ",");
+        bwtrain.write(FeatureExtractor.isExactMatch(np1, np2) + ",");
+        bwtrain.write(FeatureExtractor.isMatchAfterRemoveDetermine(np1, np2) + ",");        
 
-//        if (checkNPhasOW == false) {
-//            bwtrain.write(10 + ",");
-//        } else if (np2.getType() == 0 || np2.getType() == 2){
-//            bwtrain.write(12 + ",");
-//        } else {
-//        	  if (listAllPMI.indexOf(listRawPMI.get(IdPMIinList)) == -1)
-////        		bwtrain.write(11 + ",");
-//            else if (listRawPMI.get(IdPMIinList) == 0) {
-//                bwtrain.write(4 + ",");
-//            } else if (listAllPMI.indexOf(listRawPMI.get(IdPMIinList)) < 4) {
-////        		System.out.println("Review: " + np1.getReviewId() +"ID NP1: " + np1.getId() + "ID NP2: " + np2.getId() + " PMI: "+ listRawPMI.get(IdPMIinList));
-//                bwtrain.write(listAllPMI.indexOf(listRawPMI.get(IdPMIinList)) + ",");
-//            } else {
-//                bwtrain.write(4 + ",");
-////                System.out.println("Review: " + np1.getReviewId() +"ID NP1: " + np1.getId() + "ID NP2: " + np2.getId() + " PMI: "+ listRawPMI.get(IdPMIinList));
-//            }
-//        }
+        if (checkNPhasOW == false) {
+            bwtrain.write(10 + ",");
+        } else {
+        	if (listRawPMI.get(IdPMIinList) == 0) {
+                bwtrain.write(4 + ",");
+            } else if (listAllPMI.indexOf(listRawPMI.get(IdPMIinList)) < 4) {
+//        		System.out.println("Review: " + np1.getReviewId() +"ID NP1: " + np1.getId() + "ID NP2: " + np2.getId() + " PMI: "+ listRawPMI.get(IdPMIinList));
+                bwtrain.write(listAllPMI.indexOf(listRawPMI.get(IdPMIinList)) + ",");
+            } else {
+                bwtrain.write(4 + ",");
+//                System.out.println("Review: " + np1.getReviewId() +"ID NP1: " + np1.getId() + "ID NP2: " + np2.getId() + " PMI: "+ listRawPMI.get(IdPMIinList));
+            }
+        }
 //        bwtrain.write(FeatureExtractor.isPhoneHead(np1, np2) + ",");
         bwtrain.write(FeatureExtractor.isCorefTest(np1, np2).toString());
         bwtrain.newLine();

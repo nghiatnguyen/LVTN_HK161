@@ -70,7 +70,7 @@ public class WekaMain {
             //TODO Write these to file
             Evaluation.scoreMUC(StanfordUtil.reviews);
             Evaluation.scoreB3(StanfordUtil.reviews);
-            Evaluation.scoreCEAF4(StanfordUtil.reviews);
+//            Evaluation.scoreCEAF4(StanfordUtil.reviews);
 
         } catch (IOException ex) {
             Logger.getLogger(MarkupMain.class.getName()).log(Level.SEVERE, null, ex);

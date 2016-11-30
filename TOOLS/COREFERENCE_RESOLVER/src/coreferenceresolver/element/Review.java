@@ -6,6 +6,7 @@
 package coreferenceresolver.element;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -111,7 +112,32 @@ public class Review {
             newCC.addCoref(np1Id);
             newCC.addCoref(np2Id);
             this.corefChainsPredict.add(newCC);
-        }        
+        }
+//        else{
+//        	int npChainBefore = np1ChainExisted > np2ChainExisted? np2ChainExisted: np1ChainExisted;
+//        	int npChainAfter = np1ChainExisted > np2ChainExisted? np1ChainExisted: np2ChainExisted;
+//        	CorefChain corefChainNP1 = new CorefChain();
+//        	for (int npId: this.corefChainsPredict.get(npChainAfter).getChain()){
+//        		corefChainNP1.addCoref(npId);
+//        	}
+//        	
+//        	this.corefChainsPredict.remove(npChainAfter);
+//        	for(int npId: corefChainNP1.getChain())
+//        		this.corefChainsPredict.get(npChainBefore).addCoref(npId);
+//        	        	 
+////        	Iterator<CorefChain> itr = this.corefChainsPredict.iterator();
+////        	int i = 0;
+////        	while (itr.hasNext()){
+////        		if (i == npChainAfter){         			
+////        			itr.remove();        			
+////        		}
+////        		if (i == npChainBefore){         			
+////        			CorefChain cc = itr.next();
+////        			cc = corefChainNP1;
+////        		}
+////        		++i;
+////        	}
+//        }
     }
     
     
