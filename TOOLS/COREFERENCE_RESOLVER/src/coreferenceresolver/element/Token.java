@@ -22,6 +22,7 @@ public class Token {
     private int offsetEnd;
     private int sentimentOrientation = Util.NEUTRAL;
     private Tree tokenTree;
+    private boolean isClausePhraseWord;
 
     /**
      * @return the word
@@ -116,5 +117,19 @@ public class Token {
      */
     public void setTokenTree(Tree tokenTree) {
         this.tokenTree = tokenTree;
+    }
+
+    /**
+     * @return the isClausePhraseWord
+     */
+    public boolean isClausePhraseWord() {
+        return isClausePhraseWord;
+    }
+
+    /**
+     * @param isClausePhraseWord the isClausePhraseWord to set
+     */
+    public void setClausePhraseWord(boolean isClausePhraseWord) {
+        this.isClausePhraseWord = isClausePhraseWord;
     }
 }

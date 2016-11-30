@@ -5,6 +5,7 @@
  */
 package coreferenceresolver.process;
 
+import coreferenceresolver.element.CRFToken;
 import coreferenceresolver.util.StanfordUtil;
 import coreferenceresolver.util.Util;
 import coreferenceresolver.element.NounPhrase;
@@ -956,6 +957,18 @@ public class FeatureExtractor {
             return false;
 
         }
+    }
+    
+    //Word starts a relative clause: that, which, //
+    public static boolean isClausePhraseNP(NounPhrase np){
+        List<CRFToken> npCrfTokens = np.getCRFTokens();
+        if (npCrfTokens.size() == 1){
+            List<Token> npSentTokens = StanfordUtil.reviews.get(np.getReviewId()).getSentences().get(np.getSentenceId()).getTokens();
+            if (npSentTokens.get(npCrfTokens.get(0).getIdInSentence()).isClausePhraseWord()){
+                return true;
+            }                
+        }
+        return false;
     }
 
     //Check if the adjective is in the List of negative and positive words
