@@ -982,6 +982,7 @@ public class FeatureExtractor {
         }
         return false;
     }
+    
 
     public static void setNPForOPInSentence(Sentence fSentence) {
         int no = 0;

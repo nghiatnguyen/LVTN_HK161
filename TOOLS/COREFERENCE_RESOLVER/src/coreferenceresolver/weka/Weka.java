@@ -111,17 +111,18 @@ public class Weka {
                 System.out.println(reviewId + " " + np1Id + " " + np2Id + " " + testInstances.instance(i).value(12));
                 StanfordUtil.reviews.get(reviewId).addCorefChainPredict(np1Id, np2Id);
             }
-//            System.out.println("Class Actual = " + classActual);
-//            for (int j = 0; j < data.numAttributes(); j++){
-//            	writer.print(data.instance(i).value(j) + ",");
-//            }
-//            writer.println();
+            System.out.println("Class Actual = " + classActual);
+            for (int j = 0; j < testInstances.numAttributes(); j++){
+            	 writer.print(testInstances.instance(i).value(j) + ",");
+            }
+        	writer.print(":" + classActual + ":" + classPredicted);
+            writer.println();
         }
-//        Evaluation eval = new Evaluation(trainInstances);
-//        eval.evaluateModel(tree, newTestInstances);
-//        writer.println(eval.toSummaryString("=== Result: ===", false));
-//        writer.println(eval.toClassDetailsString());
-//        writer.println(eval.toMatrixString());
+        Evaluation eval = new Evaluation(trainInstances);
+        eval.evaluateModel(tree, newTestInstances);
+        writer.println(eval.toSummaryString("=== Result: ===", false));
+        writer.println(eval.toClassDetailsString());
+        writer.println(eval.toMatrixString());
         writer.close();
 
         System.out.println("Done");
