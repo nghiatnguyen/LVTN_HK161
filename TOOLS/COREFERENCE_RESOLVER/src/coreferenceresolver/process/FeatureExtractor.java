@@ -841,10 +841,8 @@ public class FeatureExtractor {
                                     || (npStandBefore.isInferiorEntity() && npStandAfter.getSentimentOrientation() == Util.NEGATIVE)) {
                                 return 1;
                             } 
-                            else if ((npAfterSentence.getRawContent().startsWith("However") 
-                                            || npAfterSentence.getRawContent().startsWith(" However")
-                                            || npAfterSentence.getRawContent().startsWith("But")
-                                            || npAfterSentence.getRawContent().startsWith(" But"))
+                            else if ((npAfterSentence.getRawContent().trim().startsWith("However")                                            
+                                            || npAfterSentence.getRawContent().trim().startsWith("But"))
                                     && ((npStandBefore.isInferiorEntity() && npStandAfter.getType() == 2 && npStandAfter.getSentimentOrientation() == Util.POSITIVE)
                                     || (npStandBefore.isSuperiorEntity() && npStandAfter.getSentimentOrientation() == Util.NEGATIVE))) {
                                 return 1;
@@ -982,8 +980,8 @@ public class FeatureExtractor {
                 NounPhrase npBefore = np1OffsetBegin > np2OffsetBegin? np2: np1;
                 NounPhrase npAfter = np1OffsetBegin > np2OffsetBegin? np1: np2;
                 
-                //<=3 Only consider the case that the two NPs stand nearly to each other
-                if (npAfter.getOffsetBegin() - npBefore.getOffsetEnd() <= 3){
+                //Only consider the case that the NP after stands after the NP before
+                if (npAfter.getId() - npBefore.getId() == 1){
                     List<CRFToken> npCrfTokens = npAfter.getCRFTokens();
                     if (npCrfTokens.size() == 1){
                         List<Token> npSentTokens = StanfordUtil.reviews.get(npAfter.getReviewId()).getSentences().get(npAfter.getSentenceId()).getTokens();
