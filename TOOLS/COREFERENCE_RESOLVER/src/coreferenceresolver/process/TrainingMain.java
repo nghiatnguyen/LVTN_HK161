@@ -78,10 +78,8 @@ public class TrainingMain {
             //Read from input.txt.pos.chk file. Get all NPs
             List<NounPhrase> nounPhrases = CrfChunkerUtil.readCrfChunker();
 
-            Util.checkPOSFilesMatchingInput(StanfordUtil.reviews);
-
             //Assign NPs obtained from Chunker to StanfordUtil reviews
-            Util.assignNounPhrases(nounPhrases, StanfordUtil.reviews);                       
+            Util.assignNounPhrases(nounPhrases, StanfordUtil.reviews);
 
             //Discard some NPs
             StanfordUtil.reviews.forEach((review) -> {
@@ -90,7 +88,7 @@ public class TrainingMain {
 
             //Read the hand-modified markup file
             Util.readMarkupFile(StanfordUtil.reviews, markupFile);
-            
+
             //Initialize sentiment and comparatives for each NP in each review
             Util.initSentimentAndComparativesForNPs();
 

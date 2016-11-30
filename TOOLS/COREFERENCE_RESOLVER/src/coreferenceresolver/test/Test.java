@@ -43,8 +43,7 @@ public class Test {
                 System.out.println("NP");
                 for (NounPhrase np: sentence.getNounPhrases()){
                     if (np.isSuperiorEntity()){
-                        System.out.println("Is superior ");
-                        System.out.println("Type " + np.getType());
+                        System.out.println("Is superior ");                        
                         for (CRFToken tok: np.getCRFTokens()){                            
                             System.out.print(tok.getWord() + " ");                        
                         }
@@ -52,8 +51,7 @@ public class Test {
                     }  
                     
                     if (np.isInferiorEntity()){
-                        System.out.println("Is inferior ");
-                        System.out.println("Type " + np.getType());
+                        System.out.println("Is inferior ");                        
                         for (CRFToken tok: np.getCRFTokens()){                            
                             System.out.print(tok.getWord() + " ");                        
                         }

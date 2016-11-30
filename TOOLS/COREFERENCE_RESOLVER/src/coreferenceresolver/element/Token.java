@@ -94,8 +94,10 @@ public class Token {
                 || newTokenSentiment == Util.NEGATIVE) && (!this.POS.equals("IN"))) {
             for (TypedDependency typedDependency : typedDeps) {
                 if (typedDependency.reln().toString().equals("neg") && typedDependency.gov().value().equals(word)) {
-                    newTokenSentiment = Util.reverseSentiment(newTokenSentiment);
-                    break;
+                    newTokenSentiment = Util.reverseSentiment(newTokenSentiment);                    
+                }
+                if (typedDependency.reln().toString().equals("mark") && typedDependency.gov().value().equals(word)) {
+                    newTokenSentiment = Util.reverseSentiment(newTokenSentiment);                    
                 }
             }
         }

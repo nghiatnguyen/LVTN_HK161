@@ -216,25 +216,13 @@ public class Sentence {
             if (curNp.getOffsetBegin() > comparativesOffsetEnd && curNp.getOffsetBegin() < nounPhrases.get(rightNearestEntityNp).getOffsetBegin()) {
                 rightNearestEntityNp = i;
             }            
-        }                                                     
-        
-        System.out.println("DEBUG BEFORE " + nounPhrases.get(leftNearestEntityNp).getReviewId() + " "
-                + nounPhrases.get(leftNearestEntityNp).getId() + " "
-                + nounPhrases.get(leftNearestEntityNp).getType() + " "
-                + nounPhrases.get(rightNearestEntityNp).getId() +
-                " " + nounPhrases.get(rightNearestEntityNp).getType());
+        }                                                                     
         
         //If cannot find 2 Object Names around comparatives
         if (nounPhrases.get(leftNearestEntityNp).getType() != 0
                 || nounPhrases.get(rightNearestEntityNp).getType() != 0) {
             return;
-        }   
-        
-        System.out.println("DEBUG AFTER " + nounPhrases.get(leftNearestEntityNp).getReviewId() + " "
-                + nounPhrases.get(leftNearestEntityNp).getId() + " "
-                + nounPhrases.get(leftNearestEntityNp).getType() + " "
-                + nounPhrases.get(rightNearestEntityNp).getId() +
-                " " + nounPhrases.get(rightNearestEntityNp).getType());
+        }           
 
         //beat, win, outperform, the left nearest NP is superior
         if (FeatureExtractor.COMPARATIVE_VERBS.contains(";" + this.comparativeIndicatorTokens.get(0).getWord().toLowerCase() + ";")) {
