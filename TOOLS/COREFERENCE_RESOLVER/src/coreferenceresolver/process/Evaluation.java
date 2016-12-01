@@ -8,9 +8,19 @@ import org.apache.commons.math3.util.Combinations;
 
 import coreferenceresolver.element.CorefChain;
 import coreferenceresolver.element.Review;
+import coreferenceresolver.test.CrossValidation;
 
 public class Evaluation {
     //find the cardinality of a corefChain
+	
+	private static int kFold = CrossValidation.getkFold();
+	private static float sumRecallMUC = 0;
+	private static float sumPrecisionMUC = 0;
+	private static float sumF1MUC = 0;
+	private static float sumRecallB3 = 0;
+	private static float sumPrecisionB3 = 0;
+	private static float sumF1B3 = 0;
+
 
     public static Integer findSize(CorefChain corefChain) {
         return corefChain.getChain().size();
@@ -67,6 +77,9 @@ public class Evaluation {
         System.out.println("Recall: " + recall);
         System.out.println("Precision: " + precision);
         System.out.println("F1 measure: " + f1);
+        sumRecallMUC +=recall;
+        sumPrecisionMUC += precision;
+        sumF1MUC += f1; 
     }
 
     public static float findF1(float r, float p) {
@@ -128,11 +141,15 @@ public class Evaluation {
         precision = precision / numOfEntityAllReviewPrecision;
 
         float f1 = findF1(recall, precision);
-
+        
+        
         System.out.println("-----B3 score-----");
         System.out.println("Recall: " + recall);
         System.out.println("Precision: " + precision);
         System.out.println("F1 measure: " + f1);
+        sumRecallB3 += recall;
+        sumPrecisionB3 += precision;
+        sumF1B3 += f1;
     }
 
     /*--------------CEAF phi4----------------*/
@@ -250,5 +267,23 @@ public class Evaluation {
         System.out.println("Recall: " + recall);
         System.out.println("Precision: " + precision);
         System.out.println("F1 measure: " + f1);
+    }
+    
+    public static void resultFinal(){
+    	float recallMUC = sumRecallMUC/kFold;
+    	float precisionMUC = sumPrecisionMUC/kFold;
+    	float f1MUC = sumF1MUC/kFold;
+    	float recallB3 = sumRecallB3/kFold;
+    	float precisionB3 = sumPrecisionB3/kFold;
+    	float f1B3 = sumF1B3/kFold;
+    	System.out.println("----------Result Final---------");
+    	System.out.println("-------MUC score-----");
+        System.out.println("Recall: " + recallMUC);
+        System.out.println("Precision: " + precisionMUC);
+        System.out.println("F1 measure: " + f1MUC);
+        System.out.println("-------B3 score-----");
+        System.out.println("Recall: " + recallB3);
+        System.out.println("Precision: " + precisionB3);
+        System.out.println("F1 measure: " + f1B3);
     }
 }
