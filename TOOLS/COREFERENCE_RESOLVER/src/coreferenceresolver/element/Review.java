@@ -14,13 +14,13 @@ import java.util.List;
  * @author TRONGNGHIA
  */
 public class Review {    
-
     private List<Sentence> sentences;
     private List<NounPhrase> nounPhrases;
     private String rawContent;
     private List<CorefChain> corefChainsPredicted;
     private List<CorefChain> corefChainsActual;
-    private List<CorefChain> corefChains;    
+    private List<CorefChain> corefChains;  
+    private List<String> instances;
 
     public Review() {
         sentences = new ArrayList<>();
@@ -28,6 +28,7 @@ public class Review {
         corefChainsPredicted = new ArrayList<>();
         corefChainsActual = new ArrayList<>();  
         corefChains = new ArrayList<>();
+        instances = new ArrayList<>();
     }
 
     /**
@@ -209,5 +210,13 @@ public class Review {
                 ++ccId;
             }   
         }             
+    }
+    
+    public List<String> getInstances() {
+        return instances;
+    }
+    
+    public void addInstance(String instance){
+    	this.instances.add(instance);
     }
 }
