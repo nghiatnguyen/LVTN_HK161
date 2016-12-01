@@ -90,7 +90,7 @@ public class Util {
             } else {
                 for (int j = i - 1; j >= 0; j--) {
                     NounPhrase np1 = review.getNounPhrases().get(j);
-                    if (np1.getType() == 0 || np2.getType() == 0 || np2.getType() == 2 || np1.getType() == 2 || np1.getType() == 3 || np2.getType() == 3) {
+//                    if (np1.getType() == 0 || np2.getType() == 0 || np2.getType() == 2 || np1.getType() == 2 || np1.getType() == 3 || np2.getType() == 3) {
                         //If NP1 is Pronoun or "this,that,these,those,what,which,..." -> don't need pay attention. Value rawPMI is -1.
                         if (FeatureExtractor.isPronoun(np1) || FeatureExtractor.isNotObject(np1)){
                         	listRawPMI.add((float) -1);
@@ -102,7 +102,7 @@ public class Util {
                             listAllPMI.add(rawPMIof2NP);
 	                        }
                         }
-                    }
+//                    }
                 }
 
                 Collections.sort(listAllPMI, Collections.reverseOrder());
@@ -113,10 +113,10 @@ public class Util {
             int k = 0;
             for (int j = i - 1; j >= 0; j--) {
                 NounPhrase np1 = review.getNounPhrases().get(j);
-                if (np1.getType() == 0 || np2.getType() == 0 || np2.getType() == 2 || np1.getType() == 2 || np1.getType() == 3 || np2.getType() == 3) {
+//                if (np1.getType() == 0 || np2.getType() == 0 || np2.getType() == 2 || np1.getType() == 2 || np1.getType() == 3 || np2.getType() == 3) {
                     createTest(np1, np2, review, bw, k);
                     k++;
-                }
+//                }
             }
             
             //Each True pair is created from 2 closest NPs which coreference each other. 
@@ -509,7 +509,7 @@ public class Util {
 //                System.out.println("Review: " + np1.getReviewId() +"ID NP1: " + np1.getId() + "ID NP2: " + np2.getId() + " PMI: "+ listRawPMI.get(IdPMIinList));
             }
         }
-        bwtrain.write(FeatureExtractor.isClausePhraseNPs(np1, np2) + ",");
+        bwtrain.write(FeatureExtractor.isRelativePronounNPs(np1, np2) + ",");
         bwtrain.write(FeatureExtractor.isCorefTest(np1, np2).toString());
         bwtrain.newLine();
     }   
