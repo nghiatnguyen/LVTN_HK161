@@ -41,25 +41,7 @@ public class Evaluation {
     public static void scoreMUC(List<Review> listReview) {        
         //for counting the Recall
         int SumNumeratorRecall = 0;
-        int SumDenominatorRecall = 0;
-               
-        for (Review re : listReview) {            
-            Iterator<CorefChain> itr = re.getCorefChainsPredicted().iterator();
-            while (itr.hasNext()) {
-                CorefChain curCc = itr.next();
-                boolean isSatisfied = false;
-                for (int npId : curCc.getChain()) {
-                    int curNpType = re.getNounPhrases().get(npId).getType();
-                    if (curNpType == 0 || curNpType == 3) {
-                        isSatisfied = true;
-                        break;
-                    }
-                }                
-                if (!isSatisfied) {
-                    itr.remove();
-                }
-            }
-        }
+        int SumDenominatorRecall = 0;                       
 
         for (Review re : listReview) {
             for (CorefChain cf : re.getCorefChainsActual()) {

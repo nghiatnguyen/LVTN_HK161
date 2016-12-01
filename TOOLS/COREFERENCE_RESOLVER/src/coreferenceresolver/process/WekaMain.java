@@ -26,7 +26,7 @@ import java.util.logging.Logger;
  */
 public class WekaMain {
 
-    public static void run(String inputFilePath, String trainingFilePath, String testFilePath, String resultFilePath) throws Exception {
+    public static void run(String inputFilePath, String markupFilePath, String trainingFilePath, String testFilePath, String resultFilePath) throws Exception {
         File inputFile = new File(inputFilePath);
         StanfordUtil su = new StanfordUtil(inputFile);
 
@@ -48,10 +48,12 @@ public class WekaMain {
             }
 
             //Read the hand-modified markup file
-            Util.readMarkupFile(StanfordUtil.reviews, new File("E:\\REPOSITORIES\\LVTN_HK161\\DATASET\\input_test.txt.markup"));
+            Util.readMarkupFile(StanfordUtil.reviews, new File(markupFilePath));
             
             Weka.j48Classify(trainingFilePath, testFilePath, resultFilePath);
 
+            Util.discardUnneccessaryChains(StanfordUtil.reviews);
+            
             int No = 0;
             //Evaluation MUC score
             for (Review review : StanfordUtil.reviews) {

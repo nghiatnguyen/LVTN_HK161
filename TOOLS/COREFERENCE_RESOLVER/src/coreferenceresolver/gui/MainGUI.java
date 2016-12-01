@@ -23,7 +23,7 @@ import org.apache.commons.io.FileUtils;
  * @author TRONGNGHIA
  */
 public class MainGUI extends javax.swing.JFrame {
-    
+
     private String defaulPath = "";
 
     /**
@@ -31,7 +31,7 @@ public class MainGUI extends javax.swing.JFrame {
      */
     public MainGUI() throws IOException {
         initComponents();
-        defaulPath = FileUtils.readFileToString(new File(".\\src\\coreferenceresolver\\gui\\defaultpath"));                
+        defaulPath = FileUtils.readFileToString(new File(".\\src\\coreferenceresolver\\gui\\defaultpath"));
         markupBtn.setEnabled(false);
         testBtn.setEnabled(false);
         trainingBtn.setEnabled(false);
@@ -124,12 +124,12 @@ public class MainGUI extends javax.swing.JFrame {
                 }
             }
         });
-        
+
         inputFilePathTF.setText(defaulPath + File.separatorChar + "input_test.txt");
         markupFilePathTF.setText(defaulPath + File.separatorChar + "input_test.txt.markup");
         trainingFilePathTF.setText(defaulPath + File.separatorChar + "train.arff");
         testingFilePathTF.setText(defaulPath + File.separatorChar + "test.arff");
-        
+
     }
 
     /**
@@ -366,23 +366,22 @@ public class MainGUI extends javax.swing.JFrame {
             String inputFileName = inputFilePath[inputFilePath.length - 1];
             markupFilePathTF.setText(inputFileChooser.getSelectedFile().getAbsolutePath() + File.separator + inputFileName + ".markup");
             noteTF.setText("Markup waiting ...");
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        MarkupMain.markup(inputFilePathTF.getText(), markupFilePathTF.getText());
+                        noteTF.setText("Markup done!");
+                        String folderPathOpen = markupFilePathTF.getText().substring(0, markupFilePathTF.getText().lastIndexOf(File.separatorChar));
+                        Desktop.getDesktop().open(new File(folderPathOpen));
+                    } catch (IOException ex) {
+                        Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }).start();
         } else {
             return;
         }
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    MarkupMain.markup(inputFilePathTF.getText(), markupFilePathTF.getText());
-                    noteTF.setText("Markup done!");
-                    String folderPathOpen = markupFilePathTF.getText().substring(0, markupFilePathTF.getText().lastIndexOf(File.separatorChar));
-                    Desktop.getDesktop().open(new File(folderPathOpen));
-                } catch (IOException ex) {
-                    Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }).start();
     }//GEN-LAST:event_markupBtnActionPerformed
 
     private void inputFileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputFileBtnActionPerformed
@@ -435,23 +434,22 @@ public class MainGUI extends javax.swing.JFrame {
         if (inputFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             testingFilePathTF.setText(inputFileChooser.getSelectedFile().getAbsolutePath() + File.separator + "test.arff");
             noteTF.setText("Create testing file waiting ...");
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        TrainingMain.run(inputFilePathTF.getText(), markupFilePathTF.getText(), testingFilePathTF.getText(), false);
+                        noteTF.setText("Create testing file done!");
+                        String folderPathOpen = testingFilePathTF.getText().substring(0, testingFilePathTF.getText().lastIndexOf(File.separatorChar));
+                        Desktop.getDesktop().open(new File(folderPathOpen));
+                    } catch (Exception ex) {
+                        Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }).start();
         } else {
             noteTF.setText("No testing file location selected");
         }
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    TrainingMain.run(inputFilePathTF.getText(), markupFilePathTF.getText(), testingFilePathTF.getText(), false);
-                    noteTF.setText("Create testing file done!");
-                    String folderPathOpen = testingFilePathTF.getText().substring(0, testingFilePathTF.getText().lastIndexOf(File.separatorChar));
-                    Desktop.getDesktop().open(new File(folderPathOpen));
-                } catch (Exception ex) {
-                    Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }).start();
     }//GEN-LAST:event_testBtnActionPerformed
 
     private void testingFilePathTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testingFilePathTFActionPerformed
@@ -470,27 +468,28 @@ public class MainGUI extends javax.swing.JFrame {
         if (inputFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             resultFilePathTF1.setText(inputFileChooser.getSelectedFile().getAbsolutePath() + File.separator + "classified_result.txt");
             noteTF.setText("Create classified result file waiting ...");
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        WekaMain.run(inputFilePathTF.getText(), markupFilePathTF.getText(), trainingFilePathTF.getText(), testingFilePathTF.getText(), resultFilePathTF1.getText());
+                        noteTF.setText("Create result file done!");
+                        String folderPathOpen = resultFilePathTF1.getText().substring(0, resultFilePathTF1.getText().lastIndexOf(File.separatorChar));
+                        Desktop.getDesktop().open(new File(folderPathOpen));
+                        //Open the window for predicted chains                    
+                        ClassifiedResultGUI.render(true);
+                        //Open the window for actual chains                    
+                        ClassifiedResultGUI.render(false);
+                    } catch (Exception ex) {
+                        Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }).start();
+
         } else {
             noteTF.setText("No classified result file location selected");
         }
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    WekaMain.run(inputFilePathTF.getText(), trainingFilePathTF.getText(), testingFilePathTF.getText(), resultFilePathTF1.getText());
-                    noteTF.setText("Create result file done!");
-                    String folderPathOpen = resultFilePathTF1.getText().substring(0, resultFilePathTF1.getText().lastIndexOf(File.separatorChar));
-                    Desktop.getDesktop().open(new File(folderPathOpen));
-                    //Open the window for predicted chains                    
-                    ClassifiedResultGUI.render(true);
-                    //Open the window for actual chains                    
-                    ClassifiedResultGUI.render(false);
-                } catch (Exception ex) {
-                    Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }).start();
     }//GEN-LAST:event_applyClassifierBtnActionPerformed
 
     private void trainingBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trainingBtnActionPerformed
@@ -502,23 +501,22 @@ public class MainGUI extends javax.swing.JFrame {
         if (inputFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             trainingFilePathTF.setText(inputFileChooser.getSelectedFile().getAbsolutePath() + File.separator + "train.arff");
             noteTF.setText("Create training file waiting ...");
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        TrainingMain.run(inputFilePathTF.getText(), markupFilePathTF.getText(), trainingFilePathTF.getText(), true);
+                        noteTF.setText("Create training file done!");
+                        String folderPathOpen = trainingFilePathTF.getText().substring(0, trainingFilePathTF.getText().lastIndexOf(File.separatorChar));
+                        Desktop.getDesktop().open(new File(folderPathOpen));
+                    } catch (Exception ex) {
+                        Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }).start();
         } else {
             noteTF.setText("No training file location selected");
         }
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    TrainingMain.run(inputFilePathTF.getText(), markupFilePathTF.getText(), trainingFilePathTF.getText(), true);
-                    noteTF.setText("Create training file done!");
-                    String folderPathOpen = trainingFilePathTF.getText().substring(0, trainingFilePathTF.getText().lastIndexOf(File.separatorChar));
-                    Desktop.getDesktop().open(new File(folderPathOpen));
-                } catch (Exception ex) {
-                    Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }).start();
     }//GEN-LAST:event_trainingBtnActionPerformed
 
     private void trainingFilePathTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trainingFilePathTFActionPerformed

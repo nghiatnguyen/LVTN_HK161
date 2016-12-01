@@ -136,7 +136,8 @@ public class StanfordUtil {
                     if(!simpleInit){           
                         //Check NP relative clause
                         Tree twoLevelsAncestor = tokenTree.ancestor(2, sentence.get(TreeCoreAnnotations.TreeAnnotation.class));
-                        if (twoLevelsAncestor.value().equals("WHNP") && !word.toLowerCase().equals("who")){
+                        if (twoLevelsAncestor.value().equals("WHNP") && !word.toLowerCase().equals("who")
+                                && !word.toLowerCase().equals("what")){
                             newToken.setRelativePronoun(true);
                         }
                         

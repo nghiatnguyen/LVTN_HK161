@@ -6,6 +6,7 @@ x * To change this license header, choose License Headers in Project Properties.
 package coreferenceresolver.util;
 
 import coreferenceresolver.element.CRFToken;
+import coreferenceresolver.element.CorefChain;
 import coreferenceresolver.process.FeatureExtractor;
 import coreferenceresolver.element.NounPhrase;
 import coreferenceresolver.element.Review;
@@ -442,7 +443,27 @@ public class Util {
         }
         System.out.println("End of Reading dataset");
         setDataset(sData);
-    }        
+    }      
+    
+    public static void discardUnneccessaryChains(List<Review> reviews){
+        for (Review re : reviews) {            
+            Iterator<CorefChain> itr = re.getCorefChainsPredicted().iterator();
+            while (itr.hasNext()) {
+                CorefChain curCc = itr.next();
+                boolean isSatisfied = false;
+                for (int npId : curCc.getChain()) {
+                    int curNpType = re.getNounPhrases().get(npId).getType();
+                    if (curNpType == 0 || curNpType == 3) {
+                        isSatisfied = true;
+                        break;
+                    }
+                }                
+                if (!isSatisfied) {
+                    itr.remove();
+                }
+            }
+        }
+    }
 
     private static Tree initNPTree() {
         Annotation document = new Annotation("Dog");
@@ -488,7 +509,7 @@ public class Util {
         bwtrain.write(FeatureExtractor.isSubString(np1, np2) + ",");
         bwtrain.write(FeatureExtractor.isHeadMatch(np1, np2) + ",");
         bwtrain.write(FeatureExtractor.isExactMatch(np1, np2) + ",");
-        bwtrain.write(FeatureExtractor.isMatchAfterRemoveDetermine(np1, np2) + ",");        
+        bwtrain.write(FeatureExtractor.isMatchAfterRemoveDeterminer(np1, np2) + ",");        
 
         if (np2.getType() == 0 || np2.getType() == 3)
         	bwtrain.write(12 + ",");

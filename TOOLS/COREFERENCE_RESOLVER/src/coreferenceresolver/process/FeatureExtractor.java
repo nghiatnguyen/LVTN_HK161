@@ -47,7 +47,7 @@ public class FeatureExtractor {
                     "ourselves", "yourselves", "themselves", "mine", "yours",
                     "hers", "his", "ours", "yours", "theirs",
                     "me", "you", "him", "her", "us", "them"));
-    private static final ArrayList<String> DETERMINES = new ArrayList<String>(
+    private static final ArrayList<String> DETERMINERS = new ArrayList<String>(
             Arrays.asList("this", "that", "these", "those", "a", "an", "the", "my", "your", "its", "her", "his", "their", "our"));
     private static final ArrayList<String> listTOBE = new ArrayList<String>(Arrays.asList("is", "'s", "are", "'re", "was", "were", "been", "be"));
     private static String sDict = "";
@@ -385,7 +385,7 @@ public class FeatureExtractor {
 
     private static boolean contains3rdTobe(String sequence) {
         for (String aTobeVerb : TO_BES) {
-            if (sequence.contains(aTobeVerb)) {
+            if (sequence.contains(aTobeVerb) && (sequence.contains("is not") || sequence.contains("isn't"))) {
                 return true;
             }
         }
@@ -508,7 +508,7 @@ public class FeatureExtractor {
                 for (int i = 0; i < np.getNpNode().getLeaves().size(); i++) {
                     if ((np.getNpNode().getLeaves().get(i).toString().equals("of"))
                             || (np.getNpNode().getLeaves().get(i).toString().equals("and"))
-                            || (DETERMINES.contains(np.getNpNode().getLeaves().get(i).toString().toLowerCase()))) {
+                            || (DETERMINERS.contains(np.getNpNode().getLeaves().get(i).toString().toLowerCase()))) {
                     } else {
                         if (Character.isLowerCase(np.getNpNode().getLeaves().get(i).toString().charAt(0))) {
                             return false;
@@ -793,18 +793,18 @@ public class FeatureExtractor {
     }
 
     //Check if NP1 is the same with NP2 after remove somes determines like: the, this, that, these, those, her,...
-    public static Boolean isMatchAfterRemoveDetermine(NounPhrase np1, NounPhrase np2) {
+    public static Boolean isMatchAfterRemoveDeterminer(NounPhrase np1, NounPhrase np2) {
         Sentence sen1 = StanfordUtil.reviews.get(np1.getReviewId()).getSentences().get(np1.getSentenceId());
         Sentence sen2 = StanfordUtil.reviews.get(np2.getReviewId()).getSentences().get(np2.getSentenceId());
         String str_np1 = sen1.getRawContent().substring(np1.getOffsetBegin() - sen1.getOffsetBegin(), np1.getOffsetEnd() - sen1.getOffsetBegin());
         String str_np2 = sen2.getRawContent().substring(np2.getOffsetBegin() - sen2.getOffsetBegin(), np2.getOffsetEnd() - sen2.getOffsetBegin());
         if (str_np1.contains(" ")) {
-            if (DETERMINES.contains(str_np1.substring(0, str_np1.indexOf(" ")).toLowerCase())) {
+            if (DETERMINERS.contains(str_np1.substring(0, str_np1.indexOf(" ")).toLowerCase())) {
                 str_np1 = str_np1.substring(str_np1.indexOf(" ") + 1);
             }
         }
         if (str_np2.contains(" ")) {
-            if (DETERMINES.contains(str_np2.substring(0, str_np2.indexOf(" ")).toLowerCase())) {
+            if (DETERMINERS.contains(str_np2.substring(0, str_np2.indexOf(" ")).toLowerCase())) {
                 str_np2 = str_np2.substring(str_np2.indexOf(" ") + 1);
             }
         }
@@ -835,7 +835,7 @@ public class FeatureExtractor {
                     Sentence npAfterSentence = StanfordUtil.reviews.get(npStandAfter.getReviewId()).getSentences().get(npStandAfter.getSentenceId());
                     if (!npAfterSentence.isComparativeSentence()) {
                         //Only consider the case NP2 is a candidate
-                        if (npStandAfter.getType() == 2) {
+//                        if (npStandAfter.getType() == 2) {
                             //NP1 and NP2 have the same orientation
                             if ((npStandBefore.isSuperiorEntity() && npStandAfter.getSentimentOrientation() == Util.POSITIVE)
                                     || (npStandBefore.isInferiorEntity() && npStandAfter.getSentimentOrientation() == Util.NEGATIVE)) {
@@ -852,7 +852,7 @@ public class FeatureExtractor {
                                     || (npStandBefore.isSuperiorEntity() && npStandAfter.getSentimentOrientation() == Util.NEGATIVE)) {
                                 return 0;
                             }
-                        }
+//                        }
                     }
                 } //Both the sentences of NP1 and NP2 are normal sentences                
                 else if (!npBeforeSentence.isComparativeSentence()) {
@@ -864,7 +864,7 @@ public class FeatureExtractor {
                             //NP standing before is an object
                             if (npStandBefore.getType() == 0) {
                                 //NP standing after is a candidate
-                                if (npStandAfter.getType() == 2) {
+//                                if (npStandAfter.getType() == 2) {
                                     if (npStandAfter.getSentimentOrientation() == npStandBefore.getSentimentOrientation()) {
                                         return 1;
                                     } else if (npStandAfter.getSentimentOrientation() != npStandBefore.getSentimentOrientation()
@@ -877,7 +877,7 @@ public class FeatureExtractor {
                                     else if (npStandAfter.getSentimentOrientation() != npStandBefore.getSentimentOrientation()) {
                                         return 0;
                                     }
-                                }
+//                                }
                             }
                         }
                     }
