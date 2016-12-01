@@ -972,7 +972,7 @@ public class FeatureExtractor {
     }
     
     //Word starts a relative clause: that, which, //
-    public static boolean isClausePhraseNPs(NounPhrase np1, NounPhrase np2){
+    public static boolean isRelativePronounNPs(NounPhrase np1, NounPhrase np2){
         if (np1.getReviewId() == np2.getReviewId()){
             if (np1.getSentenceId() == np2.getSentenceId()){
                 int np1OffsetBegin = np1.getOffsetBegin();
@@ -985,7 +985,7 @@ public class FeatureExtractor {
                     List<CRFToken> npCrfTokens = npAfter.getCRFTokens();
                     if (npCrfTokens.size() == 1){
                         List<Token> npSentTokens = StanfordUtil.reviews.get(npAfter.getReviewId()).getSentences().get(npAfter.getSentenceId()).getTokens();
-                        if (npSentTokens.get(npCrfTokens.get(0).getIdInSentence()).isClausePhraseWord()){
+                        if (npSentTokens.get(npCrfTokens.get(0).getIdInSentence()).isRelativePronoun()){
                             return true;
                         }                
                     }

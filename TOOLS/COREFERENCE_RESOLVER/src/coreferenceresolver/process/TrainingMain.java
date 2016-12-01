@@ -62,7 +62,7 @@ public class TrainingMain {
                 + "@ATTRIBUTE matchAfterRemoveDetermine {false,true}\n"
                 + "@ATTRIBUTE PMI {0,1,2,3,4,10,11,12}\n"
                 //                + "@ATTRIBUTE headPhone {false,true}\n"
-                + "@ATTRIBUTE relativeClause {false,true}\n"
+                + "@ATTRIBUTE relativePronoun {false,true}\n"
                 + "@ATTRIBUTE coref {false,true}\n"
                 + "\n"
                 + "@DATA");

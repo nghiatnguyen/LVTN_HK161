@@ -22,7 +22,7 @@ public class Token {
     private int offsetEnd;
     private int sentimentOrientation = Util.NEUTRAL;
     private Tree tokenTree;
-    private boolean isClausePhraseWord;
+    private boolean isRelativePronoun;
 
     /**
      * @return the word
@@ -95,11 +95,15 @@ public class Token {
                 || newTokenSentiment == Util.NEGATIVE) && (!this.POS.equals("IN"))) {
             for (TypedDependency typedDependency : typedDeps) {
                 if (typedDependency.reln().toString().equals("neg") && typedDependency.gov().value().equals(word)) {
-                    newTokenSentiment = Util.reverseSentiment(newTokenSentiment);                    
+                    newTokenSentiment = Util.reverseSentiment(newTokenSentiment);
                 }
-                if (typedDependency.reln().toString().equals("mark") && !typedDependency.dep().value().toLowerCase().equals("because") 
+                if (typedDependency.reln().toString().equals("mark")
+                        && (typedDependency.dep().value().toLowerCase().equals("although")
+                        || typedDependency.dep().value().toLowerCase().equals("though")
+                        || typedDependency.dep().value().toLowerCase().equals("while"))
                         && typedDependency.gov().value().equals(word)) {
-                    newTokenSentiment = Util.reverseSentiment(newTokenSentiment);                    
+                    newTokenSentiment = Util.NEUTRAL;
+                    break;
                 }
             }
         }
@@ -121,16 +125,16 @@ public class Token {
     }
 
     /**
-     * @return the isClausePhraseWord
+     * @return the isRelativePronoun
      */
-    public boolean isClausePhraseWord() {
-        return isClausePhraseWord;
+    public boolean isRelativePronoun() {
+        return isRelativePronoun;
     }
 
     /**
-     * @param isClausePhraseWord the isClausePhraseWord to set
+     * @param isRelativePronoun the isRelativePronoun to set
      */
-    public void setClausePhraseWord(boolean isClausePhraseWord) {
-        this.isClausePhraseWord = isClausePhraseWord;
+    public void setRelativePronoun(boolean isRelativePronoun) {
+        this.isRelativePronoun = isRelativePronoun;
     }
 }

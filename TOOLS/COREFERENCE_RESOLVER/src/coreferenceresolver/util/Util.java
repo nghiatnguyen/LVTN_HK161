@@ -509,7 +509,7 @@ public class Util {
 //                System.out.println("Review: " + np1.getReviewId() +"ID NP1: " + np1.getId() + "ID NP2: " + np2.getId() + " PMI: "+ listRawPMI.get(IdPMIinList));
             }
         }
-        bwtrain.write(FeatureExtractor.isClausePhraseNPs(np1, np2) + ",");
+        bwtrain.write(FeatureExtractor.isRelativePronounNPs(np1, np2) + ",");
         bwtrain.write(FeatureExtractor.isCorefTest(np1, np2).toString());
         bwtrain.newLine();
     }   

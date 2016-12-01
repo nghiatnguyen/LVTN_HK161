@@ -8,7 +8,7 @@ package coreferenceresolver.process;
 import coreferenceresolver.element.CorefChain;
 import coreferenceresolver.element.NounPhrase;
 import coreferenceresolver.element.Review;
-import coreferenceresolver.process.Evaluation;
+import coreferenceresolver.test.Evaluation;
 import coreferenceresolver.util.CrfChunkerUtil;
 import coreferenceresolver.util.StanfordUtil;
 import coreferenceresolver.util.Util;
@@ -47,6 +47,9 @@ public class WekaMain {
                 Util.discardUnneccessaryNPs(review);
             }
 
+            //Read the hand-modified markup file
+            Util.readMarkupFile(StanfordUtil.reviews, new File("E:\\REPOSITORIES\\LVTN_HK161\\DATASET\\input_test.txt.markup"));
+            
             Weka.j48Classify(trainingFilePath, testFilePath, resultFilePath);
 
             int No = 0;
@@ -68,7 +71,7 @@ public class WekaMain {
             //TODO Write these to file
             Evaluation.scoreMUC(StanfordUtil.reviews);
             Evaluation.scoreB3(StanfordUtil.reviews);
-//            Evaluation.scoreCEAF4(StanfordUtil.reviews);
+            Evaluation.scoreCEAF4(StanfordUtil.reviews);
 
         } catch (IOException ex) {
             Logger.getLogger(MarkupMain.class.getName()).log(Level.SEVERE, null, ex);
