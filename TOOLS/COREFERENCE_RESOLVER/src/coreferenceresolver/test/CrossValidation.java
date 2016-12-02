@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 
 import coreferenceresolver.element.NounPhrase;
 import coreferenceresolver.element.Review;
-import coreferenceresolver.process.Evaluation;
+import coreferenceresolver.test.Evaluation;
 import coreferenceresolver.process.FeatureExtractor;
 import coreferenceresolver.process.MarkupMain;
 import coreferenceresolver.util.CrfChunkerUtil;
@@ -22,15 +22,6 @@ import coreferenceresolver.util.Util;
 import coreferenceresolver.weka.Weka;
 
 public class CrossValidation {
-
-    private static int kFold = 5;
-
-    public static int getkFold() {
-        return kFold;
-    }
-
-    public static void main(String[] args) throws Exception {
-        File inputFile = new File("E:\\REPOSITORIES\\LVTN_HK161\\DATASET\\input.txt");
         File markupFile = new File("E:\\REPOSITORIES\\LVTN_HK161\\DATASET\\input.txt.markup");
         StanfordUtil su = new StanfordUtil(inputFile);
 
@@ -128,9 +119,10 @@ public class CrossValidation {
         } catch (IOException ex) {
             Logger.getLogger(MarkupMain.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    public static void run(List<Review> listReview, String outputFilePath, boolean forTraining) throws IOException, Exception {
+	}
+	
+	
+	public static void run(List<Review> listReview, String outputFilePath, boolean forTraining) throws IOException, Exception {
         File outputFile = new File(outputFilePath);
         FileOutputStream fos = new FileOutputStream(outputFile);
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
@@ -171,10 +163,18 @@ public class CrossValidation {
             //Begin create training set
             for (Review review : listReview) {
                 //Extract features
-                for (String str : review.getInstances()) {
-                    bw.write(str);
-                    bw.newLine();
-                }
+            	for (int i = 0; i < review.getInstances().size(); i++){
+            		if (forTraining){
+            			if (review.getSupportInstances().get(i) == true){
+            				bw.write(review.getInstances().get(i));
+            				bw.newLine();
+            			}
+            		}
+            		else{
+            			bw.write(review.getInstances().get(i));
+        				bw.newLine();
+            		}
+            	}
             }
         } catch (IOException ex) {
             Logger.getLogger(MarkupMain.class.getName()).log(Level.SEVERE, null, ex);

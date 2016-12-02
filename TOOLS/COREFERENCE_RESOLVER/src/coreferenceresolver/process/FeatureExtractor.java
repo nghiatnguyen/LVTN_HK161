@@ -636,7 +636,6 @@ public class FeatureExtractor {
 
     //To compute the number of times 2 words appearing together in the sentences.
     public static int countTwoWords(NounPhrase np2, String ow) {
-
         int matches = 0;
         String np = np2.getHeadNode().toString();
         if (np2.getType() == 0){
@@ -701,6 +700,39 @@ public class FeatureExtractor {
         return sum;
     }
 
+    
+    public static int countNPWithVerbBefore(NounPhrase np2, NounPhrase np1){
+    	 int matches = 0;
+    	 String word = "";
+    	 word += np1.getVerbBefore() + " ";
+    	 if (np2.getType() == 0)
+    		 word += "phone";
+    	 else
+    		 word += np2.getHeadNode().toString().toLowerCase();
+
+         for (int i = 0; i < WORDS.length; ++i) {
+             if (WORDS[i].contains(" " + word + " ")) {
+                 ++matches;
+             }
+         }
+         return matches;
+    }
+    
+    public static int countNPWithVerbAfter(NounPhrase np2, NounPhrase np1){
+   	 int matches = 0;
+   	 String word = "";
+   	 if (np2.getType() == 0)
+   		 word += "phone ";
+   	 else
+   		 word += np2.getHeadNode().toString().toLowerCase() + " ";
+   	 word += np1.getVerbBefore();
+        for (int i = 0; i < WORDS.length; ++i) {
+            if (WORDS[i].contains(" " + word + " ")) {
+                ++matches;
+            }
+        }
+        return matches;
+   }
     /**
      * ************************************
      * Some functions relates to String match
