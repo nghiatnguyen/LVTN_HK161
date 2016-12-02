@@ -35,6 +35,24 @@ public class NounPhrase {
     private ArrayList<CRFToken> CRFTokens;
     private int sentimentOrientation;
     public Object highlighterTag;
+    private static String verbBefore = "";
+    private static String verbAfter = "";
+    
+    public static String getVerbBefore(){
+    	return verbBefore;
+    }
+    
+    public void setVerbBefore(String verbBefore){
+    	this.verbBefore = verbBefore;
+    }
+    
+    public static String getVerbAfter(){
+    	return verbAfter;
+    }
+    
+    public void setVerbAfter(String verbAfter){
+    	this.verbAfter = verbAfter;
+    }
 
     public NounPhrase() {
         this.CRFTokens = new ArrayList<>();

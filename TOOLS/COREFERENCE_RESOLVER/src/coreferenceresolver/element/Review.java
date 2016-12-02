@@ -21,6 +21,7 @@ public class Review {
     private List<CorefChain> corefChainsActual;
     private List<CorefChain> corefChains;  
     private List<String> instances;
+    private List<Boolean> support_instances;
 
     public Review() {
         sentences = new ArrayList<>();
@@ -29,6 +30,7 @@ public class Review {
         corefChainsActual = new ArrayList<>();  
         corefChains = new ArrayList<>();
         instances = new ArrayList<>();
+        support_instances = new ArrayList<>();
     }
 
     /**
@@ -218,5 +220,13 @@ public class Review {
     
     public void addInstance(String instance){
     	this.instances.add(instance);
+    }
+    
+    public List<Boolean> getSupportInstances() {
+        return support_instances;
+    }
+    
+    public void addSupportInstance(Boolean support_instance){
+    	this.support_instances.add(support_instance);
     }
 }

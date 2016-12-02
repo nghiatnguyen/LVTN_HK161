@@ -60,8 +60,10 @@ public class TrainingMain {
                 + "@ATTRIBUTE headMatch {false,true}\n"
                 + "@ATTRIBUTE exactMatch {false,true}\n"
                 + "@ATTRIBUTE matchAfterRemoveDetermine {false,true}\n"
-                + "@ATTRIBUTE PMI {0,1,2,3,4,10,11,12}\n"
+                + "@ATTRIBUTE PMI {0,1,2,3,4,10}\n"
                 //                + "@ATTRIBUTE headPhone {false,true}\n"
+                + "@ATTRIBUTE AFTER {0,1,2,3,4,10}\n"
+                + "@ATTRIBUTE BEFORE {0,1,2,3,4,10}\n"
                 + "@ATTRIBUTE relativePronoun {false,true}\n"
                 + "@ATTRIBUTE coref {false,true}\n"
                 + "\n"
@@ -96,6 +98,8 @@ public class TrainingMain {
             Util.initSentimentAndComparativesForNPs();
 
             //Begin create training set
+            Util.setVerbforNP(StanfordUtil.reviews);
+            
             for (Review review : StanfordUtil.reviews) {
                 //Extract features
                 Util.extractFeatures(review, bw, forTraining);

@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 import coreferenceresolver.element.CorefChain;
 import coreferenceresolver.element.NounPhrase;
 import coreferenceresolver.element.Review;
-import coreferenceresolver.process.Evaluation;
+import coreferenceresolver.test.Evaluation;
 import coreferenceresolver.process.FeatureExtractor;
 import coreferenceresolver.process.MarkupMain;
 import coreferenceresolver.util.CrfChunkerUtil;
@@ -171,10 +171,18 @@ public class CrossValidation {
             //Begin create training set
             for (Review review : listReview) {
                 //Extract features
-                for (String str : review.getInstances()){
-                	bw.write(str);
-                	bw.newLine();
-                }
+            	for (int i = 0; i < review.getInstances().size(); i++){
+            		if (forTraining){
+            			if (review.getSupportInstances().get(i) == true){
+            				bw.write(review.getInstances().get(i));
+            				bw.newLine();
+            			}
+            		}
+            		else{
+            			bw.write(review.getInstances().get(i));
+        				bw.newLine();
+            		}
+            	}
             }
         } catch (IOException ex) {
             Logger.getLogger(MarkupMain.class.getName()).log(Level.SEVERE, null, ex);
