@@ -610,7 +610,7 @@ public class Util {
         instance += FeatureExtractor.isSubString(np1, np2) + ",";
         instance += FeatureExtractor.isHeadMatch(np1, np2) + ",";
         instance += FeatureExtractor.isExactMatch(np1, np2) + ",";
-        instance += FeatureExtractor.isMatchAfterRemoveDetermine(np1, np2) + ",";        
+        instance += FeatureExtractor.isMatchAfterRemoveDeterminer(np1, np2) + ",";        
 
         if (np2.getType() == 0 || np2.getType() == 3)
         	instance += 12 + ",";
@@ -631,7 +631,7 @@ public class Util {
 //                System.out.println("Review: " + np1.getReviewId() +"ID NP1: " + np1.getId() + "ID NP2: " + np2.getId() + " PMI: "+ listRawPMI.get(IdPMIinList));
             }
         }
-        instance += FeatureExtractor.isClausePhraseNPs(np1, np2) + ",";
+        instance += FeatureExtractor.isRelativePronounNPs(np1, np2) + ",";
         instance += FeatureExtractor.isCorefTest(np1, np2).toString();
         review.addInstance(instance);
     }   
