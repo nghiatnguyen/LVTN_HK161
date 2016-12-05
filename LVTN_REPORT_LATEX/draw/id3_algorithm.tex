@@ -1,0 +1,37 @@
+% \documentclass{article}
+
+% \begin{document}
+% \begin{figure}
+	\noindent\fbox{
+	    \parbox{\textwidth}{
+	        ID3\textit{(Examples, Targetattribute, Attributes)
+			\\Examples are the training examples. Targetattribute is the attribute whose value is to be
+			predicted by the tree. Attributes is a list of other attributes that may be tested by the learned
+			decision tree. Returns a decision tree that correctly classiJies the given Examples.}
+			\begin{itemize}
+				\item{Create a \textit{Root} node for the tree}
+				\item{If all \textit{Examples} are positive, Return the single-node tree \textit{Root}, with label = +}
+				\item{If all \textit{Examples} are negative, Return the single-node tree \textit{Root}, with label = -}
+				\item{If \textit{Attributes} is empty, Return the single-node tree \textit{Root}, with label = most common value of \textit{Targetattribute} in \textit{Examples}}
+				\item{Otherwise Begin
+					\begin{itemize}
+						\item{A $\gets$ the attribute from \textit{Attributes} that best* classifies \textit{Examples}}
+						\item{The decision attribute for \textit{Root} $\gets$ A}
+						\item{For each possible value, $v_i$, of A,
+							\begin{itemize}
+							\item{Add a new tree branch below \textit{Root}, corresponding to the test A = $v_i$}
+							\item{Let \textit{$Examples_{v_i}$} be the subset of Examples that have value $v_i$ for A}
+							\item{If \textit{$Examples_{v_i}$} is empty
+								\begin{itemize}
+									\item{Then below this new branch add a leaf node with label = most common value of \textit{Targetattribute} in \textit{Examples}}
+									\item{Else below this new branch add the subtree ID3(\textit{$Examples_{v_i}$ (Targetattribute, Attributes - \{A\}})}
+								\end{itemize}}
+							\end{itemize}}
+					\end{itemize}}			
+				\item{End}
+				\item{Return Root}
+			\end{itemize}
+			}
+		} 	
+% \end{figure}
+% \end{document}
