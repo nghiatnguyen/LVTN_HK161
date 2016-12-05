@@ -129,14 +129,18 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 		\textit{Ví dụ}\\
 		"The Galaxy III is pretty cool (1). It's a plastic phone, but it feels solid even though it's very light (2). The screen looks great (3). It is very sharp (4)".
 		\\Chúng ta có thể biết được người dùng thể hiện ý kiến ở câu (2) và (4). Nhưng nếu không có phép phân giải đồng tham chiếu để xác định các đại từ "it" trong câu (2) cùng chỉ về đối tượng "The Galaxy III" trong câu (1) và "It" trong câu (4) chỉ về thuộc tính "The screen" trong câu (3), chúng ta không thể biết được người dùng đang thể hiện ý kiến trên thực thể nào.
-		\par Trong các văn bản có chứa ý kiến, ngoài đối tượng được xác định là các thực thể có tên, thuộc tính được giả định là đã được tìm ra \cite{findfeatures1} \cite{findfeatures2}. Nhiệm vụ của đề tài là tìm xem những từ/cụm từ nào cùng chỉ về đối tượng hoặc thuộc tính.
-			
+		\par Trong các văn bản có chứa ý kiến, ngoài đối tượng được xác định là các thực thể có tên, thuộc tính được giả định là đã được tìm ra \cite{findfeatures1} \cite{findfeatures2}. Nhiệm vụ của đề tài là tìm xem những từ/cụm từ nào cùng chỉ về đối tượng hoặc thuộc tính.			
+
+	\section{Các công trình liên quan}
+		\subsection{1}
+		\subsection{2}
+		\subsection{3}
 
 	\section{Kiến thức nền tảng}
 		\subsection{Bài toán phân giải đồng tham chiếu}
-			\subsubsection{Định nghĩa}
-				Phân giải đồng tham chiếu trong văn bản là tìm ra trong văn bản những đề cập (mention) cùng chỉ về một (tập) thực thể (con người, sự vật, sự việc, …) hoặc khái niệm trong thế giới thực. Những đề cập (mention) này có thể là các từ/cụm từ hoặc các mệnh đề.
-			\subsubsection{Các quan hệ đồng tham chiếu}		
+			\subsubsection*{Định nghĩa}
+				Phân giải đồng tham chiếu trong văn bản là tìm ra trong văn bản những đề cập (mention) cùng chỉ về một (tập) thực thể (con người, sự vật, sự việc, …) hoặc khái niệm trong thế giới thực. Những đề cập (mention) này có thể là các từ/cụm từ hoặc các mệnh đề nhưng thông thường là các từ/cụm từ, mà cụ thể hơn là các danh từ/cụm danh từ.
+			\subsubsection*{Các quan hệ đồng tham chiếu}		
 				Joseph F. McCarthy trong \cite{corefdef} đã chia các quan hệ đồng tham chiếu thành 3 loại: 
 				\begin{itemize}
 					\item{Quan hệ đồng nhất (Identity): Hai mention cùng đề cập tới một thực thể thống nhất\\
@@ -149,9 +153,15 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					Ví dụ: I have bought Apple phones yesterday. The iPhone 5 works well and so do the iPhone 6S.\\
 					"Apple phones" là một lớp tổng quát. "The iPhone 5" và "the iPhone 6S" là những thành viên của lớp này. 2 cặp "The iPhone 5" – "Apple phones" và ""the iPhone 6S" – "Apple phones" đều có quan hệ đồng tham chiếu kiểu cụ thể-tổng quát.}
 				\end{itemize}
-			\subsubsection{Các tính chất của quan hệ đồng tham chiếu}
+			\subsubsection*{Các tính chất của quan hệ đồng tham chiếu}
+			Giả sử $M_1$ và $M_2$ là các đề cập trong văn bản.
+			\begin{itemize}
+				\item{Tính chất phản xạ: Mỗi đề cập ($M_1$ và $M_2$) đồng tham chiếu với chính nó.}
+				\item{Tính chất đối xứng: Nếu đề cập $M_1$ đồng tham chiếu với $M_2$ thì $M_2$ đồng tham chiếu với $M_1$.}
+				\item{Tính chất bắc cầu: Nếu đề cập $M_1$ đồng tham chiếu với $M_2$ và $M_2$ đồng tham chiếu với $M_3$ thì $M_1$ đồng tham chiếu với $M_3$.}
+			\end{itemize}
 		\subsection{Khai khoáng ý kiến}
-			\subsubsection{Khái quát}
+			\subsubsection*{Khái quát}
 				\par Khai khoáng ý kiến (Sentiment Analysis hay Opinion Mining) trong Xử lý ngôn ngữ tự nhiên là lĩnh vực liên quan đến việc tìm ra những ý kiến, cảm xúc được diễn đạt qua văn bản. Một ý kiến gồm có các thành phần: chủ thể ý kiến (holder), đối tượng (target) và mức độ (orientation) – có thể là tích cực (positive), tiêu cực (negative), trung tính (neutral) hoặc nằm trong một thang đo mức độ (1,2,3,4,5).
 				\par Mô hình hóa một đối tượng (o):\\				
 				Đối tượng o gồm một tập các thuộc tính F = {f1, f2, f3, …} gồm cả o cũng là một thuộc tính đặc biệt (tổng quát – general). Mỗi thuộc tính fi thuộc F được diễn đạt bằng một hoặc nhiều từ/cụm từ ở trong văn bản (gọi là các synonyms của thuộc tính).
@@ -159,16 +169,15 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 				//TODO
 				\par Các nghiên cứu về Khai khoáng ý kiến được thực hiện trên 3 cấp độ \cite[sentiment]:
 				\begin{itemize}
-					\item{Cấp độ văn bản (Document Level)}					
-					\item{Cấp độ câu (Sentence Level)}
-					\item{Cấp độ thuộc tính (Feature-Based)}
-				\end{itemize}
-				Trong đó những nghiên cứu trên cấp độ câu là nhiều nhất \cite{sentiment}
+					\item{Cấp độ văn bản (Document Level): Xác định thiên hướng ý kiến cho toàn bộ văn bản, với giả định rằng văn bản đó thể hiện ý kiến cho một đối tượng nhất định.}		
+					\item{Cấp độ câu (Sentence Level): Xác định thiên hướng ý kiến cho một câu, thông thường câu đó cũng được giả định là đang thể hiện ý kiến đối với một đối tượng/thuộc tính (target) nhất định.}
+					\item{Cấp độ thuộc tính (Feature-Based): Các văn bản có chứa ý kiến thường đề cập đến đối tượng và các thuộc tính của nó. Ở cấp độ này, mục tiêu hướng tới là tìm ra thiên hướng ý kiến gắn với các thuộc tính hoặc chính bản thân đối tượng đó.}
+				\end{itemize}				
 
-			\subsubsection{Các từ chỉ ý kiến}	
-				\par Các từ chỉ ý kiến được chia thành 2 loại là các từ chỉ ý kiến tích cực (good, amazing, great,… ) và các từ chỉ ý kiến tiêu cực (bad, worst, terrible,…). Bên cạnh các từ đơn, còn có các ngữ (phrase) chỉ ý kiến, đơn cử như "cost someone an arm and a leg". Tập hợp các từ chỉ ý kiến đã được sưu tầm và được sử dụng trong các nghiên cứu \cite{sentiment}, tập hợp này chứa các từ chỉ ý kiến không phụ thuộc lĩnh vực (domain-independent) và không phụ thuộc ngữ cảnh (context-independent).				
+			\subsubsection*{Các từ chỉ ý kiến}	
+				\par Các từ chỉ ý kiến (Opinion word) là các từ mà bản thân nó mang ý kiến, cảm xúc ở trong câu. Chúng được chia thành 2 loại là các từ chỉ ý kiến tích cực (good, amazing, great,… ) và các từ chỉ ý kiến tiêu cực (bad, worst, terrible,…). Bên cạnh các từ đơn, còn có các ngữ (phrase) chỉ ý kiến, đơn cử như "cost someone an arm and a leg". Tập hợp các từ chỉ ý kiến đã được sưu tầm và được sử dụng trong các nghiên cứu \cite{sentiment}, tập hợp này chứa các từ chỉ ý kiến không phụ thuộc lĩnh vực (domain-independent) và không phụ thuộc ngữ cảnh (context-independent).				
 				\par Một vấn đề gặp phải đối với các từ chỉ ý kiến đó là chúng có thể phụ thuộc vào lĩnh vực (domain-dependent). Ví dụ có hai câu "The battery is long" và "The program takes long time to run", "long" đối với "battery" là tích cực nhưng đối với "program" là tiêu cực. Không chỉ vậy, trong cùng lĩnh vực, chúng cũng có thể mang sắc thái khác nhau tùy ngữ cảnh, ví dụ "The battery is long" và "The camera takes long time to focus".	
-			\subsubsection{Khai khoáng ý kiến đối với câu so sánh}
+			\subsubsection*{Khai khoáng ý kiến đối với câu so sánh}
 				\par Khác với các câu bình thường nơi ý kiến được thể hiện trực tiếp là tích cực hay tiêu cực, ở các câu so sánh, ý kiến được biểu đạt bằng cách thể hiện mức độ hơn, kém, giống nhau trên một khía cạnh nào đó giữa các (tập) đối tượng. Câu so sánh trong tiếng Anh có thể được chia thành 2 nhóm:
 				\begin{itemize}
 					\item{Nhóm so sánh có cấp độ (Gradable comparison)}	
@@ -182,9 +191,8 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					\\"The Nokia use a SOC from Intel but this HTC use one from Samsung."
 					\\"The Nokia has Bluetooth but this HTC does not."}					
 				\end{itemize}
-				\par Hầu hết các câu so sánh trong tiếng Anh đều chứa từ khóa so sánh (ví dụ more, greater, better,…) \cite{sentiment}, chỉ một số lượng nhỏ câu so sánh không chứa. Ví dụ: "I cannot agree with you more."
-				Để phân loại được câu so sánh trong tiếng Anh, ta có thể dựa vào các từ khóa so sánh này.
-				\par Trong \cite{comparative1}, Jindal và Bing Liu đã tập hợp các từ khóa so sánh và các mẫu so sánh trong tiếng Anh. GS. Bing Liu, trong \cite{sentiment} cũng đã chia các từ khóa so sánh trong tiếng Anh thành 2 nhóm:
+				\par Hầu hết các câu so sánh trong tiếng Anh đều chứa từ khóa so sánh (ví dụ more, greater, better,…) \cite{sentiment}, chỉ một số lượng nhỏ câu so sánh không chứa. Ví dụ: "I cannot agree with you more". Để phân loại được câu so sánh trong tiếng Anh, ta có thể dựa vào các từ khóa so sánh này.
+				\par Trong \cite{comparative1}, Jindal và Bing Liu đã tập hợp các từ khóa so sánh và các mẫu so sánh trong tiếng Anh. GS. Bing Liu, trong \cite{sentiment} đã chia các từ khóa so sánh trong tiếng Anh thành 2 nhóm:
 				\begin{itemize}
 					\item{Nhóm 1:}		
 					\begin{itemize}	
@@ -194,8 +202,8 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					\end{itemize}
 					\item{Nhóm 2: Các tính từ, trạng từ có hai âm tiết còn lại. Các từ so sánh được tạo ra bằng cách thêm more/most/less/least trước từ đó. Ví dụ: more beautiful, most beautiful,...}					
 				\end{itemize}
-				\par Cũng giống như các câu bình thường, câu so sánh cũng có thể chứa ý kiến hoặc không. Đối với các câu so sánh có ý kiến, như đã đề cập ở trên, ý kiến trên câu chỉ thể hiện mức độ ưu tiên (tốt hơn, đẹp hơn, …) trên một khía cạnh nào đó giữa hai (tập) đối tượng. Ví dụ: "The Nokia is less expensive than this HTC". Ví dụ trên so sánh 2 đối tượng "The Nokia" và "this HTC" trên khía cạnh giá, "The Nokia" là đối tượng được ưu tiên (ít đắt hơn). 
-				\par Để xác định được (tập) đối tượng ưu tiên trong câu so sánh, phương pháp phân tích dựa trên từ vựng (lexicon-based) có thể được sử dụng. Phương pháp này được thực hiện dựa trên tập các từ chỉ ý kiến (opinion words).
+				\par Cũng giống như các câu bình thường, câu so sánh cũng có thể chứa ý kiến hoặc không. Đối với các câu so sánh có ý kiến, như đã đề cập ở trên, ý kiến trên câu chỉ thể hiện mức độ ưu tiên (tốt hơn, đẹp hơn, …) trên một khía cạnh nào đó giữa hai (tập) đối tượng. Ví dụ: "The Nokia is less expensive than this HTC". Ví dụ trên so sánh 2 đối tượng "The Nokia" và "this HTC" trên khía cạnh giá, "The Nokia" là đối tượng được ưu tiên (prefered entity) (ít đắt hơn). 
+				\par Để xác định được (tập) đối tượng ưu tiên (prefered entity(s)) trong câu so sánh, phương pháp phân tích dựa trên từ vựng (lexicon-based) có thể được sử dụng. Phương pháp này dựa trên tập các từ chỉ ý kiến (opinion word).
 				\begin{itemize}
 				\item{Dạng 1: Các từ chỉ ý kiến không phụ thuộc ngữ cảnh (context independent)
 					\begin{itemize}
@@ -210,7 +218,13 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 				\item{Dạng 2: Các từ chỉ ý kiến phụ thuộc ngữ cảnh (context dependent). Ví dụ: "The Nokia has longer battery than this HTC". Nếu không có ngữ cảnh "longer battery", ta không thể biết được từ so sánh ở đây "longer" mang nghĩa so sánh tích cực hay tiêu cực để từ đó xác định được đối tượng ưu tiên. Một phương pháp để giải quyết cho trường hợp này được chỉ ra ở \cite{comparative2}.}
 				\end{itemize}
 		\subsection{Cây quyết định}
-			\subsubsection{Giới thiệu}
+			\subsubsection*{Giới thiệu}
+				\begin{figure}
+					\centering
+					\include{draw/decision_tree}
+					\label{fig:tree}
+					\caption{Ví dụ về cây quyết định (Tham khảo từ trang 53 của \cite{mltextbook})}
+				\end{figure}
 				\par Cây quyết định (Decision Tree) là một mô hình học máy có giám sát, trong đó hàm mục tiêu được mô tả bằng một cây quyết định. Cây quyết định cũng có thể được biểu diễn lại dưới dạng một tập các luật giúp dễ đọc, dễ hiểu.
 				\par Mỗi nốt của cây biểu diễn một thuộc tính. Mỗi nhánh xuất phát từ nốt đó thể hiện giá trị của thuộc tính đó. Một mẫu được phân loại trên cây quyết định bằng cách duyệt nó trên cây, bắt đầu từ gốc cho đến khi gặp giá trị phân loại (lá). 
 				Cây quyết định ở Hình \ref{fig:tree} xét xem thử những buổi sáng thứ 7 nào sẽ có chơi quần vợt dựa trên các thuộc tính Outlook, Temperature, Humidity, Wind.
@@ -221,25 +235,19 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 						\\$\lor$ (Outlook = Overcast)
 						\\$\lor$ (Outlook = Rain $\wedge$ Wind = Weak)
 					\end{tabular}
-				\end{center}
-				\begin{figure}
-					\centering
-					\include{draw/decision_tree}
-					\label{fig:tree}
-					\caption{Ví dụ về cây quyết định (Tham khảo từ trang 53 của \cite{mltextbook})}
-				\end{figure}								
-			\subsubsection{Giải thuật}		
-				\par Phần lớn các giải thuật học trên cây quyết định (trong đó ID3 là giải thuật điển hình) đều theo hướng tiếp cận từ trên xuống, dùng giải thuật tham lam tìm kiếm trong không gian của tất cả các kết quả cây quyết định có thể xuất hiện. ID3 là giải thuật học cơ bản trên cây quyết định. Phần lớn các giải thuật học trên cây quyết định đều đi theo hướng tiếp cận của ID3, là sự mở rộng và nâng cấp của nó (trong đó có giải thuật C4.5).				
-				\par Trong quá trình xây dựng cây từ trên xuống, ở mỗi bước cần xác định được thuộc tính nào là tốt nhất (được hiểu là thuộc tính phân loại hiệu quả nhất cho các mẫu) để làm gốc cho cây ở thời điểm đó. Sự lựa chọn thuộc tính tốt nhất được thực hiện nhờ vào độ đo Information Gain.
+				\end{center}											
+			\subsubsection*{Giải thuật}		
+				\par Phần lớn các giải thuật học trên cây quyết định (trong đó ID3 là giải thuật điển hình) đều theo hướng tiếp cận từ trên xuống, dùng giải thuật tham lam tìm kiếm trong không gian của tất cả các kết quả cây quyết định có thể xuất hiện. ID3 là giải thuật học cơ bản trên cây quyết định. Phần lớn các giải thuật học trên cây quyết định đều đi theo hướng tiếp cận của ID3, là sự mở rộng và nâng cấp của nó (trong đó có giải thuật C4.5).			
+				\par Trong quá trình xây dựng cây từ trên xuống, ở mỗi bước cần xác định được thuộc tính nào là tốt nhất (được hiểu là thuộc tính phân loại hiệu quả nhất cho các mẫu) để làm gốc cho cây ở thời điểm đó. Sự lựa chọn thuộc tính tốt nhất được thực hiện nhờ vào độ đo \textit{Information Gain}.
 				\begin{itemize}
-					\item{Entropy: Là một hàm đo mức độ không thuần khiết (impurity) của tập mẫu.
+					\item{Entropy: Là một hàm đo mức độ không thuần khiết (impurity) của tập mẫu, được sử dụng trong các giải thuật ID3, C4.5. Đối với các tập mẫu thuần khiết, giả sử tập mẫu gồm toàn mẫu âm hoặc dương (xét tập mẫu nhị phân), entropy sẽ bằng 0. Mặt khác đối với các tập mẫu "hỗn độn nhất", với số lượng mẫu âm và dương bằng nhau, entropy sẽ bằng 1. Giá trị của hàm entropy nói chung nằm trong đoạn [0,1] tùy theo số lượng mẫu của các loại. Ngoài ra, một số hàm đo khác (như Gini) có thể được sử dụng thay thể cho hàm Entropy.
+
 					\begin{itemize}
 						\item{Công thức Entropy:
-						\\Cho tập S gồm các mẫu dương (+) và các mẫu âm (-). Khi đó:
+						\\Xét tập S là tập mẫu nhị phân gồm các mẫu dương (+) và các mẫu âm (-). Khi đó:
 						\begin{equation}					
 						Entropy(S) \equiv -p_{(+)}log_{2}p_{(+)} - p_{(-)}log_{2}p_{(-)}
-						\end{equation}}
-						\item{Đồ thị Entropy}
+						\end{equation}}						
 						\item{Ví dụ: Tập mẫu S gồm 14 mẫu nhị phân, trong đó có 8 mẫu dương và 6 mẫu âm.\\
 						Tần số mẫu dương là: 8/14 \\
 						Tần số mẫu dương là: 6/14 \\
@@ -249,7 +257,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 						\end{align*}		
 						}
 					\end{itemize}}					
-					\item{Information Gain: Là một hàm đo độ giảm entropy của tập mẫu khi phân đoạn nó trên một thuộc tính.
+					\item{Information Gain: Là một hàm đo độ giảm entropy của tập mẫu khi phân đoạn nó trên một thuộc tính. Độ giảm entropy (độ giảm sự "không thuần khiết") càng cao thì phép phân đoạn đó càng hiệu quả.
 					\begin{itemize}
 						\item{Công thức Information Gain:
 						\\Cho tập S và thuộc tính A. Khi đó: Information Gain của S trên A là:
@@ -301,12 +309,12 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					\caption{Giải thuật ID3 trong cây quyết định (Tham khảo từ trang 59 của \cite{mltextbook})}
 					\label{fig:id3}
 				\end{figure}
-			\subsubsection{Vấn đề Quá vừa dữ liệu}
-				\par Giải thuật ở Hình \ref{fig:id3} là hợp lý trong một số trường hợp, nhưng thực tế nó có thể dẫn đến hiện tượng Quá vừa dữ liệu (Overfitting data). Điều này xảy ra là bởi vì giải thuật này chỉ cố gắng xây dựng cây đủ để phân loại đúng tập huấn luyện, Quá vừa dữ liệu sẽ xảy ra nếu dữ liệu trong tập huấn luyện bị nhiễu hoặc chứa quá ít mẫu để có thể xấp xỉ đúng hàm mục tiêu.
-				\par Một phương pháp phổ biến được sử dụng để giải quyết hiện tượng này là cho phép cây bị quá vừa dữ liệu, nhưng sau đó cắt tỉa (post-pruning). Trong phương pháp này, tập huấn luyện được chia ra làm hai, một cho huấn luyện (training set) và một cho kiểm thử phép cắt tỉa (validation set). Cây sẽ được xây dựng dựa trên tập huấn luyện trước, có 2 hướng giải quyết vấn đề cắt tỉa:
+			\subsubsection*{Vấn đề Quá vừa dữ liệu}
+				\par Giải thuật ở Hình \ref{fig:id3} là hợp lý trong một số trường hợp, nhưng thực tế nó có thể dẫn đến hiện tượng \textit{Quá vừa dữ liệu (Overfitting data)}. Điều này xảy ra là bởi vì giải thuật này chỉ cố gắng xây dựng cây đủ để phân loại đúng tập huấn luyện, \textit{Quá vừa dữ liệu} sẽ xảy ra nếu dữ liệu trong tập huấn luyện bị nhiễu hoặc chứa quá ít mẫu để có thể xấp xỉ đúng hàm mục tiêu.
+				\par Một phương pháp phổ biến được sử dụng để giải quyết hiện tượng này là cho phép cây bị \textit{Quá vừa dữ liệu}, nhưng sau đó cắt tỉa (post-pruning). Trong phương pháp này, tập huấn luyện được chia ra làm hai, một cho huấn luyện (training set) và một cho kiểm thử phép cắt tỉa (validation set). Cây sẽ được xây dựng dựa trên tập huấn luyện trước, có 2 hướng giải quyết vấn đề cắt tỉa:
 				\begin{itemize}
 				\item{Cắt tỉa giảm lỗi (reduced error pruning): Cân nhắc từng nốt của cây, và thực hiện cắt tỉa cây con có gốc là nốt đó. Cây sau phép cắt tỉa này được đánh giá độ chính xác dựa vào tập kiểm thử, nếu độ chính xác không thấp hơn cây trước phép cắt tỉa thì cho phép cắt tỉa. Việc cắt tỉa được lặp lại với các nốt không làm giảm độ chính xác của cây cho đến khi không còn lựa chọn nào.}
-				\item{Cắt tỉa theo luật (rule post-pruning): Phương pháp được sử dụng trong giải thuật C4.5, bao gồm các bước:
+				\item{Cắt tỉa theo luật (rule post-pruning): Đây là phương pháp được sử dụng trong giải thuật C4.5, bao gồm các bước:
 					\begin{itemize}
 						\item{Xây dựng cây từ tập huấn luyện}
 						\item{Chuyển cây thành một tập các luật}
@@ -315,7 +323,24 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					\end{itemize}}				
 				\end{itemize}
 
+	\section{Phương pháp đề xuất}
+		\subsection{Nội dung bài toán}
+		\subsection{Tổng quan quy trình}
+			\begin{figure}[H]
+				\centering				
+				\include{draw/model_diagram}
+			\end{figure}
+		\subsection{Tiền xử lý dữ liệu}
+		\subsection{Trích xuất cụm danh từ}
+		\subsection{Trích xuất thuộc tính}
+		\subsection{Tạo bộ phân loại}		
+		\subsection{Gom cụm các đồng tham chiếu}	
+
+	\section{Thực nghiệm và đánh giá}
+
 	\section{Tổng kết}		
+
+\renewcommand{\refname}{Tham khảo} 
 
 %----------REFERENCES-------------------
 \begin{thebibliography}{30}
@@ -360,9 +385,6 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 	Tom Mitchell, McGraw Hill, 1997.
 	\textit{Machine Learning}.
 	Publisher: McGraw-Hill Science/Engineering/Math; (March 1, 1997). ISBN-0070428077.	
-
-	% }
-	% }
  
 \end{thebibliography}	
 
