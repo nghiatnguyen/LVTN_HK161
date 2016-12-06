@@ -138,6 +138,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 
 	\section{Kiến thức nền tảng}
 		\subsection{Bài toán phân giải đồng tham chiếu}
+			\label{coref_problem}
 			\subsubsection*{Định nghĩa}
 				Phân giải đồng tham chiếu trong văn bản là tìm ra trong văn bản những đề cập (mention) cùng chỉ về một (tập) thực thể (con người, sự vật, sự việc, …) hoặc khái niệm trong thế giới thực. Những đề cập (mention) này có thể là các từ/cụm từ hoặc các mệnh đề nhưng thông thường là các từ/cụm từ, mà cụ thể hơn là các danh từ/cụm danh từ.
 			\subsubsection*{Các quan hệ đồng tham chiếu}		
@@ -154,28 +155,28 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					"Apple phones" là một lớp tổng quát. "The iPhone 5" và "the iPhone 6S" là những thành viên của lớp này. 2 cặp "The iPhone 5" – "Apple phones" và ""the iPhone 6S" – "Apple phones" đều có quan hệ đồng tham chiếu kiểu cụ thể-tổng quát.}
 				\end{itemize}
 			\subsubsection*{Các tính chất của quan hệ đồng tham chiếu}
-			Giả sử $M_1$ và $M_2$ là các đề cập trong văn bản.
+			Giả sử $M_1$, $M_2$ và $M_3$ là các đề cập trong văn bản.
 			\begin{itemize}
-				\item{Tính chất phản xạ: Mỗi đề cập ($M_1$ và $M_2$) đồng tham chiếu với chính nó.}
+				\item{Tính chất phản xạ: Mỗi đề cập ($M_1$, $M_2$, $M_3$) đồng tham chiếu với chính nó.}
 				\item{Tính chất đối xứng: Nếu đề cập $M_1$ đồng tham chiếu với $M_2$ thì $M_2$ đồng tham chiếu với $M_1$.}
 				\item{Tính chất bắc cầu: Nếu đề cập $M_1$ đồng tham chiếu với $M_2$ và $M_2$ đồng tham chiếu với $M_3$ thì $M_1$ đồng tham chiếu với $M_3$.}
 			\end{itemize}
 		\subsection{Khai khoáng ý kiến}
 			\subsubsection*{Khái quát}
 				\par Khai khoáng ý kiến (Sentiment Analysis hay Opinion Mining) trong Xử lý ngôn ngữ tự nhiên là lĩnh vực liên quan đến việc tìm ra những ý kiến, cảm xúc được diễn đạt qua văn bản. Một ý kiến gồm có các thành phần: chủ thể ý kiến (holder), đối tượng (target) và mức độ (orientation) – có thể là tích cực (positive), tiêu cực (negative), trung tính (neutral) hoặc nằm trong một thang đo mức độ (1,2,3,4,5).
-				\par Mô hình hóa một đối tượng (o):\\				
-				Đối tượng o gồm một tập các thuộc tính F = {f1, f2, f3, …} gồm cả o cũng là một thuộc tính đặc biệt (tổng quát – general). Mỗi thuộc tính fi thuộc F được diễn đạt bằng một hoặc nhiều từ/cụm từ ở trong văn bản (gọi là các synonyms của thuộc tính).
-				\par Mô hình hóa một văn bản có chứa ý kiến
-				//TODO
-				\par Các nghiên cứu về Khai khoáng ý kiến được thực hiện trên 3 cấp độ \cite[sentiment]:
+				\par Đối tượng (o) là một thực thể chỉ sản phẩm, người, tổ chức, sự kiện, ... Nó có thể được mô hình hóa như sau:\\				
+				Đối tượng o gồm một tập các thuộc tính F = \{f1, f2, f3, …\} gồm cả o cũng là một thuộc tính đặc biệt (tổng quát – general). Mỗi thuộc tính fi thuộc F được diễn đạt bằng một hoặc nhiều từ/cụm từ ở trong văn bản (gọi là các synonyms của thuộc tính).
+				\par Một văn bản chứa ý kiến (d) chứa một tập các đối tượng O = \{o1, o2, o3, ...\}. Ý kiến được các chủ thể (holder) H = {h1, h2, h3, ...} thể hiện lên mỗi đối tượng và lên các thuộc tính của đối tượng. 
+				\par Các nghiên cứu về Khai khoáng ý kiến được thực hiện trên 3 cấp độ \cite{sentiment}:
 				\begin{itemize}
-					\item{Cấp độ văn bản (Document Level): Xác định thiên hướng ý kiến cho toàn bộ văn bản, với giả định rằng văn bản đó thể hiện ý kiến cho một đối tượng nhất định.}		
-					\item{Cấp độ câu (Sentence Level): Xác định thiên hướng ý kiến cho một câu, thông thường câu đó cũng được giả định là đang thể hiện ý kiến đối với một đối tượng/thuộc tính (target) nhất định.}
+					\item{Cấp độ văn bản (Document Level): Xác định thiên hướng ý kiến cho toàn bộ văn bản, với giả định rằng văn bản đó thể hiện ý kiến cho một đối tượng nhất định và từ một chủ thể (holder) nhất định.}		
+					\item{Cấp độ câu (Sentence Level): Xác định thiên hướng ý kiến cho một câu, thông thường câu đó cũng được giả định là đang thể hiện ý kiến đối với một đối tượng/thuộc tính (target) nhất định và từ một chủ thể nhất định.}
 					\item{Cấp độ thuộc tính (Feature-Based): Các văn bản có chứa ý kiến thường đề cập đến đối tượng và các thuộc tính của nó. Ở cấp độ này, mục tiêu hướng tới là tìm ra thiên hướng ý kiến gắn với các thuộc tính hoặc chính bản thân đối tượng đó.}
 				\end{itemize}				
 
-			\subsubsection*{Các từ chỉ ý kiến}	
-				\par Các từ chỉ ý kiến (Opinion word) là các từ mà bản thân nó mang ý kiến, cảm xúc ở trong câu. Chúng được chia thành 2 loại là các từ chỉ ý kiến tích cực (good, amazing, great,… ) và các từ chỉ ý kiến tiêu cực (bad, worst, terrible,…). Bên cạnh các từ đơn, còn có các ngữ (phrase) chỉ ý kiến, đơn cử như "cost someone an arm and a leg". Tập hợp các từ chỉ ý kiến đã được sưu tầm và được sử dụng trong các nghiên cứu \cite{sentiment}, tập hợp này chứa các từ chỉ ý kiến không phụ thuộc lĩnh vực (domain-independent) và không phụ thuộc ngữ cảnh (context-independent).				
+			\subsubsection*{Các từ ngữ chỉ ý kiến}	
+				\par Các từ chỉ ý kiến (Opinion word) là các từ mà bản thân nó mang ý kiến, cảm xúc ở trong câu. Về mặt thiên hướng, chúng được chia thành 2 loại là các từ chỉ ý kiến tích cực (good, amazing, great,… ) và các từ chỉ ý kiến tiêu cực (bad, awful, terrible,…). Bên cạnh các từ đơn, còn có các ngữ (phrase) chỉ ý kiến, đơn cử như "cost someone an arm and a leg". Tập hợp các từ chỉ ý kiến đã được sưu tầm và được sử dụng trong các nghiên cứu \cite{sentiment}, tập hợp này chứa các từ chỉ ý kiến không phụ thuộc lĩnh vực (domain-independent) và không phụ thuộc ngữ cảnh (context-independent).	
+				\par Về mặt từ vựng, các từ chỉ ý kiến cũng có thể được chia thành hai dạng là dạng cơ bản (base type) và dạng so sánh (comparative type). Các từ như good, great, bad, ... thuộc dạng cơ bản. Dạng so sánh của chúng như better, best, greater, greatest, worse, worst .. là các dạng so sánh hơn (comparative) và so sánh nhất (supelative) của dạng cơ bản. Khác với dạng cơ bản, dạng so sánh không thể hiện trực tiếp ý kiến (tích cực, tiêu cực) mà thể hiện ý kiến về sự hơn thua giữa các thực thể. Ví dụ: Câu \textit{My Nokia is better than this Samsung} không chỉ ra cụ thể cái nào tốt, cái nào không tốt, nó chỉ thể hiện ý kiến rằng chiếc điện thoại "The Nokia" tốt hơn "this Samsung".
 				\par Một vấn đề gặp phải đối với các từ chỉ ý kiến đó là chúng có thể phụ thuộc vào lĩnh vực (domain-dependent). Ví dụ có hai câu "The battery is long" và "The program takes long time to run", "long" đối với "battery" là tích cực nhưng đối với "program" là tiêu cực. Không chỉ vậy, trong cùng lĩnh vực, chúng cũng có thể mang sắc thái khác nhau tùy ngữ cảnh, ví dụ "The battery is long" và "The camera takes long time to focus".	
 			\subsubsection*{Khai khoáng ý kiến đối với câu so sánh}
 				\par Khác với các câu bình thường nơi ý kiến được thể hiện trực tiếp là tích cực hay tiêu cực, ở các câu so sánh, ý kiến được biểu đạt bằng cách thể hiện mức độ hơn, kém, giống nhau trên một khía cạnh nào đó giữa các (tập) đối tượng. Câu so sánh trong tiếng Anh có thể được chia thành 2 nhóm:
@@ -186,7 +187,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 						\item{So sánh hơn, kém: \\"The Nokia has longer battery than this HTC."\\"The Nokia is less expensive than this HTC."}
 						\item{So sánh nhất: "The Nokia has the longest battery."}
 					\end{itemize}				
-					\item{Nhóm so sánh không có cấp độ (Non-gradable comparison)
+					\item{Nhóm so sánh không có cấp độ (Non-gradable comparison). Ví dụ:
 					\\"The Nokia has different size to this HTC."
 					\\"The Nokia use a SOC from Intel but this HTC use one from Samsung."
 					\\"The Nokia has Bluetooth but this HTC does not."}					
@@ -219,11 +220,11 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 				\end{itemize}
 		\subsection{Cây quyết định}
 			\subsubsection*{Giới thiệu}
-				\begin{figure}
+				\begin{figure}[H]
 					\centering
 					\include{draw/decision_tree}
 					\label{fig:tree}
-					\caption{Ví dụ về cây quyết định (Tham khảo từ trang 53 của \cite{mltextbook})}
+					\caption{Cây quyết định phân loại xem những buổi sáng thứ 7 nào sẽ có chơi Quần vợt (PlayTennis) (Tham khảo từ trang 53 của \cite{mltextbook})}
 				\end{figure}
 				\par Cây quyết định (Decision Tree) là một mô hình học máy có giám sát, trong đó hàm mục tiêu được mô tả bằng một cây quyết định. Cây quyết định cũng có thể được biểu diễn lại dưới dạng một tập các luật giúp dễ đọc, dễ hiểu.
 				\par Mỗi nốt của cây biểu diễn một thuộc tính. Mỗi nhánh xuất phát từ nốt đó thể hiện giá trị của thuộc tính đó. Một mẫu được phân loại trên cây quyết định bằng cách duyệt nó trên cây, bắt đầu từ gốc cho đến khi gặp giá trị phân loại (lá). 
@@ -325,16 +326,36 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 
 	\section{Phương pháp đề xuất}
 		\subsection{Nội dung bài toán}
+			\par Cho một văn bản chứa ý kiến gồm một tập các đối tượng O = \{o1,o2,o3,...\}. Giả định của bài toán là ý kiến trong văn bản đều từ một chủ thể duy nhất và mỗi đối tượng $o_i$ cùng với tập thuộc tính $F_i$ của nó đã được tìm ra. Mục tiêu của bài toán là tìm các chuỗi đồng tham chiếu đồng nhất (identity) của đối tượng và thuộc tính.
+			\begin{itemize}
+				\item{Đầu vào: Văn bản có chứa ý kiến.}
+				\item{Giả định:
+				\begin{itemize}
+					\item{Ý kiến trong văn bản đến từ một chủ thể duy nhất.}
+					\item{Các \textit{synonyms} của thuộc tính (bao gồm bản thân đối tượng) đã được tìm ra.}
+					\item{Quan hệ đồng tham chiếu thuộc dạng đồng nhất (identity).}
+				\end{itemize}}
+				\item{Đầu ra: Các chuỗi đồng tham chiếu của đối tượng và thuộc tính.}
+			\end{itemize}
+			\par Ví dụ: Cho văn bản //TODO
+
 		\subsection{Tổng quan quy trình}
 			\begin{figure}[H]
 				\centering				
 				\include{draw/model_diagram}
 			\end{figure}
 		\subsection{Tiền xử lý dữ liệu}
+		\par Dữ liệu thu thập được sẽ được tiền xử lý nhằm giúp giảm sai số cho việc thực hiện các bước sau. Ví dụ văn bản
 		\subsection{Trích xuất cụm danh từ}
+			\par Như đã đề cập ở mục \ref{coref_problem}, các \textit{mention} trong bài toán đồng tham chiếu thường là các danh từ/cụm danh từ (từ đây gọi chung là cụm danh từ). Mặt khác trong các văn bản chứa ý kiến, các đối tượng và thuộc tính hầu hết cũng đều được thể hiện bằng các cụm danh từ. Do đó, để trích xuất ra các \textit{mention} phục vụ cho các bước tiếp theo, nhóm thực hiện trích xuất các cụm danh từ trong văn bản. Để thực hiện việc này, trước tiên dùng công cụ Stanford \footnote{http://stanfordnlp.github.io/CoreNLP} để gán nhãn (part-of-speech) cho các từ và tìm các cụm danh từ dựa vào công cụ CRFChunker \cite{crfchunker}. 
+			\par Ví dụ //TODO
 		\subsection{Trích xuất thuộc tính}
-		\subsection{Tạo bộ phân loại}		
+		\subsection{Tạo bộ phân loại}
+			\subsubsection{Tạo tập huấn luyện}
+			\subsubsection{Áp dụng giải thuật học Cây quyết định}
+				\par Các cặp ứng viên được phân loại dựa vào Cây quyết định bằng giải thuật J48 trên Weka \footnote{http://www.cs.waikato.ac.nz/ml/weka}. J48 là sự hiện thực của giải thuật C4.5.
 		\subsection{Gom cụm các đồng tham chiếu}	
+			\par Dựa vào kết quả phân loại các cặp ứng viên, thực hiện gom cụm đồng tham chiếu
 
 	\section{Thực nghiệm và đánh giá}
 
@@ -385,6 +406,11 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 	Tom Mitchell, McGraw Hill, 1997.
 	\textit{Machine Learning}.
 	Publisher: McGraw-Hill Science/Engineering/Math; (March 1, 1997). ISBN-0070428077.	
+
+	\bibitem{crfchunker}
+	Xuan-Hieu Phan. 2006.
+	\textit{CRFChunker: CRF English Phrase Chunker}. 
+	http://crfchunker.sourceforge.net/.
  
 \end{thebibliography}	
 

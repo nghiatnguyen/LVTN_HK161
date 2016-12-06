@@ -12,14 +12,14 @@
 }
 \begin{tikzpicture}
   {[start chain]
-        \node[block,on chain] (N1) {Thu thập dữ liệu thô};
-        \node[block,on chain,join=by {arrow},right=0.7cm of N1] (N2) {Tiền xử lý dữ liệu};
-        \node[block,on chain,join=by {arrow},right=0.7cm of N2] (N3) {Trích xuất cụm danh từ};
-        \node[block,on chain,join=by {arrow},right=0.7cm of N3] (N4) {Gán nhãn dữ liệu};
-       \node[block,on chain,join=by {arrow},below=0.7cm of N4] (N5) {Trích xuất thuộc tính};
-       \node[block,on chain,join=by {arrow},left=0.7cm of N5] (N6) {Tạo tập huấn luyện và tập kiểm tra};
-       \node[block,on chain,join=by {arrow},left=0.7cm of N6] (N7) {Áp dụng giải thuật học máy};
-       \node[block,on chain,join=by {arrow},left=0.7cm of N7] (N8) {Đánh giá};
+      \node[block,on chain] (N1) {Thu thập dữ liệu thô};
+      % \node[block,on chain,join=by {arrow},right=2cm of N1] (N2) {Tiền xử lý dữ liệu};
+      \node[block,on chain,join=by {arrow},right=2cm of N2] (N3) {Trích xuất cụm danh từ};
+      \node[block,on chain,join=by {arrow},right=2cm of N3] (N4) {Gán nhãn dữ liệu};
+      \node[block,on chain,join=by {arrow},below=2cm of N4] (N5) {Trích xuất thuộc tính};
+      \node[block,on chain,join=by {arrow},left=2cm of N5] (N6) {Tạo tập huấn luyện và tập kiểm tra};
+      \node[block,on chain,join=by {arrow},left=2cm of N6] (N7) {Áp dụng giải thuật học máy};
+      \node[block,on chain,join=by {arrow},left=2cm of N7] (N8) {Đánh giá};
     }
       
   \end{tikzpicture}
