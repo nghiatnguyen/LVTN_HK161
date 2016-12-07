@@ -743,8 +743,41 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 				\end{center}
 
 	\section{Thực nghiệm và đánh giá}	
+		\subsection{Chương trình}
+			\par Hệ thống được hiện thực bằng ngôn ngữ Java (JDK1.8), dùng tới các thư viện của công cụ Stanford, Weka và code của công cụ CRFChunker. Chương trình được tổ chức thành các gói (package) sau:
+			\begin{itemize}
+				\item{element: Gói này gồm các lớp (class) lưu thông tin liên quan đến các thành phần trong ngôn ngữ tự nhiên như Review(văn bản), Sentence(câu), NounPhrase(cụm danh từ), Token(thẻ), CorefChain(chuỗi đồng tham chiếu) với các mối quan hệ has-a giữa các lớp.}
+				\item{gui: Gói liên quan đến giao diện.}
+				\item{process: Gói liên quan đến quá trình trích xuất thuộc tính hoặc gán nhãn dữ liệu.}
+				\item{test: Gói liên quan đến việc hiện thực các độ đo chuỗi đồng tham chiếu.}
+				\item{util: Gói liên quan đến việc trích xuất các thành phần của ngôn ngữ tự nhiên, dựa vào thư viện của công cụ Stanford, bao gồm cả việc lấy HEAD của các cụm danh từ.}
+				\item{weka: Gói liên quan đến việc tạo bộ phân loại dựa trên công cụ Weka, gồm cả việc dùng Cây quyết định.}
+			\end{itemize}
+
+		\subsection{Kết quả thực nghiệm}
+			//TODO
+		\subsection{Phân tích và đánh giá}			
+			//TODO
 
 	\section{Tổng kết}		
+		\par Trong giai đoạn Luận văn tốt nghiệp, nhóm đã thực hiện được những công việc sau:
+		\begin{itemize}
+			\item{Tìm hiểu về các công trình liên quan đến đồng tham chiếu nói chung.}
+			\item{Tìm hiểu về các công trình liên quan đến đồng tham chiếu cho một số loại văn bản cụ thể.}
+			\item{Tìm hiểu về các phương pháp khai khoáng ý kiến và một số vấn đề trong khai khoáng ý kiến.}
+			\item{Mô hình hóa bài toán và đề ra phương pháp giải quyết bài toán đồng tham chiếu cho đối tượng và thuộc tính trong Khai khoáng ý kiến.}
+			\item{Xây dựng hệ thống giải quyết bài toán dựa trên phương pháp đề xuất, cho kết quả đầu ra khả quan.}
+		\end{itemize}		
+		\par Hướng phát triển của đề tài:
+		\begin{itemize}
+			\item{Trong tương lai, có thể tìm thêm những thuộc tính liên quan đến Khai khoáng ý kiến khác để áp dụng vào hệ thống nhằm tăng độ chính xác.}
+			\item{Thử nghiệm cho tiếng Việt:
+				\begin{itemize}
+					\item{Hiện nay đã có các công cụ Xử lý ngôn ngữ tự nhiên dùng cho tiếng Việt. //TODO Nêu các công cụ và lấy ví dụ minh họa.}
+					\item{Các nghiên cứu liên quan đến Khai khoáng ý kiến trong tiếng Việt cũng đã xuất hiện trong những năm gần đây. //TODO Nêu ra các nghiên cứu và công trình liên quan.}
+				\end{itemize}
+			}
+		\end{itemize}
 
 \renewcommand{\refname}{Tham khảo} 
 
