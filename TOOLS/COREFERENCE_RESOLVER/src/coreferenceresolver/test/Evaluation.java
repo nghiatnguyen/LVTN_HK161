@@ -20,6 +20,9 @@ public class Evaluation {
 	private static float sumRecallB3 = 0;
 	private static float sumPrecisionB3 = 0;
 	private static float sumF1B3 = 0;
+	private static float sumRecallCEAF = 0;
+	private static float sumPrecisionCEAF = 0;
+	private static float sumF1CEAF = 0;
 
     public static Integer findSize(CorefChain corefChain) {
         return corefChain.getChain().size();
@@ -51,23 +54,23 @@ public class Evaluation {
         int SumNumeratorRecall = 0;
         int SumDenominatorRecall = 0;
                
-//        for (Review re : listReview) {            
-//            Iterator<CorefChain> itr = re.getCorefChainsPredicted().iterator();
-//            while (itr.hasNext()) {
-//                CorefChain curCc = itr.next();
-//                boolean isSatisfied = false;
-//                for (int npId : curCc.getChain()) {
-//                    int curNpType = re.getNounPhrases().get(npId).getType();
-//                    if (curNpType == 0 || curNpType == 3) {
-//                        isSatisfied = true;
-//                        break;
-//                    }
-//                }                
-//                if (!isSatisfied) {
-//                    itr.remove();
-//                }
-//            }
-//        }
+        for (Review re : listReview) {            
+            Iterator<CorefChain> itr = re.getCorefChainsPredicted().iterator();
+            while (itr.hasNext()) {
+                CorefChain curCc = itr.next();
+                boolean isSatisfied = false;
+                for (int npId : curCc.getChain()) {
+                    int curNpType = re.getNounPhrases().get(npId).getType();
+                    if (curNpType == 0 || curNpType == 3) {
+                        isSatisfied = true;
+                        break;
+                    }
+                }                
+                if (!isSatisfied) {
+                    itr.remove();
+                }
+            }
+        }
 
         for (Review re : listReview) {
             for (CorefChain cf : re.getCorefChainsActual()) {
@@ -283,6 +286,9 @@ public class Evaluation {
         System.out.println("Recall: " + recall);
         System.out.println("Precision: " + precision);
         System.out.println("F1 measure: " + f1);
+        sumRecallCEAF += recall;
+        sumPrecisionCEAF += precision;
+        sumF1CEAF += f1;
     }
     
     public static void resultFinal(){
@@ -292,6 +298,9 @@ public class Evaluation {
     	float recallB3 = sumRecallB3/kFold;
     	float precisionB3 = sumPrecisionB3/kFold;
     	float f1B3 = sumF1B3/kFold;
+    	float recallCEAF = sumRecallCEAF/kFold;
+    	float precisionCEAF = sumPrecisionCEAF/kFold;
+    	float f1CEAF = sumF1CEAF/kFold;
     	System.out.println("----------Result Final---------");
     	System.out.println("-------MUC score-----");
         System.out.println("Recall: " + recallMUC);
@@ -301,5 +310,9 @@ public class Evaluation {
         System.out.println("Recall: " + recallB3);
         System.out.println("Precision: " + precisionB3);
         System.out.println("F1 measure: " + f1B3);
+        System.out.println("-------CEAF-4 score-----");
+        System.out.println("Recall: " + recallCEAF);
+        System.out.println("Precision: " + precisionCEAF);
+        System.out.println("F1 measure: " + f1CEAF);
     }
 }

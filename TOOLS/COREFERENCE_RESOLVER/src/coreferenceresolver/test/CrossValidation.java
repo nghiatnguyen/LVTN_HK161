@@ -120,6 +120,7 @@ public class CrossValidation {
             	System.out.println("-----Fold " + i + "-----");
             	Evaluation.scoreMUC(listForTests.get(i-1));
             	Evaluation.scoreB3(listForTests.get(i-1));
+            	Evaluation.scoreCEAF4(listForTests.get(i-1));
             }
             
             Evaluation.resultFinal();
