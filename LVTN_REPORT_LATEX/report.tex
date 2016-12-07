@@ -122,7 +122,8 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 	\listoftables
 
 \newpage
-	\section{Tóm tắt báo cáo}	
+	\section{Tóm tắt Luận văn}	
+		\par Ngôn ngữ của con người chứa đựng nhiều đặc trưng phức tạp và làm cách nào để cho máy tính khai phá có hiệu quả loại dữ liệu này vẫn là một vấn đề lớn. Khai khoáng ý kiến là một lĩnh vực mới phát triển gần đây của Xử lý ngôn ngữ tự nhiên, nó hướng đến việc tìm ra những ý kiến, cảm xúc được biểu đạt qua ngôn ngữ. Bên cạnh đó, bài toán phân giải đồng tham chiếu, mặc dù đã được nghiên cứu rộng rãi nhưng vẫn chỉ được thực hiện trên các loại văn bản chung chung. Các văn bản chứa ý kiến như các bài đánh giá (review), các thảo luận (discussion) về các sản phẩm với các đặc trưng riêng của nó, cung cấp thêm những thông tin nhất định cho việc phân giải đồng tham chiếu trên đó có hiệu quả hơn. Trong Luận văn này, nhóm đề xuất bài toán \textit{Phân giải đồng tham chiếu cho đối tượng và thuộc tính trong khai khoáng ý kiến} với cách tiếp cận theo mô hình Học có giám sát. Dữ liệu được dùng là các văn bản chứa ý kiến bằng ngôn ngữ tiếng Anh. Mô hình do nhóm đề xuất cho kết quả khả quan và gợi mở ra những hướng đi cho việc thực hiện Phân giải đồng tham chiếu cho các văn bản chứa ý kiến trong tiếng Việt.
 		
 	\section{Giới thiệu đề tài}	
 		\par Phân giải đồng tham chiếu (Coreference resolution) là một bài toán quan trọng và được nghiên cứu rộng rãi trong Xử lý ngôn ngữ tự nhiên \cite{mainpaper}. Mục tiêu của bài toán là tìm ra trong văn bản những đề cập (mention) cùng chỉ về một (tập) thực thể trong thế giới thực và gom nhóm chúng thành các chuỗi đồng tham chiếu.?\\
@@ -245,17 +246,17 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 		\subsection{Bài toán phân giải đồng tham chiếu}
 			\label{coref_problem}
 			\subsubsection*{Định nghĩa}
-				Phân giải đồng tham chiếu trong văn bản là tìm ra trong văn bản những đề cập (mention) cùng chỉ về một (tập) thực thể (con người, sự vật, sự việc, …) hoặc khái niệm trong thế giới thực. Những đề cập (mention) này có thể là các từ/cụm từ hoặc các mệnh đề nhưng thông thường là các từ/cụm từ, mà cụ thể hơn là các danh từ/cụm danh từ.
+				Phân giải đồng tham chiếu trong văn bản là tìm ra trong văn bản những đề cập (mention) cùng chỉ về một (tập) thực thể (con người, sự vật, sự việc, …) hoặc khái niệm trong thế giới thực. Những đề cập (\textit{mention}) này có thể là các từ/cụm từ hoặc các mệnh đề nhưng thông thường là các từ/cụm từ, mà cụ thể hơn là các danh từ/cụm danh từ. Để thống nhất, nhóm dùng khái niệm \textit{mention} trong Luận văn này.
 			\subsubsection*{Các quan hệ đồng tham chiếu}		
 				Joseph F. McCarthy trong \cite{corefdef} đã chia các quan hệ đồng tham chiếu thành 3 loại: 
 				\begin{itemize}
-					\item{Quan hệ đồng nhất (Identity): Hai mention cùng đề cập tới một thực thể thống nhất\\
+					\item{Quan hệ đồng nhất (Identity): Hai \textit{mention} cùng đề cập tới một thực thể thống nhất\\
 					Ví dụ: The iPhone is beautiful. It also works perfectly.
 					"The iPhone" và "It" chỉ về một thực thể là một chiếc điện thoại.}
-					\item{Quan hệ tập con-tập cha (Subset-superset): Một mention nói về tập hợp của các thực thể, một mention nói về một thành phần trong tập hợp trên.\\
+					\item{Quan hệ tập con-tập cha (Subset-superset): Một \textit{mention} nói về tập hợp của các thực thể, một \textit{mention} nói về một thành phần trong tập hợp trên.\\
 					Ví dụ: The Nokia and the Samsung are both beautiful. They also work well.\\
 					"They" cùng với "The Nokia" và "the Samsung" tham gia vào mối quan hệ tập con-tập cha. Nói một cách khác, "They" chỉ về tập hợp "The Nokia" và "the Samsung", "The Nokia" có mối quan hệ đồng tham chiếu tập con-tập cha với "They", tương tự như "the Samsung".}
-					\item{Quan hệ cụ thể-tổng quát (General-Specific): Một mention chỉ về một lớp tổng quát, mention còn lại chỉ về một thành viên của lớp tổng quát đó.\\
+					\item{Quan hệ cụ thể-tổng quát (General-Specific): Một \textit{mention} chỉ về một lớp tổng quát, \textit{mention} còn lại chỉ về một thành viên của lớp tổng quát đó.\\
 					Ví dụ: I have bought Apple phones yesterday. The iPhone 5 works well and so do the iPhone 6S.\\
 					"Apple phones" là một lớp tổng quát. "The iPhone 5" và "the iPhone 6S" là những thành viên của lớp này. 2 cặp "The iPhone 5" – "Apple phones" và ""the iPhone 6S" – "Apple phones" đều có quan hệ đồng tham chiếu kiểu cụ thể-tổng quát.}
 				\end{itemize}
@@ -290,14 +291,17 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 				\begin{itemize}
 					\item{Nhóm so sánh có cấp độ (Gradable comparison)}	
 					\begin{itemize}
-						\item{So sánh bằng: "The Nokia has the same size as this HTC."}					
-						\item{So sánh hơn, kém: \\"The Nokia has longer battery than this HTC."\\"The Nokia is less expensive than this HTC."}
+						\item{So sánh bằng: Ví dụ: "The Nokia has the same size as this HTC."}					
+						\item{So sánh hơn, kém: Ví dụ: "The Nokia has longer battery than this HTC."
+							\\hoặc "The Nokia is less expensive than this HTC."}
 						\item{So sánh nhất: "The Nokia has the longest battery."}
 					\end{itemize}				
-					\item{Nhóm so sánh không có cấp độ (Non-gradable comparison). Ví dụ:
-						\\"The Nokia has different size to this HTC."
-						\\"The Nokia use a SOC from Intel but this HTC use one from Samsung."
-						\\"The Nokia has Bluetooth but this HTC does not."}					
+					\item{Nhóm so sánh không có cấp độ (Non-gradable comparison)
+						\begin{itemize}
+						\item{Hai thực thể khác biệt về một đặc trưng nào đó. Ví dụ: "The Nokia has different size to this HTC."}
+						\item{Cùng một bộ phận/chức năng nhưng thực thể này dùng cái này, thực thể kia dùng cái khác. Ví dụ: "The Nokia use a SOC from Intel but this HTC use one from Samsung."}
+						\item{Thực thể này có bộ phận/chức năng này nhưng thực thể kia không có. Ví dụ: "The Nokia has Bluetooth but this HTC does not."}
+						\end{itemize}}					
 				\end{itemize}
 				\par Hầu hết các câu so sánh trong tiếng Anh đều chứa từ khóa so sánh (ví dụ more, greater, better,…) \cite{sentiment}, chỉ một số lượng nhỏ câu so sánh không chứa. Ví dụ: "I cannot agree with you more". Để phân loại được câu so sánh trong tiếng Anh, ta có thể dựa vào các từ khóa so sánh này.
 				\par Trong \cite{comparative1}, Jindal và Bing Liu đã tập hợp các từ khóa so sánh và các mẫu so sánh trong tiếng Anh. GS. Bing Liu, trong \cite{sentiment} đã chia các từ khóa so sánh trong tiếng Anh thành 2 nhóm:
@@ -480,7 +484,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 
 		\subsection{Trích xuất cụm danh từ}
 			\par Như đã đề cập ở mục \ref{coref_problem}, các \textit{mention} trong bài toán đồng tham chiếu thường là các danh từ/cụm danh từ (từ đây gọi chung là cụm danh từ). Mặt khác trong các văn bản chứa ý kiến, các đối tượng và thuộc tính hầu hết cũng đều được thể hiện bằng các cụm danh từ. Do đó, để trích xuất ra các \textit{mention} phục vụ cho các bước tiếp theo, nhóm thực hiện trích xuất các cụm danh từ trong văn bản. Để thực hiện việc này, trước tiên dùng công cụ Stanford \footnote{http://stanfordnlp.github.io/CoreNLP} để gán nhãn từ loại (part-of-speech) cho các từ và tìm các cụm danh từ dựa vào công cụ CRFChunker \cite{crfchunker}. Tập hợp các cụm danh từ được tìm ra gồm ba loại: các cụm danh từ chỉ đối tượng (cụm danh từ riêng), các cụm danh từ chỉ thuộc tính, các cụm danh từ khác.
-			\par Trong nhóm các cụm danh từ khác đã được tìm ra, có những cụm danh từ chắc chắn không cần đưa vào bộ phân loại vì chúng không thể chỉ về đối tượng và thuộc tính. Đó là những cụm danh từ:
+			\par Trong nhóm các cụm danh từ khác đã được tìm ra, có những cụm danh từ sẽ không được đưa vào bộ phân loại vì chúng không thể chỉ về đối tượng và thuộc tính. Đó là những cụm danh từ:
 				\begin{itemize}
 					\item{Các cụm danh từ chỉ dùng nói để nói đến con người: Là các cụm danh từ mà HEAD của chúng thuộc về danh sách sau:
 					\par \textit{i;me;myself;we;us;ourselves;you;yourself;yourselves;he;him;himself;
@@ -494,6 +498,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					\item{Các cụm danh từ chỉ mốc thời gian: 2PM, 4PM, 5 o'clock.}
 					\item{Một số cụm danh từ khác: \textit{there}, \textit{oh}, \textit{etc}, ...}					
 				\end{itemize}
+			\par Nói về khái niệm HEAD. HEAD của một cụm từ là từ chính của cụm từ đó, nó quyết định dạng cú pháp của cụm từ. Đối với cụm danh từ, HEAD thường là danh từ hoặc đại từ. Ví dụ: Cụm danh từ \textit{the next October} có HEAD là từ \textit{October}.
 			\par Ví dụ:
 				\textit{I love <this phone>! I was debating between <the regular S5> and <the S5 Active phone>, and I'm so glad I chose <the Active>. I've dropped <my phone> some times already and not even <a dent or scratch> on <it>.}
 				\\Các cụm từ trong dấu <> là các cụm danh từ được trích xuất và sử dụng cho các bước tiếp theo.
@@ -531,6 +536,8 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 				\caption{Các thuộc tính được sử dụng trong hệ thống}
 				\label{features_table}
 			\end{table}
+
+			\par Giả sử các cặp \textit{mention} là (NP1, NP2). Sau đây trình bày về các thuộc tính được sử dụng trong hệ thống.
 
 			\subsubsection*{Thuộc tính Khoảng cách (DISTANCE)}
 				\par \textit{Giải thích:} Là khoảng cách giữa hai cụm danh từ.
