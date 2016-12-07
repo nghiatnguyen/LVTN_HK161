@@ -81,29 +81,29 @@ public class Util {
         sDataset = s;
     }
     
-    public static void setVerbforNP(List<Review> listReview){
-    	for (Review re : listReview){
-    		for (Sentence se : re.getSentences()){
-    			for (NounPhrase np : se.getNounPhrases()){
-    				for (int j = se.getTokens().size() - 1; j >= 0; j--)
-    					if (se.getTokens().get(j).getOffsetEnd() < np.getOffsetBegin() && j != 0){
-    						String POS = se.getTokens().get(j).getPOS();
-    						if (POS.contains("VB") && !TO_BES.contains(se.getTokens().get(j).getWord().toLowerCase()))
-    							np.setVerbBefore(se.getTokens().get(j).getWord().toLowerCase());
-    						break;
-    					}
-    				for (int j = 0; j < se.getTokens().size(); j++)
-    					if (se.getTokens().get(j).getOffsetBegin() < np.getOffsetEnd() && j != se.getTokens().size()-1){
-    						String POS = se.getTokens().get(j).getPOS();
-    						if (POS.contains("VB") && !TO_BES.contains(se.getTokens().get(j).getWord().toLowerCase()))
-    							np.setVerbAfter(se.getTokens().get(j).getWord().toLowerCase());
-    						break;
-    					}	
-    			}
-    				
-    		}
-    	}
-    }
+//    public static void setVerbforNP(List<Review> listReview){
+//    	for (Review re : listReview){
+//    		for (Sentence se : re.getSentences()){
+//    			for (NounPhrase np : se.getNounPhrases()){
+//    				for (int j = se.getTokens().size() - 1; j >= 0; j--)
+//    					if (se.getTokens().get(j).getOffsetEnd() < np.getOffsetBegin() && j != 0){
+//    						String POS = se.getTokens().get(j).getPOS();
+//    						if (POS.contains("VB") && !TO_BES.contains(se.getTokens().get(j).getWord().toLowerCase()))
+//    							np.setVerbBefore(se.getTokens().get(j).getWord().toLowerCase());
+//    						break;
+//    					}
+//    				for (int j = 0; j < se.getTokens().size(); j++)
+//    					if (se.getTokens().get(j).getOffsetBegin() < np.getOffsetEnd() && j != se.getTokens().size()-1){
+//    						String POS = se.getTokens().get(j).getPOS();
+//    						if (POS.contains("VB") && !TO_BES.contains(se.getTokens().get(j).getWord().toLowerCase()))
+//    							np.setVerbAfter(se.getTokens().get(j).getWord().toLowerCase());
+//    						break;
+//    					}	
+//    			}
+//    				
+//    		}
+//    	}
+//    }
 
     public static void extractFeatures(Review review, BufferedWriter bw, boolean forTraining) throws IOException {
         //Set Opinion Words for Noun Phrases
@@ -117,10 +117,10 @@ public class Util {
 
             listAllPMI.clear();
             listRawPMI.clear();
-            listAllAfter.clear();
-            listAllBefore.clear();
-            listRawAfter.clear();
-            listRawBefore.clear();
+//            listAllAfter.clear();
+//            listAllBefore.clear();
+//            listRawAfter.clear();
+//            listRawBefore.clear();
             
             //Find PMI of NP2 with NP1
             if (np2.getOpinionWords().isEmpty()) {
@@ -140,34 +140,34 @@ public class Util {
                 Collections.sort(listAllPMI, Collections.reverseOrder());
             }
             
-            if (np2.getVerbAfter() == ""){}
-            else {
-            	for (int j = i - 1; j >= 0; j--) {
-                    NounPhrase np1 = review.getNounPhrases().get(j);
-                    if (np1.getType() == 0 || np2.getType() == 0 || np2.getType() == 2 || np1.getType() == 2 || np1.getType() == 3 || np2.getType() == 3) {
-                        int rawAfter = FeatureExtractor.countNPWithVerbAfter(np2, np1);
-                        listRawAfter.add(rawAfter);
-                        if (!listAllAfter.contains(rawAfter))
-                        	listAllAfter.add(rawAfter);
-            	}      
-                    }
-            	Collections.sort(listAllAfter, Collections.reverseOrder());     
-            }
-            
-            if (np2.getVerbBefore() == ""){}
-            else {
-            	for (int j = i - 1; j >= 0; j--) {
-                    NounPhrase np1 = review.getNounPhrases().get(j);
-                    if (np1.getType() == 0 || np2.getType() == 0 || np2.getType() == 2 || np1.getType() == 2 || np1.getType() == 3 || np2.getType() == 3) {
-                    int rawBefore = FeatureExtractor.countNPWithVerbBefore(np2, np1);
-                    listRawBefore.add(rawBefore);
-                    if (!listAllBefore.contains(rawBefore))
-                    	listAllBefore.add(rawBefore);
-                    
-            	}      
-                    }
-            	Collections.sort(listAllBefore, Collections.reverseOrder());     
-            }
+//            if (np2.getVerbAfter() == ""){}
+//            else {
+//            	for (int j = i - 1; j >= 0; j--) {
+//                    NounPhrase np1 = review.getNounPhrases().get(j);
+//                    if (np1.getType() == 0 || np2.getType() == 0 || np2.getType() == 2 || np1.getType() == 2 || np1.getType() == 3 || np2.getType() == 3) {
+//                        int rawAfter = FeatureExtractor.countNPWithVerbAfter(np2, np1);
+//                        listRawAfter.add(rawAfter);
+//                        if (!listAllAfter.contains(rawAfter))
+//                        	listAllAfter.add(rawAfter);
+//            	}      
+//                    }
+//            	Collections.sort(listAllAfter, Collections.reverseOrder());     
+//            }
+//            
+//            if (np2.getVerbBefore() == ""){}
+//            else {
+//            	for (int j = i - 1; j >= 0; j--) {
+//                    NounPhrase np1 = review.getNounPhrases().get(j);
+//                    if (np1.getType() == 0 || np2.getType() == 0 || np2.getType() == 2 || np1.getType() == 2 || np1.getType() == 3 || np2.getType() == 3) {
+//                    int rawBefore = FeatureExtractor.countNPWithVerbBefore(np2, np1);
+//                    listRawBefore.add(rawBefore);
+//                    if (!listAllBefore.contains(rawBefore))
+//                    	listAllBefore.add(rawBefore);
+//                    
+//            	}      
+//                    }
+//            	Collections.sort(listAllBefore, Collections.reverseOrder());     
+//            }
             	
 
             //Create all pair of 2 NPs
@@ -585,31 +585,31 @@ public class Util {
             }
         }
          
-        if (listRawAfter.isEmpty())
-        	bwtrain.write(10 + ",");
-        else {
-        	if (listRawAfter.get(IdPMIinList) == 0) {
-                bwtrain.write(4 + ",");
-            }
-        	else if (listAllAfter.indexOf(listRawAfter.get(IdPMIinList)) < 4) {
-                bwtrain.write(listAllAfter.indexOf(listRawAfter.get(IdPMIinList)) + ",");
-            } else {
-                bwtrain.write(4 + ",");
-            }
-        }
-        
-        if (listRawBefore.isEmpty())
-        	bwtrain.write(10 + ",");
-        else {
-        	if (listRawBefore.get(IdPMIinList) == 0) {
-                bwtrain.write(4 + ",");
-            }
-        	else if (listAllBefore.indexOf(listRawBefore.get(IdPMIinList)) < 4) {
-                bwtrain.write(listAllBefore.indexOf(listRawBefore.get(IdPMIinList)) + ",");
-            } else {
-                bwtrain.write(4 + ",");
-            }
-        }
+//        if (listRawAfter.isEmpty())
+//        	bwtrain.write(10 + ",");
+//        else {
+//        	if (listRawAfter.get(IdPMIinList) == 0) {
+//                bwtrain.write(4 + ",");
+//            }
+//        	else if (listAllAfter.indexOf(listRawAfter.get(IdPMIinList)) < 4) {
+//                bwtrain.write(listAllAfter.indexOf(listRawAfter.get(IdPMIinList)) + ",");
+//            } else {
+//                bwtrain.write(4 + ",");
+//            }
+//        }
+//        
+//        if (listRawBefore.isEmpty())
+//        	bwtrain.write(10 + ",");
+//        else {
+//        	if (listRawBefore.get(IdPMIinList) == 0) {
+//                bwtrain.write(4 + ",");
+//            }
+//        	else if (listAllBefore.indexOf(listRawBefore.get(IdPMIinList)) < 4) {
+//                bwtrain.write(listAllBefore.indexOf(listRawBefore.get(IdPMIinList)) + ",");
+//            } else {
+//                bwtrain.write(4 + ",");
+//            }
+//        }
         bwtrain.write(FeatureExtractor.isRelativePronounNPs(np1, np2) + ",");
         bwtrain.write(FeatureExtractor.isCorefTest(np1, np2).toString());
         bwtrain.newLine();
