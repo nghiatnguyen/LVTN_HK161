@@ -943,65 +943,91 @@ public class FeatureExtractor {
         return false;
     }
 
-    public static Boolean hasProperName(NounPhrase np, Sentence se) {
-        ArrayList<String> aList = new ArrayList<String>();
-        ArrayList<Integer> aListOfCheck = new ArrayList<Integer>();
-        for (int i = 0; i < se.getTokens().size(); i++) {
-            if ((se.getTokens().get(i).getOffsetBegin() >= np.getOffsetBegin()) && (se.getTokens().get(i).getOffsetBegin() < np.getOffsetEnd())) {
-                if (isNNP(se.getTokens().get(i))) {
-                    aList.add(se.getTokens().get(i).getWord());
-                    if (se.getTokens().get(i).getPOS().toString().equals("NNP")
-                            || se.getTokens().get(i).getPOS().toString().equals("NNPS")) {
-                        aListOfCheck.add(1);
-                    } else {
-                        aListOfCheck.add(0);
-                    }
-                } else if (i > 0 && i < (se.getTokens().size() - 1)) {
-                    if (Character.isDigit(se.getTokens().get(i).getWord().charAt(0))) {
-                        if (se.getTokens().get(i - 1).getPOS().equals("DT")
-                                || se.getTokens().get(i - 1).getPOS().equals("NNP")
-                                || se.getTokens().get(i - 1).getPOS().equals("NNPS")
-                                || Character.isUpperCase(se.getTokens().get(i - 1).getWord().charAt(0))) {
-                            if ((se.getTokens().get(i + 1).getPOS().equals("NN"))
-                                    || (se.getTokens().get(i + 1).getPOS().equals("NNS"))
-                                    || (se.getTokens().get(i + 1).getPOS().equals("JJ"))) {
-                            } else {
-                                aList.add(se.getTokens().get(i).getWord());
-                                aListOfCheck.add(1);
-                            }
-
-                        }
-                    }
-
-                }
+    public static Boolean hasProperName(NounPhrase np, Sentence se){
+    	if (!Character.isUpperCase(np.getHeadNode().toString().charAt(0))){
+    		if (np.getHeadNode().toString().toLowerCase().equals("iphone")
+                    || np.getHeadNode().toString().toLowerCase().equals("ipad")
+                    || np.getHeadNode().toString().toLowerCase().equals("iphones")
+                    || np.getHeadNode().toString().toLowerCase().equals("ipads")
+                    || np.getHeadNode().toString().toLowerCase().equals("ipod")) {
+                return true;
             }
-        }
-        if (aList.size() == 0) {
             return false;
-        } else {
-            for (int i = 0; i < aList.size(); i++) {
-                if (aListOfCheck.get(i).equals(1)) {
-                    for (String st1 : aList) {
-                    }
-                    return true;
-                } else {
-                    boolean checkContains = true;
-                    if (sDict.contains(aList.get(i).toLowerCase())) {
-                        checkContains = false;
-                    } else if (check_adj_in_list(aList.get(i))) {
-                        checkContains = false;
-                    }
-
-                    if (checkContains) {
-                        return true;
-                    }
-                }
-            }
-
-            return false;
-
-        }
+    	}
+    	else if (np.getHeadLabel().equals("NNP") || np.getHeadLabel().equals("NNPS") || np.getHeadLabel().equals("CD"))
+    		return true;
+    	else {
+    		if (!sDict.contains(np.getHeadNode().toString().toLowerCase()))
+    			return true;
+    		else{	
+    			if (np.getCRFTokens().size() > 1)
+    				return true;
+    			else 
+    				return false;
+    		}
+    	}
+    			
     }
+    
+//    public static Boolean hasProperName(NounPhrase np, Sentence se) {
+//        ArrayList<String> aList = new ArrayList<String>();
+//        ArrayList<Integer> aListOfCheck = new ArrayList<Integer>();
+//        for (int i = 0; i < se.getTokens().size(); i++) {
+//            if ((se.getTokens().get(i).getOffsetBegin() >= np.getOffsetBegin()) && (se.getTokens().get(i).getOffsetBegin() < np.getOffsetEnd())) {
+//                if (isNNP(se.getTokens().get(i))) {
+//                    aList.add(se.getTokens().get(i).getWord());
+//                    if (se.getTokens().get(i).getPOS().toString().equals("NNP")
+//                            || se.getTokens().get(i).getPOS().toString().equals("NNPS")) {
+//                        aListOfCheck.add(1);
+//                    } else {
+//                        aListOfCheck.add(0);
+//                    }
+//                } else if (i > 0 && i < (se.getTokens().size() - 1)) {
+//                    if (Character.isDigit(se.getTokens().get(i).getWord().charAt(0))) {
+//                        if (se.getTokens().get(i - 1).getPOS().equals("DT")
+//                                || se.getTokens().get(i - 1).getPOS().equals("NNP")
+//                                || se.getTokens().get(i - 1).getPOS().equals("NNPS")
+//                                || Character.isUpperCase(se.getTokens().get(i - 1).getWord().charAt(0))) {
+//                            if ((se.getTokens().get(i + 1).getPOS().equals("NN"))
+//                                    || (se.getTokens().get(i + 1).getPOS().equals("NNS"))
+//                                    || (se.getTokens().get(i + 1).getPOS().equals("JJ"))) {
+//                            } else {
+//                                aList.add(se.getTokens().get(i).getWord());
+//                                aListOfCheck.add(1);
+//                            }
+//
+//                        }
+//                    }
+//
+//                }
+//            }
+//        }
+//        if (aList.size() == 0) {
+//            return false;
+//        } else {
+//            for (int i = 0; i < aList.size(); i++) {
+//                if (aListOfCheck.get(i).equals(1)) {
+//                    for (String st1 : aList) {
+//                    }
+//                    return true;
+//                } else {
+//                    boolean checkContains = true;
+//                    if (sDict.contains(aList.get(i).toLowerCase())) {
+//                        checkContains = false;
+//                    } else if (check_adj_in_list(aList.get(i))) {
+//                        checkContains = false;
+//                    }
+//
+//                    if (checkContains) {
+//                        return true;
+//                    }
+//                }
+//            }
+//
+//            return false;
+//
+//        }
+//    }
     
     //Word starts a relative clause: that, which, //
     public static boolean isRelativePronounNPs(NounPhrase np1, NounPhrase np2){
