@@ -8,6 +8,7 @@ import weka.classifiers.trees.J48;
 import weka.core.Instances;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.Remove;
+import weka.filters.supervised.instance.*;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -31,16 +32,23 @@ public class Weka {
         //Remove 1st feature
         String[] options = new String[2];
         options[0] = "-R";                                    // "range"
-        options[1] = "1,2,3";                                     // first attribute
+        options[1] = "1,2,3,14,17,18";                                     // first attribute
         Remove remove = new Remove();                         // new instance of filter
         remove.setOptions(options);                           // set options
         remove.setInputFormat(trainInstances);                          // inform filter about dataset **AFTER** setting options
         Instances newTrainInstances = Filter.useFilter(trainInstances, remove);   // apply filter
+       
         // setting class attribute 
         newTrainInstances.setClassIndex(newTrainInstances.numAttributes() - 1);
+        //Resample
+        Resample sampler = new Resample();
+        sampler.setInputFormat(newTrainInstances); 
+        sampler.setBiasToUniformClass(0.1); 
+        
+        Instances resampledData = Filter.useFilter(newTrainInstances, sampler); 
 
 //		useCrossValidation(newData);
-        useTestSet(newTrainInstances, testFilePath, resultFilePath);
+        useTestSet(resampledData, testFilePath, resultFilePath);
     }
 
     public static void useCrossValidation(Instances inst) throws Exception {
@@ -81,7 +89,7 @@ public class Weka {
         Remove remove = new Remove();
         String[] options = new String[2];
         options[0] = "-R";                                    // "range"
-        options[1] = "1,2,3";    // new instance of filter
+        options[1] = "1,2,3,14,17,18";    // new instance of filter
         remove.setOptions(options);                           // set options
         remove.setInputFormat(testInstances);                          // inform filter about dataset **AFTER** setting options
         Instances newTestInstances = Filter.useFilter(testInstances, remove);   // apply filter
@@ -138,13 +146,23 @@ public class Weka {
         //Remove 1st feature
         String[] options = new String[2];
         options[0] = "-R";                                    // "range"
-        options[1] = "1,2,3";                                     // first attribute
+        options[1] = "1,2,3,19";                                     // first attribute
         Remove remove = new Remove();                         // new instance of filter
         remove.setOptions(options);                           // set options
         remove.setInputFormat(trainInstances);                          // inform filter about dataset **AFTER** setting options
         Instances newTrainInstances = Filter.useFilter(trainInstances, remove);   // apply filter
         newTrainInstances.setClassIndex(newTrainInstances.numAttributes() - 1);
-        useTestSetOpinionWords(newTrainInstances, testFilePath);
+        
+        // setting class attribute 
+        newTrainInstances.setClassIndex(newTrainInstances.numAttributes() - 1);
+        //Resample
+        Resample sampler = new Resample();
+        sampler.setInputFormat(newTrainInstances); 
+        sampler.setBiasToUniformClass(0.1); 
+        
+        Instances resampledData = Filter.useFilter(newTrainInstances, sampler); 
+
+        useTestSetOpinionWords(resampledData, testFilePath);
     }
 
     public static void useTestSetOpinionWords(Instances trainInstances, String testFilePath) throws Exception {
@@ -154,7 +172,7 @@ public class Weka {
         Remove remove = new Remove();
         String[] options = new String[2];
         options[0] = "-R";                                    // "range"
-        options[1] = "1,2,3";    // new instance of filter
+        options[1] = "1,2,3,19";    // new instance of filter
         remove.setOptions(options);                           // set options
         remove.setInputFormat(testInstances);                          // inform filter about dataset **AFTER** setting options
         Instances newTestInstances = Filter.useFilter(testInstances, remove);   // apply filter

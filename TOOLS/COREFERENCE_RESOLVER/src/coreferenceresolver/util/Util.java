@@ -106,10 +106,6 @@ public class Util {
 //    }
 
     public static void extractFeatures(Review review, BufferedWriter bw, boolean forTraining) throws IOException {
-        //Set Opinion Words for Noun Phrases
-        for (int i = 0; i < review.getSentences().size(); i++) {
-            FeatureExtractor.setNPForOPInSentence(review.getSentences().get(i));
-        }
 
         for (int i = review.getNounPhrases().size() - 1; i >= 1; i--) {
             checkNPhasOW = true;
@@ -560,7 +556,7 @@ public class Util {
         bwtrain.write(FeatureExtractor.isBetween2Extract(review, np1, np2).toString() + ",");
         bwtrain.write(FeatureExtractor.hasBetween2Extract(review, np1, np2).toString() + ",");
         bwtrain.write(FeatureExtractor.comparativeIndicatorExtract(review, np1, np2).toString() + ",");
-        bwtrain.write(FeatureExtractor.sentimentConsistencyExtract(np1, np2) + ",");
+        bwtrain.write(FeatureExtractor.sentimentConsistencyExtract2(np1, np2) + ",");
         bwtrain.write(FeatureExtractor.isBothPropername(np1, np2).toString() + ",");
         bwtrain.write(FeatureExtractor.hasProperName(np1, StanfordUtil.reviews.get(np1.getReviewId()).getSentences().get(np1.getSentenceId())).toString() + ",");
         bwtrain.write(FeatureExtractor.hasProperName(np2, StanfordUtil.reviews.get(np2.getReviewId()).getSentences().get(np2.getSentenceId())).toString() + ",");
@@ -619,10 +615,10 @@ public class Util {
     /************************************************/
     /***********Cross validation**********************/
     public static void setInstancesForReviews(Review review) throws IOException {
-        //Set Opinion Words for Noun Phrases
-        for (int i = 0; i < review.getSentences().size(); i++) {
-            FeatureExtractor.setNPForOPInSentence(review.getSentences().get(i));
-        }
+//        //Set Opinion Words for Noun Phrases
+//        for (int i = 0; i < review.getSentences().size(); i++) {
+//            FeatureExtractor.setNPForOPInSentence(review.getSentences().get(i));
+//        }
 
         for (int i = review.getNounPhrases().size() - 1; i >= 1; i--) {
             checkNPhasOW = true;
@@ -676,15 +672,15 @@ public class Util {
         instance += FeatureExtractor.hasBetween2Extract(review, np1, np2).toString() + ",";
         instance += FeatureExtractor.comparativeIndicatorExtract(review, np1, np2).toString() + ",";
         instance += FeatureExtractor.sentimentConsistencyExtract(np1, np2) + ",";
-        instance += FeatureExtractor.isBothPropername(np1, np2).toString() + ",";
+//        instance += FeatureExtractor.isBothPropername(np1, np2).toString() + ",";
         instance += FeatureExtractor.hasProperName(np1, StanfordUtil.reviews.get(np1.getReviewId()).getSentences().get(np1.getSentenceId())).toString() + ",";
         instance += FeatureExtractor.hasProperName(np2, StanfordUtil.reviews.get(np2.getReviewId()).getSentences().get(np2.getSentenceId())).toString() + ",";
-        instance += FeatureExtractor.isBothPronoun(np1, np2) + ",";
-        instance += FeatureExtractor.isBothNormal(np1, np2) + ",";
+//        instance += FeatureExtractor.isBothPronoun(np1, np2) + ",";
+//        instance += FeatureExtractor.isBothNormal(np1, np2) + ",";
         instance += FeatureExtractor.isSubString(np1, np2) + ",";
         instance += FeatureExtractor.isHeadMatch(np1, np2) + ",";
         instance += FeatureExtractor.isExactMatch(np1, np2) + ",";
-        instance += FeatureExtractor.isMatchAfterRemoveDeterminer(np1, np2) + ",";        
+//        instance += FeatureExtractor.isMatchAfterRemoveDeterminer(np1, np2) + ",";        
 
         if (checkNPhasOW == false) {
         	instance += 10 + ",";
