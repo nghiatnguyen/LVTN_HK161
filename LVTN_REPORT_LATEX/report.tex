@@ -334,11 +334,11 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 				\end{itemize}
 		\subsection{Cây quyết định}
 			\subsubsection*{Giới thiệu}
-				\begin{figure}[H]
-					\label{fig:tree}
+				\begin{figure}[H]					
 					\centering
 					\include{draw/decision_tree}					
 					\caption{Cây quyết định phân loại xem những buổi sáng thứ 7 nào sẽ có chơi Quần vợt (PlayTennis) (Tham khảo từ trang 53 của \cite{mltextbook})}
+					\label{fig:tree}
 				\end{figure}
 				\par Cây quyết định (Decision Tree) là một mô hình học máy có giám sát, trong đó hàm mục tiêu được mô tả bằng một cây quyết định. Cây quyết định cũng có thể được biểu diễn lại dưới dạng một tập các luật giúp dễ đọc, dễ hiểu.
 				\par Mỗi nốt của cây biểu diễn một thuộc tính. Mỗi nhánh xuất phát từ nốt đó thể hiện giá trị của thuộc tính đó. Một mẫu được phân loại trên cây quyết định bằng cách duyệt nó trên cây, bắt đầu từ gốc cho đến khi gặp giá trị phân loại (lá). 
@@ -800,11 +800,11 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 						\\Giải thuật cũng có các khái niệm như giải thuật MUC score, công thức:
 						\begin{center}
 							\begin{equation*}
-								P = \frac{1}{n} \sum_{i=1}^{n} \frac{\sum_{j=1}^{|p \big(S_i)|} |P_{ij}|*\big(|S_i| - |P_{ij}|)} {|S_{i}|^2}
+								P = \frac{1}{n} \sum_{i=1}^{n} \frac{\sum_{j=1}^{|p (S_i)|} |P_{ij}|*\big(|S_i| - |P_{ij}|)} {|S_{i}|^2}
 							\end{equation*}
 							\\
 							\begin{equation*}
-								R = \frac{1}{m} \sum_{i=1}^{m} \frac{\sum_{j=1}^{|p \big(R_i)|} |P'_{ij}|*\big(|S_i| - |P'_{ij}|)} {|R_{i}|^2}
+								R = \frac{1}{m} \sum_{i=1}^{m} \frac{\sum_{j=1}^{|p (R_i)|} |P'_{ij}|*\big(|S_i| - |P'_{ij}|)} {|R_{i}|^2}
 							\end{equation*}												
 						\end{center}
 
@@ -873,20 +873,48 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 		\begin{itemize}
 			\item{Tìm hiểu về các công trình liên quan đến đồng tham chiếu nói chung.}
 			\item{Tìm hiểu về các công trình liên quan đến đồng tham chiếu cho một số loại văn bản cụ thể.}
-			\item{Tìm hiểu về các phương pháp khai khoáng ý kiến và một số vấn đề trong khai khoáng ý kiến.}
+			\item{Tìm hiểu về các phương pháp Khai khoáng ý kiến và một số vấn đề trong Khai khoáng ý kiến.}
 			\item{Mô hình hóa bài toán và đề ra phương pháp giải quyết bài toán đồng tham chiếu cho đối tượng và thuộc tính trong Khai khoáng ý kiến.}
 			\item{Xây dựng hệ thống giải quyết bài toán dựa trên phương pháp đề xuất, cho kết quả đầu ra khả quan.}
-		\end{itemize}		
+		\end{itemize}
+		\par Những khó khăn và hạn chế mà nhóm gặp phải là:
+			//TODO		
 		\par Hướng phát triển của đề tài:
 		\begin{itemize}
 			\item{Trong tương lai, có thể tìm thêm những thuộc tính liên quan đến Khai khoáng ý kiến khác để áp dụng vào hệ thống nhằm tăng độ chính xác.}
 			\item{Thử nghiệm cho tiếng Việt:
 				\begin{itemize}
-					\item{Các văn bản chứa ý kiến trong tiếng Việt có thể là các bài đánh giá (review) trên Tiki, ...
+					\item{Các văn bản chứa ý kiến trong tiếng Việt có thể là các bài đánh giá (review) trên Tiki hay các bài thảo luận (discussion) trên tinhte.vn, ...
 					}
-					\item{Hiện nay đã có các công cụ Xử lý ngôn ngữ tự nhiên dùng cho tiếng Việt. //TODO Nêu các công cụ và lấy ví dụ minh họa.}
-					\item{Các nghiên cứu liên quan đến Khai khoáng ý kiến trong tiếng Việt cũng đã xuất hiện trong những năm gần đây. //TODO Nêu ra các nghiên cứu và công trình liên quan.}
+					\item{Hiện nay đã có các công cụ Xử lý ngôn ngữ tự nhiên dùng cho tiếng Việt. Dưới đây nhóm sẽ trình bày về ba công cụ JVnTextPro (tách câu, tách từ, gán nhãn từ loại), VnChunker(gom cụm từ) và VnDP(phân tích văn phạm phụ thuộc), chúng có thể được sử dụng cho hệ thống phân giải đồng tham chiếu trong tiếng Việt (tương tự như hệ thống dùng cho tiếng Anh).					
+					\\Công cụ JVnTextPro \footnote{http://jvntextpro.sourceforge.net} là công cụ có thể được dùng để phân đoạn câu (sentence segmentation), phân đoạn thẻ câu (sentence tokenization), phân đoạn từ (word tokenization) và gán nhãn từ loại (POS tagging) cho văn bản tiếng Việt.
+					\\Ví dụ: Cho đoạn văn bản tiếng Việt sau (Lấy trên trang Tiki.vn)
+					\\\textit{iPhone 6S đã chính thức được ra mắt với thiết kế không khác biệt so với iPhone 6. Điểm khác biệt về ngoại hình là bộ đôi Phone 6s và 6s Plus sẽ có tới 4 màu sắc bao gồm: xám, bạc, vàng và vàng hồng, và có thêm chữ “S” phía sau mặt lưng. iPhone 6s sẽ nặng hơn iPhone 6 14g, iPhone 6s dài, dày, rộng hơn iPhone 6 chút ít, nhưng người ta khó nhận ra bằng mắt thường bởi con số này chỉ tính là một vài mm, thậm chí chưa đến 1 mm.}
+					\\Dưới đây là kết quả đầu ra sau khi xử lý văn bản trên bằng JVnTextPro:
+					\begin{figure}[H]
+						\centering				
+						\noindent\fbox{
+						    \parbox{\textwidth}{
+						        iPhone/X 6S/M đã/R chính\_thức/A được/V ra\_mắt/V với/C thiết\_kế/V không/R khác\_biệt/A so/V với/E iPhone/T 6./M Điểm/N khác\_biệt/A về/E ngoại\_hình/N là/C bộ/Nc đôi/M Phone/N 6s/M và/C 6s/M Plus/Np sẽ/R có/V tới/T 4/M màu\_sắc/N bao\_gồm/V :/: xám/A ,/, bạc/N ,/, vàng/Np và/C vàng/A hồng/A ,/, và/C có/V thêm/V chữ/N S/M phía/N sau/N mặt\_lưng/N ./.
+						        \\
+						        \\
+								iPhone/N 6s/M sẽ/R nặng/A hơn/A iPhone/N 6/M 14g/Nu ,/, iPhone/N 6s/M dài/A ,/, dày/A ,/, rộng/A hơn/A iPhone/N 6/M chút\_ít/N ,/, nhưng/C người\_ta/N khó/A nhận\_ra/X bằng/E mắt\_thường/A bởi/E con\_số/N này/Np chỉ/R tính/Ny là/C một\_vài/N mm/N ,/, thậm\_chí/R chưa/R đến/V 1/M mm/N ./.
+					    	}
+						}
+						\caption{Gán nhãn từ loại cho văn bản tiếng Việt bằng công cụ JVnTextPro}
+					\end{figure}
+					VnDP \footnote{https://sourceforge.net/projects/vndp/files/VnDPv1.0.1.zip} là công cụ dùng cho phân tích văn phạm phụ thuộc trong tiếng Việt. Có thể xem một ví dụ phân tích văn phạm phụ thuộc cho câu "iPhone 6s sẽ nặng hơn iPhone 6 14g, iPhone 6s dài, dày, rộng hơn iPhone 6 chút ít, nhưng người ta khó nhận ra bằng mắt thường bởi con số này chỉ tính là một vài mm, thậm chí chưa đến 1 mm." như sau:	
+					\begin{table}[H]
+						\centering													
+						\include{draw/vndp_output}
+						\caption{Phân tích văn phạm phụ thuộc cho tiếng Việt bằng công cụ VnDP}
+					\end{table}	
+					Dựa trên kết quả gán nhãn từ loại bằng công cụ JVnTextPro, có thể gom các cụm danh từ nhờ vào công cụ VietChunker.
+						//TODO
+					}					
+					\item{Các nghiên cứu liên quan đến Phân giải đồng tham chiếu trong tiếng Việt cũng đã xuất hiện trong những năm gần đây. (Lê Đức Trọng, 2011) trong \cite{leductrong11} đã áp dụng mô hình học máy có giám sát SVM trên dữ liệu thu thập từ vnexpress.net, mô hình phân giải đồng tham chiếu của tác giả trên dữ liệu này cho độ chính xác 76.51\%.}
 				\end{itemize}
+				Những công cụ và công trình này là gợi ý để có thể áp dụng mô hình phân giải đồng tham chiếu của nhóm cho tiếng Việt.
 			}
 		\end{itemize}
 \renewcommand{\refname}{Tham khảo} 
@@ -1083,6 +1111,12 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 	N. Nicolov, F. Salvetti and S. Ivanova. 2008.
 	\textit{Sentiment analysis: Does coreference matter?}.
 	In AISB 2008 Convention Communication, Interaction and Social Intelligence.
+
+	\bibitem{leductrong11}
+	Lê Đức Trọng. 2011.
+	Giải quyết bài toán đồng tham chiếu trong văn bản tiếng Việt dựa vào phương pháp máy vector hỗ trợ SVM.
+	Khóa luận tốt nghiệp đại học. Đại học Công nghệ - Đại học Quốc gia Hà Nội.
+
  
 \end{thebibliography}	
 
