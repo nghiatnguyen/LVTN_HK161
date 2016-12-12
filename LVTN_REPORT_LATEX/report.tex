@@ -472,7 +472,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 		\subsection{Tổng quan quy trình}
 			\begin{figure}[H]
 				\centering				
-				\include{draw/model_diagram}
+				\includegraphics[scale=0.7]{images/general_model.png}
 			\end{figure}
 		\subsection{Tiền xử lý dữ liệu}
 		\par Dữ liệu thu thập được sẽ được tiền xử lý nhằm giúp giảm sai số cho các bước sau. Bước tiền xử lý đảm bảo đặc tính ngôn ngữ của văn bản không thay đổi. Sau đây trình bày một số thao tác tiền xử lý mà nhóm đã thực hiện:
@@ -748,6 +748,16 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 			\subsubsection*{Kiểm chứng chéo}
 				\par \textit{Kiểm chứng chéo (cross validation)} phân chia dữ liệu thành k tập con (folds) có cùng kích thước một cách ngẫu nhiên. Thực hiện k vòng lặp, tại mỗi vòng lặp sử dụng tập con thứ k là tập kiểm chứng (validation set) và các tập con còn lại là tập huấn luyện (training set). Kết quả cuối cùng của hệ thống là giá trị trung bình kết quả của các vòng lặp. Giá trị k thường được sử dụng là 10. Mô hình được học và kiểm chứng trên các tập dữ liệu khác nhau nên tránh được trường hợp mất cân bằng giữa tập kiểm tra và tập đánh giá. Do đó, kết quả đánh giá đáng tin cậy.
 				\par Nhóm áp dụng giải thuật \textit{Kiểm chứng chéo} để học và kiểm tra hệ thống. Bởi vì tập dữ liệu gồm 157 reviews, nhóm lựa chọn k = 5. Tập dữ liệu được chia làm 5 tập, mỗi tập gồm 31-32 reviews. Hệ thống sẽ thực hiện học và kiểm tra 5 lần liên tiếp, kết quả đánh giá hệ thống dựa trên trung bình kết quả của các lần học và kiểm tra. Tại lần học thứ i, hệ thống sử dụng tập thứ i để tạo tập dữ liệu kiểm tra và các tập còn lại để tạo dữ liệu dùng để học.
+
+			\subsubsection*{Áp dụng phương pháp Chọn lại mẫu (resampling methods)}
+				\par Tập dữ liệu dùng để học có sự chênh lệch lớn giữa số lượng các mẫu được phân loại tích cực và số lượng các mẫu được phân loại tiêu cực, cụ thể: chọn một fold ngẫu nhiên, số lượng mẫu học được phân loại tích cực là 4130 và số lượng mẫu học được phân loại tiêu cực là 31686. Sự chênh lệnh lớn này ảnh hưởng đến kết quả của giải thuật phân loại, theo Weiss \cite{weiss03}. Một trong những lí do đó là giải thuật phân loại được học các mẫu tiêu cực quá nhiều thì khả năng giải thuật phân loại sẽ tập trung học những trường hợp tiêu cực nhiều hơn.
+				\par Tình trạng tập dữ liệu chênh lệch trong học máy là phổ biến, nhóm sử dụng cách thường được sử dụng để khắc phục là phương pháp chọn lại mẫu. Ý tưởng của phương pháp này là xây dựng lại tập dữ liệu học, chọn ngẫu nhiên có hoàn lại các mẫu từ tập dữ liệu học ban đầu và chuyển vào tập dữ liệu học mới. Đặc điểm của tập dữ liệu học mới này là tỉ số giữa số mẫu tích cực gần về 1, sự chênh lệch được giảm đi. Ví dụ: tập dữ liệu ban đầu có M mẫu dữ tích cực, N mẫu dữ liệu tiêu cực, với M >> N. Tập dữ liệu học mới gồm (M - T) mẫu tích cực và (N + T) mẫu tiêu cực (T là số mẫu tích cực đã được loại bỏ, cũng là số mẫu tiêu cực tăng lên). Giá trị T tùy thuộc vào cách lựa chọn của mỗi người sử dụng.
+				\par Nhóm sử dụng Resample trong WEKA, một hiện thực của giải thuật chọn lại mẫu. Với các thông số:
+				\begin{itemize}
+					\item{Z: thể hiện kích thược tập dữ liệu mới so với tập dữ liệu cũ. Z nằm trong khoảng 0 đến 100. Nhóm chọn Z = 100, kích thước tập dữ liệu học mới bằng với tập dữ liệu học cũ.}
+					\item{B: thể hiện mức độ chênh lệch dữ liệu trong tập dữ liệu mới. B nằm trong khoảng 0 và 1. Nếu B = 0, tập dữ liệu có tỉ lệ giữa số mẫu tích cực và tiêu cực gần như không đổi. Nếu B = 1, thì tỉ lệ giữa số mẫu tích cực và tiêu cực là 1. Nhóm lựa chọn B = 0.1.}
+				\end{itemize}
+
 
 			\subsubsection*{Áp dụng giải thuật học Cây quyết định}
 				\par Các cặp ứng viên được phân loại dựa vào Cây quyết định bằng giải thuật J48 trên Weka \footnote{http://www.cs.waikato.ac.nz/ml/weka}. J48 là sự hiện thực của giải thuật C4.5. Giải thuật này được sử dụng trong hệ thống bằng cách dùng thư viện của nó trong chương trình. Kết quả của việc áp dụng giải thuật là kết quả phân loại cho các cặp cụm danh từ được xét, mỗi cặp có đồng tham chiếu với nhau không.
@@ -1114,8 +1124,13 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 
 	\bibitem{leductrong11}
 	Lê Đức Trọng. 2011.
-	Giải quyết bài toán đồng tham chiếu trong văn bản tiếng Việt dựa vào phương pháp máy vector hỗ trợ SVM.
+	\textit{Giải quyết bài toán đồng tham chiếu trong văn bản tiếng Việt dựa vào phương pháp máy vector hỗ trợ SVM}.
 	Khóa luận tốt nghiệp đại học. Đại học Công nghệ - Đại học Quốc gia Hà Nội.
+
+	\bibitem{weiss03}
+	Weiss, G. and Provost,F. 2003.
+	\textit{Learning when Training Data are Costly: The Effect of Class Distribution on Tree Induction}.
+	Journal of ArtiJicial Intelligence Research, Vol:19, pages 315-354.
 
  
 \end{thebibliography}	

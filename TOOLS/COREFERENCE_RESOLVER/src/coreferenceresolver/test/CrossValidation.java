@@ -80,7 +80,7 @@ public class CrossValidation {
 //            	Util.setInstancesForReviews(re);
 //            }
 //            System.out.println("Done create instances for all NPs");
-            
+//            
             //Create list random element's order
 //            ArrayList<Integer> shuffleList = new ArrayList<>();
 //    		for (int i = 0; i < StanfordUtil.reviews.size(); i++)
@@ -144,7 +144,7 @@ public class CrossValidation {
 //					e.printStackTrace();
 //				}
 //            }
-//               
+               
             //Run the kFold
             for (int i = 1; i <= kFold; i++){
             	 String strTrainFile = "E:\\REPOSITORIES\\LVTN_HK161\\DATASET\\trainFile" + i + ".arff";
@@ -189,16 +189,16 @@ public class CrossValidation {
                 + "@ATTRIBUTE hasbetween {false,true}\n"
                 + "@ATTRIBUTE comparative {false,true}\n"
                 + "@ATTRIBUTE sentiment {0,1,2}\n"
-//                + "@ATTRIBUTE bothpropername {false,true}\n"
-                + "@ATTRIBUTE np1propername {false,true}\n"
-                + "@ATTRIBUTE np2propername {false,true}\n"
+                + "@ATTRIBUTE bothpropername {false,true}\n"
+//                + "@ATTRIBUTE np1propername {false,true}\n"
+//                + "@ATTRIBUTE np2propername {false,true}\n"
 //                + "@ATTRIBUTE bothPronoun {false,true}\n"
 //                + "@ATTRIBUTE bothNormal {false,true}\n"
                 + "@ATTRIBUTE subString {false,true}\n"
                 + "@ATTRIBUTE headMatch {false,true}\n"
                 + "@ATTRIBUTE exactMatch {false,true}\n"
 //                + "@ATTRIBUTE matchAfterRemoveDetermine {false,true}\n"
-                + "@ATTRIBUTE PMI {0,1,2,3,4,10,11,12}\n"
+                + "@ATTRIBUTE PMI {0,1,2,3,4,10,11}\n"
                 //                + "@ATTRIBUTE headPhone {false,true}\n"
                 + "@ATTRIBUTE relativeClause {false,true}\n"
                 + "@ATTRIBUTE coref {false,true}\n"
@@ -211,16 +211,18 @@ public class CrossValidation {
             for (Review review : listReview) {
                 //Extract features
             	for (int i = 0; i < review.getInstances().size(); i++){
-            		if (forTraining){
-            			if (review.getSupportInstances().get(i) == true){
-            				bw.write(review.getInstances().get(i));
-            				bw.newLine();
-            			}
-            		}
-            		else{
-            			bw.write(review.getInstances().get(i));
-        				bw.newLine();
-            		}
+//            		if (forTraining){
+//            			if (review.getSupportInstances().get(i) == true){
+//            				bw.write(review.getInstances().get(i));
+//            				bw.newLine();
+//            			}
+//            		}
+//            		else{
+//            			bw.write(review.getInstances().get(i));
+//        				bw.newLine();
+//            		}
+            		bw.write(review.getInstances().get(i));
+    				bw.newLine();
             	}
             }
         } catch (IOException ex) {

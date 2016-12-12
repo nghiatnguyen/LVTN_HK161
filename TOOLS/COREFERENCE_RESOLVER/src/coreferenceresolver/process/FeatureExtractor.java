@@ -144,13 +144,13 @@ public class FeatureExtractor {
                 Sentence curSentence = review.getSentences().get(np1.getSentenceId());
                 if (np1.getOffsetEnd() < np2.getOffsetBegin()) {
                     if (np1.getOffsetEnd() + 1 < np2.getOffsetBegin() && contains3rdTobe(curSentence.getRawContent().substring(np1.getOffsetEnd() + 1 - curSentence.getOffsetBegin(), np2.getOffsetBegin() - curSentence.getOffsetBegin()))) {
-                        if (findComparativeIndicator(curSentence, np1, np2).isEmpty() && !hasNpBetween(np1, np2) && !hasVPBetween(np1, np2)) {
+                        if (findComparativeIndicator(curSentence, np1, np2).isEmpty() && !hasNpBetween(np1, np2)) {
                             return true;
                         }
                     }
                 } else if (np2.getOffsetEnd() < np1.getOffsetBegin()) {
                     if (np2.getOffsetEnd() + 1 < np1.getOffsetBegin() && contains3rdTobe(curSentence.getRawContent().substring(np2.getOffsetEnd() + 1 - curSentence.getOffsetBegin(), np1.getOffsetBegin() - curSentence.getOffsetBegin()))) {
-                        if (findComparativeIndicator(curSentence, np1, np2).isEmpty() && !hasNpBetween(np1, np2) && !hasVPBetween(np1, np2)) {
+                        if (findComparativeIndicator(curSentence, np1, np2).isEmpty() && !hasNpBetween(np1, np2)) {
                             return true;
                         }
                     }
@@ -385,7 +385,7 @@ public class FeatureExtractor {
 
     private static boolean contains3rdTobe(String sequence) {
         for (String aTobeVerb : TO_BES) {
-            if (sequence.contains(aTobeVerb) && (sequence.contains("is not") || sequence.contains("isn't"))) {
+            if (sequence.contains(aTobeVerb) && !(sequence.contains("is not") || sequence.contains("isn't"))) {
                 return true;
             }
         }
@@ -1138,6 +1138,7 @@ public class FeatureExtractor {
                         if (!Util.isDiscardedQuantityNP(np)) {
                             np.addOpinionWord(token.getWord());
                             check = true;
+//                            System.out.println("NP: " + np.getNpNode().getLeaves().toString() + " OW:" + token.getWord());
                         }
                     }
                 }
@@ -1217,6 +1218,10 @@ public class FeatureExtractor {
                                                 .getNounPhrases()
                                                 .get(j)
                                                 .addOpinionWord(token.getWord());
+                                        System.out.println("NP: " + fSentence
+                                                .getNounPhrases()
+                                                .get(j).getNpNode().getLeaves().toString() + " OW:" + token.getWord());
+                                        
                                         break;
                                     }
                                 }
