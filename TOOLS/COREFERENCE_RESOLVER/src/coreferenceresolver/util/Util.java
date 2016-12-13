@@ -567,9 +567,7 @@ public class Util {
         bwtrain.write(FeatureExtractor.isExactMatch(np1, np2) + ",");
 //        bwtrain.write(FeatureExtractor.isMatchAfterRemoveDeterminer(np1, np2) + ",");        
 
-        if(np2.getType() == 0 || np2.getType() == 3)
-        	bwtrain.write(11 + ",");
-        else if (checkNPhasOW == false) {
+        if (checkNPhasOW == false) {
             bwtrain.write(10 + ",");
         } 
         else {
@@ -695,9 +693,7 @@ public class Util {
         instance += FeatureExtractor.isExactMatch(np1, np2) + ",";
 //        instance += FeatureExtractor.isMatchAfterRemoveDeterminer(np1, np2) + ",";        
 
-        if (np2.getType() == 0 || np2.getType() == 3)
-        	instance += 11 + ",";
-        else if (checkNPhasOW == false) {
+       if (checkNPhasOW == false) {
         	instance += 10 + ",";
         } 
         else {

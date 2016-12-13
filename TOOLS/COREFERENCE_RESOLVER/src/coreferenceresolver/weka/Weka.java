@@ -32,7 +32,7 @@ public class Weka {
         //Remove 1st feature
         String[] options = new String[2];
         options[0] = "-R";                                    // "range"
-        options[1] = "1,2,3,18";                                     // first attribute
+        options[1] = "1,2,3";                                     // first attribute
         Remove remove = new Remove();                         // new instance of filter
         remove.setOptions(options);                           // set options
         remove.setInputFormat(trainInstances);                          // inform filter about dataset **AFTER** setting options
@@ -89,7 +89,7 @@ public class Weka {
         Remove remove = new Remove();
         String[] options = new String[2];
         options[0] = "-R";                                    // "range"
-        options[1] = "1,2,3,18";    // new instance of filter
+        options[1] = "1,2,3";    // new instance of filter
         remove.setOptions(options);                           // set options
         remove.setInputFormat(testInstances);                          // inform filter about dataset **AFTER** setting options
         Instances newTestInstances = Filter.useFilter(testInstances, remove);   // apply filter
@@ -146,7 +146,7 @@ public class Weka {
         //Remove 1st feature
         String[] options = new String[2];
         options[0] = "-R";                                    // "range"
-        options[1] = "1,2,3,18";                                     // first attribute
+        options[1] = "1,2,3";                                     // first attribute
         Remove remove = new Remove();                         // new instance of filter
         remove.setOptions(options);                           // set options
         remove.setInputFormat(trainInstances);                          // inform filter about dataset **AFTER** setting options
@@ -172,7 +172,7 @@ public class Weka {
         Remove remove = new Remove();
         String[] options = new String[2];
         options[0] = "-R";                                    // "range"
-        options[1] = "1,2,3,18";    // new instance of filter
+        options[1] = "1,2,3";    // new instance of filter
         remove.setOptions(options);                           // set options
         remove.setInputFormat(testInstances);                          // inform filter about dataset **AFTER** setting options
         Instances newTestInstances = Filter.useFilter(testInstances, remove);   // apply filter

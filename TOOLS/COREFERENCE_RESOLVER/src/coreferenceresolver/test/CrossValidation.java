@@ -59,9 +59,9 @@ public class CrossValidation {
             //Discard some NPs
             StanfordUtil.reviews.forEach((review) -> {
             	//Set OWs and NPs
-//                for (int i = 0; i < review.getSentences().size(); i++) {
-//                    FeatureExtractor.setNPForOPInSentence(review.getSentences().get(i));
-//                }
+                for (int i = 0; i < review.getSentences().size(); i++) {
+                    FeatureExtractor.setNPForOPInSentence(review.getSentences().get(i));
+                }
                 Util.discardUnneccessaryNPs(review);
             });
             System.out.println("Done Discard NPs and set OWs for NPs");
@@ -76,10 +76,10 @@ public class CrossValidation {
             
             
             //Set list instances of each review
-//            for (Review re : StanfordUtil.reviews){
-//            	Util.setInstancesForReviews(re);
-//            }
-//            System.out.println("Done create instances for all NPs");
+            for (Review re : StanfordUtil.reviews){
+            	Util.setInstancesForReviews(re);
+            }
+            System.out.println("Done create instances for all NPs");
 //            
             //Create list random element's order
 //            ArrayList<Integer> shuffleList = new ArrayList<>();
@@ -105,45 +105,45 @@ public class CrossValidation {
 //          ArrayList<ArrayList<Review>> listForTests = new ArrayList<ArrayList<Review>>();
     		
     		//Create the kFold dataset
-//            for (int i = 1; i <= kFold; i++){
-//	            ArrayList<Review> listForTrain = new ArrayList<>();
-//	            ArrayList<Review> listForTest = new ArrayList<>();
-////	            int sizeEachFold = StanfordUtil.reviews.size()/kFold + 1;
-//	            for (int j = 0; j < StanfordUtil.reviews.size(); j++){
-////	            	if (j >= i*sizeEachFold - sizeEachFold && j < i*sizeEachFold){
-////	            		listForTest.add(StanfordUtil.reviews.get(shuffleList.get(j)));
-////	            	}
-////	            	else
-////	            		listForTrain.add(StanfordUtil.reviews.get(shuffleList.get(j)));
-//	            	
-//	            	if (listForIndexTests.get(i-1).contains(j))
-//	            		listForTest.add(StanfordUtil.reviews.get(j));
-//	            	else 
-//	            		listForTrain.add(StanfordUtil.reviews.get(j));
-//	            }
-////	            listForTests.add(listForTest);
-////	            listForTrains.add(listForTrain);
-//	            String strTrainFile = "E:\\REPOSITORIES\\LVTN_HK161\\DATASET\\trainFile" + i + ".arff";
-//	            String strTestFile = "E:\\REPOSITORIES\\LVTN_HK161\\DATASET\\testFile" + i + ".arff";
-////	            File outputTrainFile = new File(strTrainFile);
-//	            try {
-//	            	System.out.println("Writing the fileTrain " + i);
-//					run(listForTrain, strTrainFile, true);
-//					System.out.println("Done fileTrain " + i);
-//				} catch (Exception e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-////	            File outputTestFile = new File(strTestFile);
-//	            try {
-//	            	System.out.println("Writing the fileTest " + i);
-//					run(listForTest, strTestFile, false);
-//					System.out.println("Done fileTest " + i);
-//				} catch (Exception e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//            }
+            for (int i = 1; i <= kFold; i++){
+	            ArrayList<Review> listForTrain = new ArrayList<>();
+	            ArrayList<Review> listForTest = new ArrayList<>();
+//	            int sizeEachFold = StanfordUtil.reviews.size()/kFold + 1;
+	            for (int j = 0; j < StanfordUtil.reviews.size(); j++){
+//	            	if (j >= i*sizeEachFold - sizeEachFold && j < i*sizeEachFold){
+//	            		listForTest.add(StanfordUtil.reviews.get(shuffleList.get(j)));
+//	            	}
+//	            	else
+//	            		listForTrain.add(StanfordUtil.reviews.get(shuffleList.get(j)));
+	            	
+	            	if (listForIndexTests.get(i-1).contains(j))
+	            		listForTest.add(StanfordUtil.reviews.get(j));
+	            	else 
+	            		listForTrain.add(StanfordUtil.reviews.get(j));
+	            }
+//	            listForTests.add(listForTest);
+//	            listForTrains.add(listForTrain);
+	            String strTrainFile = "E:\\REPOSITORIES\\LVTN_HK161\\DATASET\\trainFile" + i + ".arff";
+	            String strTestFile = "E:\\REPOSITORIES\\LVTN_HK161\\DATASET\\testFile" + i + ".arff";
+//	            File outputTrainFile = new File(strTrainFile);
+	            try {
+	            	System.out.println("Writing the fileTrain " + i);
+					run(listForTrain, strTrainFile, true);
+					System.out.println("Done fileTrain " + i);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+//	            File outputTestFile = new File(strTestFile);
+	            try {
+	            	System.out.println("Writing the fileTest " + i);
+					run(listForTest, strTestFile, false);
+					System.out.println("Done fileTest " + i);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+            }
                
             //Run the kFold
             for (int i = 1; i <= kFold; i++){
