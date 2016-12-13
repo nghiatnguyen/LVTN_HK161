@@ -109,19 +109,13 @@ public class FeatureExtractor {
      */
     public static Boolean isBetweenExtract(Review review, NounPhrase np1, NounPhrase np2) {
         if (np1.getReviewId() == np2.getReviewId()) {
-            if (np1.getSentenceId() == np2.getSentenceId()) {
+            if (np1.getSentenceId() == np2.getSentenceId()) {               
                 Sentence curSentence = review.getSentences().get(np1.getSentenceId());
-                if (np1.getOffsetEnd() < np2.getOffsetBegin()) {
-                    if (np1.getOffsetEnd() + 1 < np2.getOffsetBegin() && contains3rdTobe(curSentence.getRawContent().substring(np1.getOffsetEnd() + 1 - curSentence.getOffsetBegin(), np2.getOffsetBegin() - curSentence.getOffsetBegin()))) {
-                        if (findComparativeIndicator(curSentence, np1, np2).isEmpty()) {
-                            return true;
-                        }
-                    }
-                } else if (np2.getOffsetEnd() < np1.getOffsetBegin()) {
-                    if (np2.getOffsetEnd() + 1 < np1.getOffsetBegin() && contains3rdTobe(curSentence.getRawContent().substring(np2.getOffsetEnd() + 1 - curSentence.getOffsetBegin(), np1.getOffsetBegin() - curSentence.getOffsetBegin()))) {
-                        if (findComparativeIndicator(curSentence, np1, np2).isEmpty()) {
-                            return true;
-                        }
+                int rangeBegin = np1.getOffsetBegin() < np2.getOffsetBegin() ? np1.getOffsetEnd() : np2.getOffsetEnd();
+                int rangeEnd = np1.getOffsetBegin() < np2.getOffsetBegin() ? np2.getOffsetBegin() : np1.getOffsetBegin();                
+                if (containsTobe(curSentence, rangeBegin, rangeEnd)) {
+                    if (findComparativeIndicator(curSentence, np1, np2).isEmpty()) {
+                        return true;
                     }
                 }
             }
@@ -359,9 +353,9 @@ public class FeatureExtractor {
                         }
                     }
                 } else if (token.getWord().equals("than")) {
-                    if (!tokens.get(i - 1).getWord().toLowerCase().equals("other")){
+                    if (!tokens.get(i - 1).getWord().toLowerCase().equals("other")) {
                         res.add(token);
-                    }                    
+                    }
                 }
             }
             ++i;
@@ -383,9 +377,32 @@ public class FeatureExtractor {
         }
     }
 
+    private static boolean containsTobe(Sentence sentence, int rangeOffsetBegin, int rangeOffsetEnd) {        
+        for (int i = 1; i < sentence.getTokens().size() - 1; ++i) {            
+            if (sentence.getTokens().get(i).getOffsetBegin() >= rangeOffsetBegin && sentence.getTokens().get(i).getOffsetEnd() <= rangeOffsetEnd) {                
+                if (isTobe(sentence.getTokens().get(i))
+                        && !(sentence.getTokens().get(i + 1).getWord().equals("not")
+                        || sentence.getTokens().get(i + 1).getWord().equals("n't")
+                        || sentence.getTokens().get(i + 1).getPOS().equals("VBN"))) {
+                    return true;
+                }                
+            }
+        }
+        return false;
+    }
+
+    private static boolean isTobe(Token token) {
+        for (String aTobeVerb : TO_BES) {
+            if (token.getWord().equals(aTobeVerb) && !token.getPOS().equals("POS")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private static boolean contains3rdTobe(String sequence) {
         for (String aTobeVerb : TO_BES) {
-            if (sequence.contains(aTobeVerb) && (sequence.contains("is not") || sequence.contains("isn't"))) {
+            if (sequence.contains(aTobeVerb) && !(sequence.contains(aTobeVerb + "n't") || sequence.contains(aTobeVerb + " not"))) {
                 return true;
             }
         }
@@ -409,17 +426,19 @@ public class FeatureExtractor {
 
         return false;
     }
-    
+
     //check if exist the Verb between 2 NPs
-    private static boolean hasVPBetween(NounPhrase np1, NounPhrase np2){
-    	int offsetBeginRange = np1.getOffsetBegin() < np2.getOffsetBegin() ? np1.getOffsetEnd() : np2.getOffsetEnd();
+    private static boolean hasVPBetween(NounPhrase np1, NounPhrase np2) {
+        int offsetBeginRange = np1.getOffsetBegin() < np2.getOffsetBegin() ? np1.getOffsetEnd() : np2.getOffsetEnd();
         int offsetEndRange = np1.getOffsetBegin() < np2.getOffsetBegin() ? np2.getOffsetBegin() : np1.getOffsetBegin();
         Sentence se = StanfordUtil.reviews.get(np1.getReviewId()).getSentences().get(np1.getSentenceId());
-        for (Token tk: se.getTokens())
-        	if (tk.getOffsetBegin() > offsetBeginRange && tk.getOffsetEnd() < offsetEndRange){
-        		if (tk.getPOS().contains("VB") && !listTOBE.contains(tk.getWord().toLowerCase()))
-        			return true;
-        	}
+        for (Token tk : se.getTokens()) {
+            if (tk.getOffsetBegin() > offsetBeginRange && tk.getOffsetEnd() < offsetEndRange) {
+                if (tk.getPOS().contains("VB") && !listTOBE.contains(tk.getWord().toLowerCase())) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -638,21 +657,20 @@ public class FeatureExtractor {
     public static int countTwoWords(NounPhrase np2, String ow) {
         int matches = 0;
         String np = np2.getHeadNode().toString();
-        if (np2.getType() == 0){
-        	for (int i = 0; i < WORDS.length; ++i) {
-	            if ((WORDS[i].contains(" " + np.toLowerCase() + " ") || WORDS[i].contains(" phone "))
-	                    && (WORDS[i].contains(" " + ow.toLowerCase() + " "))) {
-	                ++matches;
-	            }
-	        }
-        }
-        else{
-	        for (int i = 0; i < WORDS.length; ++i) {
-	            if ((WORDS[i].contains(" " + np.toLowerCase() + " "))
-	                    && (WORDS[i].contains(" " + ow.toLowerCase() + " "))) {
-	                ++matches;
-	            }
-	        }
+        if (np2.getType() == 0) {
+            for (int i = 0; i < WORDS.length; ++i) {
+                if ((WORDS[i].contains(" " + np.toLowerCase() + " ") || WORDS[i].contains(" phone "))
+                        && (WORDS[i].contains(" " + ow.toLowerCase() + " "))) {
+                    ++matches;
+                }
+            }
+        } else {
+            for (int i = 0; i < WORDS.length; ++i) {
+                if ((WORDS[i].contains(" " + np.toLowerCase() + " "))
+                        && (WORDS[i].contains(" " + ow.toLowerCase() + " "))) {
+                    ++matches;
+                }
+            }
         }
         return matches;
     }
@@ -667,22 +685,21 @@ public class FeatureExtractor {
         return counter;
     }
 
-    public static int probabilityNounPhrase(NounPhrase np) { 	
-    	if (np.getType() == 0){
-    		int matches = 0;
-    		for (int i = 0; i < WORDS.length; ++i) {
-            	if (WORDS[i].contains(" " + np.getHeadNode().toString().toLowerCase() + " ")
-            			|| WORDS[i].contains(" phone "))
+    public static int probabilityNounPhrase(NounPhrase np) {
+        if (np.getType() == 0) {
+            int matches = 0;
+            for (int i = 0; i < WORDS.length; ++i) {
+                if (WORDS[i].contains(" " + np.getHeadNode().toString().toLowerCase() + " ")
+                        || WORDS[i].contains(" phone ")) {
                     ++matches;
-            } 
-    		return matches;
-    	}
-    	else{
-    		return countWord(np.getHeadNode().toString());
-    	}
+                }
+            }
+            return matches;
+        } else {
+            return countWord(np.getHeadNode().toString());
+        }
     }
 
-    
     //PMI of NP2 and 1 OW of NP1
     public static Float onePMI(NounPhrase np2, String ow) {
         if ((probabilityNounPhrase(np2) == 0) || (countWord(ow) == 0) || (countTwoWords(np2, ow) == 0)) {
@@ -692,47 +709,51 @@ public class FeatureExtractor {
         }
 
     }
-   //PMI of NP2 and all OWs of NP1
+    //PMI of NP2 and all OWs of NP1
+
     public static Float PMI(NounPhrase np1, NounPhrase np2) {
         float sum = 0;
-        for (String ow: np1.getOpinionWords())
-        	sum = sum + onePMI(np2, ow);
+        for (String ow : np1.getOpinionWords()) {
+            sum = sum + onePMI(np2, ow);
+        }
         return sum;
     }
 
-    
-//    public static int countNPWithVerbBefore(NounPhrase np2, NounPhrase np1){
-//    	 int matches = 0;
-//    	 String word = "";
-//    	 word += np1.getVerbBefore() + " ";
-//    	 if (np2.getType() == 0)
-//    		 word += "phone";
-//    	 else
-//    		 word += np2.getHeadNode().toString().toLowerCase();
-//
-//         for (int i = 0; i < WORDS.length; ++i) {
-//             if (WORDS[i].contains(" " + word + " ")) {
-//                 ++matches;
-//             }
-//         }
-//         return matches;
-//    }
-//    
-//    public static int countNPWithVerbAfter(NounPhrase np2, NounPhrase np1){
-//   	 int matches = 0;
-//   	 String word = "";
-//   	 if (np2.getType() == 0)
-//   		 word += "phone ";
-//   	 else
-//   		 word += np2.getHeadNode().toString().toLowerCase() + " ";
-//   	 word += np1.getVerbBefore();
-//        for (int i = 0; i < WORDS.length; ++i) {
-//            if (WORDS[i].contains(" " + word + " ")) {
-//                ++matches;
-//            }
-//        }
-//        return matches;
-//   }
+    public static int countNPWithVerbBefore(NounPhrase np2, NounPhrase np1) {
+        int matches = 0;
+        String word = "";
+        word += np1.getVerbBefore() + " ";
+        if (np2.getType() == 0) {
+            word += "phone";
+        } else {
+            word += np2.getHeadNode().toString().toLowerCase();
+        }
+
+        for (int i = 0; i < WORDS.length; ++i) {
+            if (WORDS[i].contains(" " + word + " ")) {
+                ++matches;
+            }
+        }
+        return matches;
+    }
+
+    public static int countNPWithVerbAfter(NounPhrase np2, NounPhrase np1) {
+        int matches = 0;
+        String word = "";
+        if (np2.getType() == 0) {
+            word += "phone ";
+        } else {
+            word += np2.getHeadNode().toString().toLowerCase() + " ";
+        }
+        word += np1.getVerbBefore();
+        for (int i = 0; i < WORDS.length; ++i) {
+            if (WORDS[i].contains(" " + word + " ")) {
+                ++matches;
+            }
+        }
+        return matches;
+    }
+
     /**
      * ************************************
      * Some functions relates to String match
@@ -868,22 +889,20 @@ public class FeatureExtractor {
                     if (!npAfterSentence.isComparativeSentence()) {
                         //Only consider the case NP2 is a candidate
 //                        if (npStandAfter.getType() == 2) {
-                            //NP1 and NP2 have the same orientation
-                            if ((npStandBefore.isSuperiorEntity() && npStandAfter.getSentimentOrientation() == Util.POSITIVE)
-                                    || (npStandBefore.isInferiorEntity() && npStandAfter.getSentimentOrientation() == Util.NEGATIVE)) {
-                                return 1;
-                            } 
-                            else if ((npAfterSentence.getRawContent().trim().startsWith("However")                                            
-                                            || npAfterSentence.getRawContent().trim().startsWith("But"))
-                                    && ((npStandBefore.isInferiorEntity() && npStandAfter.getType() == 2 && npStandAfter.getSentimentOrientation() == Util.POSITIVE)
-                                    || (npStandBefore.isSuperiorEntity() && npStandAfter.getSentimentOrientation() == Util.NEGATIVE))) {
-                                return 1;
-                            }
-                            //NP1 and NP2 don't have the same orientation
-                            else if ((npStandBefore.isInferiorEntity() && npStandAfter.getType() == 2 && npStandAfter.getSentimentOrientation() == Util.POSITIVE)
-                                    || (npStandBefore.isSuperiorEntity() && npStandAfter.getSentimentOrientation() == Util.NEGATIVE)) {
-                                return 0;
-                            }
+                        //NP1 and NP2 have the same orientation
+                        if ((npStandBefore.isSuperiorEntity() && npStandAfter.getSentimentOrientation() == Util.POSITIVE)
+                                || (npStandBefore.isInferiorEntity() && npStandAfter.getSentimentOrientation() == Util.NEGATIVE)) {
+                            return 1;
+                        } else if ((npAfterSentence.getRawContent().trim().startsWith("However")
+                                || npAfterSentence.getRawContent().trim().startsWith("But"))
+                                && ((npStandBefore.isInferiorEntity() && npStandAfter.getType() == 2 && npStandAfter.getSentimentOrientation() == Util.POSITIVE)
+                                || (npStandBefore.isSuperiorEntity() && npStandAfter.getSentimentOrientation() == Util.NEGATIVE))) {
+                            return 1;
+                        } //NP1 and NP2 don't have the same orientation
+                        else if ((npStandBefore.isInferiorEntity() && npStandAfter.getType() == 2 && npStandAfter.getSentimentOrientation() == Util.POSITIVE)
+                                || (npStandBefore.isSuperiorEntity() && npStandAfter.getSentimentOrientation() == Util.NEGATIVE)) {
+                            return 0;
+                        }
 //                        }
                     }
                 } //Both the sentences of NP1 and NP2 are normal sentences                
@@ -897,18 +916,17 @@ public class FeatureExtractor {
                             if (npStandBefore.getType() == 0) {
                                 //NP standing after is a candidate
 //                                if (npStandAfter.getType() == 2) {
-                                    if (npStandAfter.getSentimentOrientation() == npStandBefore.getSentimentOrientation()) {
-                                        return 1;
-                                    } else if (npStandAfter.getSentimentOrientation() != npStandBefore.getSentimentOrientation()
-                                            && (npAfterSentence.getRawContent().startsWith("However") 
-                                            || npAfterSentence.getRawContent().startsWith(" However")
-                                            || npAfterSentence.getRawContent().startsWith("But")
-                                            || npAfterSentence.getRawContent().startsWith(" But"))) {
-                                        return 1;
-                                    } 
-                                    else if (npStandAfter.getSentimentOrientation() != npStandBefore.getSentimentOrientation()) {
-                                        return 0;
-                                    }
+                                if (npStandAfter.getSentimentOrientation() == npStandBefore.getSentimentOrientation()) {
+                                    return 1;
+                                } else if (npStandAfter.getSentimentOrientation() != npStandBefore.getSentimentOrientation()
+                                        && (npAfterSentence.getRawContent().startsWith("However")
+                                        || npAfterSentence.getRawContent().startsWith(" However")
+                                        || npAfterSentence.getRawContent().startsWith("But")
+                                        || npAfterSentence.getRawContent().startsWith(" But"))) {
+                                    return 1;
+                                } else if (npStandAfter.getSentimentOrientation() != npStandBefore.getSentimentOrientation()) {
+                                    return 0;
+                                }
 //                                }
                             }
                         }
@@ -943,109 +961,83 @@ public class FeatureExtractor {
         return false;
     }
 
-    public static Boolean hasProperName(NounPhrase np, Sentence se){
-    	if (!Character.isUpperCase(np.getHeadNode().toString().charAt(0))){
-    		if (np.getHeadNode().toString().toLowerCase().equals("iphone")
-                    || np.getHeadNode().toString().toLowerCase().equals("ipad")
-                    || np.getHeadNode().toString().toLowerCase().equals("iphones")
-                    || np.getHeadNode().toString().toLowerCase().equals("ipads")
-                    || np.getHeadNode().toString().toLowerCase().equals("ipod")) {
-                return true;
+    public static Boolean hasProperName(NounPhrase np, Sentence se) {
+        ArrayList<String> aList = new ArrayList<String>();
+        ArrayList<Integer> aListOfCheck = new ArrayList<Integer>();
+        for (int i = 0; i < se.getTokens().size(); i++) {
+            if ((se.getTokens().get(i).getOffsetBegin() >= np.getOffsetBegin()) && (se.getTokens().get(i).getOffsetBegin() < np.getOffsetEnd())) {
+                if (isNNP(se.getTokens().get(i))) {
+                    aList.add(se.getTokens().get(i).getWord());
+                    if (se.getTokens().get(i).getPOS().toString().equals("NNP")
+                            || se.getTokens().get(i).getPOS().toString().equals("NNPS")) {
+                        aListOfCheck.add(1);
+                    } else {
+                        aListOfCheck.add(0);
+                    }
+                } else if (i > 0 && i < (se.getTokens().size() - 1)) {
+                    if (Character.isDigit(se.getTokens().get(i).getWord().charAt(0))) {
+                        if (se.getTokens().get(i - 1).getPOS().equals("DT")
+                                || se.getTokens().get(i - 1).getPOS().equals("NNP")
+                                || se.getTokens().get(i - 1).getPOS().equals("NNPS")
+                                || Character.isUpperCase(se.getTokens().get(i - 1).getWord().charAt(0))) {
+                            if ((se.getTokens().get(i + 1).getPOS().equals("NN"))
+                                    || (se.getTokens().get(i + 1).getPOS().equals("NNS"))
+                                    || (se.getTokens().get(i + 1).getPOS().equals("JJ"))) {
+                            } else {
+                                aList.add(se.getTokens().get(i).getWord());
+                                aListOfCheck.add(1);
+                            }
+
+                        }
+                    }
+
+                }
             }
+        }
+        if (aList.size() == 0) {
             return false;
-    	}
-    	else if (np.getHeadLabel().equals("NNP") || np.getHeadLabel().equals("NNPS") || np.getHeadLabel().equals("CD"))
-    		return true;
-    	else {
-    		if (!sDict.contains(np.getHeadNode().toString().toLowerCase()))
-    			return true;
-    		else{	
-    			if (np.getCRFTokens().size() > 1)
-    				return true;
-    			else 
-    				return false;
-    		}
-    	}
-    			
+        } else {
+            for (int i = 0; i < aList.size(); i++) {
+                if (aListOfCheck.get(i).equals(1)) {
+                    for (String st1 : aList) {
+                    }
+                    return true;
+                } else {
+                    boolean checkContains = true;
+                    if (sDict.contains(aList.get(i).toLowerCase())) {
+                        checkContains = false;
+                    } else if (check_adj_in_list(aList.get(i))) {
+                        checkContains = false;
+                    }
+
+                    if (checkContains) {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+
+        }
     }
-    
-//    public static Boolean hasProperName(NounPhrase np, Sentence se) {
-//        ArrayList<String> aList = new ArrayList<String>();
-//        ArrayList<Integer> aListOfCheck = new ArrayList<Integer>();
-//        for (int i = 0; i < se.getTokens().size(); i++) {
-//            if ((se.getTokens().get(i).getOffsetBegin() >= np.getOffsetBegin()) && (se.getTokens().get(i).getOffsetBegin() < np.getOffsetEnd())) {
-//                if (isNNP(se.getTokens().get(i))) {
-//                    aList.add(se.getTokens().get(i).getWord());
-//                    if (se.getTokens().get(i).getPOS().toString().equals("NNP")
-//                            || se.getTokens().get(i).getPOS().toString().equals("NNPS")) {
-//                        aListOfCheck.add(1);
-//                    } else {
-//                        aListOfCheck.add(0);
-//                    }
-//                } else if (i > 0 && i < (se.getTokens().size() - 1)) {
-//                    if (Character.isDigit(se.getTokens().get(i).getWord().charAt(0))) {
-//                        if (se.getTokens().get(i - 1).getPOS().equals("DT")
-//                                || se.getTokens().get(i - 1).getPOS().equals("NNP")
-//                                || se.getTokens().get(i - 1).getPOS().equals("NNPS")
-//                                || Character.isUpperCase(se.getTokens().get(i - 1).getWord().charAt(0))) {
-//                            if ((se.getTokens().get(i + 1).getPOS().equals("NN"))
-//                                    || (se.getTokens().get(i + 1).getPOS().equals("NNS"))
-//                                    || (se.getTokens().get(i + 1).getPOS().equals("JJ"))) {
-//                            } else {
-//                                aList.add(se.getTokens().get(i).getWord());
-//                                aListOfCheck.add(1);
-//                            }
-//
-//                        }
-//                    }
-//
-//                }
-//            }
-//        }
-//        if (aList.size() == 0) {
-//            return false;
-//        } else {
-//            for (int i = 0; i < aList.size(); i++) {
-//                if (aListOfCheck.get(i).equals(1)) {
-//                    for (String st1 : aList) {
-//                    }
-//                    return true;
-//                } else {
-//                    boolean checkContains = true;
-//                    if (sDict.contains(aList.get(i).toLowerCase())) {
-//                        checkContains = false;
-//                    } else if (check_adj_in_list(aList.get(i))) {
-//                        checkContains = false;
-//                    }
-//
-//                    if (checkContains) {
-//                        return true;
-//                    }
-//                }
-//            }
-//
-//            return false;
-//
-//        }
-//    }
-    
+
     //Word starts a relative clause: that, which, //
-    public static boolean isRelativePronounNPs(NounPhrase np1, NounPhrase np2){
-        if (np1.getReviewId() == np2.getReviewId()){
-            if (np1.getSentenceId() == np2.getSentenceId()){
+    public static boolean isRelativePronounNPs(NounPhrase np1, NounPhrase np2) {
+        if (np1.getReviewId() == np2.getReviewId()) {
+            if (np1.getSentenceId() == np2.getSentenceId()) {
                 int np1OffsetBegin = np1.getOffsetBegin();
-                int np2OffsetBegin = np2.getOffsetBegin();                
-                NounPhrase npBefore = np1OffsetBegin > np2OffsetBegin? np2: np1;
-                NounPhrase npAfter = np1OffsetBegin > np2OffsetBegin? np1: np2;
-                
+                int np2OffsetBegin = np2.getOffsetBegin();
+                NounPhrase npBefore = np1OffsetBegin > np2OffsetBegin ? np2 : np1;
+                NounPhrase npAfter = np1OffsetBegin > np2OffsetBegin ? np1 : np2;
+
                 //Only consider the case that the NP after stands after the NP before
-                if (npAfter.getId() - npBefore.getId() == 1){
+                if (npAfter.getId() - npBefore.getId() == 1) {
                     List<CRFToken> npCrfTokens = npAfter.getCRFTokens();
-                    if (npCrfTokens.size() == 1){
+                    if (npCrfTokens.size() == 1) {
                         List<Token> npSentTokens = StanfordUtil.reviews.get(npAfter.getReviewId()).getSentences().get(npAfter.getSentenceId()).getTokens();
-                        if (npSentTokens.get(npCrfTokens.get(0).getIdInSentence()).isRelativePronoun()){
+                        if (npSentTokens.get(npCrfTokens.get(0).getIdInSentence()).isRelativePronoun()) {
                             return true;
-                        }                
+                        }
                     }
                 }
             }
@@ -1077,7 +1069,6 @@ public class FeatureExtractor {
         }
         return false;
     }
-    
 
     public static void setNPForOPInSentence(Sentence fSentence) {
         int no = 0;
