@@ -13,21 +13,17 @@
 \usetikzlibrary{positioning}
 \usepackage[left=3 cm,right=3 cm,top=3cm,bottom=3cm]{geometry}
 \usepackage[labelfont=bf]{caption}
-\usepackage[hidelinks]{hyperref}
+\usepackage[unicode]{hyperref}
 \usepackage{bookmark}
 \usepackage{enumitem}
 \usepackage[bottom]{footmisc}
 \usepackage{multirow}
 
 \pagestyle{fancy}
-\renewcommand{\sectionmark}[1]{\markboth{#1}{}} 
 \fancyhf{}
 \fancyhead[R]{\normalsize{\textit{\leftmark}}}
-%\rhead{Phân giải đồng tham chiếu cho đối tượng và thuộc tính trong khai khoáng ý kiến}
 \fancyhead[LE,LO]{\thepage}
-%\fancyfoot[LE,RO]{\thepage} 
 \renewcommand{\headrulewidth}{0.4pt}
-%\renewcommand{\footrulewidth}{0.4pt}
 
 \graphicspath{{images/}}
 
@@ -71,13 +67,13 @@
 \includegraphics[scale=1.6]{images/logo.jpg}
 \end{figure} 
 
-\textsc{\large BÁO CÁO LUẬN VĂN TỐT NGHIỆP}\\[0.2cm] % Minor heading such as course title
+\textsc{\large LUẬN VĂN TỐT NGHIỆP}\\[0.2cm] % Minor heading such as course title
 
 %----------------------------------------------------------------------------------------
 %	TITLE SECTION
 %----------------------------------------------------------------------------------------
 \HRule \\[0.4cm]
-{ \huge \bfseries Phân giải đồng tham chiếu cho \\ đối tượng và thuộc tính trong\\ khai khoáng ý kiến}\\[0.4cm] % Title of your document
+{ \huge \bfseries Phân giải đồng tham chiếu \\ cho đối tượng và thuộc tính \\ trong khai khoáng ý kiến}\\[0.4cm] % Title of your document
 \HRule \\[0.8cm]
 
 %----------------------------------------------------------------------------------------
@@ -111,6 +107,22 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 %----------------END TITLE PAGE--------------------
 
 \newpage
+	\chapter*{Lời cam đoan}
+		\par Chúng tôi xin cam đoan rằng, tất cả mọi kết quả được thể hiện trong Luận văn, ngoại trừ những kết quả được trích dẫn nguồn rõ ràng, đều là những kết quả do chính chúng tôi thực hiện.
+
+		\begin{flushright}
+			TP. Hồ Chí Minh, ngày 16 tháng 12 năm 2016
+		\end{flushright}
+
+\newpage
+	\chapter*{Lời cảm ơn}
+		\par Trước tiên, chúng tôi xin gửi lời cảm ơn sâu sắc tới cô giáo GS.TS Phan Thị Tươi, người đã luôn theo sát hướng dẫn và giúp đỡ tận tình chúng tôi trong suốt quá trình thực hiện Luận văn để chúng tôi hoàn thành đề tài Luận văn của mình. Bên cạnh đó chúng tôi cũng muốn gửi lời cảm ơn chân thành tới các thầy cô của Khoa Khoa học và kỹ thuật máy tính - trường Đại học Bách Khoa TP. Hồ Chí Minh, những kiến thức mà họ truyền đạt thực sự là những hành trang hữu ích mà chúng tôi có được trong suốt những năm tháng học đại học. Cuối cùng, chúng tôi xin được gửi lời tri ân tới gia đình và bạn bè, những người đã luôn ủng hộ chúng tôi về mặt tinh thần để chúng tôi có được những kết quả ngày hôm nay. 
+
+		\begin{flushright}
+			Nhóm tác giả
+		\end{flushright}
+
+\newpage
 	\thispagestyle{empty}
 	\pdfbookmark{\contentsname}{Mục lục}
 	\tableofcontents
@@ -126,6 +138,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 	\chapter{Tóm tắt Luận văn}	
 		\par Ngôn ngữ của con người chứa đựng nhiều đặc trưng phức tạp và làm cách nào để cho máy tính khai phá có hiệu quả loại dữ liệu này vẫn là một vấn đề lớn. Khai khoáng ý kiến là một lĩnh vực mới phát triển gần đây của Xử lý ngôn ngữ tự nhiên và đang ngày càng có những ứng dụng rộng rãi, nó hướng đến việc tìm ra những ý kiến, cảm xúc được biểu đạt qua ngôn ngữ. Bên cạnh đó, bài toán phân giải đồng tham chiếu, mặc dù đã được nghiên cứu rộng rãi nhưng vẫn chỉ được thực hiện trên các loại văn bản chung chung. Các văn bản chứa ý kiến như các bài đánh giá (review), các thảo luận (discussion) về các sản phẩm với các đặc trưng riêng của nó, cung cấp thêm những thông tin nhất định cho việc phân giải đồng tham chiếu trên đó có hiệu quả hơn. 
 		\par Trong Luận văn này, chúng tôi đề xuất bài toán \textit{Phân giải đồng tham chiếu cho đối tượng và thuộc tính trong Khai khoáng ý kiến} với cách tiếp cận theo mô hình \textit{Học có giám sát}. Mục tiêu của bài toán là tìm xem những từ/cụm từ nào trong văn bản cùng chỉ về đối tượng hoặc thuộc tính. Dữ liệu được dùng là các văn bản chứa ý kiến bằng ngôn ngữ tiếng Anh. Mô hình do chúng tôi đề xuất cho kết quả khả quan và gợi mở ra những hướng đi cho việc thực hiện Phân giải đồng tham chiếu cho các văn bản chứa ý kiến trong tiếng Việt.
+		\par Luận văn được tổ chức thành 6 chương. Chương 2 nêu ra vấn đề và giới thiệu về đề tài \textit{Phân giải đồng tham chiếu cho đối tượng và thuộc tính trong Khai khoáng ý kiến}, chương này cũng đồng thời nói về phạm vi và mục đích của đề tài. Chương 3 là các kiến thức nền tảng được sử dụng trong việc thực hiện đề tài, đó là các nội dung về bài toán Phân giải đồng tham chiếu, Khai khoáng ý kiến và giải thuật học máy Cây quyết định. Chương 4 nói về Phương pháp đề xuất và cách hiện thực hệ thống giải quyết bài toán đặt ra. Trong chương 5, các kết quả thực nghiệm và các đánh giá, phân tích của chúng tôi được dẫn ra. Cuối cùng, chúng tôi tổng kết lại Luận văn của mình trong chương cuối - chương 6.
 		
 	\chapter{Giới thiệu đề tài}	
 		\par \textit{Phân giải đồng tham chiếu (Coreference resolution)} là một bài toán quan trọng và được nghiên cứu rộng rãi trong Xử lý ngôn ngữ tự nhiên \cite{mainpaper}. Mục tiêu của bài toán là tìm ra trong văn bản những đề cập (mention) cùng chỉ về một (tập) thực thể trong thế giới thực và gom nhóm chúng thành các chuỗi đồng tham chiếu.\\
@@ -261,7 +274,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					Ví dụ: "The Nokia and the Samsung are both beautiful. They also work well."\\
 					"They" cùng với "The Nokia" và "the Samsung" tham gia vào mối quan hệ tập con-tập cha. Nói một cách khác, "They" chỉ về tập hợp "The Nokia" và "the Samsung", "The Nokia" có mối quan hệ đồng tham chiếu tập con-tập cha với "They", tương tự như "the Samsung".}
 					\item{Quan hệ cụ thể - tổng quát (General - Specific): Một \textit{mention} chỉ về một lớp tổng quát, \textit{mention} còn lại chỉ về một thành viên của lớp tổng quát đó.\\
-					Ví dụ: "I have bought Apple phones yesterday. The iPhone 5 works well and so do the iPhone 6S."\\
+					Ví dụ: "I have bought Apple phones yesterday. The iPhone 5 works well and so does the iPhone 6S."\\
 					"Apple phones" là một lớp tổng quát. "The iPhone 5" và "the iPhone 6S" là những thành viên của lớp này. 2 cặp "The iPhone 5" – "Apple phones" và ""the iPhone 6S" – "Apple phones" đều có quan hệ đồng tham chiếu kiểu cụ thể-tổng quát.}
 				\end{itemize}
 			\subsection*{Các tính chất của quan hệ đồng tham chiếu}
@@ -439,7 +452,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					\end{itemize}}				
 				\end{itemize}
 
-	\chapter{Phương pháp đề xuất}	
+	\chapter{Phương pháp đề xuất và hiện thực}	
 		\section{Nội dung bài toán}
 			\par Cho một văn bản chứa ý kiến gồm một tập các đối tượng O = \{$o_1$,$o_2$,$o_3$,...\}. Giả định của bài toán là ý kiến trong văn bản đều từ một chủ thể duy nhất và tập thuộc tính $F_i$ của các đối tượng đã được tìm ra. Mục tiêu của bài toán là tìm các chuỗi đồng tham chiếu đồng nhất (identity) của đối tượng và thuộc tính.
 			\begin{itemize}
@@ -732,7 +745,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 				\end{itemize}
 				\par Để xác định được thiên hướng ý kiến đối với 1 cụm danh từ bất kỳ, chúng tôi sử dụng từ chỉ ý kiến/tiêu cực. Nếu không có từ chỉ ý kiến nào đi kèm thì cụm danh từ đó được xác định là không rõ thiên hướng ý kiến.
 
-		\section{Tạo bộ phân loại}
+		\section{Tạo bộ phân loại và gom cụm}
 			\subsection*{Tạo tập huấn luyện}
 				\par Giải thuật phân loại nhận đầu vào để học là một tập các mẫu. Một mẫu dùng để học (instance) có dạng: Instance = (<$f_1$,$f_2$,…,$f_n$>, y), trong đó n thể hiện mẫu có n thuộc tính, $f_i$ thể hiện giá trị của thuộc tính thứ i, y thể hiện giá trị phân loại đầu ra của mẫu. Cứ mỗi cặp (NP1, NP2) tạo được một mẫu. 
 				\\Từ tập dữ liệu học, ta xác định được danh sách L chứa các cụm danh từ NPs.
@@ -773,8 +786,8 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 
 			\subsection*{Áp dụng giải thuật học Cây quyết định}
 				\par Các cặp ứng viên được phân loại dựa vào Cây quyết định bằng giải thuật J48 trên Weka \footnote{http://www.cs.waikato.ac.nz/ml/weka}. J48 là sự hiện thực của giải thuật C4.5. Giải thuật này được sử dụng trong hệ thống bằng cách dùng thư viện của nó trong chương trình. Kết quả của việc áp dụng giải thuật là kết quả phân loại cho các cặp cụm danh từ được xét, mỗi cặp có đồng tham chiếu với nhau không.
-		\section{Gom cụm các đồng tham chiếu}	
-			\par Dựa vào kết quả phân loại các cặp ứng viên, thực hiện gom cụm đồng tham chiếu. Việc gom cụm này được thực hiện trên cơ sở tính chất bắc cầu của quan hệ đồng tham chiếu (đã chỉ ra ở mục \ref{coref_problem}). Giả sử bộ phân loại cho kết quả các cặp cụm danh từ (A,B) và (B,C) đồng tham chiếu với nhau. Khi đó ta gom được (A,B,C) thành một cụm đồng tham chiếu.	
+			\subsection*{Gom cụm các đồng tham chiếu}	
+				\par Dựa vào kết quả phân loại các cặp ứng viên, thực hiện gom cụm đồng tham chiếu. Việc gom cụm này được thực hiện trên cơ sở tính chất bắc cầu của quan hệ đồng tham chiếu (đã chỉ ra ở mục \ref{coref_problem}). Giả sử bộ phân loại cho kết quả các cặp cụm danh từ (A,B) và (B,C) đồng tham chiếu với nhau. Khi đó ta gom được (A,B,C) thành một cụm đồng tham chiếu.	
 
 	\chapter{Thực nghiệm và đánh giá}						
 		\section{Thực nghiệm}
@@ -790,7 +803,16 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 				\end{itemize}
 				\par Bộ công cụ Xử lý ngôn ngữ tự nhiên của Stanford bao gồm các công cụ khác nhau phục vụ cho nhiều công việc: phân tách các token (tokenize), phân tách câu (ssplit), gán nhãn từ loại (pos), phân tích cú pháp (parse) và phân tích văn phạm phụ thuộc (dep). Nhờ vào một số API do bộ cung cụ này cung cấp, có thể được xác định được HEAD của các cụm từ trong văn bản. Bên cạnh đó, các API do Weka cung cấp cho phép áp dụng giải thuật Cây quyết định trên dữ liệu và trực quan hóa cây kết quả được sinh ra. 
 			\subsection*{Dữ liệu thực nghiệm}
-				//TODO
+				\par Dữ liệu dùng cho đề tài được thu thập từ các bài đánh giá (review) trên amazon.com và các bài thảo luận (discussion) từ http://www.howardforums.com/. Đây là các bài đánh giá và thảo luận về điện thoại. Tập dữ liệu của chúng tôi bao gồm 157 bài, với mỗi bài có trung bình 7-8 câu. Trên các bài đó, người dùng thể hiện ý kiến lên chủ thể là các đối tượng (nhắc bởi tên của điện thoại) và các thuộc tính của chúng. Bên cạnh đó, có nhiều câu so sánh cũng được sử dụng, đó là các so sánh giữa các đối tượng trên một thuộc tính nào đó.
+				\begin{figure}[H]
+					\centering				
+					\noindent\fbox{
+					    \parbox{\textwidth}{
+					        The fact that the GS5 is from Samsung makes it the Z2's biggest competitor. The Z2's strongest points are the side-mounted camera button. The Z2 has slightly louder speakers, slightly better battery life than the GS5. It has a fingerprint reader for easier unlocking, a better looking screen and a removable battery. Between the two phones, I'd pick the GS5 for its brighter display and for the ease of use the fingerprint reader brings. That said, watch out because the GS5 doesn't use on-screen menu buttons so handling it can be tricky unless you stick it in a case.
+				    	}
+					}
+					\caption{Ví dụ về một bài đánh giá (review) lấy từ amazon.com}
+				\end{figure}
 
 		\section{Đánh giá}			
 			\subsection*{Phương pháp đánh giá}
@@ -901,8 +923,11 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 			\item{Giới thiệu bài toán Phân giải đồng tham chiếu cho đối tượng và thuộc tính trong Khai khoáng ý kiến, mô hình hóa bài toán và đề ra phương pháp giải quyết.}
 			\item{Xây dựng hệ thống giải quyết bài toán dựa trên phương pháp đề xuất, cho kết quả đầu ra khả quan.}
 		\end{itemize}
-		\par Những khó khăn và hạn chế mà chúng tôi gặp phải là:
-			//TODO		
+		\par Qua quá trình thực hiện đề tài, chúng tôi cũng gặp phải những khó khăn và thể hiện những mặt hạn chế:
+			\begin{itemize}
+				\item{Chúng tôi có liên lạc với các tác giả Ding, Liu của bài báo \cite{mainpaper} và được biết dữ liệu mà họ thu thập và gán nhãn đã bị mất bởi một vài sự cố đáng tiếc. Do vậy chúng tôi đã tự thu thập và gán nhãn cho tập dữ liệu. Những dữ liệu này tuy đáp ứng được các yêu cầu của đề tài nhưng trong nhiều trường hợp, sự tồn tại của các câu phức tạp đã gây khó khăn cho hệ thống của chúng tôi, đặc biệt trong việc xác định các câu so sánh hay xác định thiên hướng ý kiến đối với các thực thể, làm ảnh hưởng đến kết quả thực nghiệm.}
+				\item{Do những hạn chế về thời gian, chúng tôi không thể áp dụng và triển khai hệ thống phân giải đồng tham chiếu cho tiếng Việt. Chúng tôi chỉ kịp khảo sát các trang mạng có chứa văn bản ý kiến trong tiếng Việt và thử một số công cụ xử lý ngôn ngữ tiếng Việt như JVNTextPro, VietChunker hay VnDP.}
+			\end{itemize}	
 		\par Hướng phát triển của đề tài:
 		\begin{itemize}
 			\item{Trong tương lai, có thể tìm thêm những thuộc tính liên quan đến Khai khoáng ý kiến khác để áp dụng vào hệ thống nhằm tăng độ chính xác.}
@@ -936,7 +961,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					Dựa trên kết quả gán nhãn từ loại bằng công cụ JVnTextPro, có thể gom các cụm danh từ nhờ vào công cụ VietChunker.
 						//TODO
 					}					
-					\item{Các nghiên cứu liên quan đến Phân giải đồng tham chiếu và Khai khoáng ý kiến trong tiếng Việt cũng đã xuất hiện trong những năm gần đây. (Lê Đức Trọng, 2011) trong \cite{leductrong11} đã áp dụng mô hình học máy có giám sát SVM trên dữ liệu thu thập từ vnexpress.net, mô hình phân giải đồng tham chiếu của tác giả trên dữ liệu này cho độ chính xác 76.51\%. Trong \cite{vn_sentiment} và \cite{vn_sentiment}, các tác giả đã đưa ra mô hình Khai khoáng ý kiến cho văn bản tiếng Việt.}
+					\item{Các nghiên cứu liên quan đến Phân giải đồng tham chiếu và Khai khoáng ý kiến trong tiếng Việt cũng đã xuất hiện trong những năm gần đây. (Lê Đức Trọng, 2011) trong \cite{leductrong11} đã áp dụng mô hình học máy có giám sát SVM trên dữ liệu thu thập từ vnexpress.net, mô hình phân giải đồng tham chiếu của tác giả trên dữ liệu này cho độ chính xác 76.51\%. Trong \cite{vn_sentiment1} và \cite{vn_sentiment2}, các tác giả đã đưa ra mô hình Khai khoáng ý kiến cho văn bản tiếng Việt.}
 				\end{itemize}
 				Những công cụ và công trình này là gợi ý để có thể áp dụng mô hình phân giải đồng tham chiếu của chúng tôi cho tiếng Việt.
 			}
@@ -1146,7 +1171,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 	\textit{Co-reference Resolution in Vietnamese Documents Based on Support Vector Machines}.
 	IALP 2011: 89-93, Penang, Malaysia.
 
-	\bibitem{vn_sentiment}
+	\bibitem{vn_sentiment1}
 	Binh Thanh Kieu, Son Bao Pham. 2010.
 	\textit{Sentiment Analysis for Vietnamese}.
 	International Conference on Knowledge and Systems Engineering: IEEE CS, 2010.
