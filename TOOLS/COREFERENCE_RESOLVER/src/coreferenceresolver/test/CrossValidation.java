@@ -54,6 +54,13 @@ public class CrossValidation {
 
             //Discard some NPs
             StanfordUtil.reviews.forEach((review) -> {
+<<<<<<< HEAD
+            	//Set OWs and NPs
+                for (int i = 0; i < review.getSentences().size(); i++) {
+                    FeatureExtractor.setNPForOPInSentence(review.getSentences().get(i));
+                }
+=======
+>>>>>>> 1cc3a6b81b7751766f73fc286f7c78902801ff22
                 Util.discardUnneccessaryNPs(review);
             });
 
@@ -64,8 +71,21 @@ public class CrossValidation {
             Util.initSentimentAndComparativesForNPs();
             
             //Set list instances of each review
+<<<<<<< HEAD
+            for (Review re : StanfordUtil.reviews){
+            	Util.setInstancesForReviews(re);
+            }
+            System.out.println("Done create instances for all NPs");
+//            
+            //Create list random element's order
+//            ArrayList<Integer> shuffleList = new ArrayList<>();
+//    		for (int i = 0; i < StanfordUtil.reviews.size(); i++)
+//    			shuffleList.add(i);
+//    		Collections.shuffle(shuffleList);
+=======
             for (Review re : StanfordUtil.reviews)
             	Util.setInstancesForReviews(re);
+>>>>>>> 1cc3a6b81b7751766f73fc286f7c78902801ff22
             
             //Create list random element's order
             ArrayList<Integer> shuffleList = new ArrayList<>();
@@ -79,6 +99,26 @@ public class CrossValidation {
             for (int i = 1; i <= kFold; i++){
 	            ArrayList<Review> listForTrain = new ArrayList<>();
 	            ArrayList<Review> listForTest = new ArrayList<>();
+<<<<<<< HEAD
+//	            int sizeEachFold = StanfordUtil.reviews.size()/kFold + 1;
+	            for (int j = 0; j < StanfordUtil.reviews.size(); j++){
+//	            	if (j >= i*sizeEachFold - sizeEachFold && j < i*sizeEachFold){
+//	            		listForTest.add(StanfordUtil.reviews.get(shuffleList.get(j)));
+//	            	}
+//	            	else
+//	            		listForTrain.add(StanfordUtil.reviews.get(shuffleList.get(j)));
+	            	
+	            	if (listForIndexTests.get(i-1).contains(j))
+	            		listForTest.add(StanfordUtil.reviews.get(j));
+	            	else 
+	            		listForTrain.add(StanfordUtil.reviews.get(j));
+	            }
+//	            listForTests.add(listForTest);
+//	            listForTrains.add(listForTrain);
+	            String strTrainFile = "E:\\REPOSITORIES\\LVTN_HK161\\DATASET\\trainFile" + i + ".arff";
+	            String strTestFile = "E:\\REPOSITORIES\\LVTN_HK161\\DATASET\\testFile" + i + ".arff";
+//	            File outputTrainFile = new File(strTrainFile);
+=======
 	            int sizeEachFold = StanfordUtil.reviews.size()/kFold + 1;
 	            for (int j = 0; j < StanfordUtil.reviews.size(); j++){
 	            	if (j >= i*sizeEachFold - sizeEachFold && j < i*sizeEachFold)
@@ -91,6 +131,7 @@ public class CrossValidation {
 	            String strTrainFile = "E:\\REPOSITORIES\\LVTN_HK161\\DATASET\\trainFile" + i + ".arff";
 	            String strTestFile = "E:\\REPOSITORIES\\LVTN_HK161\\DATASET\\testFile" + i + ".arff";
 	            File outputTrainFile = new File(strTrainFile);
+>>>>>>> 1cc3a6b81b7751766f73fc286f7c78902801ff22
 	            try {
 	            	System.out.println("Writing the fileTrain " + i);
 					run(listForTrain, strTrainFile, true);
@@ -99,7 +140,11 @@ public class CrossValidation {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+<<<<<<< HEAD
+//	            File outputTestFile = new File(strTestFile);
+=======
 	            File outputTestFile = new File(strTestFile);
+>>>>>>> 1cc3a6b81b7751766f73fc286f7c78902801ff22
 	            try {
 	            	System.out.println("Writing the fileTest " + i);
 					run(listForTest, strTestFile, false);
@@ -109,8 +154,12 @@ public class CrossValidation {
 					e.printStackTrace();
 				}
             }
+<<<<<<< HEAD
+               
+=======
             
             
+>>>>>>> 1cc3a6b81b7751766f73fc286f7c78902801ff22
             //Run the kFold
             for (int i = 1; i <= kFold; i++){
             	 String strTrainFile = "E:\\REPOSITORIES\\LVTN_HK161\\DATASET\\trainFile" + i + ".arff";

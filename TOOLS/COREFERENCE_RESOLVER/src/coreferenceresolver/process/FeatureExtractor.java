@@ -18,8 +18,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import edu.stanford.nlp.trees.Tree;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+
 import org.apache.commons.io.FileUtils;
 
 /**
@@ -1110,6 +1116,8 @@ public class FeatureExtractor {
                         if (checkFind == true) {
                             fSentence.getNounPhrases().get(i)
                                     .addOpinionWord(token.getWord());
+//                          System.out.println("NP: " + fSentence.getNounPhrases().get(i).getNpNode().getLeaves().toString() + " ADB:" + token.getWord());
+
                         }
                     }
                     if (checkFind == true) {
@@ -1126,7 +1134,7 @@ public class FeatureExtractor {
                     if (np.getOffsetBegin() <= token.getOffsetBegin()
                             && np.getOffsetEnd() >= token.getOffsetEnd()) {
                         if (!Util.isDiscardedQuantityNP(np)) {
-                            np.addOpinionWord(token.getWord());
+//                            np.addOpinionWord(token.getWord());
                             check = true;
                         }
                     }
@@ -1200,6 +1208,10 @@ public class FeatureExtractor {
                                                 .getNounPhrases()
                                                 .get(j)
                                                 .addOpinionWord(token.getWord());
+//                                        System.out.println("NP: " + fSentence
+//                                                .getNounPhrases()
+//                                                .get(j).getNpNode().getLeaves().toString() + " OW:" + token.getWord());
+//                                        
                                         break;
                                     }
                                 }
@@ -1212,5 +1224,31 @@ public class FeatureExtractor {
                 }
             }
         }
+    }
+    
+    
+    public static void editDataset() throws IOException{
+    	File file = new File(".\\opinion.txt");
+    	File out = new File(".\\newdataset.txt");
+    	 BufferedWriter writer = new BufferedWriter(new FileWriter(out));
+    	try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+    	    ArrayList<String> opinions = new ArrayList<>();
+    	    String line;
+    	    while ((line = br.readLine()) != null) {
+    	       opinions.add(line);
+    	    }
+    	    
+    	    for (int i = 0; i < FeatureExtractor.WORDS.length; ++i) {
+                for (String opinion : opinions){
+                	if (WORDS[i].contains(" " + opinion + " ")) {
+                        writer.write(WORDS[i] + ".");
+                        break;
+                    }
+                }
+            }
+    	    
+    	    System.out.print("DONE");
+    	}
+    	
     }
 }
