@@ -8,7 +8,6 @@ import weka.classifiers.trees.J48;
 import weka.core.Instances;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.Remove;
-import weka.filters.supervised.instance.*;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -37,18 +36,11 @@ public class Weka {
         remove.setOptions(options);                           // set options
         remove.setInputFormat(trainInstances);                          // inform filter about dataset **AFTER** setting options
         Instances newTrainInstances = Filter.useFilter(trainInstances, remove);   // apply filter
-       
         // setting class attribute 
         newTrainInstances.setClassIndex(newTrainInstances.numAttributes() - 1);
-        //Resample
-        Resample sampler = new Resample();
-        sampler.setInputFormat(newTrainInstances); 
-        sampler.setBiasToUniformClass(0.1); 
-        
-        Instances resampledData = Filter.useFilter(newTrainInstances, sampler); 
 
 //		useCrossValidation(newData);
-        useTestSet(resampledData, testFilePath, resultFilePath);
+        useTestSet(newTrainInstances, testFilePath, resultFilePath);
     }
 
     public static void useCrossValidation(Instances inst) throws Exception {
@@ -152,17 +144,7 @@ public class Weka {
         remove.setInputFormat(trainInstances);                          // inform filter about dataset **AFTER** setting options
         Instances newTrainInstances = Filter.useFilter(trainInstances, remove);   // apply filter
         newTrainInstances.setClassIndex(newTrainInstances.numAttributes() - 1);
-        
-        // setting class attribute 
-        newTrainInstances.setClassIndex(newTrainInstances.numAttributes() - 1);
-        //Resample
-        Resample sampler = new Resample();
-        sampler.setInputFormat(newTrainInstances); 
-        sampler.setBiasToUniformClass(0.1); 
-        
-        Instances resampledData = Filter.useFilter(newTrainInstances, sampler); 
-
-        useTestSetOpinionWords(resampledData, testFilePath);
+        useTestSetOpinionWords(newTrainInstances, testFilePath);
     }
 
     public static void useTestSetOpinionWords(Instances trainInstances, String testFilePath) throws Exception {

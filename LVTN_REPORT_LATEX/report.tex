@@ -1,7 +1,8 @@
-\documentclass[12pt]{extarticle}
+\documentclass[12pt]{report}
 
 \usepackage[utf8]{vietnam}
 \usepackage{graphicx}
+\usepackage{svg}
 \usepackage{fancyhdr}
 \usepackage{parskip}
 \usepackage{amssymb}
@@ -122,17 +123,17 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 	\listoftables
 
 \newpage
-	\section{Tóm tắt Luận văn}	
-		\par Ngôn ngữ của con người chứa đựng nhiều đặc trưng phức tạp và làm cách nào để cho máy tính khai phá có hiệu quả loại dữ liệu này vẫn là một vấn đề lớn. Khai khoáng ý kiến là một lĩnh vực mới phát triển gần đây của Xử lý ngôn ngữ tự nhiên, nó hướng đến việc tìm ra những ý kiến, cảm xúc được biểu đạt qua ngôn ngữ. Bên cạnh đó, bài toán phân giải đồng tham chiếu, mặc dù đã được nghiên cứu rộng rãi nhưng vẫn chỉ được thực hiện trên các loại văn bản chung chung. Các văn bản chứa ý kiến như các bài đánh giá (review), các thảo luận (discussion) về các sản phẩm với các đặc trưng riêng của nó, cung cấp thêm những thông tin nhất định cho việc phân giải đồng tham chiếu trên đó có hiệu quả hơn. 
-		\par Trong Luận văn này, nhóm đề xuất bài toán \textit{Phân giải đồng tham chiếu cho đối tượng và thuộc tính trong khai khoáng ý kiến} với cách tiếp cận theo mô hình \textit{Học có giám sát}. Mục tiêu của bài toán là tìm xem thử những từ/cụm từ nào trong văn bản cùng chỉ về đối tượng hoặc thuộc tính. Dữ liệu được dùng là các văn bản chứa ý kiến bằng ngôn ngữ tiếng Anh. Mô hình do nhóm đề xuất cho kết quả khả quan và gợi mở ra những hướng đi cho việc thực hiện Phân giải đồng tham chiếu cho các văn bản chứa ý kiến trong tiếng Việt.
+	\chapter{Tóm tắt Luận văn}	
+		\par Ngôn ngữ của con người chứa đựng nhiều đặc trưng phức tạp và làm cách nào để cho máy tính khai phá có hiệu quả loại dữ liệu này vẫn là một vấn đề lớn. Khai khoáng ý kiến là một lĩnh vực mới phát triển gần đây của Xử lý ngôn ngữ tự nhiên và đang ngày càng có những ứng dụng rộng rãi, nó hướng đến việc tìm ra những ý kiến, cảm xúc được biểu đạt qua ngôn ngữ. Bên cạnh đó, bài toán phân giải đồng tham chiếu, mặc dù đã được nghiên cứu rộng rãi nhưng vẫn chỉ được thực hiện trên các loại văn bản chung chung. Các văn bản chứa ý kiến như các bài đánh giá (review), các thảo luận (discussion) về các sản phẩm với các đặc trưng riêng của nó, cung cấp thêm những thông tin nhất định cho việc phân giải đồng tham chiếu trên đó có hiệu quả hơn. 
+		\par Trong Luận văn này, chúng tôi đề xuất bài toán \textit{Phân giải đồng tham chiếu cho đối tượng và thuộc tính trong Khai khoáng ý kiến} với cách tiếp cận theo mô hình \textit{Học có giám sát}. Mục tiêu của bài toán là tìm xem những từ/cụm từ nào trong văn bản cùng chỉ về đối tượng hoặc thuộc tính. Dữ liệu được dùng là các văn bản chứa ý kiến bằng ngôn ngữ tiếng Anh. Mô hình do chúng tôi đề xuất cho kết quả khả quan và gợi mở ra những hướng đi cho việc thực hiện Phân giải đồng tham chiếu cho các văn bản chứa ý kiến trong tiếng Việt.
 		
-	\section{Giới thiệu đề tài}	
+	\chapter{Giới thiệu đề tài}	
 		\par \textit{Phân giải đồng tham chiếu (Coreference resolution)} là một bài toán quan trọng và được nghiên cứu rộng rãi trong Xử lý ngôn ngữ tự nhiên \cite{mainpaper}. Mục tiêu của bài toán là tìm ra trong văn bản những đề cập (mention) cùng chỉ về một (tập) thực thể trong thế giới thực và gom nhóm chúng thành các chuỗi đồng tham chiếu.\\
 		Ví dụ: \\
 		"\textit{Beckham} will visit Vietnam tomorrow. \textit{He} will attend a football event in Saigon."\\
 		\textit{Beckham} và \textit{he} trong ví dụ trên cùng chỉ về một thực thể (con người) là cầu thủ bóng đá David Beckham, chúng đồng tham chiếu với nhau.
-		\par Tuy nhiên, những nghiên cứu hiện tại về bài toán đồng tham chiếu đa số mới chỉ dừng lại trên các nội dung văn bản tổng quát và ít tập trung vào một loại văn bản cụ thể. Mặt khác, cùng với sự phát triển nhanh chóng của thương mại điện tử, người dùng ngày càng có nhu cầu thể hiện ý kiến, cảm xúc của mình đối với sản phẩm. Điều đó được thể hiện qua các bài đánh giá (review) khi mua sắm sản phẩm trực tuyến, các bài đăng (blog post), hay các bài thảo luận trên diễn đàn về sản phẩm (discussion). Trong các văn bản này, người dùng đánh giá về các sản phẩm, cụ thể là họ thể hiện ý kiến đối với đối tượng sản phẩm (object) và các thuộc tính (attribute) của sản phẩm. 
-		\par Đối tượng (object) là các thực thể có tên chỉ sản phẩm, mỗi đối tượng bao gồm một tập các bộ phận (component) và một tập các tính chất (feature). Mỗi bộ phận cũng có một tập các bộ phận con và một tập các tính chất của nó. Nói một cách tổng quát, đối tượng có thể được biểu diễn bởi một cây mà nốt gốc chính là đối tượng và các nốt con là các bộ phận, mối liên kết giữa các nốt là các quan hệ thành phần (part-of) \cite{sentiment}. Khi thể hiện ý kiến, người dùng hướng ý kiến đến các nốt của cây và các tính chất của các nốt.\\
+		\par Tuy nhiên, những nghiên cứu hiện tại về bài toán đồng tham chiếu mới chỉ dừng lại trên các nội dung văn bản tổng quát và không tập trung vào một loại văn bản cụ thể nào. Mặt khác, cùng với sự phát triển nhanh chóng của thương mại điện tử, người dùng ngày càng có nhu cầu thể hiện ý kiến, cảm xúc của mình đối với sản phẩm. Điều đó được thể hiện qua các bài đánh giá (review) khi mua sắm sản phẩm trực tuyến, các bài đăng (blog post), hay các bài thảo luận trên diễn đàn về sản phẩm (discussion). Trong các văn bản này, người dùng đánh giá về các sản phẩm, cụ thể là họ thể hiện ý kiến đối với đối tượng sản phẩm (object) và các thuộc tính (attribute) của sản phẩm. 
+		\par Đối tượng (object) là các thực thể có tên chỉ sản phẩm, mỗi đối tượng bao gồm một tập các bộ phận (component) và một tập các tính chất (feature). Mỗi bộ phận cũng có một tập các bộ phận con và một tập các tính chất của nó. Nói một cách tổng quát, đối tượng có thể được biểu diễn bởi một cây mà nút (node) gốc chính là đối tượng và các nút con là các bộ phận, mối liên kết giữa các nút là các quan hệ thành phần (part-of) \cite{sentiment}. Khi thể hiện ý kiến, người dùng hướng ý kiến đến các nút của cây và các tính chất của các nút.\\
 		Ví dụ:\\
 		"\textit{The Samsung Galaxy S3} is one of the best phones I've ever used. I absolutely love the phone and \textit{the photo quality} \underline{it} has".\\
 		Trong ví dụ trên, người dùng đang đánh giá về đối tượng là chiếc điện thoại \textit{The Samsung Galaxy S3} và thuộc tính của nó là \textit{the photo quality}. Rõ ràng nếu không có phân giải đồng tham chiếu cho đại từ \textit{it}, chúng ta không biết được \textit{it} đang chỉ tới thực thể gì, là đối tượng \textit{The Samsung Galaxy S3} hay thuộc tính \textit{the photo quality}.
@@ -140,21 +141,21 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 		Ví dụ:\\
 		"The Galaxy III is pretty cool (1). It's a plastic phone, but it feels solid even though it's very light (2). The screen looks great (3). It is very sharp (4)".
 		\\Chúng ta có thể biết được người dùng thể hiện ý kiến ở câu (2) và (4). Nhưng nếu không có phép phân giải đồng tham chiếu để xác định các đại từ "it" trong câu (2) cùng chỉ về đối tượng "The Galaxy III" trong câu (1) và "It" trong câu (4) chỉ về thuộc tính "The screen" trong câu (3), chúng ta không thể biết được người dùng đang thể hiện ý kiến trên thực thể nào.
-		\par Trong các văn bản có chứa ý kiến, ngoài đối tượng được xác định là các thực thể có tên, thuộc tính được giả định là đã được tìm ra. Hu và Liu (2004) trong \cite{findfeatures1}, Popescu và Etzionie (2005) trong \cite{findfeatures2} đã trích xuất ra tập thuộc tính gắn với đối tượng (mà họ gọi với khái niệm \textit{features}). Nhiệm vụ của đề tài là tìm xem những từ/cụm từ nào cùng chỉ về đối tượng hoặc thuộc tính.
+		\par Trong các văn bản có chứa ý kiến, ngoài đối tượng được xác định là các thực thể có tên, thuộc tính được giả định là đã được tìm ra. Hu và Liu (2004) trong \cite{findfeatures1}, Popescu và Etzionie (2005) trong \cite{findfeatures2} đã trích xuất ra tập thuộc tính gắn với đối tượng (mà họ gọi là \textit{features}). Nhiệm vụ của đề tài là tìm xem những từ/cụm từ nào cùng chỉ về đối tượng hoặc thuộc tính.
 
-	\section{Các công trình liên quan}
-		\subsection{Các công trình liên quan đến phân giải đồng tham chiếu nói chung}
-			\par Phân giải đồng tham chiếu là một chủ đề quan trọng trong Xứ lý ngôn ngữ tự nhiên, nó ảnh hưởng đến kết quả của các chủ đề khác như: trích xuất thông tin (information extraction), hỏi đáp tự động (question answering), tóm tắt văn bản (text summarization),... Vì vậy đã có rất nhiều công trình làm về chủ đề này. Căn cứ vào hướng tiếp cận bài toán đồng tham chiếu, nhóm chia các công trình liên quan thành 3 nhóm: Mô hình cặp, mô hình thực thể, mô hình xếp hạng. Căn cứ vào giải thuật được áp dụng vào bài toán đồng tham chiếu hay nói cách khác là cách sử dụng tập dữ liệu, các công trình liên quan thành 3 nhóm: Học có giám sát (supervised learning), học không giám sát (unsupervised learning), hệ thống luật (rules-system).
+	\chapter{Các công trình liên quan}			
+		\section{Các công trình liên quan đến phân giải đồng tham chiếu nói chung}
+			\par Phân giải đồng tham chiếu là một chủ đề quan trọng trong Xứ lý ngôn ngữ tự nhiên, nó ảnh hưởng đến kết quả của các chủ đề khác như: trích xuất thông tin (information extraction), hỏi đáp tự động (question answering), tóm tắt văn bản (text summarization),... Vì vậy đã có rất nhiều công trình làm về chủ đề này. Căn cứ vào hướng tiếp cận bài toán đồng tham chiếu, chúng tôi chia các công trình liên quan thành 3 nhóm: Mô hình cặp, mô hình thực thể, mô hình xếp hạng. Căn cứ vào giải thuật được áp dụng vào bài toán đồng tham chiếu hay nói cách khác là cách sử dụng tập dữ liệu, các công trình liên quan thành 3 nhóm: Học có giám sát (supervised learning), học không giám sát (unsupervised learning), hệ thống luật (rules-system).
 			Thống nhất một vài khái niệm, kí hiệu:
 				\begin{itemize}
 					\item{Yêu cầu của bài toán đồng tham chiếu: Tìm tất cả các chuỗi đồng tham chiếu trong một văn bản; trong đó, mỗi chuỗi đồng tham chiếu là tập hợp các cụm danh từ cùng chỉ đến một thực thể trong thực tế. Từ yêu cầu bài toán, ta thấy đây là một bài toán gom cụm.} 
-					\item{Nhóm sử dụng khái niệm "cặp" để nói đến cặp gồm hai cụm danh từ. Kí hiệu cặp (NP1, NP2) được hiểu gồm cụm danh từ NP1 và NP2. Trong đó NP1 xuất hiện trước NP2 trong văn bản, NP1 được gọi là tiền từ và NP2 được gọi là hậu từ.}
+					\item{Chúng tôi sử dụng khái niệm "cặp" để nói đến cặp gồm hai cụm danh từ. Kí hiệu cặp (NP1, NP2) được hiểu gồm cụm danh từ NP1 và NP2. Trong đó NP1 xuất hiện trước NP2 trong văn bản, NP1 được gọi là tiền từ và NP2 được gọi là hậu từ.}
 					\item{Hai cụm danh từ cùng chỉ đến một thực thể là đồng tham chiếu với nhau và chúng nằm trong cùng một chuỗi đồng tham chiếu. Cặp đồng tham chiếu nếu hai cụm danh từ của cặp đồng tham chiếu với nhau và cặp không đồng tham chiếu nếu hai cụm danh từ không đồng tham chiếu.}
 					\item{Kí hiệu NPs thể hiện tập hợp chứa nhiều hơn 1 cụm danh từ}
 				\end{itemize}
 			\par \textit{Căn cứ theo cách tiếp cận bài toán đồng tham chiếu, các công trình liên quan được chia làm 3 nhóm được trình bày dưới đây, gồm: mô hình cặp, mô hình thực thể và mô hình xếp hạng}
-			\subsubsection*{Mô hình cặp (Mention pair)}
-				\par Ý tưởng:  Xác định các cặp đồng tham chiếu, sau đó kết hợp các cặp đồng tham chiếu tìm được thành chuối đồng tham chiếu. Bài toán trở thành bài toán phân loại kết hợp gom cụm, phân loại tích cực nếu cặp đồng tham chiếu và tiêu cực nếu cặp không đồng tham chiếu. Hình 1 trình bày ý tưởng của mô hình cặp.
+			\subsection*{Mô hình cặp (Mention pair)}
+				\par Ý tưởng:  Xác định các cặp đồng tham chiếu, sau đó kết hợp các cặp đồng tham chiếu tìm được thành chuối đồng tham chiếu. Bài toán trở thành bài toán phân loại, phân loại tích cực nếu cặp đồng tham chiếu và tiêu cực nếu cặp không đồng tham chiếu.
 				\begin{figure}[H]
 					\centering
 					\include{draw/mention_pair}
@@ -166,7 +167,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					\item{Tạo tập thuộc  tính để phân loại một cặp là đồng tham chiếu hay không.}
 					\item{Cách kết hợp kết quả từ các cặp thu được để tạo ra chuỗi đồng tham chiếu.}
 				\end{itemize}
-				\par Dưới đây nhóm trình bày chi tiết về 2 bước là: Cách tạo tập thuộc tính và cách kết hợp kết quả từ các cặp.
+				\par Dưới đây chúng tôi trình bày chi tiết về 2 bước là: Cách tạo tập thuộc tính và cách kết hợp kết quả từ các cặp.
 				\begin{itemize}
 					\item{Tạo tập thuộc tính: 
 						\\Để xác định cặp có đồng tham chiếu hay không, ta cần phải dựa vào tập thuộc tính được tạo ra từ 2 NPs của cặp đó. Tập thuộc tính được tạo ra từ đặc điểm cấu trúc cú pháp, ngữ pháp, ngữ nghĩa. Những thuộc tính cơ bản về cú pháp và ngữ nghĩa được trình bày rõ ràng trong bài báo của Ng và Cardie (2002)\cite{ng02}. Theo thời gian, thuộc tính cú pháp không còn gì để bổ sung thêm nên những công trình sau này chủ yếu đề xuất thêm những thuộc tính về ngữ nghĩa, ví dụ: Dagan và Itai (1990)\cite{dagan90}; Kehler (2004)\cite{kehler04}; Yang (2005)\cite{yang05}; Haghighi và Klein (2009)\cite{haghighi09}.}
@@ -186,7 +187,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 						\item{Để kiểm tra xem cặp 2 NPs có đồng tham chiếu không, tập thuộc tính chỉ được tạo ra dựa trên 2 NPs đó. Sẽ gặp những trường hợp có những thuộc tính không xác định được. Ví dụ: Trong câu \textit{"Mr.Clinton has a new phone. Clinton also has a new camera. He’s so rich"}, ta không thể xác định Clinton và He có cùng thuộc tính giới tính hay không. Trong trường hợp đó, nếu ta đã biết Mr.Clinton và Clinton đồng tham chiếu và sử dụng được thuộc tính giới tính từ Mr.Clinton, ta có thể suy ra Clinton và He có cùng thuộc tính giới tính.}
 						\item{Đối với một NP. Ta sẽ xét các cặp từ NP với các tiền từ của nó. Mặc dù có thể dự đoán ra đồng tham chiếu, tuy nhiên ta không thể xác định tiền từ nào phù hợp nhất với một NP vì ta dự đoán độc lập cặp từng tiền từ với NP.}
 					\end{itemize}
-			\subsubsection*{Mô hình thực thể (Entity-mention)}
+			\subsection*{Mô hình thực thể (Entity-mention)}
 				\par Ý tưởng: Xác định xem một cụm danh từ có đồng tham chiếu với một chuỗi đồng tham chiếu (thực thể) hay không. Mục đích của mô hình là phân loại liệu cụm danh từ NP\textsubscript{$k$} và chuỗi đồng tham chiếu $C_{j}$ là tích cực hay tiêu cực, đồng nghĩa với NP\textsubscript{$k$} có nên được gán vào chuỗi $C_{j}$ không. Hình 2 trình bày các bước trong mô hình thực thể.
 				\begin{figure}[H]
 					\centering
@@ -196,7 +197,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 				Mỗi cụm danh từ NP\textsubscript{$k$} và chuỗi đồng tham chiếu $C_{j}$ có một tập thuộc tính dùng để phân loại. Tập thuộc tính này gồm: các thuộc tính của NP\textsubscript{$k$}, các thuộc tính liên quan giữa NP\textsubscript{$k$} với $C_{j}$. Điểm đặc trưng của mô hình thực thể và cụm danh từ chính là tập thuộc tính liên quan giữa NP\textsubscript{$k$} với $C_{j}$. Để xác định một thuộc tính giữa NP\textsubscript{$k$} với $C_{j}$, ta xét thuộc tính đó giữa NP\textsubscript{$k$} với các cụm danh từ trong $C_{j}$, từ đó tổng hợp lại. Ví dụ: Để kiểm tra thuộc tính NUMBER AGREEMENT xem NP\textsubscript{$k$} có cùng ngôi với $C_{j}$ không, trước tiên ta kiểm tra lần lược NP\textsubscript{$k$} có cùng ngôi với các cụm danh từ trong $C_{j}$ không. Sau đó ta tổng hợp lại kết quả, một vài cách tổng hợp: NUMBER AGREEMENT là YES nếu NP\textsubscript{$k$} cùng ngôi với tất các các NPs trong $C_{j}$, NO trong trường hợp còn lại; hoặc như Lou (2004)\cite{lou04} hay Yang (2004, 2008)\cite{yang04}\cite{yang08}, NUMBER AGREEMENT là YES nếu NP\textsubscript{$k$} cùng ngôi với ít nhất một NP trong $C_{j}$, NO trong tường hợp còn lại.
 				\par Có nhiều biến thể, hình thức hiện thực mô hình thực thể, song vẫn giữ nguyên nét đặc trưng là: xây dựng thuộc tính của chuỗi đồng tham chiếu dựa trên các cụm danh từ của nó. Cullota (2007)\cite{culotta07} giải quyết bài toán đồng tham chiếu bằng cách xác định xác suất một cụm chứa các NPs từ văn bản có phải là một chuỗi đồng tham chiếu. Để thực hiện mục tiêu đó, tác giả dựa vào thuộc tính chung của cụm NPs. Với thuộc tính X của cụm NPs, X nhận giá trị ALL nếu tất cả các cặp của cụm NPs cùng có thuộc tính X, X nhận giá trị MOST-TRUE nếu đa số các cặp của NPs có cùng thuộc tính X và X nhận giá trị MOST-FALSE nếu đa số các cặp của NPs không có cùng thuộc tính X. 
 				\par Ưu điểm của mô hình thực thể: Khắc phục được nhược điểm của mô hình cặp (mention pair), đó là sử dụng thuộc tính của chuỗi đồng tham chiếu, các NPs trong chuỗi có thể bổ sung thuộc tính cho nhau. Tuy nhiên khi áp dụng vào thực tế thì kết quả của hệ thống đồng tham chiếu cũng không được cải thiện nhiều, theo Luo (2004)\cite{lou04}, Yang (2004, 2008)\cite{yang04}\cite{yang08}. Lí do mà các tác giả trên đưa ra là họ vẫn sử dụng ít thuộc tính của chuỗi đồng tham chiếu.
-			\subsubsection*{Mô hình xếp hạng (Ranking mention)}
+			\subsection*{Mô hình xếp hạng (Ranking mention)}
 				\par Ý tưởng: Xét cụm danh từ NP, so sánh tất cả các cụm danh từ đứng trước NP với nhau, tìm xem cụm danh từ nào có khả năng đồng tham chiếu với NP nhất. Ta thấy ý tưởng cũng gần giống với mô hình cặp, đầu ra của cả hai mô hình là cặp đồng tham chiếu. Hình vẽ 3 trình bày ý tưởng các bước của mô hình.
 				\begin{figure}[H]
 					\centering
@@ -209,7 +210,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 				\par Nhược điểm của mô hình xếp hạng: Phải thực hiện tác vụ loại bỏ bớt các cụm danh từ NPs từ văn bản mà không có khả năng nằm trong chuỗi đồng tham chiếu. Bới vì những cụm danh từ được giữ lại chắc chắn sẽ được phân loại nằm trong một chuỗi đồng tham chiếu nào đó. Điều này ảnh hưởng đến độ chính xác (precision)  của mô hình. Denis và Baldridge (2008)\cite{denis08} và Rahman and Ng (2009)\cite{rahman09} đã đề xuất một vài phương pháp để giải quyết nhược điểm này.					
 				\par Một số tác giả kết hợp các mô hình trong 3 mô hình trên lại với nhau, trong đó kể đến Rahman and Ng (2009)\cite{rahman09} kết hợp mô hình thực thể với sắp xếp, mục đích so sánh các chuỗi đồng tham chiếu xem chuỗi nào phù hợp với một cụm danh từ đang xét. Mô hình đã khắc phục được hai điểm yếu của mô hình mention pair và cải thiển được kết quả.
 			\par \textit{Căn cứ theo giải thuật được sử dụng trong bài toán đồng tham chiếu, các công trình liên quan được chia làm 3 nhóm được trình bày dưới đây, gồm: Giải thuật học có giám sát, giải thuật học không giám sát và hệ thống luật}
-				\subsubsection*{Giải thuật học có giám sát}
+				\subsection*{Giải thuật học có giám sát}
 					\par Định nghĩa: Giải thuật học có giám sát là giải thuật sử dụng tập dữ liệu có gán nhãn (đã biết trước kết quả) để học. Hai nhánh giải thuật lớn nằm trong học có giám sát là: giải thuật phân lớp và giải thuật hồi quy.
 					\par Giải thuật học có giám sát đầu tiên được áp dụng vào bài toán đồng tham chiếu bởi Connolly (1994)\cite{connolly95}. Đối với bài toán đồng tham chiếu, các tác giả thường sử dụng mô hình cặp, mà mô hình cặp cần phân loại các cặp do đó giải thuật phân lớp được áp dụng nhiều. Một số giải thuật phổ biến: giải thuật cây quyết định C4.5 (Soon (2001)\cite{soon01}), giải thuật RIPPER (Ng và Cardie (2002)\cite{ng02}), giải thuật SVM (Yang (2006)\cite{yang06}, ), giải thuật Maximum Entropy (Denis và Baldrige (2008)\cite{denis08}).
 					\par Ưu điểm:
@@ -222,7 +223,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 						\item{Tốn kém chi phí gán nhãn tập dữ liệu. Cần phải có tập dữ liệu gán nhãn thì giải thuật mới học được.}
 						\item{Xuất phát từ chi phí gán nhãn lớn, do đó giải thuật không thể tận dụng tập dữ liệu lớn để học được.}
 					\end{itemize}
-				\subsubsection*{Giải thuật học không giám sát}
+				\subsection*{Giải thuật học không giám sát}
 					\par Định nghĩa: Giải thuật học không giám sát là giải thuật sử dụng tập dữ liệu chưa gán nhãn (chưa biết trước kết quả) để học.
 					\par Để khắc phục nhược điểm của giải thuật học có giám sát, giải thuật học không giám sát được áp dụng vào bài toán đồng tham chiếu. Mặc dù được áp dụng sau nhưng hiện tại giải thuật học không giám sát đã đạt được kết quả ngang ngửa với giải thuật có giám sát. Đầu tiền, Haghighi và Klein (2007)\cite{haghighi09} sử dụng giải thuật mạng Bayes phi tham số (nonparametric Bayes) vào bài toán đồng tham chiếu. Sau đó, Ng (2008)\cite{ng08} nhận thấy được điểm yếu của giải thuật Bayes phi tham số nên đã đề xuất sử dụng giải thuật Cực đại hóa kì vọng (Expectation Maximization). Cũng cùng thời điểm đó, Poon và Domigos (2008)\cite{poon08} đề xuất phương pháp học không giám sát dựa trên mạng logic Markov (Markov Logic Network) và khẳng định mô hình cho kết quả cao hơn phương pháp học có giám sát.
 					\par Ưu điểm:
@@ -231,8 +232,8 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 						\item{Hệ thống được học dựa trên tập dữ liệu dồi dào. Trong khi đó, giải thuật học có giám sát vì tốn kém chi phí gán nhãn, nên tập dữ liệu học thường nhỏ.}
 					\end{itemize}
 					\par Nhược điểm: Các giải thuật học không giám sát được áp dụng vào bài toàn đồng tham chiếu thường phức tạp, tác giả tự hiện thực.
-				\subsubsection*{Hệ thống luật}
-					\par Định nghĩa: Tác giả đề xuất ra một tập các luật quy định khi nào thì hai cụm danh từ là đồng tham chiếu với nhau, khi nào thì cụm danh từ được xét được xét đồng tham chiếu với một chuỗi dựa trên kinh nghiệm thực tế thu thập được.
+				\subsection*{Hệ thống luật}
+					\par Định nghĩa: Tác giả đề xuất ra một tập các luật quy định khi nào thì hai cụm danh từ là đồng tham chiếu với nhau, khi nào thì cụm danh từ được xét đồng tham chiếu với một cụm dựa trên kinh nghiệm thực tế thu thập được.
 					\par Mô hình này được biết đến đầu tiên bởi Baldwin (1995)\cite{baldwin95}. Ý tưởng của tác giả là kết hợp tập các luật có độ chính xác cao (high precision) theo một thứ tự hợp lý để thu được độ phủ (recall) chấp nhận được. Sau đó có nhiều tác giả cũng hiện thực phương pháp này dưới những tên gọi khác nhau như: Brown (1993)\cite{brown93}, Collins và Singer (1999)\cite{collin99}, Spitkovsky (2010)\cite{spitkovsky10}, Li và Liu (2015)\cite{li15}.
 					Mô hình sử dụng và cải tiến hệ thống luật đưa lại kết quả cao nhất là mô hình của Lee và Chang (2012)\cite{lee12}. Hình 4 minh họa cho mô hình mà Lee sử dụng. Trong bài báo, tác giả đề xuất một tập gồm 10 luật, các luật này được sắp xếp có thứ tự dựa vào độ chính xác (precion) và độ phủ (recall) mà mỗi luật mang lại cho hệ thống. Luật càng đứng trước thì độ chính xác càng cao, luật càng đứng sau thì độ chính xác càng thấp nhưng độ phủ mang lại càng cao. Dữ liệu văn bản sau khi trích xuất ra được các cụm danh từ NPs, các cụm danh từ này lần lượt được kiểm tra với từng luật để tìm đồng tham chiếu, kết quả đầu ra của luật trước là đầu vào của luật sau. Kết quả đầu ra của luật cuối cùng cũng chính là kết quả của hệ thống các luật. Không chỉ áp dụng hệ thống luật, tác giả còn kết hợp với mô hình thực thể để cải tiến kết quả bài toán. Ví dụ về luật số 1 của hệ thống: Luật quy định nếu người nói là "I" thì từ "my" trong câu nói của người đó sẽ đồng tham chiếu với "I". Ví dụ: Trong câu \textit{"I said "my phone is broken""}, câu văn trên khi đi qua luật số 1 sẽ cho ra kết quả là "I" và "my" đồng tham chiếu.
 					\begin{figure}
@@ -241,16 +242,16 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 						\caption{Minh họa mô hình sử dụng hệ thống luật của Lee và Chang (2012)\cite{lee12}}
 					\end{figure}				
 
-		\subsection{Các công trình liên quan đến phân giải đồng tham chiếu cho các văn bản chứa ý kiến}
-			\par Mỗi lĩnh vực trong thực tế có một đặc điểm dữ liệu riêng. Nếu sử dụng mô hình đồng tham chiếu trên tập dữ liệu chung chung, các đặc điểm chung chung vào một lĩnh vực cụ thể thì kết quả không cao vì không tận dụng đặc trưng của lĩnh vực đó. Xuất phát từ thực tế khách quan này, những bài toán đồng tham chiếu trên một lĩnh vực cụ thể đang ngày càng được chú ý, tập trung nghiên cứu hơn. Mô hình đồng tham chiếu trong lĩnh vực khai khoáng ý kiến cũng đã và đang được khai thác, tuy nhiên số lượng các công trình liên quan vẫn rất ít. Nghiên cứu của Nicolov (2008)\cite{nicolov08} chỉ ra rằng kết quả của khai khoáng ý kiến (opinion mining) có thể được cải thiện 10\% nếu phân giải đồng tham chiếu được sử dụng (tác giả không trình bày giải thuật). 
-			\par Hai công trình nghiên cứu đồng tham chiếu trong khai khoáng ý kiến nổi bật là của Stoyanov, Cardie (2006)\cite{stoyanov06} và Ding, Liu (2010)\cite{mainpaper}. Stoyanov thực hiện đồng tham chiếu nhằm tìm chuỗi đồng tham chiếu cùng chỉ đến một cá nhân, tổ chức trong những bài đánh giá (review) chứa ý kiến. Trong khi đó, Ding và Liu chú ý đến thực hiện đồng tham chiếu cho đối tượng và thuộc tính. Trong công trình của mình, Liu sử dụng mô hình cặp, giải thuật cây quyết định dựa trên tập thuộc tính mà Soon đã dùng (2001)\cite{soon01}  và một số thuộc tính mới liên quan đến cảm xúc, ý kiến mà tác giả đề xuất. Bài báo của Liu là nền tảng để nhóm thực hiện đề tài luận văn.
+		\section{Các công trình liên quan đến phân giải đồng tham chiếu cho các văn bản chứa ý kiến}
+			\par Mỗi lĩnh vực trong thực tế có một đặc điểm dữ liệu riêng. Nếu sử dụng mô hình đồng tham chiếu trên tập dữ liệu chung chung, các đặc điểm chung chung vào một lĩnh vực cụ thể thì kết quả không cao. Xuất phát từ thực tế khách quan đó, những bài toán đồng tham chiếu trên một lĩnh vực cụ thể đang ngày càng được chú ý, tập trung nghiên cứu hơn. Mô hình đồng tham chiếu trong lĩnh vực Khai khoáng ý kiến cũng đã và đang được khai thác, tuy nhiên số lượng các công trình liên quan vẫn rất ít. Nghiên cứu của Nicolov (2008)\cite{nicolov08} chỉ ra rằng kết quả của Khai khoáng ý kiến (opinion mining) có thể được cải thiện 10\% nếu phân giải đồng tham chiếu được sử dụng (tác giả không trình bày giải thuật). 
+			\par Hai công trình được biết đến nhiều nhất là Stoyanov, Cardie (2006)\cite{stoyanov06} và Ding, Liu (2010)\cite{mainpaper}. Stoyanov thực hiện đồng tham chiếu tìm chuỗi đồng tham chiếu cùng chỉ đến một cá nhân, tổ chức trong những bài đánh giá (review) chứa ý kiến. Trong khi đó, Ding và Liu chú ý đến thực hiện đồng tham chiếu cho đối tượng và thuộc tính. Trong công trình của mình, Liu sử dụng mô hình cặp, sử dụng giải thuật cây quyết định dựa trên tập thuộc tính của Soon (2001)\cite{soon01} và một số thuộc tính mới liên quan đến cảm xúc và ý kiến mà tác giả đề xuất. Bài báo của Liu là nền tảng để chúng tôi thực hiện đề tài luận văn.
 
-	\section{Kiến thức nền tảng}
-		\subsection{Bài toán phân giải đồng tham chiếu}			
+	\chapter{Kiến thức nền tảng}	
+		\section{Bài toán phân giải đồng tham chiếu}			
 			\label{coref_problem}
-			\subsubsection*{Định nghĩa}
-				Phân giải đồng tham chiếu trong văn bản là tìm trong văn bản những đề cập (mention) cùng chỉ về một (tập) thực thể (con người, sự vật, sự việc, …) hoặc khái niệm trong thế giới thực. Những đề cập (mention) này có thể là các từ/cụm từ hoặc các mệnh đề nhưng thông thường là các từ/cụm từ, mà cụ thể hơn là các danh từ/cụm danh từ. Để thống nhất, nhóm dùng khái niệm \textit{mention} trong Luận văn này.
-			\subsubsection*{Các quan hệ đồng tham chiếu}		
+			\subsection*{Định nghĩa}
+				Phân giải đồng tham chiếu trong văn bản là tìm ra trong văn bản những đề cập (mention) cùng chỉ về một (tập) thực thể (con người, sự vật, sự việc, …) hoặc khái niệm trong thế giới thực. Những đề cập (mention) này có thể là các từ/cụm từ hoặc các mệnh đề nhưng thông thường là các từ/cụm từ, mà cụ thể hơn là các danh từ/cụm danh từ. Để thống nhất, chúng tôi dùng khái niệm \textit{mention} trong Luận văn này.
+			\subsection*{Các quan hệ đồng tham chiếu}		
 				Joseph F. McCarthy trong \cite{corefdef} đã chia các quan hệ đồng tham chiếu thành 3 loại: 
 				\begin{itemize}
 					\item{Quan hệ đồng nhất (Identity): Hai \textit{mention} cùng đề cập tới một thực thể thống nhất\\
@@ -263,15 +264,15 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					Ví dụ: "I have bought Apple phones yesterday. The iPhone 5 works well and so do the iPhone 6S."\\
 					"Apple phones" là một lớp tổng quát. "The iPhone 5" và "the iPhone 6S" là những thành viên của lớp này. 2 cặp "The iPhone 5" – "Apple phones" và ""the iPhone 6S" – "Apple phones" đều có quan hệ đồng tham chiếu kiểu cụ thể-tổng quát.}
 				\end{itemize}
-			\subsubsection*{Các tính chất của quan hệ đồng tham chiếu}
+			\subsection*{Các tính chất của quan hệ đồng tham chiếu}
 			Giả sử $M_1$, $M_2$ và $M_3$ là các \textit{mention} trong văn bản.
 			\begin{itemize}
 				\item{Tính chất phản xạ: Mỗi \textit{mention} ($M_1$, $M_2$, $M_3$) đồng tham chiếu với chính nó.}
 				\item{Tính chất đối xứng: Nếu \textit{mention} $M_1$ đồng tham chiếu với $M_2$ thì $M_2$ đồng tham chiếu với $M_1$.}
 				\item{Tính chất bắc cầu: Nếu \textit{mention} $M_1$ đồng tham chiếu với $M_2$ và $M_2$ đồng tham chiếu với $M_3$ thì $M_1$ đồng tham chiếu với $M_3$.}
 			\end{itemize}
-		\subsection{Khai khoáng ý kiến}
-			\subsubsection*{Khái quát}
+		\section{Khai khoáng ý kiến}
+			\subsection*{Khái quát}
 				\par Khai khoáng ý kiến (Sentiment Analysis hay Opinion Mining) trong Xử lý ngôn ngữ tự nhiên là lĩnh vực liên quan đến việc tìm ra những ý kiến, cảm xúc được diễn đạt qua văn bản. Một ý kiến gồm có các thành phần: chủ thể ý kiến (holder), đối tượng (target) và mức độ (orientation) – có thể là tích cực (positive), tiêu cực (negative), trung tính (neutral) hoặc nằm trong một thang đo mức độ (1,2,3,4,5).
 				\par Đối tượng (o) là một thực thể chỉ sản phẩm, người, tổ chức, sự kiện, ... Nó có thể được mô hình hóa như sau:\\				
 				Đối tượng o gồm một tập các thuộc tính F = \{$f_1$, $f_2$, $f_3$, …\} gồm cả o cũng là một thuộc tính đặc biệt (tổng quát – general). Mỗi thuộc tính fi thuộc F được diễn đạt bằng một hoặc nhiều từ/cụm từ ở trong văn bản (gọi là các synonyms của thuộc tính).
@@ -279,16 +280,16 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 				\par Các nghiên cứu về Khai khoáng ý kiến được thực hiện trên 3 cấp độ \cite{sentiment}:
 				\begin{itemize}
 					\item{Cấp độ văn bản (Document Level): Xác định thiên hướng ý kiến cho toàn bộ văn bản, với giả định rằng văn bản đó thể hiện ý kiến cho một đối tượng nhất định và từ một chủ thể (holder) nhất định.}		
-					\item{Cấp độ câu (Sentence Level): Xác định thiên hướng ý kiến cho một câu, thông thường câu đó cũng được giả định là đang thể hiện ý kiến đối với một đối tượng/thuộc tính (target) nhất định và từ một chủ thể nhất định.}
+					\item{Cấp độ câu (Sentence Level): Xác định thiên hướng ý kiến cho một câu, thông thường câu đó cũng được giả định là đang thể hiện ý kiến đối với một đối tượng (target) nhất định và từ một chủ thể nhất định.}
 					\item{Cấp độ thuộc tính (Feature-Based): Các văn bản có chứa ý kiến thường đề cập đến đối tượng và các thuộc tính của nó. Ở cấp độ này, mục tiêu hướng tới là tìm ra thiên hướng ý kiến gắn với các thuộc tính hoặc chính bản thân đối tượng đó.}
 				\end{itemize}				
 
-			\subsubsection*{Các từ ngữ chỉ ý kiến}
+			\subsection*{Các từ ngữ chỉ ý kiến}
 				\label{ow_section}	
-				\par Các từ chỉ ý kiến (Opinion word) là các từ mà bản thân nó mang ý kiến, cảm xúc ở trong câu. Về mặt thiên hướng, chúng được chia thành 2 loại là các từ chỉ ý kiến tích cực (good, amazing, great,… ) và các từ chỉ ý kiến tiêu cực (bad, awful, terrible,…). Bên cạnh các từ đơn, còn có các ngữ (phrase) chỉ ý kiến, đơn cử như "cost someone an arm and a leg". Tập hợp các từ chỉ ý kiến đã được sưu tầm và được sử dụng trong các nghiên cứu \cite{sentiment}, tập hợp này chứa các từ chỉ ý kiến không phụ thuộc lĩnh vực (domain-independent) và không phụ thuộc ngữ cảnh (context-independent).	
+				\par Các từ chỉ ý kiến (Opinion word) là các từ mà bản thân nó mang ý kiến, cảm xúc ở trong câu. Về mặt từ vựng, chúng thường là tính từ và trạng từ cùng một số ít là danh từ. Về mặt thiên hướng, chúng được chia thành 2 loại là các từ chỉ ý kiến tích cực (good, amazing, great,… ) và các từ chỉ ý kiến tiêu cực (bad, awful, terrible,…). Bên cạnh các từ đơn, còn có các ngữ (phrase) chỉ ý kiến, đơn cử như "cost someone an arm and a leg". Tập hợp các từ chỉ ý kiến đã được sưu tầm và được sử dụng trong các nghiên cứu \cite{sentiment}, tập hợp này chứa các từ chỉ ý kiến không phụ thuộc lĩnh vực (domain-independent) và không phụ thuộc ngữ cảnh (context-independent).	
 				\par Về mặt từ vựng, các từ chỉ ý kiến cũng có thể được chia thành hai dạng là dạng cơ bản (base type) và dạng so sánh (comparative type). Các từ như good, great, bad, ... thuộc dạng cơ bản. Dạng so sánh của chúng như better, best, greater, greatest, worse, worst .. là các dạng so sánh hơn (comparative) và so sánh nhất (supelative) của dạng cơ bản. Khác với dạng cơ bản, dạng so sánh không thể hiện trực tiếp ý kiến (tích cực, tiêu cực) mà thể hiện ý kiến về sự hơn thua giữa các thực thể. Ví dụ: Câu "My Nokia is better than this Samsung" không chỉ ra cụ thể cái nào tốt, cái nào không tốt, nó chỉ thể hiện ý kiến rằng chiếc điện thoại "The Nokia" tốt hơn "this Samsung".
 				\par Một vấn đề gặp phải đối với các từ chỉ ý kiến đó là chúng có thể phụ thuộc vào lĩnh vực (domain-dependent). Ví dụ có hai câu "The battery is long" và "The program takes long time to run", "long" đối với "battery" là tích cực nhưng đối với "program" là tiêu cực. Không chỉ vậy, trong cùng lĩnh vực, chúng cũng có thể mang sắc thái khác nhau tùy ngữ cảnh, ví dụ "The battery is long" và "The camera takes long time to focus".	
-			\subsubsection*{Khai khoáng ý kiến đối với câu so sánh}
+			\subsection*{Khai khoáng ý kiến đối với câu so sánh}
 				\label{comparative_section}
 				\par Khác với các câu bình thường nơi ý kiến được thể hiện trực tiếp là tích cực hay tiêu cực, ở các câu so sánh, ý kiến được biểu đạt bằng cách thể hiện mức độ hơn, kém, giống nhau trên một khía cạnh nào đó giữa các (tập) đối tượng. Câu so sánh trong tiếng Anh có thể được chia thành 2 nhóm:
 				\begin{itemize}
@@ -332,8 +333,8 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					\end{itemize}}
 				\item{Dạng 2: Các từ chỉ ý kiến phụ thuộc ngữ cảnh (context dependent). Ví dụ: "The Nokia has longer battery than this HTC". Nếu không có ngữ cảnh "longer battery", ta không thể biết được từ so sánh ở đây "longer" mang nghĩa so sánh tích cực hay tiêu cực để từ đó xác định được đối tượng ưu tiên. Một phương pháp để giải quyết cho trường hợp này được chỉ ra ở \cite{comparative2}.}
 				\end{itemize}
-		\subsection{Cây quyết định}
-			\subsubsection*{Giới thiệu}
+		\section{Cây quyết định}
+			\subsection*{Giới thiệu}
 				\begin{figure}[H]					
 					\centering
 					\include{draw/decision_tree}					
@@ -341,7 +342,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					\label{fig:tree}
 				\end{figure}
 				\par Cây quyết định (Decision Tree) là một mô hình học máy có giám sát, trong đó hàm mục tiêu được mô tả bằng một cây quyết định. Cây quyết định cũng có thể được biểu diễn lại dưới dạng một tập các luật giúp dễ đọc, dễ hiểu.
-				\par Mỗi nốt của cây biểu diễn một thuộc tính. Mỗi nhánh xuất phát từ nốt đó thể hiện giá trị của thuộc tính đó. Một mẫu được phân loại trên cây quyết định bằng cách duyệt nó trên cây, bắt đầu từ gốc cho đến khi gặp giá trị phân loại (lá). 
+				\par Mỗi nút của cây biểu diễn một thuộc tính. Mỗi nhánh xuất phát từ nút đó thể hiện giá trị của thuộc tính đó. Một mẫu được phân loại trên cây quyết định bằng cách duyệt nó trên cây, bắt đầu từ gốc cho đến khi gặp giá trị phân loại (lá). 
 				Cây quyết định ở Hình \ref{fig:tree} xét xem thử những buổi sáng thứ 7 nào sẽ có chơi quần vợt dựa trên các thuộc tính Outlook, Temperature, Humidity, Wind.
 				\\Ví dụ mẫu (Outlook = Sunny, Temperature = Cold, Humidity = High, Wind = Strong) duyệt trên cây sẽ cho ra kết quả phân loại là mẫu âm (No). Cây quyết định này cũng có thể được biểu diễn lại thành luật, là hội của các tuyển:
 				\begin{center}
@@ -351,7 +352,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 						\\$\lor$ (Outlook = Rain $\wedge$ Wind = Weak)
 					\end{tabular}
 				\end{center}											
-			\subsubsection*{Giải thuật}		
+			\subsection*{Giải thuật}		
 				\par Phần lớn các giải thuật học trên cây quyết định (trong đó ID3 là giải thuật điển hình) đều theo hướng tiếp cận từ trên xuống, dùng giải thuật tham lam tìm kiếm trong không gian của tất cả các kết quả cây quyết định có thể xuất hiện. ID3 là giải thuật học cơ bản trên cây quyết định. Phần lớn các giải thuật học trên cây quyết định đều đi theo hướng tiếp cận của ID3, là sự mở rộng và nâng cấp của nó (trong đó có giải thuật C4.5).			
 				\par Trong quá trình xây dựng cây từ trên xuống, ở mỗi bước cần xác định được thuộc tính nào là tốt nhất (được hiểu là thuộc tính phân loại hiệu quả nhất cho các mẫu) để làm gốc cho cây ở thời điểm đó. Sự lựa chọn thuộc tính tốt nhất được thực hiện nhờ vào độ đo \textit{Information Gain}.
 				\begin{itemize}
@@ -424,11 +425,11 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					\caption{Giải thuật ID3 trong cây quyết định (Tham khảo từ trang 59 của \cite{mltextbook})}
 					\label{fig:id3}
 				\end{figure}
-			\subsubsection*{Vấn đề Quá vừa dữ liệu}
+			\subsection*{Vấn đề Quá vừa dữ liệu}
 				\par Giải thuật ở Hình \ref{fig:id3} là hợp lý trong một số trường hợp, nhưng thực tế nó có thể dẫn đến hiện tượng \textit{Quá vừa dữ liệu (Overfitting data)}. Điều này xảy ra là bởi vì giải thuật này chỉ cố gắng xây dựng cây đủ để phân loại đúng tập huấn luyện, \textit{Quá vừa dữ liệu} sẽ xảy ra nếu dữ liệu trong tập huấn luyện bị nhiễu hoặc chứa quá ít mẫu để có thể xấp xỉ đúng hàm mục tiêu.
 				\par Một phương pháp phổ biến được sử dụng để giải quyết hiện tượng này là cho phép cây bị \textit{Quá vừa dữ liệu}, nhưng sau đó cắt tỉa (post-pruning). Trong phương pháp này, tập huấn luyện được chia ra làm hai, một tập huấn luyện (training set) và một tập kiểm chứng phép cắt tỉa (validation set). Cây sẽ được xây dựng dựa trên tập huấn luyện trước, có 2 hướng giải quyết vấn đề cắt tỉa:
 				\begin{itemize}
-				\item{Cắt tỉa giảm lỗi (reduced error pruning): Cân nhắc từng nốt của cây, và thực hiện cắt tỉa cây con có gốc là nốt đó. Cây sau phép cắt tỉa này được đánh giá độ chính xác dựa vào tập kiểm thử, nếu độ chính xác không thấp hơn cây trước phép cắt tỉa thì cho phép cắt tỉa. Việc cắt tỉa được lặp lại với các nốt không làm giảm độ chính xác của cây cho đến khi không còn lựa chọn nào.}
+				\item{Cắt tỉa giảm lỗi (reduced error pruning): Cân nhắc từng nút của cây, và thực hiện cắt tỉa cây con có gốc là nút đó. Cây sau phép cắt tỉa này được đánh giá độ chính xác dựa vào tập kiểm thử, nếu độ chính xác không thấp hơn cây trước phép cắt tỉa thì cho phép cắt tỉa. Việc cắt tỉa được lặp lại với các nút không làm giảm độ chính xác của cây cho đến khi không còn lựa chọn nào.}
 				\item{Cắt tỉa theo luật (rule post-pruning): Đây là phương pháp được sử dụng trong giải thuật C4.5, bao gồm các bước:
 					\begin{itemize}
 						\item{Xây dựng cây từ tập huấn luyện}
@@ -438,8 +439,8 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					\end{itemize}}				
 				\end{itemize}
 
-	\section{Phương pháp đề xuất}
-		\subsection{Nội dung bài toán}
+	\chapter{Phương pháp đề xuất}	
+		\section{Nội dung bài toán}
 			\par Cho một văn bản chứa ý kiến gồm một tập các đối tượng O = \{$o_1$,$o_2$,$o_3$,...\}. Giả định của bài toán là ý kiến trong văn bản đều từ một chủ thể duy nhất và tập thuộc tính $F_i$ của các đối tượng đã được tìm ra. Mục tiêu của bài toán là tìm các chuỗi đồng tham chiếu đồng nhất (identity) của đối tượng và thuộc tính.
 			\begin{itemize}
 				\item{Đầu vào: Văn bản có chứa ý kiến.}
@@ -469,24 +470,25 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					\end{tabular}
 			 	\end{center}}
 		 	\end{itemize}
-		\subsection{Tổng quan quy trình}
-			\begin{figure}[H]
+		\section{Tổng quan quy trình}
+			\begin{figure}[H] 
 				\centering				
-				\includegraphics[scale=0.7]{images/general_model.png}
-			\end{figure}
-		\subsection{Tiền xử lý dữ liệu}
-		\par Dữ liệu thu thập được sẽ được tiền xử lý nhằm giúp giảm sai số cho các bước sau. Bước tiền xử lý đảm bảo đặc tính ngôn ngữ của văn bản không thay đổi. Sau đây trình bày một số thao tác tiền xử lý mà nhóm đã thực hiện:
+				\resizebox{160mm}{!}{\input{images/general_model.pdf_tex}}
+				\caption{Tổng quan quy trình phân giải đồng tham chiếu}							
+			\end{figure}			
+		\section{Tiền xử lý dữ liệu}
+		\par Dữ liệu thu thập được sẽ được tiền xử lý nhằm giúp giảm sai số cho các bước sau. Bước tiền xử lý đảm bảo đặc tính ngôn ngữ của văn bản không thay đổi. Sau đây trình bày một số thao tác tiền xử lý mà chúng tôi đã thực hiện:
 		\begin{itemize}
 			\item{Tiền xử lý các lỗi liên quan đến đặc tính của công cụ Stanford
 				\par Ví dụ: "I am very pleased with the phone we received.It is a genuine Samsung S3". Từ đầu tiên của câu sau phải cách dấu chấm của câu trước ít nhất một khoảng trắng, trong trường hợp như trên, nếu "It" trong câu 2 nằm ngay sau dấu "." của câu trước nó, công cụ sẽ bắt cả 2 thành chỉ 1 câu, làm cho quá trình phân tích cú pháp (parse) ngay sau đó bị sai.}
 			\item{Tiền xử lý các lỗi liên quan đến ngữ pháp của văn bản: Một số câu trong dữ liệu thu thập có thể "sai" ngữ pháp (có thể là do văn phạm của người viết review không thực sự chuẩn xác). 
 				\par Ví dụ: "Yes it was hard to see the screen in daylight but I don't expect to see a crystal clear picture on a cell phone, they aren't mini laptops folks". ("Yes" được dùng ở đầu câu không hợp lý, công cụ bắt "Yes it" là cụm danh từ).			
 				\par "I had low expectations about this phone, but when I opened it for the first time I knew it was tend to be mine". ("was tend" sai ngữ pháp)
-				\par Những cú pháp văn phạm sai như vậy làm cho công cụ parsing sai. Hiện tại, với việc thực hiện trên một khối lượng dữ liệu khá nhỏ, trong lúc chọn lọc review nhóm cố gắng đọc và tìm ra các review có cấu trúc văn phạm tiếng Anh đúng, hoặc cố gắng sửa các lỗi nhỏ trong câu để câu được hoàn thiện ngữ pháp. Tuy nhiên, nếu áp dụng trên một khối lượng dữ liệu lớn hơn, những lối văn phạm này sẽ gây ảnh hưởng.} 
+				\par Những cú pháp văn phạm sai như vậy làm cho công cụ parsing sai. Hiện tại, với việc thực hiện trên một khối lượng dữ liệu khá nhỏ, trong lúc chọn lọc review chúng tôi cố gắng đọc và tìm ra các review có cấu trúc văn phạm tiếng Anh đúng, hoặc cố gắng sửa các lỗi nhỏ trong câu để câu được hoàn thiện ngữ pháp. Tuy nhiên, nếu áp dụng trên một khối lượng dữ liệu lớn hơn, những lối văn phạm này sẽ gây ảnh hưởng.} 
 		\end{itemize}
 
-		\subsection{Trích xuất cụm danh từ}
-			\par Như đã đề cập ở mục \ref{coref_problem}, các \textit{mention} trong bài toán đồng tham chiếu thường là các danh từ/cụm danh từ (từ đây gọi chung là cụm danh từ). Mặt khác trong các văn bản chứa ý kiến, các đối tượng và thuộc tính hầu hết cũng đều được thể hiện bằng các cụm danh từ. Do đó, để trích xuất ra các \textit{mention} phục vụ cho các bước tiếp theo, nhóm thực hiện trích xuất các cụm danh từ trong văn bản. Để thực hiện việc này, trước tiên dùng công cụ Stanford \footnote{http://stanfordnlp.github.io/CoreNLP} để gán nhãn từ loại (part-of-speech) \footnote{http://web.mit.edu/6.863/www/PennTreebankTags.html} cho văn bản rồi sau đó tìm các cụm danh từ dựa vào công cụ CRFChunker \cite{crfchunker}. Tập hợp các cụm danh từ được tìm ra gồm ba loại: các cụm danh từ chỉ đối tượng (cụm danh từ riêng), các cụm danh từ chỉ thuộc tính, các cụm danh từ khác.
+		\section{Trích xuất cụm danh từ}
+			\par Như đã đề cập ở mục \ref{coref_problem}, các \textit{mention} trong bài toán đồng tham chiếu thường là các danh từ/cụm danh từ (từ đây gọi chung là cụm danh từ). Mặt khác trong các văn bản chứa ý kiến, các đối tượng và thuộc tính hầu hết cũng đều được thể hiện bằng các cụm danh từ. Do đó, để trích xuất ra các \textit{mention} phục vụ cho các bước tiếp theo, chúng tôi thực hiện trích xuất các cụm danh từ trong văn bản. Để thực hiện việc này, trước tiên dùng công cụ Stanford \footnote{http://stanfordnlp.github.io/CoreNLP} để gán nhãn từ loại (part-of-speech) \footnote{http://web.mit.edu/6.863/www/PennTreebankTags.html} cho văn bản rồi sau đó tìm các cụm danh từ dựa vào công cụ CRFChunker \cite{crfchunker}. Tập hợp các cụm danh từ được tìm ra gồm ba loại: các cụm danh từ chỉ đối tượng (cụm danh từ riêng), các cụm danh từ chỉ thuộc tính, các cụm danh từ khác.
 			\par Trong nhóm các cụm danh từ khác đã được tìm ra, có những cụm danh từ sẽ không được đưa vào bộ phân loại vì chúng không thể chỉ về đối tượng và thuộc tính. Đó là những cụm danh từ thuộc các loại sau:
 				\begin{itemize}
 					\item{Các cụm danh từ chỉ dùng nói để nói đến con người: Là các cụm danh từ mà HEAD của chúng thuộc về danh sách sau:
@@ -522,7 +524,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 				\par Đọc và lưu thông tin từ đoạn kết quả ghép cụm này, sau đó bỏ đi các cụm danh từ như đã nói ở trên, có được các cụm danh từ sẽ được dùng cho các bước tiếp theo:\\
 				\textit{<The Note 3> is a lot lighter than <my HTC EVO>. <It>'s very fast and has <so many features> that <an IPhone5> can't touch. I love <the camera features> and <it> takes <great pictures>.}
 				\\Các cụm từ trong dấu <> là các cụm danh từ được trích xuất và sử dụng cho các bước tiếp theo.
-		\subsection{Gán nhãn dữ liệu}
+		\section{Gán nhãn dữ liệu}
 			\par Kết quả của bước trích xuất cụm danh từ là cơ sở cho việc gán nhãn dữ liệu. Mục đích của việc gán nhãn dữ liệu là xác định loại của các cụm danh từ đã được tìm ra, liệu chúng có chỉ đến đối tượng, thuộc tính không và đồng thời nếu có thì biểu diễn sự đồng tham chiếu đó. Do vậy việc tạo tập dữ liệu để hệ thống học và kiểm tra sẽ dễ dàng hơn.
 			\par Mỗi cụm danh từ được gán nhãn có dạng <ID,REF,TYPE NP>. Trong đó:
 				\begin{itemize}
@@ -548,7 +550,13 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					\item{<5,-1,3 the camera > và <7,-1,3 great pictures> là tên thuộc tính (TYPE = 3).}
 				\end{itemize} 
 
-		\subsection{Trích xuất thuộc tính}
+			\par Công việc gán nhãn bằng tay là công việc chứa nhiều nguy cơ sai sót, đặc biệt trên một khối lượng dữ liệu lớn. Do vậy, nhằm tránh những lỗi sai và đồng thời tăng tốc độ làm việc, chúng tôi đã viết một công cụ giúp gán nhãn dữ liệu. Công cụ này lấy đầu vào là các văn bản đã được trích xuất cụm danh từ và xuất ra văn bản được gán nhãn như ví dụ này. Bằng các thao tác kích chuột đơn giản, có thể chọn TYPE và chuỗi đồng tham chiếu (các cụm danh từ chung chuỗi thì chung màu) cho các cụm danh từ, sau đó xuất kết quả (Export).
+			\begin{figure}[H] 
+				\centering				
+				\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{images/markup_tool.png}		\caption{Công cụ gán nhãn dữ liệu đồng tham chiếu}	
+			\end{figure}
+
+		\section{Trích xuất thuộc tính}
 
 			\begin{table}[H]
 				\centering
@@ -559,44 +567,44 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 
 			\par Giả sử các cặp \textit{mention} gồm hai cụm danh từ (NP1, NP2). Sau đây trình bày về các thuộc tính được sử dụng trong hệ thống.
 
-			\subsubsection*{Thuộc tính Khoảng cách (DISTANCE)}
+			\subsection*{Thuộc tính Khoảng cách (DISTANCE)}
 				\par \textit{Giải thích:} Là khoảng cách giữa hai cụm danh từ.
 				\par \textit{Giá trị:} [0,1,2,3,…]. Nếu hai cụm danh từ nằm trong cùng một câu thì DISTANCE = 0; nếu hai cụm danh từ nằm trong hai câu liền nhau thì DISTANCE = 1; nếu giữa hai cụm danh từ có n câu (không tính hai câu chứa hai cụm danh từ đó và n > 0) thì DISTANCE = n + 1;
  
-			\subsubsection*{Thuộc tính NP1 là đại từ (NP1\_PRONOUN)}
+			\subsection*{Thuộc tính NP1 là đại từ (NP1\_PRONOUN)}
 				\par \textit{Giải thích:} Là khả năng cụm danh từ NP1 là đại từ.
 				\par \textit{Giá trị:} [true, false] Thuộc tính nhận giá trị true nếu NP1 là đại từ và ngược lại nhận giá trị false. Đại từ được nhắc đến bao gồm: đại từ phản thân (itself, themselves), tân ngữ (it, them), đại từ nhân xưng (it, they) và tính từ sở hữu (its, their).
 
-			\subsubsection*{Thuộc tính NP2 là đại từ (NP2\_PRONOUN)}
+			\subsection*{Thuộc tính NP2 là đại từ (NP2\_PRONOUN)}
 				\par \textit{Giải thích:} Là khả năng cụm danh từ NP2 là đại từ.
 				\par \textit{Giá trị:} [true, false]. Thuộc tính nhận giá trị true nếu NP2 là đại từ và ngược lại nhận giá trị false.
 
-			\subsubsection*{Thuộc tính giống nhau hoàn toàn (EXACT\_MATCH)}
+			\subsection*{Thuộc tính giống nhau hoàn toàn (EXACT\_MATCH)}
 				\par \textit{Giải thích:} Là sự giống nhau hoàn toàn giữa hai cụm danh từ.
 				\par \textit{Giá trị:} [true, false]. Thuộc tính nhận giá trị true nếu hai cụm danh từ giống nhau hoàn toàn và nhận giá trị false nếu ngược lại.
 
-			\subsubsection*{Thuộc tính Danh từ chính giống nhau (HEAD\_MATCH)}
+			\subsection*{Thuộc tính Danh từ chính giống nhau (HEAD\_MATCH)}
 				\par \textit{Giải thích:} Là sự giống nhau giữa hai cụm danh từ.
 				\par \textit{Giá trị:} [true, false]. Thuộc tính nhận giá trị true nếu danh từ chính của hai cụm danh từ giống nhau và nhận giá trị false nếu ngược lại.
 
-			\subsubsection*{Thuộc tính Chuỗi con của nhau (SUBSTRING)}
+			\subsection*{Thuộc tính Chuỗi con của nhau (SUBSTRING)}
 				\par \textit{Giải thích:} Kiểm tra hai cụm danh từ có phải là chuỗi con của nhau hay không.
 				\par \textit{Giá trị:} [true, false]. Thuộc tính nhận giá trị true nếu hai cụm danh từ là chuỗi con của nhau và nhận giá trị false nếu ngược lại.
 
-			\subsubsection*{Thuộc tính NP2 là cụm danh từ xác định (DEF\_NP2)}
+			\subsection*{Thuộc tính NP2 là cụm danh từ xác định (DEF\_NP2)}
 				\par \textit{Giải thích:} Là khả năng cụm danh từ NP2 là cụm danh từ xác định (cụm danh từ có từ bắt đầu là "the"). 
 				\par \textit{Giá trị:} [true, false]. Thuộc tính nhận giá trị true nếu NP2 là cụm danh từ xác định và false nếu ngược lại.
 
-			\subsubsection*{Thuộc tính NP2 là cụm danh từ chỉ định (DEM\_NP2)}
+			\subsection*{Thuộc tính NP2 là cụm danh từ chỉ định (DEM\_NP2)}
 				\par \textit{Giải thích:} Là khả năng cụm danh từ NP2 là cụm danh từ xác định (cụm danh từ có từ bắt đầu là "this", "that", "these" hoặc "those"). 
 				\par \textit{Giá trị:} [true, false]. Thuộc tính nhận giá trị true nếu NP2 là cụm danh từ chỉ định và false nếu ngược lại.
 
-			\subsubsection*{Thuộc tính Danh từ riêng (PROPER\_NAME)}
-				\par \textit{Giải thích:} Là khả năng cả hai cụm danh từ đều là danh từ riêng.
-				\par \textit{Giá trị:} [true, false]. Thuộc tính nhận giá trị true nếu cả hai cụm danh từ đều là danh từ riêng và nếu không phải thì nhận giá trị false.
-				\par \textit{Phương pháp hiện thực:} trình bày cách mà nhóm đã sử dụng để xác định một cụm danh từ có là danh từ riêng hay không.				
-				\par Một cụm danh từ gồm nhiều từ, thông qua công cụ gán nhãn từ loại (part of speech) của Stanford, biết được nhãn POS được gán với mỗi từ. Theo như quy ước về nhãn từ loại: Nhãn NNP chỉ danh từ riêng số ít, nhãn NNPS chỉ danh từ riêng số nhiều. Nếu nhãn của một từ nào đó trong cụm danh từ là NNP hoặc NNPS thì cụm danh từ đó là danh từ riêng. Ví dụ: Trong câu \textit{"The Galaxy S3 is beautiful."}, cụm danh từ The Galaxy S3 được công cụ gán nhãn của Stanford xử lý thành The/DT Galaxy/NNP S3/NNP. The Galaxy S3 là danh từ riêng vì có có từ Galaxy và từ S3 được gán nhãn NNP.
-				\par Tuy nhiên, trên thực tế vẫn có nhiều danh từ riêng không tuân theo quy luật trên, công cụ của Stanford không xác định được. Ví dụ: "iphone 6", "iPhone 6" hay "The 620", "the Active". Những cụm danh từ này công cụ gán nhãn từ loại của Stanford không gán được nhãn NNP hay NNPS. Vì vậy nhóm đề xuất hướng giải quyết:
+			\subsection*{Thuộc tính Tên riêng (PROPER\_NAME)}
+				\par \textit{Giải thích:} Là khả năng cả hai cụm danh từ đều là tên riêng.
+				\par \textit{Giá trị:} [true, false]. Thuộc tính nhận giá trị true nếu cả hai cụm danh từ đều là tên riêng và nếu không phải thì nhận giá trị false.
+				\par \textit{Phương pháp hiện thực:} Phần sau trình bày cách mà chúng tôi đã sử dụng để xác định một cụm danh từ có là tên riêng hay không.				
+				\par Một cụm danh từ gồm nhiều từ, thông qua công cụ gán nhãn từ loại (part of speech) của Stanford, biết được nhãn POS được gán với mỗi từ. Theo như quy ước về nhãn từ loại: Nhãn NNP chỉ danh từ riêng số ít, nhãn NNPS chỉ danh từ riêng số nhiều. Nếu nhãn của một từ nào đó trong cụm danh từ là NNP hoặc NNPS thì cụm danh từ đó là danh từ riêng. Ví dụ: Trong câu \textit{"The Galaxy S3 is beautiful."}, cụm danh từ The Galaxy S3 được công cụ gán nhãn của Stanford xử lý thành The/DT Galaxy/NNP S3/NNP. The Galaxy S3 là tên riêng vì có có từ Galaxy và từ S3 được gán nhãn NNP.
+				\par Tuy nhiên, trên thực tế vẫn có nhiều danh từ riêng không tuân theo quy luật trên, dựa vào công cụ của Stanford không xác định được. Ví dụ: "iphone 6", "iPhone 6" hay "The 620", "the Active". Những cụm danh từ này công cụ gán nhãn từ loại của Stanford không gán được nhãn NNP hay NNPS. Vì vậy nhóm đề xuất hướng giải quyết:
 				\begin{itemize}
 					\item{Cụm danh từ có danh từ chính với nhãn là NNP, NNPS, CD được xác định là danh từ riêng. Như vậy với trường hợp "The 620", hệ thống vẫn sẽ nhận ra được là danh từ riêng vì có danh từ chính "620" mang nhãn CD.}
 					\item{Tạo danh sách chứa các cụm danh từ riêng đặc biệt là \{"iphone", "iphones", "ipod", "ipad", "ipads"\}, nếu cụm danh từ có danh từ chính là một trong những từ nằm trong danh sách trên thì cụm danh từ đó là danh từ riêng.}
@@ -605,13 +613,13 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					\item{Nếu cụm danh từ có danh từ chính viết hoa và danh từ chính nằm trong từ điển thì xét 2 trường hợp. Nếu cụm danh tử gồm hơn 1 từ thì cụm danh từ đó là danh từ riêng. Ví dụ: "The Active" là danh từ riêng. Nếu cụm danh từ chỉ là 1 từ thì không phải là danh từ riêng. Ví dụ: "It", "They" không phải là danh từ riêng.}
 				\end{itemize}
 
-			\subsubsection*{Thuộc tính Từ chỉ ý kiến (OPINION\_WORD)}
+			\subsection*{Thuộc tính Từ chỉ ý kiến (OPINION\_WORD)}
 				\par \textit{Giải thích:} Là quan hệ giữa từ chỉ ý kiến của cụm danh từ NP1 với cụm danh từ NP2.
 				\par \textit{Giá trị:} [0,1,2,3,4,10]. 
 				\par Từ chỉ ý kiến là danh từ, tính từ hoặc trạng từ thường được dùng để đánh giá một thuộc tính, đối tượng (như đã đề cập trong mục \ref{ow_section}). Ví dụ: với câu "This phone is awesome", từ chỉ ý kiến là "awesome".
 				\par Xuất phát từ ý tưởng: những từ chỉ ý kiến thường đi kèm với một số đối tượng, thuộc tính nhất định. Nếu từ chỉ ý kiến đi kèm với cụm danh từ NP1 và nó không bao giờ đi kèm với cụm danh từ NP2 thì dễ dàng thấy rằng khả năng NP1 và NP2 đồng tham chiếu với nhau là rất thấp. Ví dụ đoạn review sau: "The phone does not hold a charge long enough to last the day and it’s expensive." Ta thấy "long" thường được đi kèm với cụm danh từ "a charge" và ít khi đi kèm với cụm danh từ "the phone", nên "a charge" không đồng tham chiếu đến "the phone".
 				\par \textit{Giải thuật:}
-				\\Để xác định mối quan hệ giữa một từ chỉ ý kiến (OW) với một cụm danh từ (NP), nhóm sử dụng giá trị thông tin chung dựa trên điểm (pointwise mutual information PMI) được tính dựa vào OW và NP. Để xác định mối quan hệ giữa OW và NP, cần một tập dữ liệu T gồm các bài đánh giá chứa OW và NP đó. Khi đã có OW, NP và tập dữ liệu T, nhóm sẽ lần lượt tính các giá trị xác suất P(NP), P(OW), P(NP,OW). Trong đó:
+				\\Để xác định mối quan hệ giữa một từ chỉ ý kiến (OW) với một cụm danh từ (NP), chúng tôi sử dụng giá trị thông tin chung dựa trên điểm (pointwise mutual information PMI) được tính dựa vào OW và NP. Để xác định mối quan hệ giữa OW và NP, cần một tập dữ liệu T gồm các bài đánh giá chứa OW và NP đó. Khi đã có OW, NP và tập dữ liệu T, chúng tôi sẽ lần lượt tính các giá trị xác suất P(NP), P(OW), P(NP,OW). Trong đó:
 				\begin{itemize} 
 					\item{P(NP): Xác suất cụm danh từ xuất hiện trong tập dữ liệu T.}
 					\item{P(OW): Xác suất từ chỉ ý kiến xuất hiện trong tập dữ liệu T.}
@@ -641,15 +649,15 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					PMI(NP,OW) = log\frac{(P(NP,OW)}{P(NP)\times P(OW)}
 					\end{equation*}
 				\end{center}
-				\par Giá trị PMI không chỉ biểu hiện mối quan hệ giữa một OW và một NP, mà còn cho ta thấy mối quan hệ giữa cụm danh từ mà OW đang nói đến với NP. Do đó, từ giá trị PMI tính được, nhóm tạo thuộc tính mới OPINION\_WORD cho mỗi mẫu để biểu thị mối quan hệ giữa cặp hai cụm danh từ. Dưới đây là cách hiện thực của nhóm: 
-				\par Cụm danh từ NP1 có từ chỉ ý kiến đi kèm là OW1. Đầu tiên, nhóm tính giá trị PMI( NP\textsubscript{$i$},OW1) với  NP\textsubscript{$i$} là các cụm danh từ nằm trước NP1. Kết quả là nhóm thu được danh sách các giá trị PMI. Cụm danh từ  NP\textsubscript{$i$} nào có giá trị PMI( NP\textsubscript{$i$},OW1) cao nhất thì thuộc tính OPINION\_WORD của mẫu tạo bởi  NP\textsubscript{$i$} đó và NP1 là 0, cao thứ nhì thì OPINION\_WORD = 1, cao thứ ba thì OPINION\_WORD = 2, cao thứ tư thì OPINION\_WORD = 3, còn lại OPINION\_WORD = 4. Với trường hợp NP1 không có từ chỉ ý kiến kèm theo, hoặc các giá trị P(NP,OW) = 0, P(NP) = 0, P(OW) = 0 thì  các mẫu tạo bởi cặp đó với các từ đứng trước có giá trị thuộc tính OPINION\_WORD = 10. OPINION\_WORD càng nhỏ thể hiện khả năng hai cụm danh từ có quan hệ càng cao, càng có khả năng đồng tham chiếu với nhau.
+				\par Giá trị PMI không chỉ biểu hiện mối quan hệ giữa một OW và một NP, mà còn cho ta thấy mối quan hệ giữa cụm danh từ mà OW đang nói đến với NP. Do đó, từ giá trị PMI tính được, chúng tôi tạo thuộc tính mới OPINION\_WORD cho mỗi mẫu để biểu thị mối quan hệ giữa cặp hai cụm danh từ. Dưới đây là cách hiện thực của chúng tôi: 
+				\par Cụm danh từ NP1 có từ chỉ ý kiến đi kèm là OW1. Đầu tiên, chúng tôi tính giá trị PMI( NP\textsubscript{$i$},OW1) với  NP\textsubscript{$i$} là các cụm danh từ nằm trước NP1. Kết quả là chúng tôi thu được danh sách các giá trị PMI. Cụm danh từ  NP\textsubscript{$i$} nào có giá trị PMI( NP\textsubscript{$i$},OW1) cao nhất thì thuộc tính OPINION\_WORD của mẫu tạo bởi  NP\textsubscript{$i$} đó và NP1 là 0, cao thứ nhì thì OPINION\_WORD = 1, cao thứ ba thì OPINION\_WORD = 2, cao thứ tư thì OPINION\_WORD = 3, còn lại OPINION\_WORD = 4. Với trường hợp NP1 không có từ chỉ ý kiến kèm theo, hoặc các giá trị P(NP,OW) = 0, P(NP) = 0, P(OW) = 0 thì  các mẫu tạo bởi cặp đó với các từ đứng trước có giá trị thuộc tính OPINION\_WORD = 10. OPINION\_WORD càng nhỏ thể hiện khả năng hai cụm danh từ có quan hệ càng cao, càng có khả năng đồng tham chiếu với nhau.
 				\par Ví dụ: "The phone does not hold a charge long enough to last the day and it’s expensive."
 				\\Câu trên có 3 cụm danh từ NP1 "the phone", NP2 "a charge", NP3 "it". Từ chỉ ý kiến OW3 "expensive" đi kèm với NP3. Để tính giá trị thuộc tính OPINION\_WORD cho các cặp (NP1,NP3) và (NP2 NP3), trước tiên ta sẽ tính PMI(NP1, OW3) và PMI(NP2, OW3). Sau khi tính toán, thu được PMI(NP2, OW3) nhỏ hơn PMI(NP1, OW3), khi đó OPINION\_WORD(NP1, NP3) = 0, OPINION\_WORD(NP2, NP3) = 1.
 				\par Trong trường hợp một NP có nhiều hơn một từ chỉ ý kiến. Quan hệ giữa hai cụm danh từ không còn dựa trên một từ chỉ ý kiến mà phải dựa vào tập từ chỉ ý kiến. Giá trị PMI dùng để xây dựng giá trị thuộc tính OPINION\_WORD bây giờ là giá trị PMI trung bình. Ví dụ NP1 có OW1 và OW2. Quan hệ giữa cụm từ  NP\textsubscript{$i$} với N1 không còn chỉ dựa vào PMI( NP\textsubscript{$i$},OW1) hoặc PMI( NP\textsubscript{$i$}, OW2) mà dựa vào giá trị PMI trung bình của chúng. Ta lần lượt tính giá trị PMI( NP\textsubscript{$i$},OW1) và PMI( NP\textsubscript{$i$}, OW2), giá trị PMI của  NP\textsubscript{$i$} với tập từ ý kiến là:
 				PMI( NP\textsubscript{$i$}, {OW1, OW2}) = PMI( NP\textsubscript{$i$},OW1) + PMI( NP\textsubscript{$i$}, OW2)/ số từ chỉ ý kiến. 
 				Ta tạo giá trị OPINION\_WORD như cách đã trình bày ở trên dựa trên các giá trị PMI( NP\textsubscript{$i$}, {OW1, OW2}) đã tính được.
 				\par \textit{Phương pháp thực hiện:}
-				\\Trước khi có thể tính giá trị PMI, nhóm phải hiện thực nhiệm vụ: Xác định từ chỉ ý kiến trong văn bản. Để thực hiện điều này, nhóm chia nhỏ thành hai công đoạn. Đầu tiên, nhóm tìm tất cả những từ chỉ ý kiến có trong văn bản, sau đó, nhóm tìm cụm danh từ mà những từ chỉ ý kiến đó hướng đến. Dưới đậy, nhóm trình bày kĩ hơn về cách hiện thực hai công đoạn.
+				\\Trước khi có thể tính giá trị PMI, chúng tôi phải hiện thực nhiệm vụ: Xác định từ chỉ ý kiến trong văn bản. Để thực hiện điều này, chúng tôi chia nhỏ thành hai công đoạn. Đầu tiên, chúng tôi tìm tất cả những từ chỉ ý kiến có trong văn bản, sau đó, chúng tôi tìm cụm danh từ mà những từ chỉ ý kiến đó hướng đến. Dưới đậy, chúng tôi trình bày kĩ hơn về cách hiện thực hai công đoạn.
 				\par Xác định từ chỉ ý kiến trong văn bản:
 				\\Từ chỉ ý kiến có thể là danh từ, tính từ, trạng từ. Trong đề tài, nhóm chỉ xác định các từ chỉ ý kiến là tính từ và trạng từ. Theo công cụ gán nhãn Stanford: Từ có nhãn JJ hoặc JJS hoặc JJR là tính từ, từ có nhãn RB là trạng từ. Để xác định từ chỉ ý kiến có trong văn bản, nhóm chỉ việc đi tìm những từ có nhãn POS là RB hoặc JJS hoặc JJ hoặc JJR và những từ đó xuất hiện trong danh sách L chứa những từ chỉ ý kiến. Danh sách chứa những từ chỉ ý kiến L mà nhóm sử dụng tham khảo từ kết quả trong một công trình nghiên cứu của Bing Liu (2004)\cite{findfeatures1}. Danh sách L gồm khoảng 6800 từ chỉ ý kiến, được thu thập những từ chỉ ý kiến từ các reviews về điện thoại, máy ảnh. quan hệ giữa chúng với đối tượng, thuộc tính là khác nhau. 
 				\\ Dựa trên dữ liệu thực tế, nhóm điều chỉnh một số chỗ. Đầu tiên, những tính từ như "right" trong cụm từ "right now" hoặc "well" trong "as well as", nếu chúng đứng riêng lẻ thì từ chỉ ý kiến nhưng nằm trong các cụm đó thì không, nhóm không sử dụng chúng. Thứ hai, nhóm bổ sung vào danh sách L thêm những tính từ không chỉ ý kiến nhưng có đặc điểm của từ chỉ ý kiến, đó là chúng thường đi kèm với thuộc tính nhất định, quan hệ giữa chúng với các đối tượng, thuộc tính khác nhau là khác nhau. Ví dụ: “big” thường đi kèm với “the phone”, “screen” chừ thường ít đi kèm với “camera”.
@@ -667,14 +675,14 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 						\end{itemize}}
 				\end{itemize}
 
-			\subsubsection*{Thuộc tính Thống nhất về số (NUMBER\_AGREEMENT)}
+			\subsection*{Thuộc tính Thống nhất về số (NUMBER\_AGREEMENT)}
 				\par \textit{Giải thích:} Hai cụm danh từ cùng mang ý nghĩa số ít hoặc cùng mang ý nghĩa số nhiều thì xác suất chúng đồng tham chiếu là cao hơn trường hợp ngược lại. 
 				\par \textit{Giá trị:} [true, false]. Thuộc tính nhận giá trị true nếu cả hai cụm danh từ có cùng "số" và nếu không phải thì nhận giá trị false.
-				\par Để trích xuất thuộc tính này, nhóm sử dụng công cụ Stanford để tìm ra HEAD của mỗi cụm danh từ ứng viên và "số" của HEAD được coi là "số" của cụm danh từ chứa nó. Nếu HEAD là danh từ, "số" của cụm danh từ được xác định dựa trên POS Tag của chính nó (NN, NNP cho số ít) và (NNS, NNPS cho số nhiều). Nếu HEAD là đại từ, "số" của nó được gán dựa vào một danh sách các đại từ số nhiều và số ít đã được tổng hợp.
+				\par Để trích xuất thuộc tính này, chúng tôi sử dụng công cụ Stanford để tìm ra HEAD của mỗi cụm danh từ ứng viên và "số" của HEAD được coi là "số" của cụm danh từ chứa nó. Nếu HEAD là danh từ, "số" của cụm danh từ được xác định dựa trên POS Tag của chính nó (NN, NNP cho số ít) và (NNS, NNPS cho số nhiều). Nếu HEAD là đại từ, "số" của nó được gán dựa vào một danh sách các đại từ số nhiều và số ít đã được tổng hợp.
 				\par Ví dụ:
 				\\"I transfered my old phone to my friend and now consider to buy two new phones. They are both Motorola". Two new phones và they khả năng là đồng tham chiếu vì chúng đều là số nhiều ("phones" và "they" số nhiều), trong khi "my old phone" là số ít do đó nếu bắt cặp nó với "they" chẳng hạn thì chúng không thể đồng tham chiếu được.				
 
-			\subsubsection*{Thuộc tính Từ khóa "is" nằm ở giữa (IS\_BETWEEN)}
+			\subsection*{Thuộc tính Từ khóa "is" nằm ở giữa (IS\_BETWEEN)}
 				\par \textit{Giải thích:} Nếu ở giữa 2 cụm danh từ trong câu có từ "is" và nó không đi kèm với bất kỳ chỉ định so sánh nào thì có xác suất để 2 cụm danh từ này đồng tham chiếu. Nếu ở giữa 2 cụm danh từ trong câu có từ "is" và nó có đi kèm với một chỉ định so sánh nào thì có xác suất để 2 cụm danh từ này trỏ tới 2 thực thể/thuộc tính khác nhau.
 				\par \textit{Giá trị:} [true, false]. Thuộc tính nhận giá trị true nếu ở giữa 2 cụm danh từ trong câu có từ "is" đồng thời không có chỉ định so sánh nào, ngược lại nhận giá trị false.
 				\par Về việc xác định các chỉ định so sánh, các chỉ định so sánh được tìm kiếm bằng cách bắt các từ/cụm từ thuộc các mẫu so sánh phổ biến (đã đề cập ở mục \ref{comparative_section}).
@@ -682,7 +690,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 				\\"Nokia 215 is my second phone". "Nokia 215" và "my second phone" khả năng đồng tham chiếu với nhau.
 				\\"Overall the K800 is far superior to the W810". "K8100" và "W810" khả năng trỏ tới 2 thực thể khác nhau.
 
-			\subsubsection*{Thuộc tính Từ khóa "has" nằm ở giữa (HAS\_BETWEEN)}
+			\subsection*{Thuộc tính Từ khóa "has" nằm ở giữa (HAS\_BETWEEN)}
 				\par \textit{Giải thích:} Nếu ở giữa 2 cụm danh từ trong câu có từ "has" thì có xác suất để 2 cụm danh từ này trỏ tới 2 đối tượng/thuộc tính khác nhau, giữa chúng có thể là mối quan hệ bộ phận (part-of). 
 				\par \textit{Giá trị:} [true, false]. Thuộc tính nhận giá trị true nếu ở giữa 2 cụm danh từ trong câu có từ "has", ngược lại nhận giá trị false.
 				\par Ví dụ:
@@ -691,7 +699,11 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 				\par \textit{Phương pháp hiện thực:}
 				\\Nếu giữa hai cụm danh từ có chứa từ "has" hoặc "have" hoặc "had" và từ đi kèm sau chúng không phải là "to" hay động từ nhóm 3 (nhãn POS là "VBN") thì thuộc tính HAS\_BETWEEN của cặp hai cụm danh từ là true. Trong những trường hợp còn lại HAS\_BETWEEN bằng false.
 
-			\subsubsection*{Thuộc tính Nhất quán về ý kiến (SENTIMENT\_CONSISTENCY)}
+			\subsection*{Thuộc tính đại từ quan hệ (RELATIVE\_PRONOUN)}
+				\par \textit{Giải thích:} Trong số các cụm danh từ được giữ lại từ bước Trích xuất cụm danh từ, có những đại từ quan hệ cần được phân giải đồng tham chiếu vì chúng thường chỉ về một thực thể được nhắc bởi một từ/cụm từ trước đó trong câu. Ví dụ: "It came with an adaptor plug \textit{which} can fits any A/C plug.", \textit{which} trong trường hợp này cùng chỉ về một thực thể được nhắc bởi "an adaptor plug".
+				\par \textit{Giá trị:} [true, false]. Nếu NP2 được tạo thành từ đại quan hệ không chỉ người (các từ có nhãn từ loại là WHNP ngoại trừ "who"), thuộc tính cho giá trị true. Ngược lại cho giá trị false. 
+ 
+			\subsection*{Thuộc tính Nhất quán về ý kiến (SENTIMENT\_CONSISTENCY)}
 				\par \textit{Giải thích:} Khi người dùng giới thiệu một đối tượng và thể hiện ý kiến đối với nó trong một câu, họ có xu hướng nhắc lại đối tượng đó trong câu tiếp theo với cùng ý kiến. Hiện tượng này là dễ bắt gặp trong các văn bản chứa ý kiến đánh giá về các sản phẩm.
 				\par \textit{Giá trị:} [0,1,2]
 				\\Nếu NP1 và NP2 cùng thiên hướng ý kiến $\Rightarrow$ 1
@@ -718,13 +730,13 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					\\"However, I want to admit Lumia 920 is by far better than the iPhone! Learn how to use, and it's amazing!" 
 					\\Nhờ từ khóa so sánh "better", ta xác định được đối tượng ưu tiên là "Lumia 920". Ở câu tiếp theo do thiên hướng đối với đại từ "it" là tích cực (dựa vào từ chỉ ý kiến "amazing" gắn với nó) nên "it" có khả năng đang nói tới đối tượng "Lumia 920", theo tính chất nhất quán về ý kiến trong ngôn ngữ.}
 				\end{itemize}
-				\par Để xác định được thiên hướng ý kiến đối với 1 cụm danh từ bất kỳ, nhóm sử dụng từ chỉ ý kiến/tiêu cực. Nếu không có từ chỉ ý kiến nào đi kèm thì cụm danh từ đó được xác định là không rõ thiên hướng ý kiến.
+				\par Để xác định được thiên hướng ý kiến đối với 1 cụm danh từ bất kỳ, chúng tôi sử dụng từ chỉ ý kiến/tiêu cực. Nếu không có từ chỉ ý kiến nào đi kèm thì cụm danh từ đó được xác định là không rõ thiên hướng ý kiến.
 
-		\subsection{Tạo bộ phân loại}
-			\subsubsection*{Tạo tập huấn luyện}
+		\section{Tạo bộ phân loại}
+			\subsection*{Tạo tập huấn luyện}
 				\par Giải thuật phân loại nhận đầu vào để học là một tập các mẫu. Một mẫu dùng để học (instance) có dạng: Instance = (<$f_1$,$f_2$,…,$f_n$>, y), trong đó n thể hiện mẫu có n thuộc tính, $f_i$ thể hiện giá trị của thuộc tính thứ i, y thể hiện giá trị phân loại đầu ra của mẫu. Cứ mỗi cặp (NP1, NP2) tạo được một mẫu. 
 				\\Từ tập dữ liệu học, ta xác định được danh sách L chứa các cụm danh từ NPs.
-				\par Tập mẫu dùng để học (Instances): mọi cặp (NP1, NP2) được tạo ra từ danh sách L và thỏa mãn điều kiện NP1 hoặc NP2 là cụm danh từ chỉ đối tượng/thuộc tính (TYPE = 0 hoặc TYPE = 2 hoặc TYPE = 3). Bởi vì đề tài chỉ thực hiện với mục đích phân giải đồng tham chiếu các đối tượng/thuộc tính nên nhóm không xét trường hợp các cặp (NP1,NP2) mà NP1 và NP2 đều không chỉ đối tượng/thuộc tính (TYPE = 1).
+				\par Tập mẫu dùng để học (Instances): mọi cặp (NP1, NP2) được tạo ra từ danh sách L và thỏa mãn điều kiện NP1 hoặc NP2 là cụm danh từ chỉ đối tượng/thuộc tính (TYPE = 0 hoặc TYPE = 2 hoặc TYPE = 3). Bởi vì đề tài chỉ thực hiện với mục đích phân giải đồng tham chiếu các đối tượng/thuộc tính nên chúng tôi không xét trường hợp các cặp (NP1,NP2) mà NP1 và NP2 đều không chỉ đối tượng/thuộc tính (TYPE = 1).
 				\\Đặc điểm mỗi mẫu dữ liệu để học:
 				\begin{itemize}
 					\item{Tập thuộc tính: đã được đề cập ở phần 3.}
@@ -741,15 +753,15 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					\includegraphics{images/examples_train.png}
 				\end{figure} 
 				\par Thứ tự ý nghĩa của các giá trị trong mỗi mẫu là: ID\_NP1, ID\_NP2, NP1\_PRONOUN, NP2\_PRONOUN, DEF\_NP2, DEM\_NP2, PROPER\_NAME, STR\_MARCH, DISTANCE, NUMBER, IS\_BETWEEN, HAS\_BETWEEN, COMPARATIVE, SENTIMENT, PMI, IS\_NESTED, COREF.
-			\subsubsection*{Tạo tập kiểm tra}
+			\subsection*{Tạo tập kiểm tra}
 				\par Giải thuật phân loại sau khi đã học xong sẽ được áp dụng trên một tập dữ liệu kiểm tra. Nó được áp dụng trên một tập các mẫu. Một mẫu có cấu trúc giống như mẫu dùng để học. Mỗi mẫu (instance) có dạng: Instance = (<$f_1$,$f_2$,…,$f_n$>, y), trong đó n thể hiện mẫu có n thuộc tính, fi thể hiện giá trị của thuộc tính thứ i, y thể hiện giá trị phân loại đầu ra của mẫu. Cứ mỗi cặp (NP1, NP2) tạo được một mẫu. 
 				\\Từ tập dữ liệu dùng để kiểm tra, ta xác định được danh sách T chứa các cụm danh từ NPs. Tập mẫu dùng để kiểm tra (Instances): mọi cặp (NP1, NP2) được tạo ra từ danh sách T.
 				\\Đặc điểm mỗi mẫu dữ liệu để kiểm tra giống với đặc điểm của mẫu dữ liệu dùng để học.
-			\subsubsection*{Kiểm chứng chéo}
+			\subsection*{Kiểm chứng chéo}
 				\par \textit{Kiểm chứng chéo (cross validation)} phân chia dữ liệu thành k tập con (folds) có cùng kích thước một cách ngẫu nhiên. Thực hiện k vòng lặp, tại mỗi vòng lặp sử dụng tập con thứ k là tập kiểm chứng (validation set) và các tập con còn lại là tập huấn luyện (training set). Kết quả cuối cùng của hệ thống là giá trị trung bình kết quả của các vòng lặp. Giá trị k thường được sử dụng là 10. Mô hình được học và kiểm chứng trên các tập dữ liệu khác nhau nên tránh được trường hợp mất cân bằng giữa tập kiểm tra và tập đánh giá. Do đó, kết quả đánh giá đáng tin cậy.
-				\par Nhóm áp dụng giải thuật \textit{Kiểm chứng chéo} để học và kiểm tra hệ thống. Bởi vì tập dữ liệu gồm 157 reviews, nhóm lựa chọn k = 5. Tập dữ liệu được chia làm 5 tập, mỗi tập gồm 31-32 reviews. Hệ thống sẽ thực hiện học và kiểm tra 5 lần liên tiếp, kết quả đánh giá hệ thống dựa trên trung bình kết quả của các lần học và kiểm tra. Tại lần học thứ i, hệ thống sử dụng tập thứ i để tạo tập dữ liệu kiểm tra và các tập còn lại để tạo dữ liệu dùng để học.
-
-			\subsubsection*{Áp dụng phương pháp Chọn lại mẫu (resampling methods)}
+				\par Chúng tôi áp dụng giải thuật \textit{Kiểm chứng chéo} để học và kiểm tra hệ thống. Bởi vì tập dữ liệu gồm 157 reviews, chúng tôi lựa chọn k = 5. Tập dữ liệu được chia làm 5 tập, mỗi tập gồm 31-32 reviews. Hệ thống sẽ thực hiện học và kiểm tra 5 lần liên tiếp, kết quả đánh giá hệ thống dựa trên trung bình kết quả của các lần học và kiểm tra. Tại lần học thứ i, hệ thống sử dụng tập thứ i để tạo tập dữ liệu kiểm tra và các tập còn lại để tạo dữ liệu dùng để học.
+			
+			\subsection*{Áp dụng phương pháp Chọn lại mẫu (resampling methods)}
 				\par Tập dữ liệu dùng để học có sự chênh lệch lớn giữa số lượng các mẫu được phân loại tích cực và số lượng các mẫu được phân loại tiêu cực, cụ thể: chọn một fold ngẫu nhiên, số lượng mẫu học được phân loại tích cực là 4130 và số lượng mẫu học được phân loại tiêu cực là 31686. Sự chênh lệnh lớn này ảnh hưởng đến kết quả của giải thuật phân loại, theo Weiss \cite{weiss03}. Một trong những lí do đó là giải thuật phân loại được học các mẫu tiêu cực quá nhiều thì khả năng giải thuật phân loại sẽ tập trung học những trường hợp tiêu cực nhiều hơn.
 				\par Tình trạng tập dữ liệu chênh lệch trong học máy là phổ biến, nhóm sử dụng cách thường được sử dụng để khắc phục là phương pháp chọn lại mẫu. Ý tưởng của phương pháp này là xây dựng lại tập dữ liệu học, chọn ngẫu nhiên có hoàn lại các mẫu từ tập dữ liệu học ban đầu và chuyển vào tập dữ liệu học mới. Đặc điểm của tập dữ liệu học mới này là tỉ số giữa số mẫu tích cực gần về 1, sự chênh lệch được giảm đi. Ví dụ: tập dữ liệu ban đầu có M mẫu dữ tích cực, N mẫu dữ liệu tiêu cực, với M >> N. Tập dữ liệu học mới gồm (M - T) mẫu tích cực và (N + T) mẫu tiêu cực (T là số mẫu tích cực đã được loại bỏ, cũng là số mẫu tiêu cực tăng lên). Giá trị T tùy thuộc vào cách lựa chọn của mỗi người sử dụng.
 				\par Nhóm sử dụng Resample trong WEKA, một hiện thực của giải thuật chọn lại mẫu. Với các thông số:
@@ -759,13 +771,14 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 				\end{itemize}
 
 
-			\subsubsection*{Áp dụng giải thuật học Cây quyết định}
+			\subsection*{Áp dụng giải thuật học Cây quyết định}
 				\par Các cặp ứng viên được phân loại dựa vào Cây quyết định bằng giải thuật J48 trên Weka \footnote{http://www.cs.waikato.ac.nz/ml/weka}. J48 là sự hiện thực của giải thuật C4.5. Giải thuật này được sử dụng trong hệ thống bằng cách dùng thư viện của nó trong chương trình. Kết quả của việc áp dụng giải thuật là kết quả phân loại cho các cặp cụm danh từ được xét, mỗi cặp có đồng tham chiếu với nhau không.
-		\subsection{Gom cụm các đồng tham chiếu}	
-			\par Dựa vào kết quả phân loại các cặp ứng viên, thực hiện gom cụm đồng tham chiếu. Việc gom cụm này được thực hiện trên cơ sở tính chất bắc cầu của quan hệ đồng tham chiếu (đã chỉ ra ở mục \ref{coref_problem}). Giả sử bộ phân loại cho kết quả các cặp cụm danh từ (A,B) và (B,C) đồng tham chiếu với nhau. Khi đó ta gom được (A,B,C) thành một cụm đồng tham chiếu.						
-	\section{Thực nghiệm và đánh giá}
-		\subsection{Thực nghiệm}
-			\subsubsection*{Chương trình}
+		\section{Gom cụm các đồng tham chiếu}	
+			\par Dựa vào kết quả phân loại các cặp ứng viên, thực hiện gom cụm đồng tham chiếu. Việc gom cụm này được thực hiện trên cơ sở tính chất bắc cầu của quan hệ đồng tham chiếu (đã chỉ ra ở mục \ref{coref_problem}). Giả sử bộ phân loại cho kết quả các cặp cụm danh từ (A,B) và (B,C) đồng tham chiếu với nhau. Khi đó ta gom được (A,B,C) thành một cụm đồng tham chiếu.	
+
+	\chapter{Thực nghiệm và đánh giá}						
+		\section{Thực nghiệm}
+			\subsection*{Chương trình}
 				\par Hệ thống được hiện thực bằng ngôn ngữ Java (JDK1.8), dùng tới các thư viện của công cụ Stanford, Weka và code của công cụ CRFChunker. Chương trình được tổ chức thành các gói (package) sau:
 				\begin{itemize}
 					\item{element: Gói này gồm các lớp (class) lưu thông tin liên quan đến các thành phần trong ngôn ngữ tự nhiên như Review(văn bản), Sentence(câu), NounPhrase(cụm danh từ), Token(thẻ), CorefChain(chuỗi đồng tham chiếu) với các mối quan hệ has-a giữa các lớp.}
@@ -775,91 +788,92 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					\item{util: Gói liên quan đến việc trích xuất các thành phần của ngôn ngữ tự nhiên, dựa vào thư viện của công cụ Stanford, bao gồm cả việc lấy HEAD của các cụm danh từ.}
 					\item{weka: Gói liên quan đến việc tạo bộ phân loại dựa trên công cụ Weka, gồm cả việc dùng Cây quyết định.}
 				\end{itemize}
-				\par Bộ công cụ Xử lý ngôn ngữ tự nhiên của Stanford bao gồm các công cụ khác nhau phục vụ cho nhiều công việc: phân tách các token (tokenize), phân tách câu (ssplit), gán nhãn từ loại (pos), phân tích cú pháp (parse). Nhờ vào một số API do bộ cung cụ này cung cấp, có thể được xác định được HEAD của các cụm từ trong văn bản. Bên cạnh đó, các API do Weka cung cấp cho phép áp dụng giải thuật Cây quyết định trên dữ liệu và trực quan hóa cây kết quả được sinh ra. 
-			\subsubsection*{Dữ liệu thực nghiệm}
+				\par Bộ công cụ Xử lý ngôn ngữ tự nhiên của Stanford bao gồm các công cụ khác nhau phục vụ cho nhiều công việc: phân tách các token (tokenize), phân tách câu (ssplit), gán nhãn từ loại (pos), phân tích cú pháp (parse) và phân tích văn phạm phụ thuộc (dep). Nhờ vào một số API do bộ cung cụ này cung cấp, có thể được xác định được HEAD của các cụm từ trong văn bản. Bên cạnh đó, các API do Weka cung cấp cho phép áp dụng giải thuật Cây quyết định trên dữ liệu và trực quan hóa cây kết quả được sinh ra. 
+			\subsection*{Dữ liệu thực nghiệm}
 				//TODO
 
-			\subsection{Đánh giá}			
-				\subsubsection*{Phương pháp đánh giá}
-					\par Từ tính chất bắc cầu: Nếu cặp (A,B) đồng tham chiếu, (B,C) đồng  tham chiếu thì ta có chuỗi đồng tham chiếu gồm A, B, C. Như vậy, từ tập dữ liệu kiểm tra ta có được:
-						\begin{itemize}
-					 		\item{Tập thực tế S: các chuỗi $S_i$ đồng tham chiếu thực tế. Mỗi cụm $S_i$ có 2 cụm danh từ trở lên.}				
-							\item{Tập dự đoán R: các chuỗi $R_i$ đồng tham chiếu mà hệ thống dự đoán. Trong đó mỗi chuỗi phải chứa ít nhất một tên đối tượng hoặc thuộc tính (cụm danh từ trên thực tế có TYPE = 0 hoặc TYPE = 3), nếu không chuỗi đó sẽ bị bỏ đi khỏi tập dự đoán. Mỗi chuỗi $R_i$ có 2 cụm danh từ trở lên.}
-						\end{itemize}
-					\par Nhóm sử dụng 3 độ đo phổ biến trong bài toán đồng tham chiếu để so sánh tập dự đoán với tập thực tế, đó là: MUC, B3 và CEAF-4.
-					\\Một số khái niệm được sử dụng trong 3 độ đo:
-						\begin{itemize}
-							\item{$S_i$ = \{A B C D\}: chuỗi đồng tham chiếu $S_i$ chứa 4 cụm danh từ là A, B, C, D.}
-							\item{|$S_i$|: số cụm danh từ thuộc chuỗi $S_i$. Ví dụ chuỗi $S_1$ = \{A B C D\} thì |$S_1$| = 4.}
-							\item{p($S_i$): tập hợp các cụm $P_j$ của chuỗi $S_i$. Mỗi cụm $P_j$ chứa các cụm danh từ, tối thiểu là một cụm danh từ. Cách tìm $P_j$: $P_j$ = $S_i$ giao $R_i$. Nếu có cụm danh từ nào trong $S_i$ mà không nằm trong bất kì một chuỗi $R_i$ nào, thì ta sẽ tạo ra chuỗi $P_j$ chứa cụm danh từ đó. Ví dụ: Từ dữ liệu gồm chuỗi $S_1$ = \{A B C D E\} và 2 chuỗi $R_1$ = \{A B\}, $R_2$ = \{C E\}. Khi đó $P_1$ = $S_1$ giao $R_1$ = \{A B\}, $P_2$ = $S_1 \cap R_2$ = \{C E\}. Phần tử D trong $S_1$ vẫn chưa nằm trong cụm $P_1$ hay $P_2$, do đó ta tạo thêm cụm $P_3$ = \{D\}.}
-						\end{itemize}								
-					\par p($R_i$): tập hợp các cụm $P'_j$ của chuỗi $R_i$. Cách tính p($R_i$) hoàn toàn giống như cách tính p($S_i$), chỉ khác ở chỗ đổi vai trò của $R_i$ với $S_i$. Mỗi cụm $P'_j$ chứa các cụm danh từ, tối thiểu là một cụm danh từ. Cách tìm $P'_j$: $P'_j$ = $R_i \cap S_i$. Nếu có cụm danh từ nào trong $R_i$ mà không nằm trong bất kì một chuỗi $S_i$ nào, thì ta sẽ tạo ra chuỗi $P'_j$ chứa cụm danh từ đó. Ví dụ: Từ dữ liệu gồm chuỗi $R_1$ = \{A B C D E\} và 2  chuỗi $S_1$ = \{A B\}, $S_2$ = \{C E\}. Khi đó $P'_1$ = $R_1 \cap S_1$ = \{A B\}, $P'_2$ = $R_1 \cap S_2$ = \{C E\}. Phần tử D trong $R_1$ vẫn chưa nằm trong cụm $P'_1$ và $P'_2$, do đó ta tạo thêm cụm $P'_3$ = \{D\}.
-					\par \textit{MUC SCORE}
-					\\Công thức:					
-						\begin{center}
-							\begin{equation*}
-								P = \frac{\sum \big(|R_i| - |p \big(R_i)|)}{\sum_{|R_i| - 1}}
-							\end{equation*}
-							\\
-							\begin{equation*}
-								R = \frac{\sum \big(|S_i| - |p \big(S_i)|)}{\sum_{|S_i| - 1}}
-							\end{equation*}												
-						\end{center}
-
-						\textit{B-CUBED (B3)}
-						\\Giải thuật cũng có các khái niệm như giải thuật MUC score, công thức:
-						\begin{center}
-							\begin{equation*}
-								P = \frac{1}{n} \sum_{i=1}^{n} \frac{\sum_{j=1}^{|p (S_i)|} |P_{ij}|*\big(|S_i| - |P_{ij}|)} {|S_{i}|^2}
-							\end{equation*}
-							\\
-							\begin{equation*}
-								R = \frac{1}{m} \sum_{i=1}^{m} \frac{\sum_{j=1}^{|p (R_i)|} |P'_{ij}|*\big(|S_i| - |P'_{ij}|)} {|R_{i}|^2}
-							\end{equation*}												
-						\end{center}
-
-						\textit{CEAF-4}
+		\section{Đánh giá}			
+			\subsection*{Phương pháp đánh giá}
+				\par Từ tính chất bắc cầu: Nếu cặp (A,B) đồng tham chiếu, (B,C) đồng  tham chiếu thì ta có chuỗi đồng tham chiếu gồm A, B, C. Như vậy, từ tập dữ liệu kiểm tra ta có được:
 					\begin{itemize}
-						\item{|S|: số chuỗi đồng tham chiếu của tập thực tế S.}
-						\item{|R|: số chuỗi đồng tham chiếu của tập dự đoán R.}
-						\item{m = min \{|S|, |R|\}.}
-						\item{$\Phi_4(R_i,S_j) = 2 |S_j \cap R_i|/ |R_i| + |S_j|$. Cách tính tương tự với $\Phi_4(R_i,R_i)$ và $\Phi_4(S_j,S_j)$.}  
-						\item{Xác định m cặp có dạng ($R_i$, $S_j$), với $R_i$ và $S_j$ phải khác nhau giữa các cặp. Có thể hiểu là mỗi cặp phải gồm một chuỗi đồng tham chiếu $S_j$ trong tập S và một chuỗi đồng tham chiếu $R_i$ trong tập R. Xác định m cặp đó sao cho: 
-						\begin{center}
-							\begin{equation*}
-								\Phi(g) = \sum_{\big(R_i,S_j) \in m\_pairs} \Phi_4(R_i,S_j)
-							\end{equation*}
-						\end{center}}
+				 		\item{Tập thực tế S: các chuỗi $S_i$ đồng tham chiếu thực tế. Mỗi cụm $S_i$ có 2 cụm danh từ trở lên.}				
+						\item{Tập dự đoán R: các chuỗi $R_i$ đồng tham chiếu mà hệ thống dự đoán. Trong đó mỗi chuỗi phải chứa ít nhất một tên đối tượng hoặc thuộc tính (cụm danh từ trên thực tế có TYPE = 0 hoặc TYPE = 3), nếu không chuỗi đó sẽ bị bỏ đi khỏi tập dự đoán. Mỗi chuỗi $R_i$ có 2 cụm danh từ trở lên.}
 					\end{itemize}
-					\par Khi đã xác định được m cặp, ta thu được tập S* chứa các $S_i$ nằm trong m cặp và tập R* chứa các $R_i$ nằm trong m cặp. Mỗi chuỗi $S_i$ trong S* tương ứng với duy nhất một chuỗi $R_i$ trong R*.
-					\par Khi đó công thức tính:						
-						\begin{center}
-							\begin{equation*}
-								P = \frac{\Phi \big(g*)}{\sum_{S_i \in S*}\Phi_4 \big(S_i, S_i)}
-							\end{equation*}
-							\\
-							\begin{equation*}
-								R = \frac{\Phi \big(g*)}{\sum_{R_i \in R*}\Phi_4 \big(R_i, S_j)}
-							\end{equation*}					
-						\end{center}
-
-				\par \textit{Công thức tính F-measure cho cả ba độ đo trên:}
-					\begin{center}					
+				\par Chúng tôi sử dụng 3 độ đo phổ biến trong bài toán đồng tham chiếu để so sánh tập dự đoán với tập thực tế, đó là: MUC, B3 và CEAF-4.
+				\\Một số khái niệm:
+					\begin{itemize}
+						\item{$S_i$ = \{A B C D\}: chuỗi đồng tham chiếu $S_i$ chứa 4 cụm danh từ là A, B, C, D.}
+						\item{|$S_i$|: số cụm danh từ thuộc chuỗi $S_i$. Ví dụ chuỗi $S_1$ = \{A B C D\} thì |$S_1$| = 4.}
+						\item{p($S_i$): tập hợp các cụm $P_j$ của chuỗi $S_i$. Mỗi cụm $P_j$ chứa các cụm danh từ, tối thiểu là một cụm danh từ. Cách tìm $P_j$: $P_j$ = $S_i$ giao $R_i$. Nếu có cụm danh từ nào trong $S_i$ mà không nằm trong bất kì một chuỗi $R_i$ nào, thì ta sẽ tạo ra chuỗi $P_j$ chứa cụm danh từ đó. Ví dụ: Từ dữ liệu gồm chuỗi $S_1$ = \{A B C D E\} và 2 chuỗi $R_1$ = \{A B\}, $R_2$ = \{C E\}. Khi đó $P_1$ = $S_1$ giao $R_1$ = \{A B\}, $P_2$ = $S_1 \cap R_2$ = \{C E\}. Phần tử D trong $S_1$ vẫn chưa nằm trong cụm $P_1$ hay $P_2$, do đó ta tạo thêm cụm $P_3$ = \{D\}.}
+					\end{itemize}								
+				\par p($R_i$): tập hợp các cụm $P'_j$ của chuỗi $R_i$. Cách tính p($R_i$) hoàn toàn giống như cách tính p($S_i$), chỉ khác ở chỗ đổi vai trò của $R_i$ với $S_i$. Mỗi cụm $P'_j$ chứa các cụm danh từ, tối thiểu là một cụm danh từ. Cách tìm $P'_j$: $P'_j$ = $R_i \cap S_i$. Nếu có cụm danh từ nào trong $R_i$ mà không nằm trong bất kì một chuỗi $S_i$ nào, thì ta sẽ tạo ra chuỗi $P'_j$ chứa cụm danh từ đó. Ví dụ: Từ dữ liệu gồm chuỗi $R_1$ = \{A B C D E\} và 2  chuỗi $S_1$ = \{A B\}, $S_2$ = \{C E\}. Khi đó $P'_1$ = $R_1 \cap S_1$ = \{A B\}, $P'_2$ = $R_1 \cap S_2$ = \{C E\}. Phần tử D trong $R_1$ vẫn chưa nằm trong cụm $P'_1$ và $P'_2$, do đó ta tạo thêm cụm $P'_3$ = \{D\}.
+				\par \textit{MUC SCORE}
+				\\Công thức:					
+					\begin{center}
 						\begin{equation*}
-							F = \frac{2PR}{P+R}
+							P = \frac{\sum \big(|R_i| - |p \big(R_i)|)}{\sum_{|R_i| - 1}}
 						\end{equation*}
+						\\
+						\begin{equation*}
+							R = \frac{\sum \big(|S_i| - |p \big(S_i)|)}{\sum_{|S_i| - 1}}
+						\end{equation*}												
 					\end{center}
 
-			\subsubsection*{Kết quả thực nghiệm}
-			//TODO
-			\\Mô hình kiểm tra, so sánh
-			\\Bảng kết quả
-			\\Biểu đồ so sánh k-fold giữa 2 mô hình.
-		\subsection{Phân tích}
-			\subsubsection*{Phân tích kết quả}
+					\textit{B-CUBED (B3)}
+					\\Giải thuật cũng có các khái niệm như giải thuật MUC score, công thức:
+					\begin{center}
+						\begin{equation*}
+							P = \frac{1}{n} \sum_{i=1}^{n} \frac{\sum_{j=1}^{|p (S_i)|} |P_{ij}|*\big(|S_i| - |P_{ij}|)} {|S_{i}|^2}
+						\end{equation*}
+						\\
+						\begin{equation*}
+							R = \frac{1}{m} \sum_{i=1}^{m} \frac{\sum_{j=1}^{|p (R_i)|} |P'_{ij}|*\big(|S_i| - |P'_{ij}|)} {|R_{i}|^2}
+						\end{equation*}												
+					\end{center}
+
+					\textit{CEAF-4}
+				\begin{itemize}
+					\item{|S|: số chuỗi đồng tham chiếu của tập thực tế S.}
+					\item{|R|: số chuỗi đồng tham chiếu của tập dự đoán R.}
+					\item{m = min \{|S|, |R|\}.}
+					\item{$\Phi_4(R_i,S_j) = 2 |S_j \cap R_i|/ |R_i| + |S_j|$. Cách tính tương tự với $\Phi_4(R_i,R_i)$ và $\Phi_4(S_j,S_j)$.}  
+					\item{Xác định m cặp có dạng ($R_i$, $S_j$), với $R_i$ và $S_j$ phải khác nhau giữa các cặp. Có thể hiểu là mỗi cặp phải gồm một chuỗi đồng tham chiếu $S_j$ trong tập S và một chuỗi đồng tham chiếu $R_i$ trong tập R. Xác định m cặp đó sao cho: 
+					\begin{center}
+						\begin{equation*}
+							\Phi(g) = \sum_{\big(R_i,S_j) \in m\_pairs} \Phi_4(R_i,S_j)
+						\end{equation*}
+					\end{center}}
+				\end{itemize}
+				\par Khi đã xác định được m cặp, ta thu được tập S* chứa các $S_i$ nằm trong m cặp và tập R* chứa các $R_i$ nằm trong m cặp. Mỗi chuỗi $S_i$ trong S* tương ứng với duy nhất một chuỗi $R_i$ trong R*.
+				\par Khi đó công thức tính:						
+					\begin{center}
+						\begin{equation*}
+							P = \frac{\Phi \big(g*)}{\sum_{S_i \in S*}\Phi_4 \big(S_i, S_i)}
+						\end{equation*}
+						\\
+						\begin{equation*}
+							R = \frac{\Phi \big(g*)}{\sum_{R_i \in R*}\Phi_4 \big(R_i, S_j)}
+						\end{equation*}					
+					\end{center}
+
+			\par \textit{Công thức tính F-measure cho cả ba độ đo trên:}
+				\begin{center}					
+					\begin{equation*}
+						F = \frac{2PR}{P+R}
+					\end{equation*}
+				\end{center}
+
+		\subsection*{Kết quả thực nghiệm}
+		//TODO
+		\\Mô hình kiểm tra, so sánh
+		\\Bảng kết quả
+		\\Biểu đồ so sánh k-fold giữa 2 mô hình.
+
+		\section{Phân tích}
+			\subsection*{Phân tích kết quả}
 			//TODO
 			\\So sánh kết quả
-			\subsubsection*{Phân tích đóng góp của các thuộc tính}
+			\subsection*{Phân tích đóng góp của các thuộc tính}
 			//TODO
 			\\Tập những thuộc tính ảnh hưởng nhất
 			\\Thuộc tính quan hệ giữa từ chỉ ý kiến với cụm danh từ.
@@ -869,7 +883,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 			\\Đóng góp bao nhiêu.
 			\\Tại sao đóng góp không nhiều.
 			\\Góp ý cải thiện.
-			\subsubsection*{Phân tích lỗi sai}
+			\subsection*{Phân tích lỗi sai}
 			//TODO
 			\par Lỗi sai đến từ giai đoạn tạo tập thuộc tính:
 				\\Bước xác tính Danh từ riêng.
@@ -877,17 +891,17 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 				\\Bước xác định đến từ xác định cụm danh từ liên quan với từ chỉ ý kiến.
 				\\Bước phân tích cảm xúc ???
 				\\Bước has-Between
-			
-	\section{Tổng kết}		
-		\par Trong giai đoạn Luận văn tốt nghiệp, nhóm đã thực hiện được những công việc sau:
+		
+	\chapter{Tổng kết}			
+		\par Trong giai đoạn Luận văn tốt nghiệp, chúng tôi đã thực hiện được những công việc sau:
 		\begin{itemize}
-			\item{Tìm hiểu về các công trình liên quan đến đồng tham chiếu nói chung.}
+			\item{Giới thiệu bài toán Phân giải đồng tham chiếu và tìm hiểu về các công trình liên quan đến đồng tham chiếu nói chung.}
 			\item{Tìm hiểu về các công trình liên quan đến đồng tham chiếu cho một số loại văn bản cụ thể.}
 			\item{Tìm hiểu về các phương pháp Khai khoáng ý kiến và một số vấn đề trong Khai khoáng ý kiến.}
-			\item{Mô hình hóa bài toán và đề ra phương pháp giải quyết bài toán đồng tham chiếu cho đối tượng và thuộc tính trong Khai khoáng ý kiến.}
+			\item{Giới thiệu bài toán Phân giải đồng tham chiếu cho đối tượng và thuộc tính trong Khai khoáng ý kiến, mô hình hóa bài toán và đề ra phương pháp giải quyết.}
 			\item{Xây dựng hệ thống giải quyết bài toán dựa trên phương pháp đề xuất, cho kết quả đầu ra khả quan.}
 		\end{itemize}
-		\par Những khó khăn và hạn chế mà nhóm gặp phải là:
+		\par Những khó khăn và hạn chế mà chúng tôi gặp phải là:
 			//TODO		
 		\par Hướng phát triển của đề tài:
 		\begin{itemize}
@@ -896,7 +910,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 				\begin{itemize}
 					\item{Các văn bản chứa ý kiến trong tiếng Việt có thể là các bài đánh giá (review) trên Tiki hay các bài thảo luận (discussion) trên tinhte.vn, ...
 					}
-					\item{Hiện nay đã có các công cụ Xử lý ngôn ngữ tự nhiên dùng cho tiếng Việt. Dưới đây nhóm sẽ trình bày về ba công cụ JVnTextPro (tách câu, tách từ, gán nhãn từ loại), VnChunker(gom cụm từ) và VnDP(phân tích văn phạm phụ thuộc), chúng có thể được sử dụng cho hệ thống phân giải đồng tham chiếu trong tiếng Việt (tương tự như hệ thống dùng cho tiếng Anh).					
+					\item{Hiện nay đã có các công cụ Xử lý ngôn ngữ tự nhiên dùng cho tiếng Việt. Dưới đây chúng tôi sẽ trình bày về ba công cụ JVnTextPro (tách câu, tách từ, gán nhãn từ loại), VietChunker(gom cụm từ) và VnDP(phân tích văn phạm phụ thuộc), chúng có thể được sử dụng cho hệ thống phân giải đồng tham chiếu trong tiếng Việt (tương tự như hệ thống dùng cho tiếng Anh).					
 					\\Công cụ JVnTextPro \footnote{http://jvntextpro.sourceforge.net} là công cụ có thể được dùng để phân đoạn câu (sentence segmentation), phân đoạn thẻ câu (sentence tokenization), phân đoạn từ (word tokenization) và gán nhãn từ loại (POS tagging) cho văn bản tiếng Việt.
 					\\Ví dụ: Cho đoạn văn bản tiếng Việt sau (Lấy trên trang Tiki.vn)
 					\\\textit{iPhone 6S đã chính thức được ra mắt với thiết kế không khác biệt so với iPhone 6. Điểm khác biệt về ngoại hình là bộ đôi Phone 6s và 6s Plus sẽ có tới 4 màu sắc bao gồm: xám, bạc, vàng và vàng hồng, và có thêm chữ “S” phía sau mặt lưng. iPhone 6s sẽ nặng hơn iPhone 6 14g, iPhone 6s dài, dày, rộng hơn iPhone 6 chút ít, nhưng người ta khó nhận ra bằng mắt thường bởi con số này chỉ tính là một vài mm, thậm chí chưa đến 1 mm.}
@@ -911,27 +925,27 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 								iPhone/N 6s/M sẽ/R nặng/A hơn/A iPhone/N 6/M 14g/Nu ,/, iPhone/N 6s/M dài/A ,/, dày/A ,/, rộng/A hơn/A iPhone/N 6/M chút\_ít/N ,/, nhưng/C người\_ta/N khó/A nhận\_ra/X bằng/E mắt\_thường/A bởi/E con\_số/N này/Np chỉ/R tính/Ny là/C một\_vài/N mm/N ,/, thậm\_chí/R chưa/R đến/V 1/M mm/N ./.
 					    	}
 						}
-						\caption{Gán nhãn từ loại cho văn bản tiếng Việt bằng công cụ JVnTextPro}
+						\caption{Ví dụ gán nhãn từ loại cho văn bản tiếng Việt bằng công cụ JVnTextPro}
 					\end{figure}
 					VnDP \footnote{https://sourceforge.net/projects/vndp/files/VnDPv1.0.1.zip} là công cụ dùng cho phân tích văn phạm phụ thuộc trong tiếng Việt. Có thể xem một ví dụ phân tích văn phạm phụ thuộc cho câu "iPhone 6s sẽ nặng hơn iPhone 6 14g, iPhone 6s dài, dày, rộng hơn iPhone 6 chút ít, nhưng người ta khó nhận ra bằng mắt thường bởi con số này chỉ tính là một vài mm, thậm chí chưa đến 1 mm." như sau:	
 					\begin{table}[H]
 						\centering													
 						\include{draw/vndp_output}
-						\caption{Phân tích văn phạm phụ thuộc cho tiếng Việt bằng công cụ VnDP}
+						\caption{Ví dụ phân tích văn phạm phụ thuộc cho tiếng Việt bằng công cụ VnDP}
 					\end{table}	
 					Dựa trên kết quả gán nhãn từ loại bằng công cụ JVnTextPro, có thể gom các cụm danh từ nhờ vào công cụ VietChunker.
 						//TODO
 					}					
-					\item{Các nghiên cứu liên quan đến Phân giải đồng tham chiếu trong tiếng Việt cũng đã xuất hiện trong những năm gần đây. (Lê Đức Trọng, 2011) trong \cite{leductrong11} đã áp dụng mô hình học máy có giám sát SVM trên dữ liệu thu thập từ vnexpress.net, mô hình phân giải đồng tham chiếu của tác giả trên dữ liệu này cho độ chính xác 76.51\%.}
+					\item{Các nghiên cứu liên quan đến Phân giải đồng tham chiếu và Khai khoáng ý kiến trong tiếng Việt cũng đã xuất hiện trong những năm gần đây. (Lê Đức Trọng, 2011) trong \cite{leductrong11} đã áp dụng mô hình học máy có giám sát SVM trên dữ liệu thu thập từ vnexpress.net, mô hình phân giải đồng tham chiếu của tác giả trên dữ liệu này cho độ chính xác 76.51\%. Trong \cite{vn_sentiment} và \cite{vn_sentiment}, các tác giả đã đưa ra mô hình Khai khoáng ý kiến cho văn bản tiếng Việt.}
 				\end{itemize}
-				Những công cụ và công trình này là gợi ý để có thể áp dụng mô hình phân giải đồng tham chiếu của nhóm cho tiếng Việt.
+				Những công cụ và công trình này là gợi ý để có thể áp dụng mô hình phân giải đồng tham chiếu của chúng tôi cho tiếng Việt.
 			}
 		\end{itemize}
 \renewcommand{\refname}{Tham khảo} 
 
 %----------REFERENCES-------------------
 \newpage
-\addcontentsline{toc}{section}{Tham khảo}
+\addcontentsline{toc}{chapter}{Tham khảo}
 \begin{thebibliography}{30}
 
 	\bibitem{mainpaper} 
@@ -1120,17 +1134,27 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 	\bibitem{nicolov08}
 	N. Nicolov, F. Salvetti and S. Ivanova. 2008.
 	\textit{Sentiment analysis: Does coreference matter?}.
-	In AISB 2008 Convention Communication, Interaction and Social Intelligence.
-
-	\bibitem{leductrong11}
-	Lê Đức Trọng. 2011.
-	\textit{Giải quyết bài toán đồng tham chiếu trong văn bản tiếng Việt dựa vào phương pháp máy vector hỗ trợ SVM}.
-	Khóa luận tốt nghiệp đại học. Đại học Công nghệ - Đại học Quốc gia Hà Nội.
+	In AISB 2008 Convention Communication, Interaction and Social Intelligence.	
 
 	\bibitem{weiss03}
 	Weiss, G. and Provost,F. 2003.
 	\textit{Learning when Training Data are Costly: The Effect of Class Distribution on Tree Induction}.
 	Journal of ArtiJicial Intelligence Research, Vol:19, pages 315-354.
+
+	\bibitem{leductrong11}	
+	Duc-Trong Le, Mai-Vu Tran, Tri-Thanh Nguyen, Quang-Thuy Ha. 2011.
+	\textit{Co-reference Resolution in Vietnamese Documents Based on Support Vector Machines}.
+	IALP 2011: 89-93, Penang, Malaysia.
+
+	\bibitem{vn_sentiment}
+	Binh Thanh Kieu, Son Bao Pham. 2010.
+	\textit{Sentiment Analysis for Vietnamese}.
+	International Conference on Knowledge and Systems Engineering: IEEE CS, 2010.
+
+	\bibitem{vn_sentiment2}
+	Quang-Thuy Ha, Tien-Thanh Vu, Huyen-Trang Pham, Cong-To Luu. 2011.
+	\textit{An Upgrading Feature-based Opinion Mining Model on Product Reviews in Vietnamese}.
+	AMT’2011: 173-185, Lanzhou, China.
 
  
 \end{thebibliography}	
