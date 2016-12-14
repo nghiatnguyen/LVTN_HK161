@@ -48,52 +48,53 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.69482661)%
+  \begin{picture}(1,0.70744325)%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{general_model.pdf}}%
-    \put(0.1261034,0.18789092){\makebox(0,0)[b]{\smash{Danh sách các từ đã }}}%
-    \put(0.1261034,0.17023644){\makebox(0,0)[b]{\smash{được gán nhãn từ loại}}}%
+    \put(0.1261034,0.06809899){\makebox(0,0)[b]{\smash{Danh sách các từ đã }}}%
+    \put(0.1261034,0.05044451){\makebox(0,0)[b]{\smash{được gán nhãn từ loại}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{general_model.pdf}}%
-    \put(0.63682219,0.18789092){\makebox(0,0)[b]{\smash{Danh sách các mẫu }}}%
-    \put(0.63682219,0.17023644){\makebox(0,0)[b]{\smash{dữ liệu học và kiểm tra}}}%
+    \put(0.63051702,0.20050757){\makebox(0,0)[b]{\smash{Danh sách các mẫu }}}%
+    \put(0.63051702,0.18285309){\makebox(0,0)[b]{\smash{dữ liệu học và kiểm tra}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{general_model.pdf}}%
-    \put(0.37831021,0.05548235){\makebox(0,0)[b]{\smash{Danh sách }}}%
-    \put(0.37831021,0.03782787){\makebox(0,0)[b]{\smash{các cụm danh từ}}}%
+    \put(0.37831021,0.06809899){\makebox(0,0)[b]{\smash{Danh sách }}}%
+    \put(0.37831021,0.05044451){\makebox(0,0)[b]{\smash{các cụm danh từ}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=4]{general_model.pdf}}%
-    \put(0.1261034,0.65195145){\makebox(0,0)[b]{\smash{\textbf{Văn bản chứa ý kiến}}}}%
+    \put(0.1261034,0.6645681){\makebox(0,0)[b]{\smash{\textbf{Văn bản chứa ý kiến}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=5]{general_model.pdf}}%
-    \put(0.1261034,0.450186){\makebox(0,0)[b]{\smash{Nhận dạng câu}}}%
+    \put(0.1261034,0.46280265){\makebox(0,0)[b]{\smash{Tiền xử lý văn bản thô}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=6]{general_model.pdf}}%
-    \put(0.1261034,0.33290984){\makebox(0,0)[b]{\smash{Nhận dạng từ và }}}%
-    \put(0.1261034,0.31525536){\makebox(0,0)[b]{\smash{gán nhãn từ (POS)}}}%
-    \put(0.1261034,0.52584805){\makebox(0,0)[b]{\smash{\textbf{Công đoạn tiền xử lý}}}}%
+    \put(0.1261034,0.21942308){\makebox(0,0)[b]{\smash{Tách từ và }}}%
+    \put(0.1261034,0.2017686){\makebox(0,0)[b]{\smash{gán nhãn từ (POS)}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=7]{general_model.pdf}}%
-    \put(0.37831021,0.33290984){\makebox(0,0)[b]{\smash{Lọc lại các }}}%
-    \put(0.37831021,0.31525536){\makebox(0,0)[b]{\smash{cụm danh từ}}}%
+    \put(0.37831021,0.34552648){\makebox(0,0)[b]{\smash{Lọc lại các }}}%
+    \put(0.37831021,0.32787201){\makebox(0,0)[b]{\smash{cụm danh từ}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=8]{general_model.pdf}}%
-    \put(0.37831021,0.450186){\makebox(0,0)[b]{\smash{Tìm các cụm danh từ}}}%
+    \put(0.37831021,0.46280265){\makebox(0,0)[b]{\smash{Tìm các cụm danh từ}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=9]{general_model.pdf}}%
-    \put(0.37831021,0.20680643){\makebox(0,0)[b]{\smash{Gán nhãn phân loại }}}%
-    \put(0.37831021,0.18915195){\makebox(0,0)[b]{\smash{các cụm danh từ}}}%
+    \put(0.37831021,0.21942308){\makebox(0,0)[b]{\smash{Gán nhãn phân loại }}}%
+    \put(0.37831021,0.2017686){\makebox(0,0)[b]{\smash{các cụm danh từ}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=10]{general_model.pdf}}%
-    \put(0.63051702,0.3240826){\makebox(0,0)[b]{\smash{Tạo tập thuộc tính}}}%
+    \put(0.63051702,0.33669924){\makebox(0,0)[b]{\smash{Tạo các vectơ đặc trưng}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=11]{general_model.pdf}}%
-    \put(0.63051702,0.45901324){\makebox(0,0)[b]{\smash{Tạo các cặp }}}%
-    \put(0.63051702,0.44135876){\makebox(0,0)[b]{\smash{cụm danh từ}}}%
+    \put(0.63051702,0.47162989){\makebox(0,0)[b]{\smash{Tạo các cặp }}}%
+    \put(0.63051702,0.45397541){\makebox(0,0)[b]{\smash{cụm danh từ}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=12]{general_model.pdf}}%
-    \put(0.88272383,0.33290984){\makebox(0,0)[b]{\smash{Tạo chuỗi }}}%
-    \put(0.88272383,0.31525536){\makebox(0,0)[b]{\smash{đồng tham chiếu}}}%
+    \put(0.88272383,0.34552648){\makebox(0,0)[b]{\smash{Tạo chuỗi }}}%
+    \put(0.88272383,0.32787201){\makebox(0,0)[b]{\smash{đồng tham chiếu}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=13]{general_model.pdf}}%
-    \put(0.88272383,0.46784048){\makebox(0,0)[b]{\smash{Xây dựng hệ thống }}}%
-    \put(0.88272383,0.450186){\makebox(0,0)[b]{\smash{phân loại }}}%
-    \put(0.88272383,0.43253153){\makebox(0,0)[b]{\smash{(Cây quyết định)}}}%
+    \put(0.88272383,0.48045712){\makebox(0,0)[b]{\smash{Xây dựng hệ thống }}}%
+    \put(0.88272383,0.46280265){\makebox(0,0)[b]{\smash{phân loại }}}%
+    \put(0.88272383,0.44514817){\makebox(0,0)[b]{\smash{(Cây quyết định)}}}%
+    \put(0.1261034,0.53846469){\makebox(0,0)[b]{\smash{\textbf{Công đoạn tiền xử lý}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=14]{general_model.pdf}}%
-    \put(0.88272383,0.19419609){\makebox(0,0)[b]{\smash{\textbf{Các chuỗi }}}}%
-    \put(0.88272383,0.17654161){\makebox(0,0)[b]{\smash{\textbf{đồng tham chiếu}}}}%
-    \put(0.37831021,0.52837011){\makebox(0,0)[b]{\smash{\textbf{Công đoạn tìm kiếm }}}}%
-    \put(0.37831021,0.51071564){\makebox(0,0)[b]{\smash{\textbf{các cụm danh từ}}}}%
-    \put(0.63051702,0.5315227){\makebox(0,0)[b]{\smash{\textbf{Công đoạn xây dựng }}}}%
-    \put(0.63051702,0.51386822){\makebox(0,0)[b]{\smash{\textbf{dữ liệu học và kiểm tra}}}}%
-    \put(0.88272383,0.5315227){\makebox(0,0)[b]{\smash{\textbf{Công đoạn xây dựng }}}}%
-    \put(0.88272383,0.51386822){\makebox(0,0)[b]{\smash{\textbf{hệ thống phân loại}}}}%    
+    \put(0.88272383,0.20681274){\makebox(0,0)[b]{\smash{\textbf{Các chuỗi }}}}%
+    \put(0.88272383,0.18915826){\makebox(0,0)[b]{\smash{\textbf{đồng tham chiếu}}}}%
+    \put(0.37831021,0.54098676){\makebox(0,0)[b]{\smash{\textbf{Công đoạn trích xuất }}}}%
+    \put(0.37831021,0.52333228){\makebox(0,0)[b]{\smash{\textbf{cụm danh từ}}}}%
+    \put(0.63051702,0.54413934){\makebox(0,0)[b]{\smash{\textbf{Công đoạn xây dựng }}}}%
+    \put(0.63051702,0.52648487){\makebox(0,0)[b]{\smash{\textbf{dữ liệu học và kiểm tra}}}}%
+    \put(0.88272383,0.54413934){\makebox(0,0)[b]{\smash{\textbf{Công đoạn xây dựng }}}}%
+    \put(0.88272383,0.52648487){\makebox(0,0)[b]{\smash{\textbf{bộ phân loại và gom cụm}}}}%    
+    \put(0.1261034,0.33669924){\makebox(0,0)[b]{\smash{Tách câu}}}%    
   \end{picture}%
 \endgroup%
