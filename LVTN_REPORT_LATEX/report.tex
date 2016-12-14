@@ -669,7 +669,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					\par \textit{Giá trị:} [true, false]. Thuộc tính nhận giá trị true nếu cả hai cụm danh từ đều là tên riêng và nếu không phải thì nhận giá trị false.
 					\par \textit{Phương pháp hiện thực:} Phần sau trình bày cách mà chúng tôi đã sử dụng để xác định một cụm danh từ có là tên riêng hay không.				
 					\par Một cụm danh từ gồm nhiều từ, thông qua công cụ gán nhãn từ loại (part of speech) của Stanford, biết được nhãn POS được gán với mỗi từ. Theo như quy ước về nhãn từ loại: Nhãn NNP chỉ danh từ riêng số ít, nhãn NNPS chỉ danh từ riêng số nhiều. Nếu nhãn của một từ nào đó trong cụm danh từ là NNP hoặc NNPS thì cụm danh từ đó là danh từ riêng. Ví dụ: Trong câu \textit{"The Galaxy S3 is beautiful."}, cụm danh từ The Galaxy S3 được công cụ gán nhãn của Stanford xử lý thành The/DT Galaxy/NNP S3/NNP. The Galaxy S3 là tên riêng vì có có từ Galaxy và từ S3 được gán nhãn NNP.
-					\par Tuy nhiên, trên thực tế vẫn có nhiều danh từ riêng không tuân theo quy luật trên, dựa vào công cụ của Stanford không xác định được. Ví dụ: "iphone 6", "iPhone 6" hay "The 620", "the Active". Những cụm danh từ này công cụ gán nhãn từ loại của Stanford không gán được nhãn NNP hay NNPS. Vì vậy nhóm đề xuất hướng giải quyết:
+					\par Tuy nhiên, trên thực tế vẫn có nhiều danh từ riêng không tuân theo quy luật trên, dựa vào công cụ của Stanford không xác định được. Ví dụ: "iphone 6", "iPhone 6" hay "The 620", "the Active". Những cụm danh từ này công cụ gán nhãn từ loại của Stanford không gán được nhãn NNP hay NNPS. Vì vậy chúng tôi đề xuất hướng giải quyết:
 					\begin{itemize}
 						\item{Cụm danh từ có danh từ chính với nhãn là NNP, NNPS, CD được xác định là danh từ riêng. Như vậy với trường hợp "The 620", hệ thống vẫn sẽ nhận ra được là danh từ riêng vì có danh từ chính "620" mang nhãn CD.}
 						\item{Tạo danh sách chứa các cụm danh từ riêng đặc biệt là \{"iphone", "iphones", "ipod", "ipad", "ipads"\}, nếu cụm danh từ có danh từ chính là một trong những từ nằm trong danh sách trên thì cụm danh từ đó là danh từ riêng.}
@@ -724,8 +724,8 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					\par \textit{Phương pháp thực hiện:}
 					\\Trước khi có thể tính giá trị PMI, chúng tôi phải hiện thực nhiệm vụ: Xác định từ chỉ ý kiến trong văn bản. Để thực hiện điều này, chúng tôi chia nhỏ thành hai công đoạn. Đầu tiên, chúng tôi tìm tất cả những từ chỉ ý kiến có trong văn bản, sau đó, chúng tôi tìm cụm danh từ mà những từ chỉ ý kiến đó hướng đến. Dưới đậy, chúng tôi trình bày kĩ hơn về cách hiện thực hai công đoạn.
 					\par Xác định từ chỉ ý kiến trong văn bản:
-					\\Từ chỉ ý kiến có thể là danh từ, tính từ, trạng từ. Trong đề tài, nhóm chỉ xác định các từ chỉ ý kiến là tính từ và trạng từ. Theo công cụ gán nhãn Stanford: Từ có nhãn JJ hoặc JJS hoặc JJR là tính từ, từ có nhãn RB là trạng từ. Để xác định từ chỉ ý kiến có trong văn bản, nhóm chỉ việc đi tìm những từ có nhãn POS là RB hoặc JJS hoặc JJ hoặc JJR và những từ đó xuất hiện trong danh sách L chứa những từ chỉ ý kiến. Danh sách chứa những từ chỉ ý kiến L mà nhóm sử dụng tham khảo từ kết quả trong một công trình nghiên cứu của Bing Liu (2004)\cite{findfeatures1}. Danh sách L gồm khoảng 6800 từ chỉ ý kiến, được thu thập những từ chỉ ý kiến từ các reviews về điện thoại, máy ảnh. quan hệ giữa chúng với đối tượng, thuộc tính là khác nhau. 
-					\\ Dựa trên dữ liệu thực tế, nhóm điều chỉnh một số chỗ. Đầu tiên, những tính từ như "right" trong cụm từ "right now" hoặc "well" trong "as well as", nếu chúng đứng riêng lẻ thì từ chỉ ý kiến nhưng nằm trong các cụm đó thì không, nhóm không sử dụng chúng. Thứ hai, nhóm bổ sung vào danh sách L thêm những tính từ không chỉ ý kiến nhưng có đặc điểm của từ chỉ ý kiến, đó là chúng thường đi kèm với thuộc tính nhất định, quan hệ giữa chúng với các đối tượng, thuộc tính khác nhau là khác nhau. Ví dụ: “big” thường đi kèm với “the phone”, “screen” chừ thường ít đi kèm với “camera”.
+					\\Từ chỉ ý kiến có thể là danh từ, tính từ, trạng từ. Trong đề tài, chúng tôi chỉ xác định các từ chỉ ý kiến là tính từ và trạng từ. Theo công cụ gán nhãn Stanford: Từ có nhãn JJ hoặc JJS hoặc JJR là tính từ, từ có nhãn RB là trạng từ. Để xác định từ chỉ ý kiến có trong văn bản, chúng tôi chỉ việc đi tìm những từ có nhãn POS là RB hoặc JJS hoặc JJ hoặc JJR và những từ đó xuất hiện trong danh sách L chứa những từ chỉ ý kiến. Danh sách chứa những từ chỉ ý kiến L mà chúng tôi sử dụng tham khảo từ kết quả trong một công trình nghiên cứu của Bing Liu (2004)\cite{findfeatures1}. Danh sách L gồm khoảng 6800 từ chỉ ý kiến, được thu thập những từ chỉ ý kiến từ các reviews về điện thoại, máy ảnh. quan hệ giữa chúng với đối tượng, thuộc tính là khác nhau. 
+					\\ Dựa trên dữ liệu thực tế, chúng tôi điều chỉnh một số chỗ. Đầu tiên, những tính từ như "right" trong cụm từ "right now" hoặc "well" trong "as well as", nếu chúng đứng riêng lẻ thì từ chỉ ý kiến nhưng nằm trong các cụm đó thì không, chúng tôi không sử dụng chúng. Thứ hai, chúng tôi bổ sung vào danh sách L thêm những tính từ không chỉ ý kiến nhưng có đặc điểm của từ chỉ ý kiến, đó là chúng thường đi kèm với thuộc tính nhất định, quan hệ giữa chúng với các đối tượng, thuộc tính khác nhau là khác nhau. Ví dụ: “big” thường đi kèm với “the phone”, “screen” chừ thường ít đi kèm với “camera”.
 					\par Xác định cụm danh từ tương ứng với mỗi từ chỉ ý kiến:
 					\begin{itemize}
 						\item{Từ chỉ ý kiến là trạng từ:
@@ -797,7 +797,16 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					\end{itemize}
 					\par Để xác định được thiên hướng ý kiến đối với 1 cụm danh từ bất kỳ, chúng tôi sử dụng từ chỉ ý kiến/tiêu cực. Nếu không có từ chỉ ý kiến nào đi kèm thì cụm danh từ đó được xác định là không rõ thiên hướng ý kiến.
 
-		\section{Tạo bộ phân loại và gom cụm}								
+		\section{Tạo bộ phân loại và gom cụm}									
+			\subsection*{Áp dụng phương pháp Chọn lại mẫu (resampling methods)}
+				\par Tập dữ liệu dùng để học có sự chênh lệch lớn giữa số lượng các mẫu được phân loại tích cực và số lượng các mẫu được phân loại tiêu cực, cụ thể: chọn một fold ngẫu nhiên, số lượng mẫu học được phân loại tích cực là 4130 và số lượng mẫu học được phân loại tiêu cực là 31686. Sự chênh lệnh lớn này ảnh hưởng đến kết quả của giải thuật phân loại, theo Weiss \cite{weiss03}. Một trong những lí do đó là giải thuật phân loại được học các mẫu tiêu cực quá nhiều thì khả năng giải thuật phân loại sẽ tập trung học những trường hợp tiêu cực nhiều hơn.
+				\par Tình trạng tập dữ liệu chênh lệch trong học máy là phổ biến, chúng tôi sử dụng cách thường được sử dụng để khắc phục là phương pháp chọn lại mẫu. Ý tưởng của phương pháp này là xây dựng lại tập dữ liệu học, chọn ngẫu nhiên có hoàn lại các mẫu từ tập dữ liệu học ban đầu và chuyển vào tập dữ liệu học mới. Đặc điểm của tập dữ liệu học mới này là tỉ số giữa số mẫu tích cực gần về 1, sự chênh lệch được giảm đi. Ví dụ: tập dữ liệu ban đầu có M mẫu dữ tích cực, N mẫu dữ liệu tiêu cực, với M >> N. Tập dữ liệu học mới gồm (M - T) mẫu tích cực và (N + T) mẫu tiêu cực (T là số mẫu tích cực đã được loại bỏ, cũng là số mẫu tiêu cực tăng lên). Giá trị T tùy thuộc vào cách lựa chọn của mỗi người sử dụng.
+				\par Chúng tôi sử dụng Resample trong WEKA, một hiện thực của giải thuật chọn lại mẫu. Với các thông số:
+				\begin{itemize}
+					\item{Z: thể hiện kích thược tập dữ liệu mới so với tập dữ liệu cũ. Z nằm trong khoảng 0 đến 100. Chúng tôi chọn Z = 100, kích thước tập dữ liệu học mới bằng với tập dữ liệu học cũ.}
+					\item{B: thể hiện mức độ chênh lệch dữ liệu trong tập dữ liệu mới. B nằm trong khoảng 0 và 1. Nếu B = 0, tập dữ liệu có tỉ lệ giữa số mẫu tích cực và tiêu cực gần như không đổi. Nếu B = 1, thì tỉ lệ giữa số mẫu tích cực và tiêu cực là 1. Chúng tôi lựa chọn B = 0.1.}
+				\end{itemize}
+
 			\subsection*{Áp dụng giải thuật học Cây quyết định}
 				\par Các cặp ứng viên được phân loại dựa vào Cây quyết định bằng giải thuật J48 trên Weka \footnote{http://www.cs.waikato.ac.nz/ml/weka}. J48 là sự hiện thực của giải thuật C4.5. Giải thuật này được sử dụng trong hệ thống bằng cách dùng thư viện của nó trong chương trình. Kết quả của việc áp dụng giải thuật là kết quả phân loại cho các cặp cụm danh từ được xét, mỗi cặp có đồng tham chiếu với nhau không.
 
@@ -834,7 +843,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 				\end{figure}
 
 		\section{Các phương pháp đánh giá}			
-				\par Chúng tôi sử dụng 3 độ đo phổ biến để đánh giá hệ thống: độ đúng đắn (precision), độ phủ (recall) và độ F (F-measure). Trong bài toán đồng tham chiếu, những độ đo trên có thể được tính bằng các phương pháp khác nhau. Nhóm sử dụng 3 phương pháp, đó là: MUC, B-CUBED và CEAF-4.
+				\par Chúng tôi sử dụng 3 độ đo phổ biến để đánh giá hệ thống: độ đúng đắn (precision), độ phủ (recall) và độ F (F-measure). Trong bài toán đồng tham chiếu, những độ đo trên có thể được tính bằng các phương pháp khác nhau. Chúng tôi sử dụng 3 phương pháp, đó là: MUC, B-CUBED và CEAF-4.
 				\\Một số khái niệm được sử dụng trong 3 phương pháp:
 					\begin{itemize}
 						\item{Tập $S$: là tập bao gồm các chuỗi đồng tham chiếu trên thực tế. Chuỗi đồng tham chiếu thứ $i$ trong tập $S$ được kí hiệu là $S_i$.}
@@ -901,7 +910,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 						\end{equation*}					
 					\end{center}
 
-			\par \textit{Công thức tính F-measure cho cả ba hệ độ đo trên:}
+			\par \textit{Công thức tính F-measure cho cả ba hệ đo trên:}
 				\begin{center}					
 					\begin{equation*}
 						F = \frac{2PR}{P+R}
@@ -972,8 +981,8 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 				\end{itemize}
 
 		
-		
-	\chapter{Tổng kết}			
+	\chapter{Tổng kết}	
+		\section*{Kết quả đạt được}		
 		\par Trong giai đoạn Luận văn tốt nghiệp, chúng tôi đã thực hiện được những công việc sau:
 		\begin{itemize}
 			\item{Giới thiệu bài toán Phân giải đồng tham chiếu và tìm hiểu về các công trình liên quan đến đồng tham chiếu nói chung.}
@@ -982,12 +991,12 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 			\item{Giới thiệu bài toán Phân giải đồng tham chiếu cho đối tượng và thuộc tính trong Khai khoáng ý kiến, mô hình hóa bài toán và đề ra phương pháp giải quyết.}
 			\item{Xây dựng hệ thống giải quyết bài toán dựa trên phương pháp đề xuất, cho kết quả đầu ra khả quan.}
 		\end{itemize}
-		\par Qua quá trình thực hiện đề tài, chúng tôi cũng gặp phải những khó khăn và thể hiện những mặt hạn chế:
+		\section*{Khó khăn và hạn chế}		
 			\begin{itemize}
 				\item{Chúng tôi có liên lạc với các tác giả Ding, Liu của bài báo \cite{mainpaper} và được biết dữ liệu mà họ thu thập và gán nhãn đã bị mất bởi một vài sự cố đáng tiếc. Do vậy chúng tôi đã tự thu thập và gán nhãn cho tập dữ liệu. Những dữ liệu này tuy đáp ứng được các yêu cầu của đề tài nhưng trong nhiều trường hợp, sự tồn tại của các câu phức tạp đã gây khó khăn cho hệ thống của chúng tôi, đặc biệt trong việc xác định các câu so sánh hay xác định thiên hướng ý kiến đối với các thực thể, làm ảnh hưởng đến kết quả thực nghiệm.}
 				\item{Do những hạn chế về thời gian, chúng tôi không thể áp dụng và triển khai hệ thống phân giải đồng tham chiếu cho tiếng Việt. Chúng tôi chỉ kịp khảo sát các trang mạng có chứa văn bản ý kiến trong tiếng Việt và thử một số công cụ xử lý ngôn ngữ tiếng Việt như JVNTextPro, VietChunker hay VnDP.}
 			\end{itemize}	
-		\par Hướng phát triển của đề tài:
+		\section*{Hướng phát triển của đề tài}		
 		\begin{itemize}
 			\item{Trong tương lai, có thể tìm thêm những thuộc tính liên quan đến Khai khoáng ý kiến khác để áp dụng vào hệ thống nhằm tăng độ chính xác.}
 			\item{Thử nghiệm cho tiếng Việt:
@@ -1017,9 +1026,9 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 						\include{draw/vndp_output}
 						\caption{Ví dụ phân tích văn phạm phụ thuộc cho tiếng Việt bằng công cụ VnDP}
 					\end{table}	
-					Dựa trên kết quả gán nhãn từ loại bằng công cụ JVnTextPro, có thể gom các cụm danh từ nhờ vào công cụ VietChunker.						
+					Dựa trên kết quả gán nhãn từ loại bằng công cụ JVnTextPro, có thể gom các cụm danh từ nhờ vào công cụ VietChunker \footnote{http://vlsp.hpda.vn:8080/demo/?page=resources\&tool=chunker}.	
 					}					
-					\item{Các nghiên cứu liên quan đến Phân giải đồng tham chiếu và Khai khoáng ý kiến trong tiếng Việt cũng đã xuất hiện trong những năm gần đây. (Lê Đức Trọng, 2011) trong \cite{leductrong11} đã áp dụng mô hình học máy có giám sát SVM trên dữ liệu thu thập từ vnexpress.net, mô hình phân giải đồng tham chiếu của tác giả trên dữ liệu này cho độ chính xác 76.51\%. Trong \cite{vn_sentiment1} và \cite{vn_sentiment2}, các tác giả đã đưa ra mô hình Khai khoáng ý kiến cho văn bản tiếng Việt.}
+					\item{Các nghiên cứu liên quan đến Phân giải đồng tham chiếu và Khai khoáng ý kiến trong tiếng Việt cũng đã xuất hiện trong những năm gần đây. (Lê Đức Trọng, 2011) trong \cite{leductrong11} đã áp dụng mô hình học máy có giám sát SVM trên dữ liệu thu thập từ vnexpress.net, mô hình phân giải đồng tham chiếu của tác giả trên dữ liệu này cho độ chính xác 76.51\%. Trong \cite{vn_sentiment1} và \cite{vn_sentiment2}, các tác giả cũng đã đưa ra mô hình Khai khoáng ý kiến cho văn bản tiếng Việt.}
 				\end{itemize}
 				Những công cụ và công trình này là gợi ý để có thể áp dụng mô hình phân giải đồng tham chiếu của chúng tôi cho tiếng Việt.
 			}
