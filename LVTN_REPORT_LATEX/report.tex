@@ -797,16 +797,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					\end{itemize}
 					\par Để xác định được thiên hướng ý kiến đối với 1 cụm danh từ bất kỳ, chúng tôi sử dụng từ chỉ ý kiến/tiêu cực. Nếu không có từ chỉ ý kiến nào đi kèm thì cụm danh từ đó được xác định là không rõ thiên hướng ý kiến.
 
-		\section{Tạo bộ phân loại và gom cụm}									
-			\subsection*{Áp dụng phương pháp Chọn lại mẫu (resampling methods)}
-				\par Tập dữ liệu dùng để học có sự chênh lệch lớn giữa số lượng các mẫu được phân loại tích cực và số lượng các mẫu được phân loại tiêu cực, cụ thể: chọn một fold ngẫu nhiên, số lượng mẫu học được phân loại tích cực là 4130 và số lượng mẫu học được phân loại tiêu cực là 31686. Sự chênh lệnh lớn này ảnh hưởng đến kết quả của giải thuật phân loại, theo Weiss \cite{weiss03}. Một trong những lí do đó là giải thuật phân loại được học các mẫu tiêu cực quá nhiều thì khả năng giải thuật phân loại sẽ tập trung học những trường hợp tiêu cực nhiều hơn.
-				\par Tình trạng tập dữ liệu chênh lệch trong học máy là phổ biến, nhóm sử dụng cách thường được sử dụng để khắc phục là phương pháp chọn lại mẫu. Ý tưởng của phương pháp này là xây dựng lại tập dữ liệu học, chọn ngẫu nhiên có hoàn lại các mẫu từ tập dữ liệu học ban đầu và chuyển vào tập dữ liệu học mới. Đặc điểm của tập dữ liệu học mới này là tỉ số giữa số mẫu tích cực gần về 1, sự chênh lệch được giảm đi. Ví dụ: tập dữ liệu ban đầu có M mẫu dữ tích cực, N mẫu dữ liệu tiêu cực, với M >> N. Tập dữ liệu học mới gồm (M - T) mẫu tích cực và (N + T) mẫu tiêu cực (T là số mẫu tích cực đã được loại bỏ, cũng là số mẫu tiêu cực tăng lên). Giá trị T tùy thuộc vào cách lựa chọn của mỗi người sử dụng.
-				\par Nhóm sử dụng Resample trong WEKA, một hiện thực của giải thuật chọn lại mẫu. Với các thông số:
-				\begin{itemize}
-					\item{Z: thể hiện kích thược tập dữ liệu mới so với tập dữ liệu cũ. Z nằm trong khoảng 0 đến 100. Nhóm chọn Z = 100, kích thước tập dữ liệu học mới bằng với tập dữ liệu học cũ.}
-					\item{B: thể hiện mức độ chênh lệch dữ liệu trong tập dữ liệu mới. B nằm trong khoảng 0 và 1. Nếu B = 0, tập dữ liệu có tỉ lệ giữa số mẫu tích cực và tiêu cực gần như không đổi. Nếu B = 1, thì tỉ lệ giữa số mẫu tích cực và tiêu cực là 1. Nhóm lựa chọn B = 0.1.}
-				\end{itemize}
-
+		\section{Tạo bộ phân loại và gom cụm}								
 			\subsection*{Áp dụng giải thuật học Cây quyết định}
 				\par Các cặp ứng viên được phân loại dựa vào Cây quyết định bằng giải thuật J48 trên Weka \footnote{http://www.cs.waikato.ac.nz/ml/weka}. J48 là sự hiện thực của giải thuật C4.5. Giải thuật này được sử dụng trong hệ thống bằng cách dùng thư viện của nó trong chương trình. Kết quả của việc áp dụng giải thuật là kết quả phân loại cho các cặp cụm danh từ được xét, mỗi cặp có đồng tham chiếu với nhau không.
 
@@ -917,34 +908,70 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					\end{equation*}
 				\end{center}
 
-		\subsection*{Kết quả thực nghiệm}
+		\section{Kết quả thực nghiệm}
+		Chúng tôi thực nghiệm đánh giá kết quả của các hệ thống khác nhau, nhằm biết được mức độ ảnh hưởng của các đặc trưng liên quan lĩnh vực Khai khoáng ý kiến đến kết quả. Các hệ thống được đánh giá bao gồm:
+			\begin{itemize}
+				\item{Hệ thống cơ sở: Hệ thống sử dụng tập thuộc tính là các đặc trưng thuộc Nhóm liên quan ngữ pháp, Nhóm liên quan từ vựng và đặc trưng Khoảng cách}.
+				\item{Hệ thống SC: Hệ thống cơ sở sử dụng thêm đặc trưng Tính nhất quán về ý kiến (SC)}.
+				\item{Hệ thống SC+EOA: Hệ thống SC sử dụng thêm đặc trưng Sự kết hợp giữa thực thể và từ chỉ ý kiến (EOA)}.
+				\item{Hệ thống đầy đủ: Hệ thống sử dụng tập thuộc tính là tất cả các đặc trưng đã được đề xuất ở bảng 5.1}
+			\end{itemize}
+		Bảng 6.1 trình bày kết quả thực nghiệm trên các hệ thống.
 		//TODO
-		\\Mô hình kiểm tra, so sánh
-		\\Bảng kết quả
-		\\Biểu đồ so sánh k-fold giữa 2 mô hình.
+		\\Nhóm vẫn chưa thêm số liệu vào.
+				\begin{table}[]
+				\centering
+				\caption{Kết quả thực nghiệm}
+				\label{my-label}
+				\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|}
+				\hline
+				                & \multicolumn{3}{c|}{Hệ đo MUC} & \multicolumn{3}{c|}{Hệ đo B3} & \multicolumn{3}{c|}{Hệ đo CEAF-4} \\ \hline
+				                & P        & R        & F        & P        & R        & F       & P         & R         & F         \\ \hline
+				Hệ thống cơ sở  &          &          &          &          &          &         &           &           &           \\ \hline
+				Hệ thống SC     &          &          &          &          &          &         &           &           &           \\ \hline
+				Hệ thống SC+EOA &          &          &          &          &          &         &           &           &           \\ \hline
+				Hệ thống đầy đủ &          &          &          &          &          &         &           &           &           \\ \hline
+				\end{tabular}
+				\end{table}
 
-		\section{Phân tích}
-			\subsection*{Phân tích kết quả}
-			//TODO
-			\\So sánh kết quả
-			\subsection*{Phân tích đóng góp của các thuộc tính}
-			//TODO
-			\\Tập những thuộc tính ảnh hưởng nhất
-			\\Thuộc tính quan hệ giữa từ chỉ ý kiến với cụm danh từ.
-			\\Thuộc tính về cảm xúc.
-			\\Tập thuộc tính thêm mới khác: isBetween, hasBetween,..
-			\par Mỗi thuộc tính cần nêu được:
-			\\Đóng góp bao nhiêu.
-			\\Tại sao đóng góp không nhiều.
-			\\Góp ý cải thiện.
-			\subsection*{Phân tích lỗi sai}
-			//TODO
-			\par Lỗi sai đến từ giai đoạn tạo tập thuộc tính:
-				\\Bước xác tính Danh từ riêng.
-				\\Bước xác định từ chỉ ý kiến (opinion word).
-				\\Bước xác định đến từ xác định cụm danh từ liên quan với từ chỉ ý kiến.
-				\\Bước phân tích cảm xúc ???
-				\\Bước has-Between
+		Hình 6.2 trình bày biểu đồ so sánh kết quả độ F trung bình 3 hệ đo MUC, B3, CEAF-4 trên 5 lần kiểm chứng chéo giữa Hệ thống cơ sở và Hệ thống đầy đủ
+						\begin{figure}[H] 
+				\centering
+				\caption{So sánh kết quả giữa hệ thống cơ sở và hệ thống đầy đủ}
+				\includegraphics[scale=0.8]{images/result.png}
+				\end{figure} 
+
+		\section{Phân tích kết quả thực nghiệm}
+		\subsection*{Nhận xét}
+		Dựa vào bảng kết quả 6.1, chúng tôi có một số nhận xét trực quan:
+			\begin{itemize}
+				\item{Hệ thống đầy đủ đạt kết quả cao hơn hệ thống cơ sở, cụ thể có đọ F cao hơn khoảng ???\%. Điều này chứng tỏ các đặc trưng liên quan đến khai khoáng ý kiến đã ảnh hưởng tích cực đến kết quả, chúng có giá trị đối với bài toán đồng tham chiếu trên lĩnh vực khai khoáng ý kiến}.
+				\item{Hệ thống SC đạt kết quả cao hơn hệ thống cơ sở khoảng ???\% độ F. Điều này cho thấy đặc trưng Tính nhất quán về ý kiến (SC) đã có ảnh hưởng tương đối lớn đến hệ thống}.
+				\item{Hệ thống SC+EOA đạt kết quả không cao hơn nhiều so với hệ thống SC, cao hơn khoảng ???\% độ F. Điều này cho thấy đặc trưng Sự kết hợp giữa thực thể và từ chỉ ý kiến (EOA) đã có ảnh hưởng tiêu cực đến hệ thống, tuy nhiên vì một số lí do nào đó đặc trưng này tỏ ra không hiệu quả khi được sử dụng}.
+			\end{itemize}
+		\subsection*{Giải thích}
+			\par Chúng tôi phân tích kết quả bằng cách đi trả lời hai câu hỏi: tại sao những đặc trưng liên quan đến khai khoáng ý kiến chưa đóng góp nhiều vào kết quả hệ thống và tại sao kết quả hệ thống chưa cao.
+			\par \textit{Nguyên nhân đặc trưng Sự kết hợp giữa thực thể và từ chỉ ý kiến (EOA) chưa ảnh hưởng nhiều đến hệ thống:}
+				\begin{itemize}
+					\item{Số lượng từ chỉ ý kiến trong tập dữ liệu vẫn chưa nhiều. Do đó thuộc tính EOA vẫn chưa ảnh hưởng nhiều đến hệ thống}.
+					\item{Các từ chỉ ý kiến trong tập dữ liệu vẫn chưa có tính đặc trưng cao, có những từ chỉ ý kiến có thể đi kèm với nhiều cụm danh từ khác nhau.  Ví dụ như tính từ “good”, “nice”, “better”, “great”. Trong câu “The M9 destroyed the Nexus 6 in both aspects. The battery life was pretty great. It wasn't as good as the Oneplus One, but was much better than the M9.” Khả năng từ “good” liên kết được với “the M9”, “Nexus 6” và “the battery” là tương đương nhau. Nên khó xác định được từ “It” liên kết với “good” đang chỉ đến cụm danh từ nào}.
+					\item{Theo giả thuyết cặp nào có giá trị thuộc tính EOA càng nhỏ thì càng có khả năng đồng tham chiếu. Tuy nhiên trên thực tế có những cặp có giá trị thuộc tính EOA nhỏ (0 hoặc 1) nhưng không đồng tham chiếu, trong khi có nhiều cặp có giá trị EOA lớn (3 hoặc 4) thì cặp đó lại đồng tham chiếu}.
+					\item{Tập dữ liệu học của thuộc tính EOA bị nhiễu. Một cụm danh từ có từ chỉ ý kiến nhưng trên thực tế nằm trong chuỗi đồng tham chiếu nào sẽ tạo ra các mẫu học có  giá trị thuộc tính EOA là 0,1,2,3,4, dẫn đến hệ thống học được rằng dù thuộc tính EOA là 0 hoặc 1 thì vẫn phân loại là không đồng tham chiếu}.
+				\end{itemize}
+			\par \textit{Nguyên nhân đặc trưng Tính nhất quán về ý kiến (SC) chưa ảnh hưởng nhiều đến hệ thống}:
+				\begin{itemize}
+					\item{}
+					\item{}
+					\item{}
+				\end{itemize}
+			\par \textit{Nguyên nhân hệ thống vẫn chưa đạt kết quả cao}:
+				\begin{itemize}
+					\item{}
+					\item{}
+					\item{}
+				\end{itemize}
+
+		
 		
 	\chapter{Tổng kết}			
 		\par Trong giai đoạn Luận văn tốt nghiệp, chúng tôi đã thực hiện được những công việc sau:
