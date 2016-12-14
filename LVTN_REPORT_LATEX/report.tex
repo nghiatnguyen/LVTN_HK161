@@ -748,9 +748,9 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					\\"I transfered my old phone to my friend and now consider to buy two new phones. They are both Motorola". Two new phones và they khả năng là đồng tham chiếu vì chúng đều là số nhiều ("phones" và "they" số nhiều), trong khi "my old phone" là số ít do đó nếu bắt cặp nó với "they" chẳng hạn thì chúng không thể đồng tham chiếu được.				
 
 				\subsubsection*{Đặc trưng Từ khóa "is" nằm ở giữa (IS\_BETWEEN)}
-					\par \textit{Giải thích:} Nếu ở giữa 2 cụm danh từ trong câu có từ "is" và nó không đi kèm với bất kỳ chỉ định so sánh nào thì có xác suất để 2 cụm danh từ này đồng tham chiếu. Nếu ở giữa 2 cụm danh từ trong câu có từ "is" và nó có đi kèm với một chỉ định so sánh nào thì có xác suất để 2 cụm danh từ này trỏ tới 2 thực thể/thuộc tính khác nhau.
-					\par \textit{Giá trị:} [true, false]. Thuộc tính nhận giá trị true nếu ở giữa 2 cụm danh từ trong câu có từ "is" đồng thời không có chỉ định so sánh nào, ngược lại nhận giá trị false.
-					\par Về việc xác định các chỉ định so sánh, các chỉ định so sánh được tìm kiếm bằng cách bắt các từ/cụm từ thuộc các mẫu so sánh phổ biến (đã đề cập ở mục \ref{comparative_section}).
+					\par \textit{Giải thích:} Nếu ở giữa 2 cụm danh từ trong câu có từ "is" hoặc các động từ TOBE như "are", "was", "were", "been",... và nó không đi kèm với bất kỳ chỉ định so sánh hay phủ định nào thì có xác suất để 2 cụm danh từ này đồng tham chiếu. Nếu ở giữa 2 cụm danh từ trong câu có từ "is" (hoặc một động từ TOBE) và nó có đi kèm với một chỉ định so sánh nào thì có xác suất để 2 cụm danh từ này trỏ tới 2 thực thể/thuộc tính khác nhau.
+					\par \textit{Giá trị:} [true, false]. Thuộc tính nhận giá trị true nếu ở giữa 2 cụm danh từ trong câu có từ "is" (hoặc một động từ TOBE) đồng thời không có chỉ định so sánh hay phủ định nào, ngược lại nhận giá trị false.
+					\par Về việc xác định các chỉ định so sánh, các chỉ định so sánh được tìm kiếm bằng cách bắt các từ/cụm từ thuộc các mẫu so sánh phổ biến (đã đề cập ở mục \ref{comparative_section}). Các diễn đạt phủ định đi kèm như "is not", "isn't", "were not",... cũng được xem xét và những trường hợp này cho giá trị thuộc tính là false.
 					\par Ví dụ: 
 					\\"Nokia 215 is my second phone". "Nokia 215" và "my second phone" khả năng đồng tham chiếu với nhau.
 					\\"Overall the K800 is far superior to the W810". "K8100" và "W810" khả năng trỏ tới 2 thực thể khác nhau.
