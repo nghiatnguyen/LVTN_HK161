@@ -760,16 +760,6 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 			\subsection*{Kiểm chứng chéo}
 				\par \textit{Kiểm chứng chéo (cross validation)} phân chia dữ liệu thành k tập con (folds) có cùng kích thước một cách ngẫu nhiên. Thực hiện k vòng lặp, tại mỗi vòng lặp sử dụng tập con thứ k là tập kiểm chứng (validation set) và các tập con còn lại là tập huấn luyện (training set). Kết quả cuối cùng của hệ thống là giá trị trung bình kết quả của các vòng lặp. Giá trị k thường được sử dụng là 10. Mô hình được học và kiểm chứng trên các tập dữ liệu khác nhau nên tránh được trường hợp mất cân bằng giữa tập kiểm tra và tập đánh giá. Do đó, kết quả đánh giá đáng tin cậy.
 				\par Chúng tôi áp dụng giải thuật \textit{Kiểm chứng chéo} để học và kiểm tra hệ thống. Bởi vì tập dữ liệu gồm 157 reviews, chúng tôi lựa chọn k = 5. Tập dữ liệu được chia làm 5 tập, mỗi tập gồm 31-32 reviews. Hệ thống sẽ thực hiện học và kiểm tra 5 lần liên tiếp, kết quả đánh giá hệ thống dựa trên trung bình kết quả của các lần học và kiểm tra. Tại lần học thứ i, hệ thống sử dụng tập thứ i để tạo tập dữ liệu kiểm tra và các tập còn lại để tạo dữ liệu dùng để học.
-			
-			\subsection*{Áp dụng phương pháp Chọn lại mẫu (resampling methods)}
-				\par Tập dữ liệu dùng để học có sự chênh lệch lớn giữa số lượng các mẫu được phân loại tích cực và số lượng các mẫu được phân loại tiêu cực, cụ thể: chọn một fold ngẫu nhiên, số lượng mẫu học được phân loại tích cực là 4130 và số lượng mẫu học được phân loại tiêu cực là 31686. Sự chênh lệnh lớn này ảnh hưởng đến kết quả của giải thuật phân loại, theo Weiss \cite{weiss03}. Một trong những lí do đó là giải thuật phân loại được học các mẫu tiêu cực quá nhiều thì khả năng giải thuật phân loại sẽ tập trung học những trường hợp tiêu cực nhiều hơn.
-				\par Tình trạng tập dữ liệu chênh lệch trong học máy là phổ biến, nhóm sử dụng cách thường được sử dụng để khắc phục là phương pháp chọn lại mẫu. Ý tưởng của phương pháp này là xây dựng lại tập dữ liệu học, chọn ngẫu nhiên có hoàn lại các mẫu từ tập dữ liệu học ban đầu và chuyển vào tập dữ liệu học mới. Đặc điểm của tập dữ liệu học mới này là tỉ số giữa số mẫu tích cực gần về 1, sự chênh lệch được giảm đi. Ví dụ: tập dữ liệu ban đầu có M mẫu dữ tích cực, N mẫu dữ liệu tiêu cực, với M >> N. Tập dữ liệu học mới gồm (M - T) mẫu tích cực và (N + T) mẫu tiêu cực (T là số mẫu tích cực đã được loại bỏ, cũng là số mẫu tiêu cực tăng lên). Giá trị T tùy thuộc vào cách lựa chọn của mỗi người sử dụng.
-				\par Nhóm sử dụng Resample trong WEKA, một hiện thực của giải thuật chọn lại mẫu. Với các thông số:
-				\begin{itemize}
-					\item{Z: thể hiện kích thược tập dữ liệu mới so với tập dữ liệu cũ. Z nằm trong khoảng 0 đến 100. Nhóm chọn Z = 100, kích thước tập dữ liệu học mới bằng với tập dữ liệu học cũ.}
-					\item{B: thể hiện mức độ chênh lệch dữ liệu trong tập dữ liệu mới. B nằm trong khoảng 0 và 1. Nếu B = 0, tập dữ liệu có tỉ lệ giữa số mẫu tích cực và tiêu cực gần như không đổi. Nếu B = 1, thì tỉ lệ giữa số mẫu tích cực và tiêu cực là 1. Nhóm lựa chọn B = 0.1.}
-				\end{itemize}
-
 
 			\subsection*{Áp dụng giải thuật học Cây quyết định}
 				\par Các cặp ứng viên được phân loại dựa vào Cây quyết định bằng giải thuật J48 trên Weka \footnote{http://www.cs.waikato.ac.nz/ml/weka}. J48 là sự hiện thực của giải thuật C4.5. Giải thuật này được sử dụng trong hệ thống bằng cách dùng thư viện của nó trong chương trình. Kết quả của việc áp dụng giải thuật là kết quả phân loại cho các cặp cụm danh từ được xét, mỗi cặp có đồng tham chiếu với nhau không.
@@ -792,23 +782,20 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 			\subsection*{Dữ liệu thực nghiệm}
 				//TODO
 
-		\section{Đánh giá}			
-			\subsection*{Phương pháp đánh giá}
-				\par Từ tính chất bắc cầu: Nếu cặp (A,B) đồng tham chiếu, (B,C) đồng  tham chiếu thì ta có chuỗi đồng tham chiếu gồm A, B, C. Như vậy, từ tập dữ liệu kiểm tra ta có được:
+		\section{Các phương pháp đánh giá}			
+				\par Chúng tôi sử dụng 3 độ đo phổ biến để đánh giá hệ thống: độ đúng đắn (precision), độ phủ (recall) và độ F (F-measure). Trong bài toán đồng tham chiếu, những độ đo trên có thể được tính bằng các phương pháp khác nhau. Nhóm sử dụng 3 phương pháp, đó là: MUC, B-CUBED và CEAF-4.
+				\\Một số khái niệm được sử dụng trong 3 phương pháp:
 					\begin{itemize}
-				 		\item{Tập thực tế S: các chuỗi $S_i$ đồng tham chiếu thực tế. Mỗi cụm $S_i$ có 2 cụm danh từ trở lên.}				
-						\item{Tập dự đoán R: các chuỗi $R_i$ đồng tham chiếu mà hệ thống dự đoán. Trong đó mỗi chuỗi phải chứa ít nhất một tên đối tượng hoặc thuộc tính (cụm danh từ trên thực tế có TYPE = 0 hoặc TYPE = 3), nếu không chuỗi đó sẽ bị bỏ đi khỏi tập dự đoán. Mỗi chuỗi $R_i$ có 2 cụm danh từ trở lên.}
-					\end{itemize}
-				\par Chúng tôi sử dụng 3 độ đo phổ biến trong bài toán đồng tham chiếu để so sánh tập dự đoán với tập thực tế, đó là: MUC, B3 và CEAF-4.
-				\\Một số khái niệm:
-					\begin{itemize}
+						\item{Tập $S$: là tập bao gồm các chuỗi đồng tham chiếu trên thực tế. Chuỗi đồng tham chiếu thứ $i$ trong tập $S$ được kí hiệu là $S_i$.}
+						\item{Tập $R$: là tập bao gồm các chuỗi đồng tham chiếu được dự đoán. Chuỗi đồng tham chiếu thứ $i$ trong tập $R$ được kí hiệu là $R_i$.}
 						\item{$S_i$ = \{A B C D\}: chuỗi đồng tham chiếu $S_i$ chứa 4 cụm danh từ là A, B, C, D.}
 						\item{|$S_i$|: số cụm danh từ thuộc chuỗi $S_i$. Ví dụ chuỗi $S_1$ = \{A B C D\} thì |$S_1$| = 4.}
-						\item{p($S_i$): tập hợp các cụm $P_j$ của chuỗi $S_i$. Mỗi cụm $P_j$ chứa các cụm danh từ, tối thiểu là một cụm danh từ. Cách tìm $P_j$: $P_j$ = $S_i$ giao $R_i$. Nếu có cụm danh từ nào trong $S_i$ mà không nằm trong bất kì một chuỗi $R_i$ nào, thì ta sẽ tạo ra chuỗi $P_j$ chứa cụm danh từ đó. Ví dụ: Từ dữ liệu gồm chuỗi $S_1$ = \{A B C D E\} và 2 chuỗi $R_1$ = \{A B\}, $R_2$ = \{C E\}. Khi đó $P_1$ = $S_1$ giao $R_1$ = \{A B\}, $P_2$ = $S_1 \cap R_2$ = \{C E\}. Phần tử D trong $S_1$ vẫn chưa nằm trong cụm $P_1$ hay $P_2$, do đó ta tạo thêm cụm $P_3$ = \{D\}.}
-					\end{itemize}								
-				\par p($R_i$): tập hợp các cụm $P'_j$ của chuỗi $R_i$. Cách tính p($R_i$) hoàn toàn giống như cách tính p($S_i$), chỉ khác ở chỗ đổi vai trò của $R_i$ với $S_i$. Mỗi cụm $P'_j$ chứa các cụm danh từ, tối thiểu là một cụm danh từ. Cách tìm $P'_j$: $P'_j$ = $R_i \cap S_i$. Nếu có cụm danh từ nào trong $R_i$ mà không nằm trong bất kì một chuỗi $S_i$ nào, thì ta sẽ tạo ra chuỗi $P'_j$ chứa cụm danh từ đó. Ví dụ: Từ dữ liệu gồm chuỗi $R_1$ = \{A B C D E\} và 2  chuỗi $S_1$ = \{A B\}, $S_2$ = \{C E\}. Khi đó $P'_1$ = $R_1 \cap S_1$ = \{A B\}, $P'_2$ = $R_1 \cap S_2$ = \{C E\}. Phần tử D trong $R_1$ vẫn chưa nằm trong cụm $P'_1$ và $P'_2$, do đó ta tạo thêm cụm $P'_3$ = \{D\}.
-				\par \textit{MUC SCORE}
-				\\Công thức:					
+						\item{p($S_i$): tập hợp các cụm $P_j$ của chuỗi $S_i$. Mỗi cụm $P_j$ chứa các cụm danh từ, tối thiểu là một cụm danh từ. Cách tìm $P_j$: $P_j$ = $S_i$ giao $R_i$. Nếu có cụm danh từ nào trong $S_i$ mà không nằm trong bất kì một chuỗi $R_i$ nào, thì ta sẽ tạo ra chuỗi $P_j$ chứa cụm danh từ đó. Ví dụ: Từ dữ liệu gồm chuỗi $S_1$ = \{A B C D E\} và 2 chuỗi $R_1$ = \{A B\}, $R_2$ = \{C E\}. Khi đó $P_1$ = $S_1$ giao $R_1$ = \{A B\}, $P_2$ = $S_1 \cap R_2$ = \{C E\}. Phần tử D trong $S_1$ vẫn chưa nằm trong cụm $P_1$ hay $P_2$, do đó ta tạo thêm cụm $P_3$ = \{D\}.}							
+						\item p($R_i$): tập hợp các cụm $P'_j$ của chuỗi $R_i$. Cách tính p($R_i$) hoàn toàn giống như cách tính p($S_i$), chỉ khác ở chỗ đổi vai trò của $R_i$ với $S_i$. Mỗi cụm $P'_j$ chứa các cụm danh từ, tối thiểu là một cụm danh từ. Cách tìm $P'_j$: $P'_j$ = $R_i \cap S_i$. Nếu có cụm danh từ nào trong $R_i$ mà không nằm trong bất kì một chuỗi $S_i$ nào, thì ta sẽ tạo ra chuỗi $P'_j$ chứa cụm danh từ đó. Ví dụ: Từ dữ liệu gồm chuỗi $R_1$ = \{A B C D E\} và 2  chuỗi $S_1$ = \{A B\}, $S_2$ = \{C E\}. Khi đó $P'_1$ = $R_1 \cap S_1$ = \{A B\}, $P'_2$ = $R_1 \cap S_2$ = \{C E\}. Phần tử D trong $R_1$ vẫn chưa nằm trong cụm $P'_1$ và $P'_2$, do đó ta tạo thêm cụm $P'_3$ = \{D\}.
+					\end{itemize}
+				\subsection*{Hệ đo MUC}
+				\par Hệ đo này được đề xuất bởi Vilain (1995)\cite{vilain95}, thường được sử dụng để đánh giá các mô hình cặp (\textit{mention pair}), mô hình mà tìm chuỗi đồng tham chiếu dựa trên tìm liên kết giữa các cặp hai cụm danh từ. Ta mô hình bài toán đồng tham chiếu bằng đồ thị: các cụm danh từ là đỉnh, nếu hai cụm danh từ đồng tham chiếu thì hai đỉnh được nối với nhau (cạnh). Bài toán đồng tham chiếu là bài toán thêm các cạnh vào đồ thị các đỉnh. Chuỗi đồng tham chiếu thực tế $S_i$ là tập các đỉnh $List\_vertex$ và tập các cạnh $List\_edge$, trong đó tất cả các đỉnh được nối với nhau. Chuỗi đồng tham chiếu dự đoán $R_i$ được hình thành từ tập các đỉnh sao cho luôn có đường đi giữa hai đỉnh trong chuỗi. Khi đó, độ thiếu phủ (\textit{recall error}) được tính dựa vào số cạnh tối thiểu cần phải thêm để $R_i$ có các đỉnh nằm trong $List\_vertex$ và độ thiếu đúng đắn (\textit{precision error}) được tính dựa vào số cạnh của $R_i$ mà không nằm trong $List\_edge$. 
+				\par Công thức tính độ chính xác (P) và độ phủ (R): 
 					\begin{center}
 						\begin{equation*}
 							P = \frac{\sum \big(|R_i| - |p \big(R_i)|)}{\sum_{|R_i| - 1}}
@@ -819,8 +806,13 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 						\end{equation*}												
 					\end{center}
 
-					\textit{B-CUBED (B3)}
-					\\Giải thuật cũng có các khái niệm như giải thuật MUC score, công thức:
+					\subsection*{Hệ đo B-CUBED (B3)}
+					\par Hệ đo này được đề xuất bởi Bagga (1998)\cite{bagga98} sau khi ông nhận ra nhược điểm "độ đúng đắn được tính quá dễ dàng" của hệ đo MUC. Hệ đo tính độ đúng đắn và độ phủ của từng cụm danh từ trong chuỗi đồng tham chiếu thực tế, sau đó tính trung bình các giá trị này. Với cụm danh từ thứ $i$ (kí hiệu NP\textsubscript{$i$}), gọi chuỗi đồng tham chiếu trên thực tế chứa NP\textsubscript{$i$} là $truth\_chain$ và chuỗi đồng tham chiếu được dự đoán đồng tham chiếu chứa NP\textsubscript{$i$} là $output\_chain$:
+					\begin{itemize}
+						\item{Độ chính xác của NP\textsubscript{$i$} bằng số cụm danh từ trong $output\_chain$ cũng nằm trong $truth\_chain$ chia cho số cụm danh từ trong $output\_chain$}.
+						\item{Độ phủ của NP\textsubscript{$i$} bằng số cụm danh từ trong $output\_chain$ cũng nằm trong $truth\_chain$ chia cho số cụm danh từ trong $truth\_chain$}.
+					\end{itemize}
+					\par Công thức tổng quát tính độ đúng đắn (P) và độ phủ (R):
 					\begin{center}
 						\begin{equation*}
 							P = \frac{1}{n} \sum_{i=1}^{n} \frac{\sum_{j=1}^{|p (S_i)|} |P_{ij}|*\big(|S_i| - |P_{ij}|)} {|S_{i}|^2}
@@ -831,8 +823,10 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 						\end{equation*}												
 					\end{center}
 
-					\textit{CEAF-4}
-				\begin{itemize}
+					\subsection*{Hệ đo CEAF-4}
+					\par Hệ đo B3 mặc dù đã khắc phục nhược điểm của hệ đo MUC, tuy nhiên nó có nhược điểm là sử dụng các chuỗi đồng tham chiếu được dự đoán và thực tế lặp lại nhiều lần khi đánh giá. Luo đề xuất hệ đo mới CEAF khắc phục những nhược điểm của hai hệ đo trước (Lou (2005)\cite{lou05}). Ý tưởng của hệ đo là tạo tập các cặp, mỗi cặp gồm một chuỗi đồng tham chiếu thực tế và một chuỗi đồng tham chiếu được dự đoán (mỗi chuỗi chỉ xuất hiện tối đa một lần). Tác giả sẽ đánh giá hệ thống bằng cách đánh giá sự giống nhau giữa chuỗi đồng tham chiếu trong các cặp. Sự giống nhau này có thể được tính toán bằng một hàm mà tác giả đề xuất. Nếu tác giả sử dụng hàm có tên $\Phi_4$ thì hệ đo CEAF có tên là CEAF-4.
+					\par Một vài khái niệm được sử dụng trong hệ đo:
+					\begin{itemize}
 					\item{|S|: số chuỗi đồng tham chiếu của tập thực tế S.}
 					\item{|R|: số chuỗi đồng tham chiếu của tập dự đoán R.}
 					\item{m = min \{|S|, |R|\}.}
@@ -845,7 +839,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					\end{center}}
 				\end{itemize}
 				\par Khi đã xác định được m cặp, ta thu được tập S* chứa các $S_i$ nằm trong m cặp và tập R* chứa các $R_i$ nằm trong m cặp. Mỗi chuỗi $S_i$ trong S* tương ứng với duy nhất một chuỗi $R_i$ trong R*.
-				\par Khi đó công thức tính:						
+				\par Khi đó công thức tính độ đúng đắn (P) và độ phủ (R) là:						
 					\begin{center}
 						\begin{equation*}
 							P = \frac{\Phi \big(g*)}{\sum_{S_i \in S*}\Phi_4 \big(S_i, S_i)}
@@ -856,7 +850,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 						\end{equation*}					
 					\end{center}
 
-			\par \textit{Công thức tính F-measure cho cả ba độ đo trên:}
+			\par \textit{Công thức tính F-measure cho cả ba hệ độ đo trên:}
 				\begin{center}					
 					\begin{equation*}
 						F = \frac{2PR}{P+R}
@@ -1156,6 +1150,20 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 	\textit{An Upgrading Feature-based Opinion Mining Model on Product Reviews in Vietnamese}.
 	AMT’2011: 173-185, Lanzhou, China.
 
+	\bibitem{vilain95}
+	Vilain, Marc, John Burger, John Aberdeen, Dennis Connolly and Lynette Hirschman. 1995.
+	\textit{A model-theoretic coreference scoring scheme}.
+	In Proceedings of the 6th Message Understanding Conference (MUC-6), pages 45–52.
+
+	\bibitem{bagga98}
+	Amit Bagga and Breck Baldwin. 1998.
+	\textit{Algorithms for Scoring Coreference Chains}.
+	In The First International Conference on Language Resources and Evaluation Workshop on Linguistics Coreference.
+
+	\bibitem{lou05}
+	Xiaoqiang Luo. 2005.
+	\textit{On coreference resolution performance metrics}.
+	In Proceedings of the Human Language Technology Conference and the 2005 Conference on Empirical Methods in Natural Language Processing, Vancouver, B.C., Canada, 6–8 October 2005, pages 25–32
  
 \end{thebibliography}	
 

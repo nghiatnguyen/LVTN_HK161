@@ -158,32 +158,19 @@ public class FeatureExtractor {
             }
         }
 
+        
         return false;
     }
-
-    /**
-     * Check for is-between feature
-     *
-     * @param review np1 np2
-     * @param np1
-     * @param np2
-     * @return true if there is an 'is-like' between 2 NPs, otherwise false
-     */
-    public static Boolean isBetween3Extract(Review review, NounPhrase np1, NounPhrase np2) {
+    
+    public static Boolean isBetweenExtract3(Review review, NounPhrase np1, NounPhrase np2) {
         if (np1.getReviewId() == np2.getReviewId()) {
-            if (np1.getSentenceId() == np2.getSentenceId()) {
+            if (np1.getSentenceId() == np2.getSentenceId()) {               
                 Sentence curSentence = review.getSentences().get(np1.getSentenceId());
-                if (np1.getOffsetEnd() < np2.getOffsetBegin()) {
-                    if (np1.getOffsetEnd() + 1 < np2.getOffsetBegin() && contains3rdTobe(curSentence.getRawContent().substring(np1.getOffsetEnd() + 1 - curSentence.getOffsetBegin(), np2.getOffsetBegin() - curSentence.getOffsetBegin()))) {
-                        if (!hasNpBetween(np1, np2) && (np2.getOffsetBegin() - np1.getOffsetEnd()) < 7) {
-                            return true;
-                        }
-                    }
-                } else if (np2.getOffsetEnd() < np1.getOffsetBegin()) {
-                    if (np2.getOffsetEnd() + 1 < np1.getOffsetBegin() && contains3rdTobe(curSentence.getRawContent().substring(np2.getOffsetEnd() + 1 - curSentence.getOffsetBegin(), np1.getOffsetBegin() - curSentence.getOffsetBegin()))) {
-                        if (findComparativeIndicator(curSentence, np1, np2).isEmpty() && !hasNpBetween(np1, np2)) {
-                            return true;
-                        }
+                int rangeBegin = np1.getOffsetBegin() < np2.getOffsetBegin() ? np1.getOffsetEnd() : np2.getOffsetEnd();
+                int rangeEnd = np1.getOffsetBegin() < np2.getOffsetBegin() ? np2.getOffsetBegin() : np1.getOffsetBegin();                
+                if (containsTobe(curSentence, rangeBegin, rangeEnd)) {
+                    if (findComparativeIndicator(curSentence, np1, np2).isEmpty() && !hasNpBetween(np1, np2) && !hasVPBetween(np1, np2)) {
+                        return true;
                     }
                 }
             }
@@ -191,7 +178,6 @@ public class FeatureExtractor {
 
         return false;
     }
-
     /**
      * Check for comparativeIndicator-between feature
      *
@@ -725,40 +711,40 @@ public class FeatureExtractor {
         return sum;
     }
 
-    public static int countNPWithVerbBefore(NounPhrase np2, NounPhrase np1) {
-        int matches = 0;
-        String word = "";
-        word += np1.getVerbBefore() + " ";
-        if (np2.getType() == 0) {
-            word += "phone";
-        } else {
-            word += np2.getHeadNode().toString().toLowerCase();
-        }
-
-        for (int i = 0; i < WORDS.length; ++i) {
-            if (WORDS[i].contains(" " + word + " ")) {
-                ++matches;
-            }
-        }
-        return matches;
-    }
-
-    public static int countNPWithVerbAfter(NounPhrase np2, NounPhrase np1) {
-        int matches = 0;
-        String word = "";
-        if (np2.getType() == 0) {
-            word += "phone ";
-        } else {
-            word += np2.getHeadNode().toString().toLowerCase() + " ";
-        }
-        word += np1.getVerbBefore();
-        for (int i = 0; i < WORDS.length; ++i) {
-            if (WORDS[i].contains(" " + word + " ")) {
-                ++matches;
-            }
-        }
-        return matches;
-    }
+//    public static int countNPWithVerbBefore(NounPhrase np2, NounPhrase np1) {
+//        int matches = 0;
+//        String word = "";
+//        word += np1.getVerbBefore() + " ";
+//        if (np2.getType() == 0) {
+//            word += "phone";
+//        } else {
+//            word += np2.getHeadNode().toString().toLowerCase();
+//        }
+//
+//        for (int i = 0; i < WORDS.length; ++i) {
+//            if (WORDS[i].contains(" " + word + " ")) {
+//                ++matches;
+//            }
+//        }
+//        return matches;
+//    }
+//
+//    public static int countNPWithVerbAfter(NounPhrase np2, NounPhrase np1) {
+//        int matches = 0;
+//        String word = "";
+//        if (np2.getType() == 0) {
+//            word += "phone ";
+//        } else {
+//            word += np2.getHeadNode().toString().toLowerCase() + " ";
+//        }
+//        word += np1.getVerbBefore();
+//        for (int i = 0; i < WORDS.length; ++i) {
+//            if (WORDS[i].contains(" " + word + " ")) {
+//                ++matches;
+//            }
+//        }
+//        return matches;
+//    }
 
     /**
      * ************************************

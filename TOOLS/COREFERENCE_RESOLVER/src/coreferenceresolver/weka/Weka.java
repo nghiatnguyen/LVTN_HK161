@@ -2,11 +2,14 @@ package coreferenceresolver.weka;
 
 import coreferenceresolver.gui.WekaTreeGUI;
 import coreferenceresolver.util.StanfordUtil;
+
 import java.awt.BorderLayout;
+
 import weka.classifiers.Evaluation;
 import weka.classifiers.trees.J48;
 import weka.core.Instances;
 import weka.filters.Filter;
+import weka.filters.supervised.instance.Resample;
 import weka.filters.unsupervised.attribute.Remove;
 
 import java.io.BufferedReader;
@@ -16,7 +19,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Random;
+
 import javax.swing.JFrame;
+
 import weka.gui.treevisualizer.PlaceNode2;
 import weka.gui.treevisualizer.TreeVisualizer;
 
@@ -39,8 +44,14 @@ public class Weka {
         // setting class attribute 
         newTrainInstances.setClassIndex(newTrainInstances.numAttributes() - 1);
 
+        Resample sampler = new Resample();
+        sampler.setInputFormat(newTrainInstances); 
+        sampler.setBiasToUniformClass(0.1); 
+        
+        Instances resampledData = Filter.useFilter(newTrainInstances, sampler); 
+
 //		useCrossValidation(newData);
-        useTestSet(newTrainInstances, testFilePath, resultFilePath);
+        useTestSet(resampledData, testFilePath, resultFilePath);
     }
 
     public static void useCrossValidation(Instances inst) throws Exception {
@@ -138,12 +149,20 @@ public class Weka {
         //Remove 1st feature
         String[] options = new String[2];
         options[0] = "-R";                                    // "range"
+        //EDIT REMOVE FEATURE
         options[1] = "1,2,3";                                     // first attribute
         Remove remove = new Remove();                         // new instance of filter
         remove.setOptions(options);                           // set options
         remove.setInputFormat(trainInstances);                          // inform filter about dataset **AFTER** setting options
         Instances newTrainInstances = Filter.useFilter(trainInstances, remove);   // apply filter
         newTrainInstances.setClassIndex(newTrainInstances.numAttributes() - 1);
+        
+
+//        Resample sampler = new Resample();
+//        sampler.setInputFormat(newTrainInstances); 
+//        sampler.setBiasToUniformClass(0.1); 
+//        
+//        Instances resampledData = Filter.useFilter(newTrainInstances, sampler); 
         useTestSetOpinionWords(newTrainInstances, testFilePath);
     }
 
@@ -154,6 +173,7 @@ public class Weka {
         Remove remove = new Remove();
         String[] options = new String[2];
         options[0] = "-R";                                    // "range"
+      //EDIT REMOVE FEATURE
         options[1] = "1,2,3";    // new instance of filter
         remove.setOptions(options);                           // set options
         remove.setInputFormat(testInstances);                          // inform filter about dataset **AFTER** setting options
