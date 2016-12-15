@@ -208,10 +208,9 @@ public class Evaluation {
                     listPairMentions.add(idOf2Mentions);
                 }
             }
-//		System.out.println("Review: 27");
 //		for (CorefChain cf : reviews.get(idreview).getCorefChainsActual())
 //			System.out.println("Actual Chain: " + cf.getChain().toString());
-//		for (CorefChain cf : reviews.get(idreview).getCorefChainsPredict())
+//		for (CorefChain cf : reviews.get(idreview).getCorefChainsPredicted())
 //			System.out.println("Predict Chain: " + cf.getChain().toString());
 //		for (ArrayList<Integer> ls : listPairMentions){
 //			System.out.println("Pair " + ls.get(0) + "+" + ls.get(1));

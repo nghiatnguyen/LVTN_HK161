@@ -60,9 +60,9 @@ public class CrossValidation {
             StanfordUtil.reviews.forEach((review) -> {
 //            	Set OWs and NPs
             	//EDIT CREATE
-//                for (int i = 0; i < review.getSentences().size(); i++) {
-//                    FeatureExtractor.setNPForOPInSentence(review.getSentences().get(i));
-//                }
+                for (int i = 0; i < review.getSentences().size(); i++) {
+                    FeatureExtractor.setNPForOPInSentence(review.getSentences().get(i));
+                }
                 Util.discardUnneccessaryNPs(review);
             });
             System.out.println("Done Discard NPs and set OWs for NPs");
@@ -105,27 +105,27 @@ public class CrossValidation {
 //            ArrayList<ArrayList<Review>> listForTrains = new ArrayList<ArrayList<Review>>();
 //          ArrayList<ArrayList<Review>> listForTests = new ArrayList<ArrayList<Review>>();
             
-//            int countNP = 0;
-//            int countNPOW = 0;
-//            int countNPOW1 = 0;
-//            for (Review re : StanfordUtil.reviews){
-//            	for (NounPhrase np : re.getNounPhrases()){
-//            		if (np.getType() == 0 | np.getType() == 2 | np.getType() == 3){
-//            			countNP++;
-//            			if (!np.getOpinionWords().isEmpty())
-//            				countNPOW++;
-//            		}
-//            		else{
-//            			if (!np.getOpinionWords().isEmpty())
-//            				countNPOW1++;
-//            		}
-//            			
-//            	}
-//            }
-//           
-//            System.out.println("Number of NP not 1: " + countNP);
-//            System.out.println("Number of NP has OW not 1: " + countNPOW);
-//            System.out.println("Number of NP has OW type 1: " + countNPOW1);
+            int countNP = 0;
+            int countNPOW = 0;
+            int countNPOW1 = 0;
+            for (Review re : StanfordUtil.reviews){
+            	for (NounPhrase np : re.getNounPhrases()){
+            		if (np.getType() == 0 | np.getType() == 2 | np.getType() == 3){
+            			countNP++;
+            			if (!np.getOpinionWords().isEmpty())
+            				countNPOW++;
+            		}
+            		else{
+            			if (!np.getOpinionWords().isEmpty())
+            				countNPOW1++;
+            		}
+            			
+            	}
+            }
+           
+            System.out.println("Number of NP not 1: " + countNP);
+            System.out.println("Number of NP has OW not 1: " + countNPOW);
+            System.out.println("Number of NP has OW type 1: " + countNPOW1);
             //if you want to write the training files and testing files again, please uncomment under codes
     		//Create the kFold dataset
           //EDIT CREATE
