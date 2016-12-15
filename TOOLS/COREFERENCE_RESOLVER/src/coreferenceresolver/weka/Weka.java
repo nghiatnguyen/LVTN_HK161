@@ -158,12 +158,12 @@ public class Weka {
         newTrainInstances.setClassIndex(newTrainInstances.numAttributes() - 1);
         
 
-//        Resample sampler = new Resample();
-//        sampler.setInputFormat(newTrainInstances); 
-//        sampler.setBiasToUniformClass(0.1); 
-//        
-//        Instances resampledData = Filter.useFilter(newTrainInstances, sampler); 
-        useTestSetOpinionWords(newTrainInstances, testFilePath);
+        Resample sampler = new Resample();
+        sampler.setInputFormat(newTrainInstances); 
+        sampler.setBiasToUniformClass(0.1); 
+        
+        Instances resampledData = Filter.useFilter(newTrainInstances, sampler); 
+        useTestSetOpinionWords(resampledData, testFilePath);
     }
 
     public static void useTestSetOpinionWords(Instances trainInstances, String testFilePath) throws Exception {

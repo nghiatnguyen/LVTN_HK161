@@ -1120,7 +1120,7 @@ public class FeatureExtractor {
                     if (np.getOffsetBegin() <= token.getOffsetBegin()
                             && np.getOffsetEnd() >= token.getOffsetEnd()) {
                         if (!Util.isDiscardedQuantityNP(np)) {
-//                            np.addOpinionWord(token.getWord());
+                            np.addOpinionWord(token.getWord());
                             check = true;
                         }
                     }

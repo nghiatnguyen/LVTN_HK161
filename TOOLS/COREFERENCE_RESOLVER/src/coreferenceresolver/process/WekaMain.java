@@ -44,6 +44,9 @@ public class WekaMain {
             Util.assignNounPhrases(nounPhrases, StanfordUtil.reviews);
 
             for (Review review : StanfordUtil.reviews) {
+            	for (int i = 0; i < review.getSentences().size(); i++) {
+                    FeatureExtractor.setNPForOPInSentence(review.getSentences().get(i));
+                }
                 Util.discardUnneccessaryNPs(review);
             }
 

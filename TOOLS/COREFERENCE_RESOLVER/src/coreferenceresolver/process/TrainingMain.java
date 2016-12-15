@@ -10,6 +10,7 @@ import coreferenceresolver.util.Util;
 import coreferenceresolver.util.StanfordUtil;
 import coreferenceresolver.element.Review;
 import coreferenceresolver.util.CrfChunkerUtil;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -52,6 +53,8 @@ public class TrainingMain {
                 + "@ATTRIBUTE comparative {false,true}\n"
                 + "@ATTRIBUTE sentiment REAL\n"
                 + "@ATTRIBUTE bothpropername {false,true}\n"
+//                + "@ATTRIBUTE np1ispropername {false,true}\n"
+//                + "@ATTRIBUTE np2ispropername {false,true}\n"
                 + "@ATTRIBUTE subString {false,true}\n"
                 + "@ATTRIBUTE headMatch {false,true}\n"
                 + "@ATTRIBUTE exactMatch {false,true}\n"
@@ -80,6 +83,9 @@ public class TrainingMain {
 
             //Discard some NPs
             StanfordUtil.reviews.forEach((review) -> {
+            	for (int i = 0; i < review.getSentences().size(); i++) {
+                    FeatureExtractor.setNPForOPInSentence(review.getSentences().get(i));
+                }
                 Util.discardUnneccessaryNPs(review);
             });
 
