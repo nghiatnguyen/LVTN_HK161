@@ -108,7 +108,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 
 \newpage
 	\chapter*{Lời cam đoan}
-		\par Chúng tôi xin cam đoan rằng, tất cả mọi kết quả được thể hiện trong Luận văn, ngoại trừ những kết quả được trích dẫn nguồn rõ ràng, đều là những kết quả do chính chúng tôi thực hiện.
+		\par Chúng tôi xin cam đoan rằng, tất cả mọi kết quả được thể hiện trong Luận văn, ngoại trừ những kết quả được trích dẫn nguồn rõ ràng, đều do chính chúng tôi thực hiện.
 
 		\begin{flushright}
 			TP. Hồ Chí Minh, ngày 16 tháng 12 năm 2016
@@ -725,7 +725,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					\\Trước khi có thể tính giá trị PMI, chúng tôi phải hiện thực nhiệm vụ: Xác định từ chỉ ý kiến trong văn bản. Để thực hiện điều này, chúng tôi chia nhỏ thành hai công đoạn. Đầu tiên, chúng tôi tìm tất cả những từ chỉ ý kiến có trong văn bản, sau đó, chúng tôi tìm cụm danh từ mà những từ chỉ ý kiến đó hướng đến. Dưới đậy, chúng tôi trình bày kĩ hơn về cách hiện thực hai công đoạn.
 					\par Xác định từ chỉ ý kiến trong văn bản:
 					\\Từ chỉ ý kiến có thể là danh từ, tính từ, trạng từ. Trong đề tài, chúng tôi chỉ xác định các từ chỉ ý kiến là tính từ và trạng từ. Theo công cụ gán nhãn Stanford: Từ có nhãn JJ hoặc JJS hoặc JJR là tính từ, từ có nhãn RB là trạng từ. Để xác định từ chỉ ý kiến có trong văn bản, chúng tôi chỉ việc đi tìm những từ có nhãn POS là RB hoặc JJS hoặc JJ hoặc JJR và những từ đó xuất hiện trong danh sách L chứa những từ chỉ ý kiến. Danh sách chứa những từ chỉ ý kiến L mà chúng tôi sử dụng tham khảo từ kết quả trong một công trình nghiên cứu của Bing Liu (2004)\cite{findfeatures1}. Danh sách L gồm khoảng 6800 từ chỉ ý kiến, được thu thập những từ chỉ ý kiến từ các reviews về điện thoại, máy ảnh. quan hệ giữa chúng với đối tượng, thuộc tính là khác nhau. 
-					\\ Dựa trên dữ liệu thực tế, chúng tôi điều chỉnh một số chỗ. Đầu tiên, những tính từ như "right" trong cụm từ "right now" hoặc "well" trong "as well as", nếu chúng đứng riêng lẻ thì từ chỉ ý kiến nhưng nằm trong các cụm đó thì không, chúng tôi không sử dụng chúng. Thứ hai, chúng tôi bổ sung vào danh sách L thêm những tính từ không chỉ ý kiến nhưng có đặc điểm của từ chỉ ý kiến, đó là chúng thường đi kèm với thuộc tính nhất định, quan hệ giữa chúng với các đối tượng, thuộc tính khác nhau là khác nhau. Ví dụ: “big” thường đi kèm với “the phone”, “screen” chừ thường ít đi kèm với “camera”.
+					\\ Dựa trên dữ liệu thực tế, chúng tôi điều chỉnh một số chỗ. Đầu tiên, những tính từ như "right" trong cụm từ "right now" hoặc "well" trong "as well as", nếu chúng đứng riêng lẻ thì từ chỉ ý kiến nhưng nằm trong các cụm đó thì không, chúng tôi không sử dụng chúng. Thứ hai, chúng tôi bổ sung vào danh sách L thêm những tính từ không chỉ ý kiến nhưng có đặc điểm của từ chỉ ý kiến, đó là chúng thường đi kèm với thuộc tính nhất định, quan hệ giữa chúng với các đối tượng, thuộc tính khác nhau là khác nhau. Ví dụ: "big" thường đi kèm với "the phone", "screen" chừ thường ít đi kèm với "camera".
 					\par Xác định cụm danh từ tương ứng với mỗi từ chỉ ý kiến:
 					\begin{itemize}
 						\item{Từ chỉ ý kiến là trạng từ:
@@ -748,9 +748,9 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					\\"I transfered my old phone to my friend and now consider to buy two new phones. They are both Motorola". Two new phones và they khả năng là đồng tham chiếu vì chúng đều là số nhiều ("phones" và "they" số nhiều), trong khi "my old phone" là số ít do đó nếu bắt cặp nó với "they" chẳng hạn thì chúng không thể đồng tham chiếu được.				
 
 				\subsubsection*{Đặc trưng Từ khóa "is" nằm ở giữa (IS\_BETWEEN)}
-					\par \textit{Giải thích:} Nếu ở giữa 2 cụm danh từ trong câu có từ "is" và nó không đi kèm với bất kỳ chỉ định so sánh nào thì có xác suất để 2 cụm danh từ này đồng tham chiếu. Nếu ở giữa 2 cụm danh từ trong câu có từ "is" và nó có đi kèm với một chỉ định so sánh nào thì có xác suất để 2 cụm danh từ này trỏ tới 2 thực thể/thuộc tính khác nhau.
-					\par \textit{Giá trị:} [true, false]. Thuộc tính nhận giá trị true nếu ở giữa 2 cụm danh từ trong câu có từ "is" đồng thời không có chỉ định so sánh nào, ngược lại nhận giá trị false.
-					\par Về việc xác định các chỉ định so sánh, các chỉ định so sánh được tìm kiếm bằng cách bắt các từ/cụm từ thuộc các mẫu so sánh phổ biến (đã đề cập ở mục \ref{comparative_section}).
+					\par \textit{Giải thích:} Nếu ở giữa 2 cụm danh từ trong câu có từ "is" hoặc các động từ TOBE như "are", "was", "were", "been",... và nó không đi kèm với bất kỳ chỉ định so sánh hay phủ định nào thì có xác suất để 2 cụm danh từ này đồng tham chiếu. Nếu ở giữa 2 cụm danh từ trong câu có từ "is" (hoặc một động từ TOBE) và nó có đi kèm với một chỉ định so sánh nào thì có xác suất để 2 cụm danh từ này trỏ tới 2 thực thể/thuộc tính khác nhau.
+					\par \textit{Giá trị:} [true, false]. Thuộc tính nhận giá trị true nếu ở giữa 2 cụm danh từ trong câu có từ "is" (hoặc một động từ TOBE) đồng thời không có chỉ định so sánh hay phủ định nào, ngược lại nhận giá trị false.
+					\par Về việc xác định các chỉ định so sánh, các chỉ định so sánh được tìm kiếm bằng cách bắt các từ/cụm từ thuộc các mẫu so sánh phổ biến (đã đề cập ở mục \ref{comparative_section}). Các diễn đạt phủ định đi kèm như "is not", "isn't", "were not",... cũng được xem xét và những trường hợp này cho giá trị thuộc tính là false.
 					\par Ví dụ: 
 					\\"Nokia 215 is my second phone". "Nokia 215" và "my second phone" khả năng đồng tham chiếu với nhau.
 					\\"Overall the K800 is far superior to the W810". "K8100" và "W810" khả năng trỏ tới 2 thực thể khác nhau.
@@ -931,8 +931,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 		//TODO
 		\\Nhóm vẫn chưa thêm số liệu vào.
 				\begin{table}[]
-				\centering
-				\caption{Kết quả thực nghiệm}
+				\centering				
 				\label{my-label}
 				\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|}
 				\hline
@@ -943,20 +942,22 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 				Hệ thống SC+EOA &          &          &          &          &          &         &           &           &           \\ \hline
 				Hệ thống đầy đủ &          &          &          &          &          &         &           &           &           \\ \hline
 				\end{tabular}
+				\caption{Kết quả thực nghiệm}
 				\end{table}
 
 		Hình 6.2 trình bày biểu đồ so sánh kết quả độ F trung bình 3 hệ đo MUC, B3, CEAF-$\Phi_4$ trên 5 lần kiểm chứng chéo giữa Hệ thống cơ sở và Hệ thống đầy đủ
-						\begin{figure}[H] 
-				\centering
-				\caption{So sánh kết quả giữa hệ thống cơ sở và hệ thống đầy đủ}
-				\includegraphics[scale=0.8]{images/result.png}
+				\begin{figure}[H] 
+					\centering					
+					\includegraphics[scale=0.5]{charts/demo_chart.pdf}
+					% \includegraphics[width=\linewidth]{images/result.png}
+					\caption{So sánh kết quả giữa hệ thống cơ sở và hệ thống đầy đủ}
 				\end{figure} 
 
 		\section{Phân tích kết quả thực nghiệm}
 		\subsection*{Nhận xét}
 		Dựa vào bảng kết quả 6.1, chúng tôi có một số nhận xét trực quan:
 			\begin{itemize}
-				\item{Hệ thống đầy đủ đạt kết quả cao hơn hệ thống cơ sở, cụ thể có đọ F cao hơn khoảng ???\%. Điều này chứng tỏ các đặc trưng liên quan đến khai khoáng ý kiến đã ảnh hưởng tích cực đến kết quả, chúng có giá trị đối với bài toán đồng tham chiếu trên lĩnh vực khai khoáng ý kiến}.
+				\item{Hệ thống đầy đủ đạt kết quả cao hơn hệ thống cơ sở, cụ thể có độ F cao hơn khoảng ???\%. Điều này chứng tỏ các đặc trưng liên quan đến khai khoáng ý kiến đã ảnh hưởng tích cực đến kết quả, chúng có giá trị đối với bài toán đồng tham chiếu trên lĩnh vực khai khoáng ý kiến}.
 				\item{Hệ thống SC đạt kết quả cao hơn hệ thống cơ sở khoảng ???\% độ F. Điều này cho thấy đặc trưng \textit{Tính nhất quán về ý kiến (SC)} đã có ảnh hưởng tương đối lớn đến hệ thống}.
 				\item{Hệ thống SC+EOA đạt kết quả không cao hơn nhiều so với hệ thống SC, cao hơn khoảng ???\% độ F. Điều này cho thấy đặc trưng \textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến (EOA)} đã có ảnh hưởng tiêu cực đến hệ thống, tuy nhiên vì một số lí do nào đó đặc trưng này tỏ ra không hiệu quả khi được sử dụng}.
 			\end{itemize}
@@ -971,9 +972,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 				\end{itemize}
 			\par \textit{Nguyên nhân đặc trưng \textit{Tính nhất quán về ý kiến (SC)} chưa ảnh hưởng nhiều đến hệ thống}:
 				\begin{itemize}
-					\item{}
-					\item{}
-					\item{}
+					\item{Giải thuật tìm thiên hướng ý kiến gắn với đối tượng/thuộc tính được nêu ra trong câu vẫn còn đơn giản và chỉ cho kết quả đúng đối với các câu tương đối đơn giản. Đối với dữ liệu thực tế mà minh chứng là dữ liệu do chúng tôi thu thập, có một số lượng nhất định các câu phức và việc xác định thiên hướng ý kiến này chưa cho hiệu quả cao.}					
 				\end{itemize}
 			\par \textit{Nguyên nhân hệ thống vẫn chưa đạt kết quả cao}:
 				\begin{itemize}
@@ -1009,7 +1008,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					\item{Hiện nay đã có các công cụ Xử lý ngôn ngữ tự nhiên dùng cho tiếng Việt. Dưới đây chúng tôi sẽ trình bày về ba công cụ JVnTextPro (tách câu, tách từ, gán nhãn từ loại), VietChunker(gom cụm từ) và VnDP(phân tích văn phạm phụ thuộc), chúng có thể được sử dụng cho hệ thống phân giải đồng tham chiếu trong tiếng Việt (tương tự như hệ thống dùng cho tiếng Anh).					
 					\\Công cụ JVnTextPro \footnote{http://jvntextpro.sourceforge.net} là công cụ có thể được dùng để phân đoạn câu (sentence segmentation), phân đoạn thẻ câu (sentence tokenization), phân đoạn từ (word tokenization) và gán nhãn từ loại (POS tagging) cho văn bản tiếng Việt.
 					\\Ví dụ: Cho đoạn văn bản tiếng Việt sau (Lấy trên trang Tiki.vn)
-					\\\textit{iPhone 6S đã chính thức được ra mắt với thiết kế không khác biệt so với iPhone 6. Điểm khác biệt về ngoại hình là bộ đôi Phone 6s và 6s Plus sẽ có tới 4 màu sắc bao gồm: xám, bạc, vàng và vàng hồng, và có thêm chữ “S” phía sau mặt lưng. iPhone 6s sẽ nặng hơn iPhone 6 14g, iPhone 6s dài, dày, rộng hơn iPhone 6 chút ít, nhưng người ta khó nhận ra bằng mắt thường bởi con số này chỉ tính là một vài mm, thậm chí chưa đến 1 mm.}
+					\\\textit{iPhone 6S đã chính thức được ra mắt với thiết kế không khác biệt so với iPhone 6. Điểm khác biệt về ngoại hình là bộ đôi Phone 6s và 6s Plus sẽ có tới 4 màu sắc bao gồm: xám, bạc, vàng và vàng hồng, và có thêm chữ "S" phía sau mặt lưng. iPhone 6s sẽ nặng hơn iPhone 6 14g, iPhone 6s dài, dày, rộng hơn iPhone 6 chút ít, nhưng người ta khó nhận ra bằng mắt thường bởi con số này chỉ tính là một vài mm, thậm chí chưa đến 1 mm.}
 					\\Dưới đây là kết quả đầu ra sau khi xử lý văn bản trên bằng JVnTextPro:
 					\begin{figure}[H]
 						\centering				
@@ -1207,7 +1206,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 
 	\bibitem{spitkovsky10}
 	Spitkovsky, Valentin I., Hiyan Alshawi and Daniel Jurafsky. 2010.
-	\textit{From baby steps to leapfrog: How “less is more” in unsupervised dependency parsing}.
+	\textit{From baby steps to leapfrog: How "less is more" in unsupervised dependency parsing}.
 	In Human Language Technologies: The 2010 Annual Conference of the North American Chapter of the Association for Computational Linguistics, pages 751–759.
 
 	\bibitem{lee12}
