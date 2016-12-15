@@ -104,7 +104,28 @@ public class CrossValidation {
             
 //            ArrayList<ArrayList<Review>> listForTrains = new ArrayList<ArrayList<Review>>();
 //          ArrayList<ArrayList<Review>> listForTests = new ArrayList<ArrayList<Review>>();
-           
+            
+//            int countNP = 0;
+//            int countNPOW = 0;
+//            int countNPOW1 = 0;
+//            for (Review re : StanfordUtil.reviews){
+//            	for (NounPhrase np : re.getNounPhrases()){
+//            		if (np.getType() == 0 | np.getType() == 2 | np.getType() == 3){
+//            			countNP++;
+//            			if (!np.getOpinionWords().isEmpty())
+//            				countNPOW++;
+//            		}
+//            		else{
+//            			if (!np.getOpinionWords().isEmpty())
+//            				countNPOW1++;
+//            		}
+//            			
+//            	}
+//            }
+//           
+//            System.out.println("Number of NP not 1: " + countNP);
+//            System.out.println("Number of NP has OW not 1: " + countNPOW);
+//            System.out.println("Number of NP has OW type 1: " + countNPOW1);
             //if you want to write the training files and testing files again, please uncomment under codes
     		//Create the kFold dataset
           //EDIT CREATE
@@ -161,7 +182,7 @@ public class CrossValidation {
             			listForTest.add(StanfordUtil.reviews.get(j));
             	Evaluation.scoreMUC(listForTest);
             	Evaluation.scoreB3(listForTest);
-           	    Evaluation.scoreCEAF4(listForTest);
+//           	    Evaluation.scoreCEAF4(listForTest);
             }
             
             Evaluation.resultFinal();

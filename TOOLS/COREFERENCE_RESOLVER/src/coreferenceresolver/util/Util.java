@@ -79,9 +79,9 @@ public class Util {
 
     public static void extractFeatures(Review review, BufferedWriter bw, boolean forTraining) throws IOException {
         //Set Opinion Words for Noun Phrases
-        for (int i = 0; i < review.getSentences().size(); i++) {
-            FeatureExtractor.setNPForOPInSentence(review.getSentences().get(i));
-        }
+//        for (int i = 0; i < review.getSentences().size(); i++) {
+//            FeatureExtractor.setNPForOPInSentence(review.getSentences().get(i));
+//        }
 
         for (int i = review.getNounPhrases().size() - 1; i >= 1; i--) {
             checkNPhasOW = true;
@@ -91,11 +91,12 @@ public class Util {
             listRawPMI.clear();
             //Find PMI of NP2 with NP1
             if (np2.getOpinionWords().isEmpty()) {
+            	System.out.print(np2.getNpNode().getLeaves().toString());
                 checkNPhasOW = false;
             } else {
                 for (int j = i - 1; j >= 0; j--) {
                     NounPhrase np1 = review.getNounPhrases().get(j);
-                    if (np1.getType() == 0 || np2.getType() == 0 || np2.getType() == 2 || np1.getType() == 2 || np1.getType() == 3 || np2.getType() == 3) {
+                    if (np1.getType() == 0 || np2.getType() == 0 || np1.getType() == 3 || np2.getType() == 3) {
                     	Float rawPMIof2NP = FeatureExtractor.PMI(np2, np1);
                         listRawPMI.add(rawPMIof2NP);
                         if (!listAllPMI.contains(rawPMIof2NP)) {
@@ -111,7 +112,7 @@ public class Util {
             int k = 0;
             for (int j = i - 1; j >= 0; j--) {
                 NounPhrase np1 = review.getNounPhrases().get(j);
-                if (np1.getType() == 0 || np2.getType() == 0 || np2.getType() == 2 || np1.getType() == 2 || np1.getType() == 3 || np2.getType() == 3) {
+                if (np1.getType() == 0 || np2.getType() == 0 || np1.getType() == 3 || np2.getType() == 3) {
                     createTest(np1, np2, review, bw, k);
                     k++;
                 }
@@ -446,12 +447,15 @@ public class Util {
         bwtrain.write(FeatureExtractor.comparativeIndicatorExtract(review, np1, np2).toString() + ",");
         bwtrain.write(FeatureExtractor.sentimentConsistencyExtract(np1, np2) + ",");
         bwtrain.write(FeatureExtractor.isBothPropername(np1, np2).toString() + ",");
+//        bwtrain.write(FeatureExtractor.hasProperName(np1, StanfordUtil.reviews.get(np1.getReviewId()).getSentences().get(np1.getSentenceId())).toString() + ",");
+
+//        bwtrain.write(FeatureExtractor.hasProperName(np2, StanfordUtil.reviews.get(np2.getReviewId()).getSentences().get(np2.getSentenceId())).toString() + ",");
         bwtrain.write(FeatureExtractor.isSubString(np1, np2) + ",");
         bwtrain.write(FeatureExtractor.isHeadMatch(np1, np2) + ",");
         bwtrain.write(FeatureExtractor.isExactMatch(np1, np2) + ",");     
 
         if (checkNPhasOW == false) {
-            bwtrain.write(0 + ",");
+            bwtrain.write(10 + ",");
         } 
         else {
         	if (listRawPMI.get(IdPMIinList) == 0) {
@@ -489,11 +493,13 @@ public class Util {
             } else {
                 for (int j = i - 1; j >= 0; j--) {
                     NounPhrase np1 = review.getNounPhrases().get(j);
+                    if (np1.getType() == 0 || np2.getType() == 0 || np1.getType() == 3 || np2.getType() == 3){
                     	Float rawPMIof2NP = FeatureExtractor.PMI(np2, np1);
                         listRawPMI.add(rawPMIof2NP);
                         if (!listAllPMI.contains(rawPMIof2NP)) {
                             listAllPMI.add(rawPMIof2NP);
 	                        }
+                    }
                 }
 
                 Collections.sort(listAllPMI, Collections.reverseOrder());
@@ -504,12 +510,10 @@ public class Util {
             int k = 0;
             for (int j = i - 1; j >= 0; j--) {
                 NounPhrase np1 = review.getNounPhrases().get(j);
+                if (np1.getType() == 0 || np2.getType() == 0 || np1.getType() == 3 || np2.getType() == 3){
                     createInstance(np1, np2, review, k);
                     k++;
-                if (np1.getType() == 0 || np2.getType() == 0 || np1.getType() == 3 || np2.getType() == 3 || np1.getType() == 2 || np2.getType() == 2)
-                	review.addSupportInstance(true);
-                else
-                	review.addSupportInstance(false);
+                }
             }
         }        
     }
@@ -542,12 +546,9 @@ public class Util {
         		instance += 4 + ",";
             }
         	else if (listAllPMI.indexOf(listRawPMI.get(IdPMIinList)) < 4) {
-//        		System.out.println("Review: " + np1.getReviewId() +"ID NP1: " + np1.getId() + "ID NP2: " + np2.getId() + " PMI: "+ listRawPMI.get(IdPMIinList));
         		instance += listAllPMI.indexOf(listRawPMI.get(IdPMIinList)) + ",";
             } else {
-            	instance += 4 + ",";
-//                System.out.println("Review: " + np1.getReviewId() +"ID NP1: " + np1.getId() + "ID NP2: " + np2.getId() + " PMI: "+ listRawPMI.get(IdPMIinList));
-            }
+            	instance += 4 + ",";            }
         }
         instance += FeatureExtractor.isRelativePronounNPs(np1, np2) + ",";
         instance += FeatureExtractor.isCorefTest(np1, np2).toString();
