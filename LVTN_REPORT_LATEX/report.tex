@@ -18,6 +18,8 @@
 \usepackage{enumitem}
 \usepackage[bottom]{footmisc}
 \usepackage{multirow}
+\usepackage{array}
+\newcolumntype{x}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -174,8 +176,9 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					\centering
 					\include{draw/mention_pair}
 					\caption{Ý tưởng các bước thực hiện trong Mô hình cặp}
+					\label{fig:mentionpair}
 				\end{figure}
-				\par Theo như mô hình trình bày ý tưởng từ hình vẽ, mỗi tác giả sẽ có một cách riêng khi thực hiện các bước:
+				\par Hình \ref{fig:mentionpair} trình bày ý tưởng các bước thực hiện trong mô hình cặp. Theo như mô hình, mỗi tác giả sẽ có một cách riêng khi thực hiện các bước:
 				\begin{itemize}
 					\item{Tạo tập các cặp.}
 					\item{Tạo tập thuộc tính để phân loại một cặp là đồng tham chiếu hay không.}
@@ -202,21 +205,23 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 						\item{Đối với một NP. Ta sẽ xét các cặp từ NP với các tiền từ của nó. Mặc dù có thể dự đoán ra đồng tham chiếu, tuy nhiên ta không thể xác định tiền từ nào phù hợp nhất với một NP vì ta dự đoán độc lập cặp từng tiền từ với NP.}
 					\end{itemize}
 			\subsection*{Mô hình thực thể (Entity-mention)}
-				\par Ý tưởng: Xác định xem một cụm danh từ có đồng tham chiếu với một chuỗi đồng tham chiếu (thực thể) hay không. Mục đích của mô hình là phân loại liệu cụm danh từ NP\textsubscript{$k$} và chuỗi đồng tham chiếu $C_{j}$ là tích cực hay tiêu cực, đồng nghĩa với NP\textsubscript{$k$} có nên được gán vào chuỗi $C_{j}$ không. Hình 2 trình bày các bước trong mô hình thực thể.
+				\par Ý tưởng: Xác định xem một cụm danh từ có đồng tham chiếu với một chuỗi đồng tham chiếu (thực thể) hay không. Mục đích của mô hình là phân loại liệu cụm danh từ NP\textsubscript{$k$} và chuỗi đồng tham chiếu $C_{j}$ là tích cực hay tiêu cực, đồng nghĩa với NP\textsubscript{$k$} có nên được gán vào chuỗi $C_{j}$ không. Hình \ref{fig:entitymention} trình bày các bước trong mô hình thực thể.
 				\begin{figure}[H]
 					\centering
 					\include{draw/entity_mention}
 					\caption{Một hiện thực điển hình của mô hình thực thể}
+					\label{fig:entitymention}
 				\end{figure}
 				Mỗi cụm danh từ NP\textsubscript{$k$} và chuỗi đồng tham chiếu $C_{j}$ có một tập thuộc tính dùng để phân loại. Tập thuộc tính này gồm: các thuộc tính của NP\textsubscript{$k$}, các thuộc tính liên quan giữa NP\textsubscript{$k$} với $C_{j}$. Điểm đặc trưng của mô hình thực thể và cụm danh từ chính là tập thuộc tính liên quan giữa NP\textsubscript{$k$} với $C_{j}$. Để xác định một thuộc tính giữa NP\textsubscript{$k$} với $C_{j}$, ta xét thuộc tính đó giữa NP\textsubscript{$k$} với các cụm danh từ trong $C_{j}$, từ đó tổng hợp lại. Ví dụ: Để kiểm tra thuộc tính NUMBER AGREEMENT xem NP\textsubscript{$k$} có cùng ngôi với $C_{j}$ không, trước tiên ta kiểm tra lần lược NP\textsubscript{$k$} có cùng ngôi với các cụm danh từ trong $C_{j}$ không. Sau đó ta tổng hợp lại kết quả, một vài cách tổng hợp: NUMBER AGREEMENT là YES nếu NP\textsubscript{$k$} cùng ngôi với tất các các NPs trong $C_{j}$, NO trong trường hợp còn lại; hoặc như Lou (2004)\cite{lou04} hay Yang (2004, 2008)\cite{yang04}\cite{yang08}, NUMBER AGREEMENT là YES nếu NP\textsubscript{$k$} cùng ngôi với ít nhất một NP trong $C_{j}$, NO trong tường hợp còn lại.
 				\par Có nhiều biến thể, hình thức hiện thực mô hình thực thể, song vẫn giữ nguyên nét đặc trưng là: xây dựng thuộc tính của chuỗi đồng tham chiếu dựa trên các cụm danh từ của nó. Cullota (2007)\cite{culotta07} giải quyết bài toán đồng tham chiếu bằng cách xác định xác suất một cụm chứa các NPs từ văn bản có phải là một chuỗi đồng tham chiếu. Để thực hiện mục tiêu đó, tác giả dựa vào thuộc tính chung của cụm NPs. Với thuộc tính X của cụm NPs, X nhận giá trị ALL nếu tất cả các cặp của cụm NPs cùng có thuộc tính X, X nhận giá trị MOST-TRUE nếu đa số các cặp của NPs có cùng thuộc tính X và X nhận giá trị MOST-FALSE nếu đa số các cặp của NPs không có cùng thuộc tính X. 
 				\par Ưu điểm của mô hình thực thể: Khắc phục được nhược điểm của mô hình cặp (mention pair), đó là sử dụng thuộc tính của chuỗi đồng tham chiếu, các NPs trong chuỗi có thể bổ sung thuộc tính cho nhau. Tuy nhiên khi áp dụng vào thực tế thì kết quả của hệ thống đồng tham chiếu cũng không được cải thiện nhiều, theo Luo (2004)\cite{lou04}, Yang (2004, 2008)\cite{yang04}\cite{yang08}. Lí do mà các tác giả trên đưa ra là họ vẫn sử dụng ít thuộc tính của chuỗi đồng tham chiếu.
 			\subsection*{Mô hình xếp hạng (Ranking mention)}
-				\par Ý tưởng: Xét cụm danh từ NP, so sánh tất cả các cụm danh từ đứng trước NP với nhau, tìm xem cụm danh từ nào có khả năng đồng tham chiếu với NP nhất. Ta thấy ý tưởng cũng gần giống với mô hình cặp, đầu ra của cả hai mô hình là cặp đồng tham chiếu. Hình vẽ 3 trình bày ý tưởng các bước của mô hình.
+				\par Ý tưởng: Xét cụm danh từ NP, so sánh tất cả các cụm danh từ đứng trước NP với nhau, tìm xem cụm danh từ nào có khả năng đồng tham chiếu với NP nhất. Ta thấy ý tưởng cũng gần giống với mô hình cặp, đầu ra của cả hai mô hình là cặp đồng tham chiếu. Hình \ref{fig:rankingmodel} trình bày ý tưởng các bước của mô hình.
 				\begin{figure}[H]
 					\centering
 					\include{draw/ranking_model}
 					\caption{Ý tưởng các bước của mô hình xếp hạng}
+					\label{fig:rankingmodel}
 				\end{figure}
 				\par Mô hình xếp hạng được áp dụng vào phân giải đồng tham chiếu lần đầu bởi Connolly (1994; 1997)\cite{connolly95}\cite{connolly97}. Cụm danh từ NP\textsubscript{$k$} có một Tập tiền ngữ chứa các tiền ngữ của nó. Xét các cặp (NP\textsubscript{$i$},NP\textsubscript{$j$},NP\textsubscript{$k$}) có thể trong đó NP\textsubscript{$i$} và NP\textsubscript{$j$} thuộc K, phân loại xem (NP\textsubscript{$i$},NP\textsubscript{$j$},NP\textsubscript{$k$}) là tích cực hay tiêu cực, nếu tích cực thì NP\textsubscript{$i$} đồng tham chiếu với NP\textsubscript{$k$}, nếu tiêu cực thì NP\textsubscript{$j$} dồng tham chiếu với NP\textsubscript{$k$}. Từ kết quả các cặp được xây dựng từ NP\textsubscript{$k$}, tiền từ nào có số lần phân loại đồng tham chiếu với NP\textsubscript{$k$} cao nhất thì tiền ngữ đó đồng tham chiếu với NP\textsubscript{$k$}.
 				Một vài biến thể dưới tên gọi khác nhau của mô hình thực thể: mô hình cạnh tranh (tournament model) của tác giả Iida (2003)\cite{iida03} hay mô hình hai ứng viên (the twin-candidate model) được sử dụng bởi Yang (2003, 2008)\cite{yang03}\cite{yang08}. 
@@ -249,11 +254,12 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 				\subsection*{Hệ thống luật}
 					\par Định nghĩa: Tác giả đề xuất ra một tập các luật quy định khi nào thì hai cụm danh từ là đồng tham chiếu với nhau, khi nào thì cụm danh từ được xét đồng tham chiếu với một cụm dựa trên kinh nghiệm thực tế thu thập được.
 					\par Mô hình này được biết đến đầu tiên bởi Baldwin (1995)\cite{baldwin95}. Ý tưởng của tác giả là kết hợp tập các luật có độ chính xác cao (high precision) theo một thứ tự hợp lý để thu được độ phủ (recall) chấp nhận được. Sau đó có nhiều tác giả cũng hiện thực phương pháp này dưới những tên gọi khác nhau như: Brown (1993)\cite{brown93}, Collins và Singer (1999)\cite{collin99}, Spitkovsky (2010)\cite{spitkovsky10}, Li và Liu (2015)\cite{li15}.
-					Mô hình sử dụng và cải tiến hệ thống luật đưa lại kết quả cao nhất là mô hình của Lee và Chang (2012)\cite{lee12}. Hình 4 minh họa cho mô hình mà Lee sử dụng. Trong bài báo, tác giả đề xuất một tập gồm 10 luật, các luật này được sắp xếp có thứ tự dựa vào độ chính xác (precion) và độ phủ (recall) mà mỗi luật mang lại cho hệ thống. Luật càng đứng trước thì độ chính xác càng cao, luật càng đứng sau thì độ chính xác càng thấp nhưng độ phủ mang lại càng cao. Dữ liệu văn bản sau khi trích xuất ra được các cụm danh từ NPs, các cụm danh từ này lần lượt được kiểm tra với từng luật để tìm đồng tham chiếu, kết quả đầu ra của luật trước là đầu vào của luật sau. Kết quả đầu ra của luật cuối cùng cũng chính là kết quả của hệ thống các luật. Không chỉ áp dụng hệ thống luật, tác giả còn kết hợp với mô hình thực thể để cải tiến kết quả bài toán. Ví dụ về luật số 1 của hệ thống: Luật quy định nếu người nói là "I" thì từ "my" trong câu nói của người đó sẽ đồng tham chiếu với "I". Ví dụ: Trong câu \textit{"I said "my phone is broken""}, câu văn trên khi đi qua luật số 1 sẽ cho ra kết quả là "I" và "my" đồng tham chiếu.
-					\begin{figure}
+					\par Mô hình sử dụng và cải tiến hệ thống luật đưa lại kết quả cao nhất là mô hình của Lee và Chang (2012)\cite{lee12}. Hình \ref{fig:rules} minh họa cho mô hình mà Lee sử dụng. Trong bài báo, tác giả đề xuất một tập gồm 10 luật, các luật này được sắp xếp có thứ tự dựa vào độ chính xác (precion) và độ phủ (recall) mà mỗi luật mang lại cho hệ thống. Luật càng đứng trước thì độ chính xác càng cao, luật càng đứng sau thì độ chính xác càng thấp nhưng độ phủ mang lại càng cao. Dữ liệu văn bản sau khi trích xuất ra được các cụm danh từ NPs, các cụm danh từ này lần lượt được kiểm tra với từng luật để tìm đồng tham chiếu, kết quả đầu ra của luật trước là đầu vào của luật sau. Kết quả đầu ra của luật cuối cùng cũng chính là kết quả của hệ thống các luật. Không chỉ áp dụng hệ thống luật, tác giả còn kết hợp với mô hình thực thể để cải tiến kết quả bài toán. Ví dụ về luật số 1 của hệ thống: Luật quy định nếu người nói là "I" thì từ "my" trong câu nói của người đó sẽ đồng tham chiếu với "I". Ví dụ: Trong câu \textit{"I said "my phone is broken""}, câu văn trên khi đi qua luật số 1 sẽ cho ra kết quả là "I" và "my" đồng tham chiếu.
+					\begin{figure}[h]
 						\centering
 						\include{draw/rules_system}
 						\caption{Minh họa mô hình sử dụng hệ thống luật của Lee và Chang (2012)\cite{lee12}}
+						\label{fig:rules}
 					\end{figure}				
 
 		\section{Các công trình liên quan đến phân giải đồng tham chiếu cho các văn bản chứa ý kiến}
@@ -434,14 +440,6 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 						}						
 					\end{itemize}}					
 				\end{itemize}
-				\begin{figure}[H]
-					\centering
-					\include{draw/id3_algorithm}
-					* The best attribute is the one with highest information gain, as defined in Equation 
-					\ref{eq:gain}
-					\caption{Giải thuật ID3 trong cây quyết định (Tham khảo từ trang 59 của \cite{mltextbook})}
-					\label{fig:id3}
-				\end{figure}
 			\subsection*{Vấn đề Quá vừa dữ liệu}
 				\par Giải thuật ở Hình \ref{fig:id3} là hợp lý trong một số trường hợp, nhưng thực tế nó có thể dẫn đến hiện tượng \textit{Quá vừa dữ liệu (Overfitting data)}. Điều này xảy ra là bởi vì giải thuật này chỉ cố gắng xây dựng cây đủ để phân loại đúng tập dữ liệu học, \textit{Quá vừa dữ liệu} sẽ xảy ra nếu dữ liệu trong tập dữ liệu học bị nhiễu hoặc chứa quá ít mẫu để có thể xấp xỉ đúng hàm mục tiêu.
 				\par Một phương pháp phổ biến được sử dụng để giải quyết hiện tượng này là cho phép cây bị \textit{Quá vừa dữ liệu}, nhưng sau đó cắt tỉa (post-pruning). Trong phương pháp này, tập dữ liệu học được chia ra làm hai, một tập dữ liệu học (training set) và một tập kiểm chứng phép cắt tỉa (validation set). Cây sẽ được xây dựng dựa trên tập dữ liệu học trước, có 2 hướng giải quyết vấn đề cắt tỉa:
@@ -455,7 +453,14 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 						\item{Sắp xếp tập các luật cuối cùng (sau khi cắt tỉa xong) theo độ chính xác và sử dụng các luật này để phân loại cho các mẫu mới (unseen data).}
 					\end{itemize}}				
 				\end{itemize}
-
+				\begin{figure}[H]
+					\centering
+					\include{draw/id3_algorithm}
+					* The best attribute is the one with highest information gain, as defined in Equation 
+					\ref{eq:gain}
+					\caption{Giải thuật ID3 trong cây quyết định (Tham khảo từ trang 59 của \cite{mltextbook})}
+					\label{fig:id3}
+				\end{figure}
 	\chapter{Phương pháp đề xuất và hiện thực}	
 		\section{Nội dung bài toán}
 			\par Cho một văn bản chứa ý kiến gồm một tập các đối tượng O = \{$o_1$,$o_2$,$o_3$,...\}. Giả định của bài toán là ý kiến trong văn bản đều từ một chủ thể duy nhất và tập thuộc tính $F_i$ của các đối tượng đã được tìm ra. Mục tiêu của bài toán là tìm các chuỗi đồng tham chiếu đồng nhất (identity) của đối tượng và thuộc tính.
@@ -488,10 +493,12 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 			 	\end{center}}
 		 	\end{itemize}
 		\section{Tổng quan quy trình}
+			\par Hình \ref{fig:generalmodel} thể hiện tổng quan các bước thực hiện phân giải đồng tham chiếu mà chúng tôi đã thực hiện.
 			\begin{figure}[H] 
 				\centering				
 				\resizebox{160mm}{!}{\input{images/general_model.pdf_tex}}
-				\caption{Tổng quan quy trình phân giải đồng tham chiếu}							
+				\caption{Tổng quan quy trình phân giải đồng tham chiếu}	
+				\label{fig:generalmodel}						
 			\end{figure}			
 		\section{Tiền xử lý}
 		\subsection*{Tiền xử lý văn bản thô}
@@ -528,7 +535,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 				\par Nói về khái niệm HEAD. HEAD của một cụm từ là từ chính của cụm từ đó, nó quyết định dạng cú pháp của cụm từ. Đối với cụm danh từ, HEAD thường là danh từ hoặc đại từ. Ví dụ: Cụm danh từ \textit{the next October} có HEAD là từ \textit{October}.
 				\par Sau đây trình bày một ví dụ về bước trích xuất cụm danh từ:
 					\\\textit{The Note 3 is a lot lighter than my HTC EVO. It's very fast and has so many features that an IPhone5 can't touch. I love the camera features and it takes great pictures.}
-					\\Dùng công cụ Stanford để gán nhãn từ loại và dùng CRFChunker để ghép cụm cho đoạn văn bản trên, ta có kết quả như sau:
+					\\Dùng công cụ Stanford để gán nhãn từ loại và dùng CRFChunker để ghép cụm cho đoạn văn bản trên, ta có kết quả như hình \ref{fig:crfchunker}:
 
 					\begin{figure}[H]
 						\centering				
@@ -544,6 +551,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					    	}
 						}
 						\caption{Kết quả đầu ra của công cụ CRFChunker}
+						\label{fig:crfchunker}
 					\end{figure}
 
 					\par Đọc và lưu thông tin từ đoạn kết quả ghép cụm này, sau đó bỏ đi các cụm danh từ như đã nói ở trên, có được các cụm danh từ sẽ được dùng cho các bước tiếp theo:\\
@@ -580,9 +588,10 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					\centering							
 					\indent\includegraphics[scale=0.45]{images/markup_tool}				
 					\caption{Công cụ gán nhãn dữ liệu đồng tham chiếu}	
+					\label{fig:markup}
 				\end{figure}				
 
-				\par Gán nhãn bằng tay là công việc chứa đựng nhiều nguy cơ sai sót, đặc biệt trên một khối lượng dữ liệu lớn. Do vậy, nhằm tránh những lỗi sai và đồng thời tăng tốc độ làm việc, chúng tôi đã viết một công cụ giúp gán nhãn dữ liệu bằng Java kết hợp với gói giao diện Swing. Công cụ này lấy đầu vào là các văn bản đã được trích xuất cụm danh từ và xuất ra văn bản được gán nhãn như ví dụ này. Bằng các thao tác kích chuột đơn giản, có thể chọn TYPE và chuỗi đồng tham chiếu (các cụm danh từ chung chuỗi thì chung màu) cho các cụm danh từ, sau đó xuất kết quả (Export).
+				\par Gán nhãn bằng tay là công việc chứa đựng nhiều nguy cơ sai sót, đặc biệt trên một khối lượng dữ liệu lớn. Do vậy, nhằm tránh những lỗi sai và đồng thời tăng tốc độ làm việc, chúng tôi đã viết một công cụ giúp gán nhãn dữ liệu bằng Java kết hợp với gói giao diện Swing (hình \ref{fig:markup}). Công cụ này lấy đầu vào là các văn bản đã được trích xuất cụm danh từ và xuất ra văn bản được gán nhãn như ví dụ này. Bằng các thao tác kích chuột đơn giản, có thể chọn TYPE và chuỗi đồng tham chiếu (các cụm danh từ chung chuỗi thì chung màu) cho các cụm danh từ, sau đó xuất kết quả (Export).
 		
 		\section{Tạo tập dữ liệu học và kiểm tra}
 			\subsection*{Tạo tập dữ liệu học}
@@ -591,57 +600,58 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 				\par Tập mẫu dùng để học (Instances): mọi cặp (NP1, NP2) được tạo ra từ danh sách L và thỏa mãn điều kiện NP1 hoặc NP2 là cụm danh từ là tên đối tượng/thuộc tính (TYPE = 0 hoặc TYPE = 3). Lí do vì đề tài chỉ thực hiện với mục đích phân giải đồng tham chiếu cho các đối tượng/thuộc tính đã biết.
 				\\Đặc điểm mỗi mẫu dữ liệu để học:
 				\begin{itemize}
-					\item{Tập thuộc tính: đã được đề cập ở bảng 5.1.}
+					\item{Tập thuộc tính: đã được đề cập ở bảng \ref{features_table}.}
 					\item{Giá trị phân loại: (NP1, NP2) được gán nhãn phân loại là true nếu:
 						\begin{itemize}
 							\item{TYPE của NP1 và NP2 là 0 hoặc 2 hoặc 3 (NP1 và NP2 là cụm danh từ chỉ đối tượng hoặc thuộc tính).}
 							\item{Giá trị REF của NP2 bằng giá trị REF của NP1 hoặc giá trị REF của NP2 bằng giá trị ID của NP1. (NP1, NP2) nhận giá trị false trong những trường hợp còn lại.}
 						\end{itemize}}
 				\end{itemize}
-				\par Hình 5.4 trình bày một tập gồm các mẫu dữ liệu học được tạo ra từ một đoạn văn.		
+				\par Hình \ref{fig:trainset} trình bày một tập gồm các mẫu dữ liệu học được tạo ra từ một đoạn văn. Trong đó, mỗi hàng chính là một mẫu. Ý nghĩa của các giá trị từ trái sang phải trong mỗi mẫu là: ID\_NP1, ID\_NP2, NP1\_PRONOUN, NP2\_PRONOUN, DEF\_NP2, DEM\_NP2, DISTANCE, NUMBER\_AGREEMENT, IS\_BETWEEN, HAS\_BETWEEN, SENTIMENT\_CONSISTENCY, PROPER\_NAME, SUBSTRING, HEAD\_MATCH, EXACT\_MATCH, OPINION\_WORD, RELATIVE\_PRONOUN, COREF. Trong đó, COREF là giá trị phân loại của mẫu trên thực tế.		
 				\begin{figure}[H]
 					\centering	
 					\large			
 					\noindent\fbox{
 					    \parbox{\textwidth}{
 					    \sffamily{
-					        0,4,6,false,false,true,false,1,true,false,false,false,2,false,false,false,false,10,false,false
-							0,0,6,false,false,true,false,3,true,false,false,false,2,false,false,false,false,10,false,false
-							0,4,5,false,false,true,false,1,true,false,false,false,2,false,false,false,false,10,false,false
-							0,0,5,false,false,true,false,3,true,false,false,false,2,false,false,false,false,10,false,true
-							0,3,4,true,false,false,false,0,true,false,true,false,2,false,false,false,false,1,false,false
-							0,2,4,true,false,false,false,1,true,false,false,false,2,false,false,false,false,1,false,false
-							0,1,4,false,false,false,false,2,true,false,false,false,2,false,false,false,false,4,false,false
-							0,0,4,false,false,false,false,2,true,false,false,false,2,false,false,false,false,0,false,false
-							0,0,3,false,true,false,false,2,true,false,false,false,2,false,false,false,false,10,false,true
-							0,0,2,false,true,false,false,1,true,false,false,false,2,false,false,false,false,10,false,true
-							0,0,1,false,false,false,false,0,true,false,false,false,2,true,false,false,false,10,false,false}
+					        4,6,false,false,true,false,1,true,false,false,2,false,false,false,false,10,false,false\\
+							0,6,false,false,true,false,3,true,false,false,2,false,false,false,false,10,false,false\\
+							4,5,false,false,true,false,1,true,false,false,2,false,false,false,false,10,false,false\\
+							0,5,false,false,true,false,3,true,false,false,2,false,false,false,false,10,false,true\\
+							3,4,true,false,false,false,0,true,false,true,2,false,false,false,false,1,false,false\\
+							2,4,true,false,false,false,1,true,false,false,2,false,false,false,false,1,false,false\\
+							1,4,false,false,false,false,2,true,false,false,2,false,false,false,false,4,false,false\\
+							0,4,false,false,false,false,2,true,false,false,2,false,false,false,false,0,false,false\\
+							0,3,false,true,false,false,2,true,false,false,2,false,false,false,false,10,false,true\\
+							0,2,false,true,false,false,1,true,false,false,2,false,false,false,false,10,false,true\\
+							0,1,false,false,false,false,0,true,false,false,2,true,false,false,false,10,false,false}
 				    	}
 					}
-					\caption{Các mẫu dữ liệu học được tạo ra bởi đoạn văn: \textit{I have owned <0,-1,0 the Nokia 6101> since <1,0,1 late October 2005>. I absolutely love <2,0,2 it>! <3,0,2 It> has <4,-1,3 a good camera>. I wouldn't trade <5,0,2 the phone> for <6,0,1 the world>.
-}. Mỗi hàng chính là một mẫu. Ý nghĩa của các giá trị từ trái sang phải trong mỗi mẫu là: ID\_NP1, ID\_NP2, NP1\_PRONOUN, NP2\_PRONOUN, DEF\_NP2, DEM\_NP2, DISTANCE, NUMBER\_AGREEMENT, IS\_BETWEEN, HAS\_BETWEEN, SENTIMENT\_CONSISTENCY, PROPER\_NAME, SUBSTRING, HEAD\_MATCH, EXACT\_MATCH, OPINION\_WORD, RELATIVE\_PRONOUN, COREF. Trong đó, COREF là giá trị phân loại của mẫu trên thực tế.}
+					\caption{Các mẫu dữ liệu học được tạo ra bởi đoạn văn: \textit{I have owned <0,-1,0 the Nokia 6101> since <1,0,1 late October 2005>. I absolutely love <2,0,2 it>! <3,0,2 It> has <4,-1,3 a good camera>. I wouldn't trade <5,0,2 the phone> for <6,0,1 the world>.}.}
+					\label{fig:trainset}
 				\end{figure}
 				\subsection*{Tạo tập dữ liệu học}
 				\par Cách tạo tập dữ liệu kiểm tra hoàn toàn giống với cách tạo tập dữ liệu học.
 
 			\subsection*{Tạo các vectơ đặc trưng}
 
-				\begin{table}[H]
-					\centering
-					\include{draw/features_table}
-					\caption{Các đặc trưng được sử dụng trong hệ thống}
-					\label{features_table}
-				\end{table}
-
-				\par Giả sử các cặp \textit{mention} gồm hai cụm danh từ (NP1, NP2). Sau đây trình bày về các đặc trưng được sử dụng trong hệ thống.
+				\par Giả sử các cặp \textit{mention} gồm hai cụm danh từ (NP1, NP2). Bảng \ref{features_table} tóm tắt tất cả các đặc trưng mà chúng tôi sử dụng. Sau đây chúng tôi trình bày các đặc trưng được sử dụng trong hệ thống.
 
 				\subsubsection*{Đặc trưng Khoảng cách (DISTANCE)}
 					\par \textit{Giải thích:} Là khoảng cách giữa hai cụm danh từ.
 					\par \textit{Giá trị:} [0,1,2,3,…]. Nếu hai cụm danh từ nằm trong cùng một câu thì DISTANCE = 0; nếu hai cụm danh từ nằm trong hai câu liền nhau thì DISTANCE = 1; nếu giữa hai cụm danh từ có n câu (không tính hai câu chứa hai cụm danh từ đó và n > 0) thì DISTANCE = n + 1;
 	 
+	 			\begin{table}[H]
+					\centering
+					\include{draw/features_table}
+					\caption{Các đặc trưng được sử dụng trong hệ thống}
+					\label{features_table}
+				\end{table}
 				\subsubsection*{Đặc trưng NP1 là đại từ (NP1\_PRONOUN)}
 					\par \textit{Giải thích:} Là khả năng cụm danh từ NP1 là đại từ.
 					\par \textit{Giá trị:} [true, false] Thuộc tính nhận giá trị true nếu NP1 là đại từ và ngược lại nhận giá trị false. Đại từ được nhắc đến bao gồm: đại từ phản thân (itself, themselves), tân ngữ (it, them), đại từ nhân xưng (it, they) và tính từ sở hữu (its, their).
+
+
 
 				\subsubsection*{Đặc trưng NP2 là đại từ (NP2\_PRONOUN)}
 					\par \textit{Giải thích:} Là khả năng cụm danh từ NP2 là đại từ.
@@ -836,7 +846,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 				\end{itemize}
 				\par Bộ công cụ Xử lý ngôn ngữ tự nhiên của Stanford bao gồm các công cụ khác nhau phục vụ cho nhiều công việc: phân tách các token (tokenize), phân tách câu (ssplit), gán nhãn từ loại (pos), phân tích cú pháp (parse) và phân tích văn phạm phụ thuộc (dep). Nhờ vào một số API do bộ cung cụ này cung cấp, có thể được xác định được HEAD của các cụm từ trong văn bản. Bên cạnh đó, các API do Weka cung cấp cho phép áp dụng giải thuật Cây quyết định trên dữ liệu và trực quan hóa cây kết quả được sinh ra. 
 			\subsection*{Dữ liệu thực nghiệm}
-				\par Dữ liệu dùng cho đề tài được thu thập từ các bài đánh giá (review) trên amazon.com và các bài thảo luận (discussion) từ http://www.howardforums.com/. Đây là các bài đánh giá và thảo luận về điện thoại. Tập dữ liệu của chúng tôi bao gồm 157 bài, với mỗi bài có trung bình 7-8 câu. Trên các bài đó, người dùng thể hiện ý kiến lên chủ thể là các đối tượng (nhắc bởi tên của điện thoại) và các thuộc tính của chúng. Bên cạnh đó, có nhiều câu so sánh cũng được sử dụng, đó là những so sánh giữa các đối tượng trên một thuộc tính nào đó.
+				\par Dữ liệu dùng cho đề tài được thu thập từ các bài đánh giá (review) trên amazon.com và các bài thảo luận (discussion) từ http://www.howardforums.com/. Đây là các bài đánh giá và thảo luận về điện thoại. Tập dữ liệu của chúng tôi bao gồm 157 bài, với mỗi bài có trung bình 7-8 câu. Trên các bài đó, người dùng thể hiện ý kiến lên chủ thể là các đối tượng (nhắc bởi tên của điện thoại) và các thuộc tính của chúng. Bên cạnh đó, có nhiều câu so sánh cũng được sử dụng, đó là các so sánh giữa các đối tượng trên một thuộc tính nào đó. Hình \ref{fig:amazon} thể hiện một bài đánh giá mà chúng tôi đã thu thập.
 				\begin{figure}[H]
 					\centering				
 					\noindent\fbox{
@@ -845,6 +855,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 				    	}
 					}
 					\caption{Ví dụ về một bài đánh giá (review) lấy từ amazon.com}
+					\label{fig:amazon}
 				\end{figure}
 
 		\section{Các phương pháp đánh giá}			
@@ -927,34 +938,47 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 			\begin{itemize}
 				\item{Hệ thống cơ sở: Hệ thống sử dụng tập thuộc tính là các đặc trưng thuộc Nhóm liên quan ngữ pháp, Nhóm liên quan từ vựng và đặc trưng Khoảng cách}.
 				\item{Hệ thống SC: Hệ thống cơ sở sử dụng thêm đặc trưng \textit{Tính nhất quán về ý kiến (SC)}}.
-				\item{Hệ thống SC+EOA: Hệ thống SC sử dụng thêm đặc trưng \textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến (EOA)}}.
+				\item{Hệ thống EOA: Hệ thống cơ sở sử dụng thêm đặc trưng \textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến (EOA)}}.
 				\item{Hệ thống đầy đủ: Hệ thống sử dụng tập thuộc tính là tất cả các đặc trưng đã được đề xuất ở bảng 5.1}
 			\end{itemize}
 		Bảng 6.1 trình bày kết quả thực nghiệm trên các hệ thống.
-		//TODO
-		\\Nhóm vẫn chưa thêm số liệu vào.
-				\begin{table}[]
+
+				\begin{table}[H]
 				\centering				
 				\label{my-label}
-				\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|}
+				\begin{tabular}{|l|cx{1cm}c|cx{1cm}c|cx{1cm}c|c|c|c|c|c|c|}
 				\hline
 				                & \multicolumn{3}{c|}{Hệ đo MUC} & \multicolumn{3}{c|}{Hệ đo B3} & \multicolumn{3}{c|}{Hệ đo CEAF-$\Phi_4$} \\ \hline
-				                & P        & R        & F        & P        & R        & F       & P         & R         & F         \\ \hline
-				Hệ thống cơ sở  &          &          &          &          &          &         &           &           &           \\ \hline
+				                & P        & R        & F        & P        & R        & F       & P         & R         & F         \\  \hline
+				Hệ thống cơ sở  &  0.654        &  0.555        &  0.666        &   0.666       &   0.666       & 0.666        & 0.666          & 0.666          &         0.666  \\ \hline
 				Hệ thống SC     &          &          &          &          &          &         &           &           &           \\ \hline
-				Hệ thống SC+EOA &          &          &          &          &          &         &           &           &           \\ \hline
+				Hệ thống EOA 	&          &          &          &          &          &         &           &           &           \\ \hline
 				Hệ thống đầy đủ &          &          &          &          &          &         &           &           &           \\ \hline
 				\end{tabular}
 				\caption{Kết quả thực nghiệm}
 				\end{table}
 
-		Hình 6.2 trình bày biểu đồ so sánh kết quả độ F trung bình 3 hệ đo MUC, B3, CEAF-$\Phi_4$ trên 5 lần kiểm chứng chéo giữa Hệ thống cơ sở và Hệ thống đầy đủ
+		Hình \ref{fig:chart_muc}, \ref{fig:chart_b3}, \ref{fig:chart_ceaf4} trình bày biểu đồ so sánh hiệu năng giữa các hệ thống. Các kết quả này là độ F trên 3 hệ đo MUC, B3, CEAF-$\Phi_4$ trong 5 lần kiểm chứng chéo.
+				\begin{figure}[H] 			
+					\centering					
+					\includegraphics[scale=0.7]{charts/chart_muc.pdf}					
+					\caption{So sánh kết quả giữa các hệ thống trên hệ đo MUC}
+					\label{fig:chart_muc}
+				\end{figure} 
+
 				\begin{figure}[H] 
 					\centering					
-					\includegraphics[scale=0.5]{charts/demo_chart.pdf}
-					% \includegraphics[width=\linewidth]{images/result.png}
-					\caption{So sánh kết quả giữa hệ thống cơ sở và hệ thống đầy đủ}
-				\end{figure} 
+					\includegraphics[scale=0.7]{charts/chart_b3.pdf}					
+					\caption{So sánh kết quả giữa các hệ thống trên hệ đo B3}
+					\label{fig:chart_b3}
+				\end{figure}
+
+				\begin{figure}[H] 
+					\centering					
+					\includegraphics[scale=0.7]{charts/chart_ceaf4.pdf}					
+					\caption{So sánh kết quả giữa các hệ thống trên hệ đo CEAF-$\Phi_4$}
+					\label{fig:chart_ceaf4}
+				\end{figure}
 
 		\section{Phân tích kết quả thực nghiệm}
 		\subsection*{Nhận xét}
@@ -962,7 +986,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 			\begin{itemize}
 				\item{Hệ thống đầy đủ đạt kết quả cao hơn hệ thống cơ sở, cụ thể có độ F cao hơn khoảng ???\%. Điều này chứng tỏ các đặc trưng liên quan đến khai khoáng ý kiến đã ảnh hưởng tích cực đến kết quả, chúng có giá trị đối với bài toán đồng tham chiếu trên lĩnh vực khai khoáng ý kiến}.
 				\item{Hệ thống SC đạt kết quả cao hơn hệ thống cơ sở khoảng ???\% độ F. Điều này cho thấy đặc trưng \textit{Tính nhất quán về ý kiến (SC)} đã có ảnh hưởng tương đối lớn đến hệ thống}.
-				\item{Hệ thống SC+EOA đạt kết quả không cao hơn nhiều so với hệ thống SC, cao hơn khoảng ???\% độ F. Điều này cho thấy đặc trưng \textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến (EOA)} đã có ảnh hưởng tiêu cực đến hệ thống, tuy nhiên vì một số lí do nào đó đặc trưng này tỏ ra không hiệu quả khi được sử dụng}.
+				\item{Hệ thống EOA đạt kết quả không cao hơn nhiều so với hệ thống cơ sở, cao hơn khoảng ???\% độ F. Điều này cho thấy đặc trưng \textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến (EOA)} đã có ảnh hưởng tiêu cực đến hệ thống, tuy nhiên vì một số lí do nào đó đặc trưng này tỏ ra không hiệu quả khi được sử dụng}.
 			\end{itemize}
 		\subsection*{Giải thích}
 			\par Chúng tôi phân tích kết quả bằng cách đi trả lời hai câu hỏi: tại sao những đặc trưng liên quan đến khai khoáng ý kiến chưa đóng góp nhiều vào kết quả hệ thống và tại sao kết quả hệ thống chưa cao.
@@ -979,9 +1003,9 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 				\end{itemize}
 			\par \textit{Nguyên nhân hệ thống vẫn chưa đạt kết quả cao}:
 				\begin{itemize}
-					\item{Trong lĩnh vực khai khoáng ý kiến, có những trường hợp đồng tham chiếu chỉ có thể phát hiện được nhờ vào hai đặc trưng cơ bản liên quan đến khai khoáng ý kiến (\textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến} và \textit{Tính nhất quán về ý kiến}). Tuy nhiên, vì một số lí do chúng tôi đã trình phần trên, hai đặc trưng đó vẫn chưa có nhiều ảnh hưởng đến hệ thống}.
+					\item{Trong lĩnh vực khai khoáng ý kiến, một bài đánh giá xuất hiện nhiều đối tượng và thuộc tính, rất khó để xác định đồng tham chiếu nếu không dựa vào vào hai đặc trưng cơ bản liên quan đến khai khoáng ý kiến (\textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến} và \textit{Tính nhất quán về ý kiến}). Tuy nhiên, vì một số lí do chúng tôi đã trình phần trên, hai đặc trưng đó vẫn chưa có nhiều ảnh hưởng đến hệ thống}.
 					\item{Có những trường hợp một đối tượng được diễn tả bởi nhiều tên gọi khác nhau mà không đặc trưng nào trong hệ thống phát hiện ra được. Ví dụ: Để chỉ đối tượng là chiếc điện thoại Samsung Galaxy S3, có thể viết là \textit{"the GS3"} hoặc \textit{"the Samsung S3"} hoặc \textit{a new S3 SGH-I747 (US model) ATT phone}}.
-					\item{}
+					\item{Đặc trưng \textit{Danh từ chính giống nhau} ảnh hưởng nhiều đến độ chính xác của hệ thống. Bởi vì đặc trưng này mà Cây quyết định học được rằng nếu hai cụm danh từ có danh từ chính giống nhau và cụm danh từ đứng trước không phải là đại từ thì cây quyết định của hệ thống phân loại đồng tham chiếu. Tuy nhiên, trên thực tế có nhiều trường hợp danh từ chính giống nhau nhưng chúng không đồng tham chiếu, ví dụ: "the camera quality" và "the image quality" được hệ thống phân loại là đồng tham chiếu vì đều có danh từ chính "quality"}.
 				\end{itemize}
 
 		
