@@ -646,37 +646,37 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 				\end{table}
 				\subsubsection*{Đặc trưng NP1 là đại từ (NP1\_PRONOUN)}
 					\par \textit{Giải thích:} Là khả năng cụm danh từ NP1 là đại từ.
-					\par \textit{Giá trị:} [true, false] Thuộc tính nhận giá trị true nếu NP1 là đại từ và ngược lại nhận giá trị false. Đại từ được nhắc đến bao gồm: đại từ phản thân (itself, themselves), tân ngữ (it, them), đại từ nhân xưng (it, they) và tính từ sở hữu (its, their).
+					\par \textit{Giá trị:} [true, false] Đặc trưng nhận giá trị true nếu NP1 là đại từ và ngược lại nhận giá trị false. Đại từ được nhắc đến bao gồm: đại từ phản thân (itself, themselves), tân ngữ (it, them), đại từ nhân xưng (it, they) và tính từ sở hữu (its, their).
 
 
 
 				\subsubsection*{Đặc trưng NP2 là đại từ (NP2\_PRONOUN)}
 					\par \textit{Giải thích:} Là khả năng cụm danh từ NP2 là đại từ.
-					\par \textit{Giá trị:} [true, false]. Thuộc tính nhận giá trị true nếu NP2 là đại từ và ngược lại nhận giá trị false.
+					\par \textit{Giá trị:} [true, false]. Đặc trưng nhận giá trị true nếu NP2 là đại từ và ngược lại nhận giá trị false.
 
 				\subsubsection*{Đặc trưng Giống nhau hoàn toàn (EXACT\_MATCH)}
 					\par \textit{Giải thích:} Là sự giống nhau hoàn toàn giữa hai cụm danh từ.
-					\par \textit{Giá trị:} [true, false]. Thuộc tính nhận giá trị true nếu hai cụm danh từ giống nhau hoàn toàn và nhận giá trị false nếu ngược lại.
+					\par \textit{Giá trị:} [true, false]. Đặc trưng nhận giá trị true nếu hai cụm danh từ giống nhau hoàn toàn và nhận giá trị false nếu ngược lại.
 
 				\subsubsection*{Đặc trưng Danh từ chính giống nhau (HEAD\_MATCH)}
 					\par \textit{Giải thích:} Là sự giống nhau giữa hai cụm danh từ.
-					\par \textit{Giá trị:} [true, false]. Thuộc tính nhận giá trị true nếu danh từ chính của hai cụm danh từ giống nhau và nhận giá trị false nếu ngược lại.
+					\par \textit{Giá trị:} [true, false]. Đặc trưng nhận giá trị true nếu danh từ chính của hai cụm danh từ giống nhau và nhận giá trị false nếu ngược lại.
 
 				\subsubsection*{Đặc trưng Chuỗi con của nhau (SUBSTRING)}
 					\par \textit{Giải thích:} Kiểm tra hai cụm danh từ có phải là chuỗi con của nhau hay không.
-					\par \textit{Giá trị:} [true, false]. Thuộc tính nhận giá trị true nếu hai cụm danh từ là chuỗi con của nhau và nhận giá trị false nếu ngược lại.
+					\par \textit{Giá trị:} [true, false]. Đặc trưng nhận giá trị true nếu hai cụm danh từ là chuỗi con của nhau và nhận giá trị false nếu ngược lại.
 
 				\subsubsection*{Đặc trưng Từ hạn định (DEF\_NP2)}
 					\par \textit{Giải thích:} Là khả năng cụm danh từ NP2 là cụm danh từ xác định (cụm danh từ có từ bắt đầu là "the"). 
-					\par \textit{Giá trị:} [true, false]. Thuộc tính nhận giá trị true nếu NP2 là cụm danh từ xác định và false nếu ngược lại.
+					\par \textit{Giá trị:} [true, false]. Đặc trưng nhận giá trị true nếu NP2 là cụm danh từ xác định và false nếu ngược lại.
 
 				\subsubsection*{Đặc trưng Từ chỉ trỏ (DEM\_NP2)}
 					\par \textit{Giải thích:} Là khả năng cụm danh từ NP2 là cụm danh từ xác định (cụm danh từ có từ bắt đầu là "this", "that", "these" hoặc "those"). 
-					\par \textit{Giá trị:} [true, false]. Thuộc tính nhận giá trị true nếu NP2 là cụm danh từ chỉ định và false nếu ngược lại.
+					\par \textit{Giá trị:} [true, false]. Đặc trưng nhận giá trị true nếu NP2 là cụm danh từ chỉ định và false nếu ngược lại.
 
 				\subsubsection*{Đặc trưng Tên riêng (PROPER\_NAME)}
 					\par \textit{Giải thích:} Là khả năng cả hai cụm danh từ đều là tên riêng.
-					\par \textit{Giá trị:} [true, false]. Thuộc tính nhận giá trị true nếu cả hai cụm danh từ đều là tên riêng và nếu không phải thì nhận giá trị false.
+					\par \textit{Giá trị:} [true, false]. Đặc trưng nhận giá trị true nếu cả hai cụm danh từ đều là tên riêng và nếu không phải thì nhận giá trị false.
 					\par \textit{Phương pháp hiện thực:} Phần sau trình bày cách mà chúng tôi đã sử dụng để xác định một cụm danh từ có là tên riêng hay không.				
 					\par Một cụm danh từ gồm nhiều từ, thông qua công cụ gán nhãn từ loại (part of speech) của Stanford, biết được nhãn POS được gán với mỗi từ. Theo như quy ước về nhãn từ loại: Nhãn NNP chỉ danh từ riêng số ít, nhãn NNPS chỉ danh từ riêng số nhiều. Nếu nhãn của một từ nào đó trong cụm danh từ là NNP hoặc NNPS thì cụm danh từ đó là danh từ riêng. Ví dụ: Trong câu \textit{"The Galaxy S3 is beautiful."}, cụm danh từ The Galaxy S3 được công cụ gán nhãn của Stanford xử lý thành The/DT Galaxy/NNP S3/NNP. The Galaxy S3 là tên riêng vì có có từ Galaxy và từ S3 được gán nhãn NNP.
 					\par Tuy nhiên, trên thực tế vẫn có nhiều danh từ riêng không tuân theo quy luật trên, dựa vào công cụ của Stanford không xác định được. Ví dụ: "iphone 6", "iPhone 6" hay "The 620", "the Active". Những cụm danh từ này công cụ gán nhãn từ loại của Stanford không gán được nhãn NNP hay NNPS. Vì vậy chúng tôi đề xuất hướng giải quyết:
@@ -724,11 +724,11 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 						PMI(NP,OW) = log\frac{(P(NP,OW)}{P(NP)\times P(OW)}
 						\end{equation*}
 					\end{center}
-					\par Giá trị PMI không chỉ biểu hiện mối quan hệ giữa một OW và một NP, mà còn cho ta thấy mối quan hệ giữa cụm danh từ mà OW đang nói đến với NP. Do đó, từ giá trị PMI tính được, chúng tôi tạo thuộc tính mới OPINION\_WORD cho mỗi mẫu để biểu thị mối quan hệ giữa cặp hai cụm danh từ. Dưới đây là cách hiện thực của chúng tôi: 
-					\par Cụm danh từ NP1 có từ chỉ ý kiến đi kèm là OW1. Đầu tiên, chúng tôi tính giá trị PMI( NP\textsubscript{$i$},OW1) với  NP\textsubscript{$i$} là các cụm danh từ nằm trước NP1. Kết quả là chúng tôi thu được danh sách các giá trị PMI. Cụm danh từ  NP\textsubscript{$i$} nào có giá trị PMI( NP\textsubscript{$i$},OW1) cao nhất thì thuộc tính OPINION\_WORD của mẫu tạo bởi  NP\textsubscript{$i$} đó và NP1 là 0, cao thứ nhì thì OPINION\_WORD = 1, cao thứ ba thì OPINION\_WORD = 2, cao thứ tư thì OPINION\_WORD = 3, còn lại OPINION\_WORD = 4. Với trường hợp NP1 không có từ chỉ ý kiến kèm theo, hoặc các giá trị P(NP,OW) = 0, P(NP) = 0, P(OW) = 0 thì  các mẫu tạo bởi cặp đó với các từ đứng trước có giá trị thuộc tính OPINION\_WORD = 10. OPINION\_WORD càng nhỏ thể hiện khả năng hai cụm danh từ có quan hệ càng cao, càng có khả năng đồng tham chiếu với nhau.
+					\par Giá trị PMI không chỉ biểu hiện mối quan hệ giữa một OW và một NP, mà còn cho ta thấy mối quan hệ giữa cụm danh từ mà OW đang nói đến với NP. Do đó, từ giá trị PMI tính được, chúng tôi tạo đặc trưng mới OPINION\_WORD cho mỗi mẫu để biểu thị mối quan hệ giữa cặp hai cụm danh từ. Dưới đây là cách hiện thực của chúng tôi: 
+					\par Cụm danh từ NP1 có từ chỉ ý kiến đi kèm là OW1. Đầu tiên, chúng tôi tính giá trị PMI( NP\textsubscript{$i$},OW1) với  NP\textsubscript{$i$} là các cụm danh từ nằm trước NP1. Kết quả là chúng tôi thu được danh sách các giá trị PMI. Cụm danh từ  NP\textsubscript{$i$} nào có giá trị PMI( NP\textsubscript{$i$},OW1) cao nhất thì đặc trưng OPINION\_WORD của mẫu tạo bởi  NP\textsubscript{$i$} đó và NP1 là 0, cao thứ nhì thì OPINION\_WORD = 1, cao thứ ba thì OPINION\_WORD = 2, cao thứ tư thì OPINION\_WORD = 3, còn lại OPINION\_WORD = 4. Với trường hợp NP1 không có từ chỉ ý kiến kèm theo, hoặc các giá trị P(NP,OW) = 0, P(NP) = 0, P(OW) = 0 thì  các mẫu tạo bởi cặp đó với các từ đứng trước có giá trị đặc trưng OPINION\_WORD = 10. OPINION\_WORD càng nhỏ thể hiện khả năng hai cụm danh từ có quan hệ càng cao, càng có khả năng đồng tham chiếu với nhau.
 					\par Ví dụ: "The phone does not hold a charge long enough to last the day and it’s expensive."
-					\\Câu trên có 3 cụm danh từ NP1 "the phone", NP2 "a charge", NP3 "it". Từ chỉ ý kiến OW3 "expensive" đi kèm với NP3. Để tính giá trị thuộc tính OPINION\_WORD cho các cặp (NP1,NP3) và (NP2 NP3), trước tiên ta sẽ tính PMI(NP1, OW3) và PMI(NP2, OW3). Sau khi tính toán, thu được PMI(NP2, OW3) nhỏ hơn PMI(NP1, OW3), khi đó OPINION\_WORD(NP1, NP3) = 0, OPINION\_WORD(NP2, NP3) = 1.
-					\par Trong trường hợp một NP có nhiều hơn một từ chỉ ý kiến. Quan hệ giữa hai cụm danh từ không còn dựa trên một từ chỉ ý kiến mà phải dựa vào tập từ chỉ ý kiến. Giá trị PMI dùng để xây dựng giá trị thuộc tính OPINION\_WORD bây giờ là giá trị PMI trung bình. Ví dụ NP1 có OW1 và OW2. Quan hệ giữa cụm từ  NP\textsubscript{$i$} với N1 không còn chỉ dựa vào PMI( NP\textsubscript{$i$},OW1) hoặc PMI( NP\textsubscript{$i$}, OW2) mà dựa vào giá trị PMI trung bình của chúng. Ta lần lượt tính giá trị PMI( NP\textsubscript{$i$},OW1) và PMI( NP\textsubscript{$i$}, OW2), giá trị PMI của  NP\textsubscript{$i$} với tập từ ý kiến là:
+					\\Câu trên có 3 cụm danh từ NP1 "the phone", NP2 "a charge", NP3 "it". Từ chỉ ý kiến OW3 "expensive" đi kèm với NP3. Để tính giá trị đặc trưng OPINION\_WORD cho các cặp (NP1,NP3) và (NP2 NP3), trước tiên ta sẽ tính PMI(NP1, OW3) và PMI(NP2, OW3). Sau khi tính toán, thu được PMI(NP2, OW3) nhỏ hơn PMI(NP1, OW3), khi đó OPINION\_WORD(NP1, NP3) = 0, OPINION\_WORD(NP2, NP3) = 1.
+					\par Trong trường hợp một NP có nhiều hơn một từ chỉ ý kiến. Quan hệ giữa hai cụm danh từ không còn dựa trên một từ chỉ ý kiến mà phải dựa vào tập từ chỉ ý kiến. Giá trị PMI dùng để xây dựng giá trị đặc trưng OPINION\_WORD bây giờ là giá trị PMI trung bình. Ví dụ NP1 có OW1 và OW2. Quan hệ giữa cụm từ  NP\textsubscript{$i$} với N1 không còn chỉ dựa vào PMI( NP\textsubscript{$i$},OW1) hoặc PMI( NP\textsubscript{$i$}, OW2) mà dựa vào giá trị PMI trung bình của chúng. Ta lần lượt tính giá trị PMI( NP\textsubscript{$i$},OW1) và PMI( NP\textsubscript{$i$}, OW2), giá trị PMI của  NP\textsubscript{$i$} với tập từ ý kiến là:
 					PMI( NP\textsubscript{$i$}, {OW1, OW2}) = PMI( NP\textsubscript{$i$},OW1) + PMI( NP\textsubscript{$i$}, OW2)/ số từ chỉ ý kiến. 
 					Ta tạo giá trị OPINION\_WORD như cách đã trình bày ở trên dựa trên các giá trị PMI( NP\textsubscript{$i$}, {OW1, OW2}) đã tính được.
 					\par \textit{Phương pháp thực hiện:}
@@ -752,15 +752,15 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 
 				\subsubsection*{Đặc trưng Thống nhất về số (NUMBER\_AGREEMENT)}
 					\par \textit{Giải thích:} Hai cụm danh từ cùng mang ý nghĩa số ít hoặc cùng mang ý nghĩa số nhiều thì xác suất chúng đồng tham chiếu là cao hơn trường hợp ngược lại. 
-					\par \textit{Giá trị:} [true, false]. Thuộc tính nhận giá trị true nếu cả hai cụm danh từ có cùng "số" và nếu không phải thì nhận giá trị false.
-					\par Để trích xuất thuộc tính này, chúng tôi sử dụng công cụ Stanford để tìm ra HEAD của mỗi cụm danh từ ứng viên và "số" của HEAD được coi là "số" của cụm danh từ chứa nó. Nếu HEAD là danh từ, "số" của cụm danh từ được xác định dựa trên POS Tag của chính nó (NN, NNP cho số ít) và (NNS, NNPS cho số nhiều). Nếu HEAD là đại từ, "số" của nó được gán dựa vào một danh sách các đại từ số nhiều và số ít đã được tổng hợp.
+					\par \textit{Giá trị:} [true, false]. Đặc trưng nhận giá trị true nếu cả hai cụm danh từ có cùng "số" và nếu không phải thì nhận giá trị false.
+					\par Để trích xuất đặc trưng này, chúng tôi sử dụng công cụ Stanford để tìm ra HEAD của mỗi cụm danh từ ứng viên và "số" của HEAD được coi là "số" của cụm danh từ chứa nó. Nếu HEAD là danh từ, "số" của cụm danh từ được xác định dựa trên POS Tag của chính nó (NN, NNP cho số ít) và (NNS, NNPS cho số nhiều). Nếu HEAD là đại từ, "số" của nó được gán dựa vào một danh sách các đại từ số nhiều và số ít đã được tổng hợp.
 					\par Ví dụ:
 					\\"I transfered my old phone to my friend and now consider to buy two new phones. They are both Motorola". Two new phones và they khả năng là đồng tham chiếu vì chúng đều là số nhiều ("phones" và "they" số nhiều), trong khi "my old phone" là số ít do đó nếu bắt cặp nó với "they" chẳng hạn thì chúng không thể đồng tham chiếu được.				
 
 				\subsubsection*{Đặc trưng Từ khóa "is" nằm ở giữa (IS\_BETWEEN)}
-					\par \textit{Giải thích:} Nếu ở giữa 2 cụm danh từ trong câu có từ "is" hoặc các động từ TOBE như "are", "was", "were", "been",... và nó không đi kèm với bất kỳ chỉ định so sánh hay phủ định nào thì có xác suất để 2 cụm danh từ này đồng tham chiếu. Nếu ở giữa 2 cụm danh từ trong câu có từ "is" (hoặc một động từ TOBE) và nó có đi kèm với một chỉ định so sánh nào thì có xác suất để 2 cụm danh từ này trỏ tới 2 thực thể/thuộc tính khác nhau.
-					\par \textit{Giá trị:} [true, false]. Thuộc tính nhận giá trị true nếu ở giữa 2 cụm danh từ trong câu có từ "is" (hoặc một động từ TOBE) đồng thời không có chỉ định so sánh hay phủ định nào, ngược lại nhận giá trị false.
-					\par Về việc xác định các chỉ định so sánh, các chỉ định so sánh được tìm kiếm bằng cách bắt các từ/cụm từ thuộc các mẫu so sánh phổ biến (đã đề cập ở mục \ref{comparative_section}). Các diễn đạt phủ định đi kèm như "is not", "isn't", "were not",... cũng được xem xét và những trường hợp này cho giá trị thuộc tính là false.
+					\par \textit{Giải thích:} Nếu ở giữa 2 cụm danh từ trong câu có từ "is" hoặc các động từ TOBE như "are", "was", "were", "been",... và nó không đi kèm với bất kỳ chỉ định so sánh hay phủ định nào thì có xác suất để 2 cụm danh từ này đồng tham chiếu. Nếu ở giữa 2 cụm danh từ trong câu có từ "is" (hoặc một động từ TOBE) và nó có đi kèm với một chỉ định so sánh nào thì có xác suất để 2 cụm danh từ này trỏ tới 2 đối tượng/thuộc tính khác nhau.
+					\par \textit{Giá trị:} [true, false]. Đặc trưng nhận giá trị true nếu ở giữa 2 cụm danh từ trong câu có từ "is" (hoặc một động từ TOBE) đồng thời không có chỉ định so sánh hay phủ định nào, ngược lại nhận giá trị false.
+					\par Về việc xác định các chỉ định so sánh, các chỉ định so sánh được tìm kiếm bằng cách bắt các từ/cụm từ thuộc các mẫu so sánh phổ biến (đã đề cập ở mục \ref{comparative_section}). Các diễn đạt phủ định đi kèm như "is not", "isn't", "were not",... cũng được xem xét và những trường hợp này cho giá trị đặc trưng là false.
 					\par Ví dụ: 
 					\\"Nokia 215 is my second phone". "Nokia 215" và "my second phone" khả năng đồng tham chiếu với nhau.
 					\\"Overall the K800 is far superior to the W810". "K8100" và "W810" khả năng trỏ tới 2 thực thể khác nhau.
@@ -769,16 +769,16 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 
 				\subsubsection*{Đặc trưng Từ khóa "has" nằm ở giữa (HAS\_BETWEEN)}
 					\par \textit{Giải thích:} Nếu ở giữa 2 cụm danh từ trong câu có từ "has" thì có xác suất để 2 cụm danh từ này trỏ tới 2 đối tượng/thuộc tính khác nhau, giữa chúng có thể là mối quan hệ bộ phận (part-of). 
-					\par \textit{Giá trị:} [true, false]. Thuộc tính nhận giá trị true nếu ở giữa 2 cụm danh từ trong câu có từ "has", ngược lại nhận giá trị false.
+					\par \textit{Giá trị:} [true, false]. Đặc trưng nhận giá trị true nếu ở giữa 2 cụm danh từ trong câu có từ "has", ngược lại nhận giá trị false.
 					\par Ví dụ:
-					"My MiPad has a 5MP front camera". "My MiPad" và "a 5MP front camera" khả năng trỏ tới 2 thực thể/thuộc tính khác nhau.
+					"My MiPad has a 5MP front camera". "My MiPad" và "a 5MP front camera" khả năng trỏ tới 2 đối tượng/thuộc tính khác nhau.
 									
 					\par \textit{Phương pháp hiện thực:}
-					\\Nếu giữa hai cụm danh từ có chứa từ "has" hoặc "have" hoặc "had" và từ đi kèm sau chúng không phải là "to" hay động từ nhóm 3 (nhãn POS là "VBN") thì thuộc tính HAS\_BETWEEN của cặp hai cụm danh từ là true. Trong những trường hợp còn lại HAS\_BETWEEN bằng false.
+					\\Nếu giữa hai cụm danh từ có chứa từ "has" hoặc "have" hoặc "had" và từ đi kèm sau chúng không phải là "to" hay động từ nhóm 3 (nhãn POS là "VBN") thì đặc trưng HAS\_BETWEEN của cặp hai cụm danh từ là true. Trong những trường hợp còn lại HAS\_BETWEEN bằng false.
 
 				\subsubsection*{Đặc trưng đại từ quan hệ (RELATIVE\_PRONOUN)}
 					\par \textit{Giải thích:} Trong số các cụm danh từ được giữ lại từ bước Trích xuất cụm danh từ, có những đại từ quan hệ cần được phân giải đồng tham chiếu vì chúng thường chỉ về một thực thể được nhắc bởi một từ/cụm từ trước đó trong câu. Ví dụ: "It came with an adaptor plug \textit{which} can fits any A/C plug.", \textit{which} trong trường hợp này cùng chỉ về một thực thể được nhắc bởi "an adaptor plug".
-					\par \textit{Giá trị:} [true, false]. Nếu NP2 được tạo thành từ đại quan hệ không chỉ người (các từ có nhãn từ loại là WHNP ngoại trừ "who"), thuộc tính cho giá trị true. Ngược lại cho giá trị false. 
+					\par \textit{Giá trị:} [true, false]. Nếu NP2 được tạo thành từ đại quan hệ không chỉ người (các từ có nhãn từ loại là WHNP ngoại trừ "who"), đặc trưng nhận giá trị true. Ngược lại cho giá trị false. 
 	 
 				\subsubsection*{Đặc trưng Nhất quán về ý kiến (SENTIMENT\_CONSISTENCY)}
 					\par \textit{Giải thích:} Khi người dùng giới thiệu một đối tượng và thể hiện ý kiến đối với nó trong một câu, họ có xu hướng nhắc lại đối tượng đó trong câu tiếp theo với cùng ý kiến. Hiện tượng này là dễ bắt gặp trong các văn bản chứa ý kiến đánh giá về các sản phẩm.
@@ -787,7 +787,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					\\Nếu NP1 và NP2 khác thiên hướng ý kiến $\Rightarrow$ 0
 					\\Nếu không biết thiên hướng ý kiến trên NP1 hoặc NP2 $\Rightarrow$ 2
 
-					\par Ký hiệu s(i-1) và s(i) là hai câu liên tiếp trong văn bản. Đối với thuộc tính này, có hai trường hợp cần xét tới:
+					\par Ký hiệu s(i-1) và s(i) là hai câu liên tiếp trong văn bản. Đối với đặc trưng này, có hai trường hợp cần xét tới:
 						\begin{itemize}
 							\item{Cả s(i-1) và s(i) đều là câu bình thường}
 							\item{Câu s(i-1) là câu so sánh và s(i) là câu bình thường}
@@ -799,7 +799,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					\end{itemize}
 					\par Ví dụ: "Stylo 2 is a great phone. It is very fast with plenty of storage for apps".
 						\\Câu đầu tiên giới thiệu về đối tượng "Stylo2" với thiên hướng tích cực (nhờ vào từ chỉ ý kiến "great"). Ở câu tiếp theo do thiên hướng đối với đại từ "it" là tích cực (dựa vào từ chỉ ý kiến "fast" gắn với nó) nên "it" có khả năng đang nói tới đối tượng "Stylo2", theo tính chất nhất quán về ý kiến trong ngôn ngữ.
-					\par (2) Nếu s(i-1) là câu so sánh (câu so sánh được xác định dựa trên một số luật như câu chứa các chỉ định so sánh tương tự như trong thuộc tính số 10 "is between") và s(i) là câu bình thường
+					\par (2) Nếu s(i-1) là câu so sánh (câu so sánh được xác định dựa trên một số luật như câu chứa các chỉ định so sánh tương tự như trong đặc trưng số 10 "is between") và s(i) là câu bình thường
 					\begin{itemize}
 						\item{Giả sử có NP1 và NP2 ở câu s(i-1) được so sánh với nhau (2 cụm danh từ gần nhất 2 bên chỉ định so sánh) và NP3 là cụm danh từ ở s(i)}
 						\item{Dựa vào thiên hướng ý kiến của câu so sánh(i-1), như đã đề cập ở mục \ref{comparative_section} thiên hướng ý kiến của câu so sánh có thể được tìm ra dựa vào từ khóa so sánh. Ví dụ: s(i-1) là một câu so sánh có dạng NP1 is better than NP2, vì better có thiên hướng so sánh tích cực nên ta xác định được đối tượng ưu tiên trong phép so sánh này là NP1. Vì vậy nếu thiên hướng ý kiến đối với NP3 là tích cực thì NP3 có khả năng đồng tham chiếu với NP1, ngược lại nó có khả năng đồng tham chiếu với NP2.
@@ -836,7 +836,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 				\begin{itemize}
 					\item{element: Gói này gồm các lớp (class) lưu thông tin liên quan đến các thành phần trong ngôn ngữ tự nhiên như Review(văn bản), Sentence(câu), NounPhrase(cụm danh từ), Token(thẻ), CorefChain(chuỗi đồng tham chiếu) với các mối quan hệ has-a giữa các lớp.}
 					\item{gui: Gói liên quan đến giao diện.}
-					\item{process: Gói liên quan đến quá trình trích xuất thuộc tính hoặc gán nhãn dữ liệu.}
+					\item{process: Gói liên quan đến quá trình trích xuất đặc trưng hoặc gán nhãn dữ liệu.}
 					\item{test: Gói liên quan đến việc hiện thực các độ đo chuỗi đồng tham chiếu.}
 					\item{util: Gói liên quan đến việc trích xuất các thành phần của ngôn ngữ tự nhiên, dựa vào thư viện của công cụ Stanford, bao gồm cả việc lấy HEAD của các cụm danh từ.}
 					\item{weka: Gói liên quan đến việc tạo bộ phân loại dựa trên công cụ Weka, gồm cả việc dùng Cây quyết định.}
@@ -947,10 +947,10 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 				\hline
 				                & \multicolumn{3}{c|}{Hệ đo MUC} & \multicolumn{3}{c|}{Hệ đo B3} & \multicolumn{3}{c|}{Hệ đo CEAF-$\Phi_4$} \\ \hline
 				                & P        & R        & F        & P        & R        & F       & P         & R         & F         \\  \hline
-				Hệ thống cơ sở  &  0.654        &  0.555        &  0.666        &   0.666       &   0.666       & 0.666        & 0.666          & 0.666          &         0.666  \\ \hline
-				Hệ thống SC     &          &          &          &          &          &         &           &           &           \\ \hline
-				Hệ thống EOA 	&          &          &          &          &          &         &           &           &           \\ \hline
-				Hệ thống đầy đủ &          &          &          &          &          &         &           &           &           \\ \hline
+				Hệ thống cơ sở  &  0.757        &  0.534       &  0.621       &   0.794       &   0.524       & 0.626        & 0.621          & 0.557          &   0.586  \\ \hline
+				Hệ thống SC     &   0.742       &  0.630        &  0.680        & 0.735         &  0.608        &  0.661       &  0.666         & 0.593          & 0.627          \\ \hline
+				Hệ thống EOA 	&   0.735       &  0.558        &  0.632        & 0.766         &  0.542        &  0.632       &  0.616         & 0.568          & 0.591          \\ \hline
+				Hệ thống đầy đủ &  0.730        &   0.632       &  0.676        & 0.724         &  0.610        &   0.658      &  0.661         &  0.594         &  0.626         \\ \hline
 				\end{tabular}
 				\caption{Kết quả thực nghiệm}
 				\end{table}
@@ -967,18 +967,19 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 		\subsection*{Nhận xét}
 		Dựa vào bảng kết quả 6.1, chúng tôi có một số nhận xét trực quan:
 			\begin{itemize}
-				\item{Hệ thống đầy đủ đạt kết quả cao hơn hệ thống cơ sở, cụ thể có độ F cao hơn khoảng ???\%. Điều này chứng tỏ các đặc trưng liên quan đến khai khoáng ý kiến đã ảnh hưởng tích cực đến kết quả, chúng có giá trị đối với bài toán đồng tham chiếu trên lĩnh vực khai khoáng ý kiến}.
-				\item{Hệ thống SC đạt kết quả cao hơn hệ thống cơ sở khoảng ???\% độ F. Điều này cho thấy đặc trưng \textit{Tính nhất quán về ý kiến (SC)} đã có ảnh hưởng tương đối lớn đến hệ thống}.
-				\item{Hệ thống EOA đạt kết quả không cao hơn nhiều so với hệ thống cơ sở, cao hơn khoảng ???\% độ F. Điều này cho thấy đặc trưng \textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến (EOA)} đã có ảnh hưởng tiêu cực đến hệ thống, tuy nhiên vì một số lí do nào đó đặc trưng này tỏ ra không hiệu quả khi được sử dụng}.
+				\item{Hệ thống đầy đủ đạt kết quả cao hơn hệ thống cơ sở, cụ thể có độ F cao hơn khoảng 3\% đến 6\% (tùy hệ đo). Điều này chứng tỏ các đặc trưng liên quan đến khai khoáng ý kiến đã ảnh hưởng tích cực đến kết quả, chúng có giá trị đối với bài toán đồng tham chiếu trên lĩnh vực khai khoáng ý kiến}.
+				\item{Hệ thống SC đạt kết quả cao hơn hệ thống cơ sở, cụ thể có độ F cao hơn khoảng 4\% đến 6\% (tùy hệ đo). Điều này cho thấy đặc trưng \textit{Tính nhất quán về ý kiến (SC)} đã có ảnh hưởng tương đối lớn đến hệ thống}.
+				\item{Hệ thống EOA đạt kết quả không cao hơn nhiều so với hệ thống cơ sở, độ F cao hơn khoảng 1\% . Điều này cho thấy đặc trưng \textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến (EOA)} đã có ảnh hưởng tích cực đến hệ thống, tuy nhiên vì một số lí do nào đó đặc trưng này tỏ ra không ảnh hưởng nhiều đến kết quả}.
+				\item{Hệ thống đầy đủ có kết quả thấp hơn một ít so với hệ thống SC. Điều này cho thấy việc kết hợp hai đặc trưng mới \textit{Tính nhất quán về ý kiến (SC)} và \textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến (EOA)} vẫn còn gặp vấn đề}.
 			\end{itemize}
 		\subsection*{Giải thích}
 			\par Chúng tôi phân tích kết quả bằng cách đi trả lời hai câu hỏi: tại sao những đặc trưng liên quan đến khai khoáng ý kiến chưa đóng góp nhiều vào kết quả hệ thống và tại sao kết quả hệ thống chưa cao.
 			\par \textit{Nguyên nhân đặc trưng \textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến (EOA)} chưa ảnh hưởng nhiều đến hệ thống:}
 				\begin{itemize}
-					\item{Số lượng từ chỉ ý kiến trong tập dữ liệu vẫn chưa nhiều (chỉ có 442 trong số 2634 từ chỉ đối tượng, thuộc tính có từ chỉ ý kiến đi kèm). Do đó thuộc tính EOA vẫn chưa ảnh hưởng nhiều đến hệ thống}.
+					\item{Số lượng từ chỉ ý kiến trong tập dữ liệu vẫn chưa nhiều (chỉ có 442 trong số 2634 từ chỉ đối tượng, thuộc tính có từ chỉ ý kiến đi kèm). Do đó đặc trưng EOA vẫn chưa ảnh hưởng nhiều đến hệ thống}.
 					\item{Các từ chỉ ý kiến trong tập dữ liệu vẫn chưa có tính đặc trưng cao, có những từ chỉ ý kiến có thể đi kèm với nhiều cụm danh từ khác nhau, ví dụ như tính từ \textit{“good”}, \textit{“nice”}, \textit{“better”}, \textit{“great”}. Trong câu \textit{“The M9 destroyed the Nexus 6 in both aspects. The battery life was pretty great. It wasn't as good as the Oneplus One, but was much better than the M9”}, khả năng từ \textit{“good”} liên kết được với \textit{“the M9”}, \textit{“Nexus 6”} và \textit{“the battery”} là tương đương nhau. Nên khó xác định được từ \textit{“It”} liên kết với \textit{“good”} đang chỉ đến cụm danh từ nào}.
-					\item{Theo giả thuyết cặp nào có giá trị thuộc tính EOA càng nhỏ thì càng có khả năng đồng tham chiếu. Tuy nhiên trên thực tế có những cặp có giá trị thuộc tính EOA nhỏ (0 hoặc 1) nhưng không đồng tham chiếu, trong khi có nhiều cặp có giá trị EOA lớn (3 hoặc 4) thì cặp đó lại đồng tham chiếu}.
-					\item{Tập dữ liệu học của thuộc tính EOA bị nhiễu. Một cụm danh từ có từ chỉ ý kiến nhưng trên thực tế nằm trong chuỗi đồng tham chiếu nào sẽ tạo ra các mẫu học có  giá trị thuộc tính EOA là 0,1,2,3,4, dẫn đến hệ thống học được rằng dù thuộc tính EOA là 0 hoặc 1 thì vẫn phân loại là không đồng tham chiếu. Chúng tôi thống kê thấy có 57 cụm danh từ có dạng như vậy}.
+					\item{Theo giả thuyết cặp nào có giá trị đặc trưng EOA càng nhỏ thì càng có khả năng đồng tham chiếu. Tuy nhiên trên thực tế có những cặp có giá trị đặc trưng EOA nhỏ (0 hoặc 1) nhưng không đồng tham chiếu, trong khi có nhiều cặp có giá trị EOA lớn (3 hoặc 4) thì cặp đó lại đồng tham chiếu}.
+					\item{Tập dữ liệu học của đặc trưng EOA bị nhiễu. Một cụm danh từ có từ chỉ ý kiến nhưng trên thực tế nằm trong chuỗi đồng tham chiếu nào sẽ tạo ra các mẫu học có  giá trị đặc trưng EOA là 0,1,2,3,4, dẫn đến hệ thống học được rằng dù đặc trưng EOA là 0 hoặc 1 thì vẫn phân loại là không đồng tham chiếu. Chúng tôi thống kê thấy có 57 cụm danh từ có dạng như vậy}.
 				\end{itemize}
 			\par \textit{Nguyên nhân đặc trưng \textit{Tính nhất quán về ý kiến (SC)} chưa ảnh hưởng nhiều đến hệ thống}:
 				\begin{itemize}
@@ -986,7 +987,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 				\end{itemize}
 			\par \textit{Nguyên nhân hệ thống vẫn chưa đạt kết quả cao}:
 				\begin{itemize}
-					\item{Trong lĩnh vực khai khoáng ý kiến, một bài đánh giá xuất hiện nhiều đối tượng và thuộc tính, rất khó để xác định đồng tham chiếu nếu không dựa vào vào hai đặc trưng cơ bản liên quan đến khai khoáng ý kiến (\textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến} và \textit{Tính nhất quán về ý kiến}). Tuy nhiên, vì một số lí do chúng tôi đã trình phần trên, hai đặc trưng đó vẫn chưa có nhiều ảnh hưởng đến hệ thống}.
+					\item{Trong lĩnh vực khai khoáng ý kiến, mỗi bài đánh giá xuất hiện nhiều đối tượng và thuộc tính, do đó rất khó để xác định đồng tham chiếu nếu không dựa vào hai đặc trưng cơ bản liên quan đến khai khoáng ý kiến (\textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến} và \textit{Tính nhất quán về ý kiến}). Tuy nhiên, vì một số lí do chúng tôi đã trình phần trên, hai đặc trưng đó vẫn chưa có nhiều ảnh hưởng đến hệ thống}.
 					\item{Có những trường hợp một đối tượng được diễn tả bởi nhiều tên gọi khác nhau mà không đặc trưng nào trong hệ thống phát hiện ra được. Ví dụ: Để chỉ đối tượng là chiếc điện thoại Samsung Galaxy S3, có thể viết là \textit{"the GS3"} hoặc \textit{"the Samsung S3"} hoặc \textit{a new S3 SGH-I747 (US model) ATT phone}}.
 					\item{Đặc trưng \textit{Danh từ chính giống nhau} ảnh hưởng nhiều đến độ chính xác của hệ thống. Bởi vì đặc trưng này mà Cây quyết định học được rằng nếu hai cụm danh từ có danh từ chính giống nhau và cụm danh từ đứng trước không phải là đại từ thì cây quyết định của hệ thống phân loại đồng tham chiếu. Tuy nhiên, trên thực tế có nhiều trường hợp danh từ chính giống nhau nhưng chúng không đồng tham chiếu, ví dụ: "the camera quality" và "the image quality" được hệ thống phân loại là đồng tham chiếu vì đều có danh từ chính "quality"}.
 				\end{itemize}
