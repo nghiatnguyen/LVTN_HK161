@@ -13,7 +13,7 @@
 \usetikzlibrary{positioning}
 \usepackage[left=3 cm,right=3 cm,top=3cm,bottom=3cm]{geometry}
 \usepackage[labelfont=bf]{caption}
-\usepackage[unicode]{hyperref}
+\usepackage[hidelinks]{hyperref}
 \usepackage{bookmark}
 \usepackage{enumitem}
 \usepackage[bottom]{footmisc}
@@ -89,13 +89,15 @@
 
 \begin{flushleft} \large
 \textbf{Giáo viên hướng dẫn:}\\
-GS. TS. Phan Thị Tươi\\[2.0cm]
+GS. TS. Phan Thị Tươi\\
+\textbf{Giáo viên phản biện:}\\
+GS. TS. Cao Hoàng Trụ\\[1cm]
 \end{flushleft}
 
 \begin{flushleft} \large
 \textbf{Sinh viên thực hiện:}\\
 Nguyễn Đăng Trang - 51203957\\
-Nguyễn Trọng Nghĩa - 51202370\\[2cm]
+Nguyễn Trọng Nghĩa - 51202370\\[1.5cm]
 \end{flushleft}
 
 \begin{flushleft} \large
@@ -140,7 +142,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 	\chapter{Tóm tắt Luận văn}		
 		\par Ngôn ngữ của con người chứa đựng nhiều đặc trưng phức tạp và làm cách nào để cho máy tính khai phá có hiệu quả loại dữ liệu này vẫn là một vấn đề lớn. Khai khoáng ý kiến là một lĩnh vực mới phát triển gần đây của Xử lý ngôn ngữ tự nhiên và đang ngày càng có những ứng dụng rộng rãi, nó hướng đến việc tìm ra những ý kiến, cảm xúc được biểu đạt qua ngôn ngữ. Bên cạnh đó, bài toán phân giải đồng tham chiếu, mặc dù đã được nghiên cứu rộng rãi nhưng vẫn chỉ được thực hiện trên các loại văn bản chung chung. Các văn bản chứa ý kiến như các bài đánh giá (review), các thảo luận (discussion) về các sản phẩm với các đặc trưng riêng của nó, cung cấp thêm những thông tin nhất định cho việc phân giải đồng tham chiếu trên đó có hiệu quả hơn. 
 		\par Trong Luận văn này, chúng tôi đề xuất bài toán \textit{Phân giải đồng tham chiếu cho đối tượng và thuộc tính trong Khai khoáng ý kiến} với cách tiếp cận theo mô hình \textit{Học có giám sát}. Mục tiêu của bài toán là tìm xem những từ/cụm từ nào trong văn bản cùng chỉ về đối tượng hoặc thuộc tính. Dữ liệu được dùng là các văn bản chứa ý kiến bằng ngôn ngữ tiếng Anh. Mô hình do chúng tôi đề xuất cho kết quả khả quan và gợi mở ra những hướng đi cho việc thực hiện Phân giải đồng tham chiếu cho các văn bản chứa ý kiến trong tiếng Việt.
-		\par Luận văn được tổ chức thành 6 chương. Chương 2 nêu ra vấn đề và giới thiệu về đề tài \textit{Phân giải đồng tham chiếu cho đối tượng và thuộc tính trong Khai khoáng ý kiến}, chương này cũng đồng thời nói về phạm vi và mục đích của đề tài. Chương 3 là các kiến thức nền tảng được sử dụng trong việc thực hiện đề tài, đó là các nội dung về bài toán Phân giải đồng tham chiếu, Khai khoáng ý kiến và giải thuật học máy Cây quyết định. Chương 4 nói về Phương pháp đề xuất và cách hiện thực hệ thống giải quyết bài toán đặt ra. Trong chương 5, các kết quả thực nghiệm và các đánh giá, phân tích của chúng tôi được dẫn ra. Cuối cùng, chúng tôi tổng kết lại Luận văn của mình trong chương cuối - chương 6.
+		\par Luận văn được tổ chức thành 6 chương. Chương 2 nêu ra vấn đề và giới thiệu đề tài \textit{Phân giải đồng tham chiếu cho đối tượng và thuộc tính trong Khai khoáng ý kiến}, chương này cũng đồng thời nói về phạm vi và mục đích của đề tài. Trong chương 3, chúng tôi nói về các công trình liên quan đến đề tài mà chúng tôi thực hiện, chúng là cơ sở quan trọng trong việc hình thành nên phương pháp đề xuất của chúng tôi. Chương 4 là các kiến thức nền tảng được sử dụng trong việc thực hiện đề tài, đó là các nội dung về bài toán Phân giải đồng tham chiếu, Khai khoáng ý kiến và giải thuật học máy Cây quyết định. Chương 5 nói về Phương pháp đề xuất và cách hiện thực hệ thống giải quyết bài toán đặt ra. Trong chương 6, các kết quả thực nghiệm và các đánh giá, phân tích của chúng tôi được dẫn ra. Cuối cùng, chúng tôi tổng kết lại Luận văn của mình trong chương cuối - chương 7.
 		
 	\chapter{Giới thiệu đề tài}	
 		\label{introduction_chapter}
@@ -214,7 +216,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 				\end{figure}
 				Mỗi cụm danh từ NP\textsubscript{$k$} và chuỗi đồng tham chiếu $C_{j}$ có một tập thuộc tính dùng để phân loại. Tập thuộc tính này gồm: các thuộc tính của NP\textsubscript{$k$}, các thuộc tính liên quan giữa NP\textsubscript{$k$} với $C_{j}$. Điểm đặc trưng của mô hình thực thể và cụm danh từ chính là tập thuộc tính liên quan giữa NP\textsubscript{$k$} với $C_{j}$. Để xác định một thuộc tính giữa NP\textsubscript{$k$} với $C_{j}$, ta xét thuộc tính đó giữa NP\textsubscript{$k$} với các cụm danh từ trong $C_{j}$, từ đó tổng hợp lại. Ví dụ: Để kiểm tra thuộc tính NUMBER AGREEMENT xem NP\textsubscript{$k$} có cùng ngôi với $C_{j}$ không, trước tiên ta kiểm tra lần lược NP\textsubscript{$k$} có cùng ngôi với các cụm danh từ trong $C_{j}$ không. Sau đó ta tổng hợp lại kết quả, một vài cách tổng hợp: NUMBER AGREEMENT là YES nếu NP\textsubscript{$k$} cùng ngôi với tất các các NPs trong $C_{j}$, NO trong trường hợp còn lại; hoặc như Lou (2004)\cite{lou04} hay Yang (2004, 2008)\cite{yang04}\cite{yang08}, NUMBER AGREEMENT là YES nếu NP\textsubscript{$k$} cùng ngôi với ít nhất một NP trong $C_{j}$, NO trong tường hợp còn lại.
 				\par Có nhiều biến thể, hình thức hiện thực mô hình thực thể, song vẫn giữ nguyên nét đặc trưng là: xây dựng thuộc tính của chuỗi đồng tham chiếu dựa trên các cụm danh từ của nó. Cullota (2007)\cite{culotta07} giải quyết bài toán đồng tham chiếu bằng cách xác định xác suất một cụm chứa các NPs từ văn bản có phải là một chuỗi đồng tham chiếu. Để thực hiện mục tiêu đó, tác giả dựa vào thuộc tính chung của cụm NPs. Với thuộc tính X của cụm NPs, X nhận giá trị ALL nếu tất cả các cặp của cụm NPs cùng có thuộc tính X, X nhận giá trị MOST-TRUE nếu đa số các cặp của NPs có cùng thuộc tính X và X nhận giá trị MOST-FALSE nếu đa số các cặp của NPs không có cùng thuộc tính X. 
-				\par Ưu điểm của mô hình thực thể: Khắc phục được nhược điểm của mô hình cặp (mention pair), đó là sử dụng thuộc tính của chuỗi đồng tham chiếu, các NPs trong chuỗi có thể bổ sung thuộc tính cho nhau. Tuy nhiên khi áp dụng vào thực tế thì kết quả của hệ thống đồng tham chiếu cũng không được cải thiện nhiều, theo Luo (2004)\cite{lou04}, Yang (2004, 2008)\cite{yang04}\cite{yang08}. Lí do mà các tác giả trên đưa ra là họ vẫn sử dụng ít thuộc tính của chuỗi đồng tham chiếu.
+				\par Ưu điểm của mô hình thực thể: Khắc phục được nhược điểm của mô hình cặp (mention pair), đó là sử dụng thuộc tính của chuỗi đồng tham chiếu, các NPs trong chuỗi có thể bổ sung thuộc tính cho nhau. Tuy nhiên khi áp dụng vào thực tế thì kết quả của hệ thống đồng tham chiếu cũng không được cải thiện nhiều, theo Luo (2004)\cite{lou04}, Yang (2004, 2008)\cite{yang04}\cite{yang08}. Lý do mà các tác giả trên đưa ra là họ vẫn sử dụng ít thuộc tính của chuỗi đồng tham chiếu.
 			\subsection*{Mô hình xếp hạng (Ranking mention)}
 				\par Ý tưởng: Xét cụm danh từ NP, so sánh tất cả các cụm danh từ đứng trước NP với nhau, tìm xem cụm danh từ nào có khả năng đồng tham chiếu với NP nhất. Ta thấy ý tưởng cũng gần giống với mô hình cặp, đầu ra của cả hai mô hình là cặp đồng tham chiếu. Hình \ref{fig:rankingmodel} trình bày ý tưởng các bước của mô hình.
 				\begin{figure}[H]
@@ -597,7 +599,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 			\subsection*{Tạo tập dữ liệu học}
 				\par Giải thuật phân loại nhận đầu vào để học là một tập các mẫu. Một mẫu dùng để học (instance) có dạng: Instance = (<$f_1$,$f_2$,…,$f_n$>, $y$), trong đó $n$ thể hiện mẫu có $n$ thuộc tính, $f_i$ thể hiện giá trị của thuộc tính thứ $i$, $y$ thể hiện giá trị phân loại đầu ra của mẫu. Cứ mỗi cặp (NP1, NP2) tạo được một mẫu. 
 				\\Từ tập dữ liệu học, ta xác định được danh sách L chứa các cụm danh từ NPs.
-				\par Tập mẫu dùng để học (Instances): mọi cặp (NP1, NP2) được tạo ra từ danh sách L và thỏa mãn điều kiện NP1 hoặc NP2 là cụm danh từ là tên đối tượng/thuộc tính (TYPE = 0 hoặc TYPE = 3). Lí do vì đề tài chỉ thực hiện với mục đích phân giải đồng tham chiếu cho các đối tượng/thuộc tính đã biết.
+				\par Tập mẫu dùng để học (Instances): mọi cặp (NP1, NP2) được tạo ra từ danh sách L và thỏa mãn điều kiện NP1 hoặc NP2 là cụm danh từ là tên đối tượng/thuộc tính (TYPE = 0 hoặc TYPE = 3). Lý do là vì đề tài chỉ thực hiện với mục đích phân giải đồng tham chiếu cho các đối tượng/thuộc tính đã biết.
 				\\Đặc điểm mỗi mẫu dữ liệu để học:
 				\begin{itemize}
 					\item{Tập thuộc tính: đã được đề cập ở bảng \ref{features_table}.}
@@ -630,7 +632,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					\caption{Các mẫu dữ liệu học được tạo ra bởi đoạn văn: \textit{I have owned <0,-1,0 the Nokia 6101> since <1,0,1 late October 2005>. I absolutely love <2,0,2 it>! <3,0,2 It> has <4,-1,3 a good camera>. I wouldn't trade <5,0,2 the phone> for <6,0,1 the world>.}.}
 					\label{fig:trainset}
 				\end{figure}
-				\subsection*{Tạo tập dữ liệu học}
+				\subsection*{Tạo tập dữ liệu kiểm tra}
 				\par Cách tạo tập dữ liệu kiểm tra hoàn toàn giống với cách tạo tập dữ liệu học.
 
 			\subsection*{Tạo các vectơ đặc trưng}
@@ -814,7 +816,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 
 		\section{Tạo bộ phân loại và gom cụm}									
 			\subsection*{Áp dụng phương pháp Chọn lại mẫu (resampling methods)}
-				\par Tập dữ liệu dùng để học có sự chênh lệch lớn giữa số lượng các mẫu được phân loại tích cực và số lượng các mẫu được phân loại tiêu cực, cụ thể: chọn một fold ngẫu nhiên, số lượng mẫu học được phân loại tích cực là 4130 và số lượng mẫu học được phân loại tiêu cực là 31686. Sự chênh lệnh lớn này ảnh hưởng đến kết quả của giải thuật phân loại, theo Weiss \cite{weiss03}. Một trong những lí do đó là giải thuật phân loại được học các mẫu tiêu cực quá nhiều thì khả năng giải thuật phân loại sẽ tập trung học những trường hợp tiêu cực nhiều hơn.
+				\par Tập dữ liệu dùng để học có sự chênh lệch lớn giữa số lượng các mẫu được phân loại tích cực và số lượng các mẫu được phân loại tiêu cực, cụ thể: chọn một fold ngẫu nhiên, số lượng mẫu học được phân loại tích cực là 4130 và số lượng mẫu học được phân loại tiêu cực là 31686. Sự chênh lệnh lớn này ảnh hưởng đến kết quả của giải thuật phân loại, theo Weiss \cite{weiss03}. Một trong những lý do đó là giải thuật phân loại được học các mẫu tiêu cực quá nhiều thì khả năng giải thuật phân loại sẽ tập trung học những trường hợp tiêu cực nhiều hơn.
 				\par Tình trạng tập dữ liệu chênh lệch trong học máy là phổ biến, chúng tôi sử dụng cách thường được sử dụng để khắc phục là phương pháp chọn lại mẫu. Ý tưởng của phương pháp này là xây dựng lại tập dữ liệu học, chọn ngẫu nhiên có hoàn lại các mẫu từ tập dữ liệu học ban đầu và chuyển vào tập dữ liệu học mới. Đặc điểm của tập dữ liệu học mới này là tỉ số giữa số mẫu tích cực và số mẫu tiêu cực gần về 1, sự chênh lệch được giảm đi. Ví dụ: tập dữ liệu ban đầu có M mẫu dữ tích cực, N mẫu dữ liệu tiêu cực, với M >> N. Tập dữ liệu học mới gồm (M - T) mẫu tích cực và (N + T) mẫu tiêu cực (T là số mẫu tích cực đã được loại bỏ, cũng là số mẫu tiêu cực tăng lên). Giá trị T tùy thuộc vào cách lựa chọn của mỗi người sử dụng.
 				\par Chúng tôi sử dụng Resample trong WEKA, một hiện thực của giải thuật chọn lại mẫu. Với các thông số:
 				\begin{itemize}
@@ -984,9 +986,9 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 		\subsection*{Nhận xét}
 		Dựa vào bảng kết quả 6.1, chúng tôi có một số nhận xét trực quan:
 			\begin{itemize}
-				\item{Hệ thống đầy đủ đạt kết quả cao hơn hệ thống cơ sở, cụ thể có độ F cao hơn khoảng 3\% đến 6\% (tùy hệ đo). Điều này chứng tỏ các đặc trưng liên quan đến khai khoáng ý kiến đã ảnh hưởng tích cực đến kết quả, chúng có giá trị đối với bài toán đồng tham chiếu trên lĩnh vực khai khoáng ý kiến}.
+				\item{Hệ thống đầy đủ đạt kết quả cao hơn hệ thống cơ sở, cụ thể có độ F cao hơn khoảng 3\% đến 6\% (tùy hệ đo). Điều này chứng tỏ các đặc trưng liên quan đến Khai khoáng ý kiến đã ảnh hưởng tích cực đến kết quả, chúng có giá trị đối với bài toán đồng tham chiếu trên lĩnh vực khai khoáng ý kiến}.
 				\item{Hệ thống SC đạt kết quả cao hơn hệ thống cơ sở, cụ thể có độ F cao hơn khoảng 4\% đến 6\% (tùy hệ đo). Điều này cho thấy đặc trưng \textit{Tính nhất quán về ý kiến (SC)} đã có ảnh hưởng tương đối lớn đến hệ thống}.
-				\item{Hệ thống EOA đạt kết quả không cao hơn nhiều so với hệ thống cơ sở, độ F cao hơn khoảng 1\% . Điều này cho thấy đặc trưng \textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến (EOA)} đã có ảnh hưởng tích cực đến hệ thống, tuy nhiên vì một số lí do nào đó đặc trưng này tỏ ra không ảnh hưởng nhiều đến kết quả}.
+				\item{Hệ thống EOA đạt kết quả không cao hơn nhiều so với hệ thống cơ sở, độ F cao hơn khoảng 1\% . Điều này cho thấy đặc trưng \textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến (EOA)} đã có ảnh hưởng tích cực đến hệ thống, tuy nhiên vì một số lý do nào đó đặc trưng này tỏ ra không ảnh hưởng nhiều đến kết quả}.
 				\item{Hệ thống đầy đủ có kết quả thấp hơn một ít so với hệ thống SC. Điều này cho thấy việc kết hợp hai đặc trưng mới \textit{Tính nhất quán về ý kiến (SC)} và \textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến (EOA)} vẫn còn gặp vấn đề}.
 			\end{itemize}
 		\subsection*{Giải thích}
@@ -994,31 +996,28 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 			\par \textit{Nguyên nhân đặc trưng \textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến (EOA)} chưa ảnh hưởng nhiều đến hệ thống:}
 				\begin{itemize}
 					\item{Số lượng từ chỉ ý kiến trong tập dữ liệu vẫn chưa nhiều (chỉ có 442 trong số 2634 từ chỉ đối tượng, thuộc tính có từ chỉ ý kiến đi kèm). Do đó đặc trưng EOA vẫn chưa ảnh hưởng nhiều đến hệ thống}.
-					\item{Các từ chỉ ý kiến trong tập dữ liệu vẫn chưa có tính đặc trưng cao, có những từ chỉ ý kiến có thể đi kèm với nhiều cụm danh từ khác nhau, ví dụ như tính từ \textit{“good”}, \textit{“nice”}, \textit{“better”}, \textit{“great”}. Trong câu \textit{“The M9 destroyed the Nexus 6 in both aspects. The battery life was pretty great. It wasn't as good as the Oneplus One, but was much better than the M9”}, khả năng từ \textit{“good”} liên kết được với \textit{“the M9”}, \textit{“Nexus 6”} và \textit{“the battery”} là tương đương nhau. Nên khó xác định được từ \textit{“It”} liên kết với \textit{“good”} đang chỉ đến cụm danh từ nào}.
+					\item{Các từ chỉ ý kiến trong tập dữ liệu vẫn chưa có tính đặc trưng cao, có những từ chỉ ý kiến có thể đi kèm với nhiều cụm danh từ khác nhau, ví dụ như tính từ \textit{"good"}, \textit{"nice"}, \textit{"better"}, \textit{"great"}. Trong câu \textit{"The M9 destroyed the Nexus 6 in both aspects. The battery life was pretty great. It wasn't as good as the Oneplus One, but was much better than the M9"}, khả năng từ \textit{"good"} liên kết được với \textit{"the M9"}, \textit{"Nexus 6"} và \textit{"the battery"} là tương đương nhau. Nên khó xác định được từ \textit{"It"} liên kết với \textit{"good"} đang chỉ đến cụm danh từ nào}.
 					\item{Theo giả thuyết cặp nào có giá trị đặc trưng EOA càng nhỏ thì càng có khả năng đồng tham chiếu. Tuy nhiên trên thực tế có những cặp có giá trị đặc trưng EOA nhỏ (0 hoặc 1) nhưng không đồng tham chiếu, trong khi có nhiều cặp có giá trị EOA lớn (3 hoặc 4) thì cặp đó lại đồng tham chiếu}.
 					\item{Tập dữ liệu học của đặc trưng EOA bị nhiễu. Một cụm danh từ có từ chỉ ý kiến nhưng trên thực tế nằm trong chuỗi đồng tham chiếu nào sẽ tạo ra các mẫu học có  giá trị đặc trưng EOA là 0,1,2,3,4, dẫn đến hệ thống học được rằng dù đặc trưng EOA là 0 hoặc 1 thì vẫn phân loại là không đồng tham chiếu. Chúng tôi thống kê thấy có 57 cụm danh từ có dạng như vậy}.
 				\end{itemize}
 			\par \textit{Nguyên nhân đặc trưng \textit{Tính nhất quán về ý kiến (SC)} chưa ảnh hưởng nhiều đến hệ thống}:
 				\begin{itemize}
-					\item{Giải thuật tìm thiên hướng ý kiến gắn với đối tượng/thuộc tính được nêu ra trong câu vẫn còn đơn giản và chỉ cho kết quả đúng đối với các câu tương đối đơn giản. Đối với dữ liệu thực tế mà minh chứng là dữ liệu do chúng tôi thu thập, có một số lượng nhất định các câu phức và việc xác định thiên hướng ý kiến này chưa cho hiệu quả cao.}					
+					\item{Giải thuật tìm thiên hướng ý kiến gắn với đối tượng/thuộc tính được nêu ra trong câu vẫn còn đơn giản và chỉ cho kết quả đúng đối với các câu tương đối đơn giản. Đối với dữ liệu thực tế mà minh chứng là dữ liệu do chúng tôi thu thập, có một số lượng nhất định các câu phức và việc xác định thiên hướng ý kiến trong các câu này chưa cho hiệu quả cao.}					
 				\end{itemize}
 			\par \textit{Nguyên nhân hệ thống vẫn chưa đạt kết quả cao}:
 				\begin{itemize}
-					\item{Trong lĩnh vực khai khoáng ý kiến, mỗi bài đánh giá xuất hiện nhiều đối tượng và thuộc tính, do đó rất khó để xác định đồng tham chiếu nếu không dựa vào hai đặc trưng cơ bản liên quan đến khai khoáng ý kiến (\textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến} và \textit{Tính nhất quán về ý kiến}). Tuy nhiên, vì một số lí do chúng tôi đã trình phần trên, hai đặc trưng đó vẫn chưa có nhiều ảnh hưởng đến hệ thống}.
+					\item{Trong lĩnh vực khai khoáng ý kiến, mỗi bài đánh giá xuất hiện nhiều đối tượng và thuộc tính, do đó rất khó để xác định đồng tham chiếu nếu không dựa vào hai đặc trưng cơ bản liên quan đến khai khoáng ý kiến (\textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến} và \textit{Tính nhất quán về ý kiến}). Tuy nhiên, vì một số lý như chúng tôi đã trình phần trên, hai đặc trưng đó vẫn chưa có nhiều ảnh hưởng đến hệ thống}.
 					\item{Có những trường hợp một đối tượng được diễn tả bởi nhiều tên gọi khác nhau mà không đặc trưng nào trong hệ thống phát hiện ra được. Ví dụ: Để chỉ đối tượng là chiếc điện thoại Samsung Galaxy S3, có thể viết là \textit{"the GS3"} hoặc \textit{"the Samsung S3"} hoặc \textit{a new S3 SGH-I747 (US model) ATT phone}}.
 					\item{Đặc trưng \textit{Danh từ chính giống nhau} ảnh hưởng nhiều đến độ chính xác của hệ thống. Bởi vì đặc trưng này mà Cây quyết định học được rằng nếu hai cụm danh từ có danh từ chính giống nhau và cụm danh từ đứng trước không phải là đại từ thì cây quyết định của hệ thống phân loại đồng tham chiếu. Tuy nhiên, trên thực tế có nhiều trường hợp danh từ chính giống nhau nhưng chúng không đồng tham chiếu, ví dụ: "the camera quality" và "the image quality" được hệ thống phân loại là đồng tham chiếu vì đều có danh từ chính "quality"}.
 				\end{itemize}
 
 		
 	\chapter{Tổng kết}	
-		\section*{Kết quả đạt được}		
-		\par Trong giai đoạn Luận văn tốt nghiệp, chúng tôi đã thực hiện được những công việc sau:
+		\section*{Kết quả đạt được}				
 		\begin{itemize}
-			\item{Giới thiệu bài toán Phân giải đồng tham chiếu và tìm hiểu về các công trình liên quan đến đồng tham chiếu nói chung.}
-			\item{Tìm hiểu về các công trình liên quan đến đồng tham chiếu cho một số loại văn bản cụ thể.}
-			\item{Tìm hiểu về các phương pháp Khai khoáng ý kiến và một số vấn đề trong Khai khoáng ý kiến.}
-			\item{Giới thiệu bài toán Phân giải đồng tham chiếu cho đối tượng và thuộc tính trong Khai khoáng ý kiến, mô hình hóa bài toán và đề ra phương pháp giải quyết.}
-			\item{Xây dựng hệ thống giải quyết bài toán dựa trên phương pháp đề xuất, cho kết quả đầu ra khả quan.}
+			\item{Về mặt cơ sở lý luận, từ những nghiên cứu về phân giải đồng tham chiếu và các kiến thức liên quan đến Khai khoáng ý kiến, chúng tôi đã đề ra được phương pháp đề xuất để giải quyết bài toán \textit{Phân giải đồng tham chiếu cho đối tượng và thuộc tính trong Khai khoáng ý kiến}.}			
+			\item{Về mặt thực nghiệm, chúng tôi đã tự xây dựng tập dữ liệu và hiện thực hệ thống giải quyết bài toán dựa trên phương pháp đề xuất. Hệ thống của chúng tôi cho kết quả đầu ra khả quan.}
+			\item{Để giải quyết bài toán một cách có hiệu quả hơn, trong quá trình hiện thực chúng tôi có xây dựng một số công cụ nhằm giúp gán nhãn dữ liệu hoặc hiển thị kết quả gom cụm đồng tham chiếu trên văn bản bằng giao diện.}
 		\end{itemize}
 		\section*{Khó khăn và hạn chế}		
 			\begin{itemize}
@@ -1027,8 +1026,8 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 			\end{itemize}	
 		\section*{Hướng phát triển của đề tài}		
 		\begin{itemize}
-			\item{Trong tương lai, có thể tìm thêm những đặc trưng liên quan đến Khai khoáng ý kiến khác để áp dụng vào hệ thống nhằm tăng độ chính xác.}
-			\item{Cải tiến, mở rộng đặc trưng \textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến}. Hiện tại, chúng tôi chỉ mới sử dụng từ chỉ ý kiến là tính từ và trạng từ. Chúng tôi đề xuất sử dụng thêm những từ chỉ ý kiến là danh từ như “problem” và bổ sung thêm danh sách những từ không chỉ ý kiến nhưng chúng thường đi kèm với một vài thuộc tính nhất định; nói cách khác, quan hệ giữa chúng với các đối tượng, thuộc tính khác nhau là khác nhau.}
+			\item{Khai khoáng ý kiến đang ngày càng trở thành một lĩnh vực quan trọng và thu hút ngày càng nhiều các nhà nghiên cứu quan tâm tới nó. Trong tương lai, có thể tìm thêm những đặc trưng liên quan đến Khai khoáng ý kiến khác để áp dụng vào hệ thống phân giải đồng tham chiếu nhằm tăng độ chính xác.}
+			\item{Cải tiến, mở rộng đặc trưng \textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến}. Hiện tại, chúng tôi chỉ mới sử dụng từ chỉ ý kiến là tính từ và trạng từ. Chúng tôi đề xuất sử dụng thêm những từ chỉ ý kiến là danh từ như "problem" và bổ sung thêm danh sách những từ không chỉ ý kiến nhưng chúng thường đi kèm với một vài thuộc tính nhất định; nói cách khác, quan hệ giữa chúng với các đối tượng, thuộc tính khác nhau là khác nhau.}
 			\item{Thử nghiệm cho tiếng Việt:
 				\begin{itemize}
 					\item{Các văn bản chứa ý kiến trong tiếng Việt có thể là các bài đánh giá (review) trên Tiki hay các bài thảo luận (discussion) trên tinhte.vn, ...
@@ -1056,7 +1055,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 						\include{draw/vndp_output}
 						\caption{Ví dụ phân tích văn phạm phụ thuộc cho tiếng Việt bằng công cụ VnDP}
 					\end{table}	
-					Dựa trên kết quả gán nhãn từ loại bằng công cụ JVnTextPro, có thể gom các cụm danh từ nhờ vào công cụ VietChunker \footnote{http://vlsp.hpda.vn:8080/demo/?page=resources\&tool=chunker}.	
+					Dựa trên kết quả gán nhãn từ loại bằng công cụ JVnTextPro, có thể tìm các cụm danh từ nhờ vào công cụ gom từ VietChunker \footnote{http://vlsp.hpda.vn:8080/demo/?page=resources\&tool=chunker}.	
 					}					
 					\item{Các nghiên cứu liên quan đến Phân giải đồng tham chiếu và Khai khoáng ý kiến trong tiếng Việt cũng đã xuất hiện trong những năm gần đây. (Lê Đức Trọng, 2011) trong \cite{leductrong11} đã áp dụng mô hình học máy có giám sát SVM trên dữ liệu thu thập từ vnexpress.net, mô hình phân giải đồng tham chiếu của tác giả trên dữ liệu này cho độ chính xác 76.51\%. Trong \cite{vn_sentiment1} và \cite{vn_sentiment2}, các tác giả cũng đã đưa ra mô hình Khai khoáng ý kiến cho văn bản tiếng Việt.}
 				\end{itemize}
