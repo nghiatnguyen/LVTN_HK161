@@ -1,0 +1,12 @@
+\beamer@endinputifotherversion {3.36pt}
+\beamer@sectionintoc {1}{T\IeC {\h \ocircumflex }ng quan \IeC {\dj }\IeC {\`\ecircumflex } t\IeC {\`a}i}{2}{0}{1}
+\beamer@sectionintoc {2}{Kh\IeC {\'a}i qu\IeC {\'a}t v\IeC {\`\ecircumflex } \IeC {\dj }\IeC {\`\ocircumflex }ng tham chi\IeC {\'\ecircumflex }u}{6}{0}{2}
+\beamer@sectionintoc {3}{Kh\IeC {\'a}i qu\IeC {\'a}t v\IeC {\`\ecircumflex } khai kho\IeC {\'a}ng \IeC {\'y} ki\IeC {\'\ecircumflex }n}{9}{0}{3}
+\beamer@sectionintoc {4}{Ph\IeC {\uhorn }\IeC {\ohorn }ng ph\IeC {\'a}p \IeC {\dj }\IeC {\`\ecircumflex } xu\IeC {\'\acircumflex }t}{11}{0}{4}
+\beamer@subsectionintoc {4}{1}{T\IeC {\h \ocircumflex }ng quan quy tr\IeC {\`\i }nh}{11}{0}{4}
+\beamer@subsectionintoc {4}{2}{Ti\IeC {\`\ecircumflex }n x\IeC {\h \uhorn } l\IeC {\'y}}{12}{0}{4}
+\beamer@subsectionintoc {4}{3}{Tr\IeC {\'\i }ch xu\IeC {\'\acircumflex }t c\IeC {\d u}m danh t\IeC {\`\uhorn }}{14}{0}{4}
+\beamer@subsectionintoc {4}{4}{X\IeC {\^a}y d\IeC {\d \uhorn }ng d\IeC {\~\uhorn } li\IeC {\d \ecircumflex }u h\IeC {\d o}c v\IeC {\`a} ki\IeC {\h \ecircumflex }m tra}{17}{0}{4}
+\beamer@subsectionintoc {4}{5}{T\IeC {\d a}o b\IeC {\d \ocircumflex } ph\IeC {\^a}n lo\IeC {\d a}i v\IeC {\`a} gom c\IeC {\d u}m}{21}{0}{4}
+\beamer@sectionintoc {5}{Th\IeC {\d \uhorn }c nghi\IeC {\d \ecircumflex }m v\IeC {\`a} \IeC {\dj }\IeC {\'a}nh gi\IeC {\'a}}{23}{0}{5}
+\beamer@sectionintoc {6}{T\IeC {\h \ocircumflex }ng k\IeC {\'\ecircumflex }t}{31}{0}{6}
