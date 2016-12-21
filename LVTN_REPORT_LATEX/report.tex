@@ -38,6 +38,7 @@
   env/.style      = {treenode, font=\ttfamily\normalsize},
   dummy/.style    = {circle,draw}
 }
+
 %---------------END OF SET PARAMS---------------------------
 
 \begin{document}
@@ -109,7 +110,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 
 \end{titlepage}
 %----------------END TITLE PAGE--------------------
-
+\pagenumbering{gobble}
 \newpage
 	\chapter*{Lời cam đoan}
 		\par Chúng tôi xin cam đoan rằng, tất cả mọi kết quả được thể hiện trong Luận văn, ngoại trừ những kết quả được trích dẫn nguồn rõ ràng, đều do chính chúng tôi thực hiện.
@@ -129,12 +130,13 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 \newpage
 	\thispagestyle{empty}
 	\pdfbookmark{\contentsname}{Mục lục}
-	\tableofcontents
-	\pagenumbering{arabic}
+	\tableofcontents	
 
-\newpage
+	\newpage
+	\pagenumbering{arabic}
   	\addcontentsline{toc}{chapter}{Danh sách hình vẽ}
 	\listoffigures
+	\newpage
 	\addcontentsline{toc}{chapter}{Danh sách bảng}
 	\listoftables
 
@@ -354,7 +356,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 							\\<Increasing Comparative> Positive $\rightarrow$ Positive Comparative Opinion
 							\\<Decreasing Comparative> Negative $\rightarrow$ Positive Comparative Opinion
 							\\<Decreasing Comparative> Positive $\rightarrow$ Negative Comparative Opinion
-							\\Trong đó Negative là từ chỉ ý kiến tiêu cực, Positive là từ chỉ ý kiến tích cực. Increasing Comparative là more, Decreasing Comparative là less.}
+							\\Trong đó Negative là từ chỉ ý kiến tiêu cực, Positive là từ chỉ ý kiến tích cực. Increasing Comparative là \textit{more}, Decreasing Comparative là \textit{less}.}
 					\end{itemize}}
 				\item{Dạng 2: Các từ chỉ ý kiến phụ thuộc ngữ cảnh (context dependent). Ví dụ: "The Nokia has longer battery than this HTC". Nếu không có ngữ cảnh "longer battery", ta không thể biết được từ so sánh ở đây "longer" mang nghĩa so sánh tích cực hay tiêu cực để từ đó xác định được đối tượng ưu tiên. Một phương pháp để giải quyết cho trường hợp này được chỉ ra ở \cite{comparative2}.}
 				\end{itemize}
@@ -815,9 +817,9 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					\par Để xác định được thiên hướng ý kiến đối với 1 cụm danh từ bất kỳ, chúng tôi sử dụng từ chỉ ý kiến. Nếu không có từ chỉ ý kiến nào đi kèm thì cụm danh từ đó được xác định là không rõ thiên hướng ý kiến. Khi xét tới các từ chỉ ý kiến, chúng tôi cũng cân nhắc sự phủ định đi kèm với chúng bởi phép phủ định làm đảo ngược thiên hướng ý kiến ban đầu. Để tìm ra các phép phủ định này, chúng tôi dựa vào phân tích văn phạm phụ thuộc bằng công cụ Stanford. Ví dụ: "The battery is not good, but the screen is very bright." Câu này có 2 từ chỉ ý kiến đều có thiên hướng tích cực là "good" đi kèm với "the battery" và "bright" đi kèm với "the screen". Tuy nhiên "good" nằm trong mối quan hệ phủ định \textit{neg(good-5, not-4)}, do đó thiên hướng ý kiến của nó đã bị đảo ngược trở thành tiêu cực. Như đã đề cập, các từ chỉ ý kiến hầu hết đều là tính từ hoặc trạng từ và qua phân tích văn phạm phụ thuộc, và nếu chúng đi kèm nghĩa phủ định, chúng thường nằm trực tiếp hay gián tiếp trong một mối quan hệ \textit{neg} nào đó. Có thể thấy điều này ở một ví dụ khác: "It's not a good phone to hold in your hand". Phân tích văn phạm phụ thuộc cho câu này cho kết quả có chứa 2 quan hệ là \textit{neg(phone-6, not-3)} và \textit{amod(phone-6, good-5)}, nhờ đó ta biết được rằng có một phép phủ định tác động lên từ chỉ ý kiến "good". Kết quả thiên hướng ý kiến đối với "It" và "a good phone" trong câu này đều là tiêu cực.
 
 		\section{Tạo bộ phân loại và gom cụm}									
-			\subsection*{Áp dụng phương pháp Chọn lại mẫu (resampling methods)}
+			\subsection*{Áp dụng phương pháp Chọn lại mẫu}
 				\par Tập dữ liệu dùng để học có sự chênh lệch lớn giữa số lượng các mẫu được phân loại tích cực và số lượng các mẫu được phân loại tiêu cực, cụ thể: chọn một fold ngẫu nhiên, số lượng mẫu học được phân loại tích cực là 4130 và số lượng mẫu học được phân loại tiêu cực là 31686. Sự chênh lệnh lớn này ảnh hưởng đến kết quả của giải thuật phân loại, theo Weiss \cite{weiss03}. Một trong những lý do đó là giải thuật phân loại được học các mẫu tiêu cực quá nhiều thì khả năng giải thuật phân loại sẽ tập trung học những trường hợp tiêu cực nhiều hơn.
-				\par Tình trạng tập dữ liệu chênh lệch trong học máy là phổ biến, chúng tôi sử dụng cách thường được sử dụng để khắc phục là phương pháp chọn lại mẫu. Ý tưởng của phương pháp này là xây dựng lại tập dữ liệu học, chọn ngẫu nhiên có hoàn lại các mẫu từ tập dữ liệu học ban đầu và chuyển vào tập dữ liệu học mới. Đặc điểm của tập dữ liệu học mới này là tỉ số giữa số mẫu tích cực và số mẫu tiêu cực gần về 1, sự chênh lệch được giảm đi. Ví dụ: tập dữ liệu ban đầu có M mẫu dữ tích cực, N mẫu dữ liệu tiêu cực, với M >> N. Tập dữ liệu học mới gồm (M - T) mẫu tích cực và (N + T) mẫu tiêu cực (T là số mẫu tích cực đã được loại bỏ, cũng là số mẫu tiêu cực tăng lên). Giá trị T tùy thuộc vào cách lựa chọn của mỗi người sử dụng.
+				\par Tình trạng tập dữ liệu chênh lệch trong học máy là phổ biến, chúng tôi sử dụng cách thường được sử dụng để khắc phục là phương pháp chọn lại mẫu (resampling methods). Ý tưởng của phương pháp này là xây dựng lại tập dữ liệu học, chọn ngẫu nhiên có hoàn lại các mẫu từ tập dữ liệu học ban đầu và chuyển vào tập dữ liệu học mới. Đặc điểm của tập dữ liệu học mới này là tỉ số giữa số mẫu tích cực và số mẫu tiêu cực gần về 1, sự chênh lệch được giảm đi. Ví dụ: tập dữ liệu ban đầu có M mẫu dữ tích cực, N mẫu dữ liệu tiêu cực, với M >> N. Tập dữ liệu học mới gồm (M - T) mẫu tích cực và (N + T) mẫu tiêu cực (T là số mẫu tích cực đã được loại bỏ, cũng là số mẫu tiêu cực tăng lên). Giá trị T tùy thuộc vào cách lựa chọn của mỗi người sử dụng.
 				\par Chúng tôi sử dụng Resample trong WEKA, một hiện thực của giải thuật chọn lại mẫu. Với các thông số:
 				\begin{itemize}
 					\item{Z: thể hiện kích thược tập dữ liệu mới so với tập dữ liệu cũ. Z nằm trong khoảng 0 đến 100. Chúng tôi chọn Z = 100, kích thước tập dữ liệu học mới bằng với tập dữ liệu học cũ.}
@@ -840,7 +842,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 				\par Hệ thống được hiện thực bằng ngôn ngữ Java (JDK1.8), dùng tới các thư viện của công cụ Stanford, Weka và code của công cụ CRFChunker. Chương trình được tổ chức thành các gói (package) sau:
 				\begin{itemize}
 					\item{element: Gói này gồm các lớp (class) lưu thông tin liên quan đến các thành phần trong ngôn ngữ tự nhiên như Review(văn bản), Sentence(câu), NounPhrase(cụm danh từ), Token(thẻ), CorefChain(chuỗi đồng tham chiếu) với các mối quan hệ has-a giữa các lớp.}
-					\item{gui: Gói liên quan đến giao diện.}
+					\item{gui: Gói liên quan đến giao diện, trong đó có giao diện của công cụ giúp gán nhãn dữ liệu và công cụ xem kết quả đồng tham chiếu.}
 					\item{process: Gói liên quan đến quá trình trích xuất đặc trưng hoặc gán nhãn dữ liệu.}
 					\item{test: Gói liên quan đến việc hiện thực các độ đo chuỗi đồng tham chiếu.}
 					\item{util: Gói liên quan đến việc trích xuất các thành phần của ngôn ngữ tự nhiên, dựa vào thư viện của công cụ Stanford, bao gồm cả việc lấy HEAD của các cụm danh từ.}
@@ -946,8 +948,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 		Bảng 6.1 trình bày kết quả thực nghiệm trên các hệ thống.
 
 				\begin{table}[H]
-				\centering				
-				\label{my-label}
+				\centering								
 				\begin{tabular}{|l|cx{1cm}c|cx{1cm}c|cx{1cm}c|c|c|c|c|c|c|}
 				\hline
 				                & \multicolumn{3}{c|}{Hệ đo MUC} & \multicolumn{3}{c|}{Hệ đo B3} & \multicolumn{3}{c|}{Hệ đo CEAF-$\Phi_4$} \\ \hline
@@ -999,19 +1000,18 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 					\item{Số lượng từ chỉ ý kiến trong tập dữ liệu vẫn chưa nhiều (chỉ có 442 trong số 2634 từ chỉ đối tượng, thuộc tính có từ chỉ ý kiến đi kèm). Do đó đặc trưng EOA vẫn chưa ảnh hưởng nhiều đến hệ thống}.
 					\item{Các từ chỉ ý kiến trong tập dữ liệu vẫn chưa có tính đặc trưng cao, có những từ chỉ ý kiến có thể đi kèm với nhiều cụm danh từ khác nhau, ví dụ như tính từ \textit{"good"}, \textit{"nice"}, \textit{"better"}, \textit{"great"}. Trong câu \textit{"The M9 destroyed the Nexus 6 in both aspects. The battery life was pretty great. It wasn't as good as the Oneplus One, but was much better than the M9"}, khả năng từ \textit{"good"} liên kết được với \textit{"the M9"}, \textit{"Nexus 6"} và \textit{"the battery"} là tương đương nhau. Nên khó xác định được từ \textit{"It"} liên kết với \textit{"good"} đang chỉ đến cụm danh từ nào}.
 					\item{Theo giả thuyết cặp nào có giá trị đặc trưng EOA càng nhỏ thì càng có khả năng đồng tham chiếu. Tuy nhiên trên thực tế có những cặp có giá trị đặc trưng EOA nhỏ (0 hoặc 1) nhưng không đồng tham chiếu, trong khi có nhiều cặp có giá trị EOA lớn (3 hoặc 4) thì cặp đó lại đồng tham chiếu}.
-					\item{Tập dữ liệu học của đặc trưng EOA bị nhiễu. Một cụm danh từ có từ chỉ ý kiến nhưng trên thực tế nằm trong chuỗi đồng tham chiếu nào sẽ tạo ra các mẫu học có  giá trị đặc trưng EOA là 0,1,2,3,4, dẫn đến hệ thống học được rằng dù đặc trưng EOA là 0 hoặc 1 thì vẫn phân loại là không đồng tham chiếu. Chúng tôi thống kê thấy có 57 cụm danh từ có dạng như vậy}.
+					\item{Tập dữ liệu học của đặc trưng EOA bị nhiễu. Một cụm danh từ có từ chỉ ý kiến nhưng trên thực tế nằm trong chuỗi đồng tham chiếu nào sẽ tạo ra các mẫu học có giá trị đặc trưng EOA là 0,1,2,3,4, dẫn đến hệ thống học được rằng dù đặc trưng EOA là 0 hoặc 1 thì vẫn phân loại là không đồng tham chiếu. Chúng tôi thống kê thấy có 57 cụm danh từ có dạng như vậy}.
 				\end{itemize}
 			\par \textit{Nguyên nhân đặc trưng \textit{Tính nhất quán về ý kiến (SC)} chưa ảnh hưởng nhiều đến hệ thống}:
 				\begin{itemize}
 					\item{Giải thuật tìm thiên hướng ý kiến gắn với đối tượng/thuộc tính được nêu ra trong câu vẫn còn đơn giản và chỉ cho kết quả đúng đối với các câu tương đối đơn giản. Đối với dữ liệu thực tế mà minh chứng là dữ liệu do chúng tôi thu thập, có một số lượng nhất định các câu phức và việc xác định thiên hướng ý kiến trong các câu này chưa cho hiệu quả cao.}					
 				\end{itemize}
-			\par \textit{Nguyên nhân hệ thống vẫn chưa đạt kết quả cao}:
+			\par \textit{Một số lý do làm cho hệ thống vẫn chưa đạt kết quả cao}:
 				\begin{itemize}
 					\item{Trong lĩnh vực khai khoáng ý kiến, mỗi bài đánh giá xuất hiện nhiều đối tượng và thuộc tính, do đó rất khó để xác định đồng tham chiếu nếu không dựa vào hai đặc trưng cơ bản liên quan đến khai khoáng ý kiến (\textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến} và \textit{Tính nhất quán về ý kiến}). Tuy nhiên, vì một số lý như chúng tôi đã trình phần trên, hai đặc trưng đó vẫn chưa có nhiều ảnh hưởng đến hệ thống}.
 					\item{Có những trường hợp một đối tượng được diễn tả bởi nhiều tên gọi khác nhau mà không đặc trưng nào trong hệ thống phát hiện ra được. Ví dụ: Để chỉ đối tượng là chiếc điện thoại Samsung Galaxy S3, có thể viết là \textit{"the GS3"} hoặc \textit{"the Samsung S3"} hoặc \textit{a new S3 SGH-I747 (US model) ATT phone}}.
 					\item{Đặc trưng \textit{Danh từ chính giống nhau} ảnh hưởng nhiều đến độ đúng đắn của hệ thống. Bởi vì đặc trưng này mà Cây quyết định học được rằng nếu hai cụm danh từ có danh từ chính giống nhau và cụm danh từ đứng trước không phải là đại từ thì cây quyết định của hệ thống phân loại đồng tham chiếu. Tuy nhiên, trên thực tế có nhiều trường hợp danh từ chính giống nhau nhưng chúng không đồng tham chiếu, ví dụ: "the camera quality" và "the image quality" được hệ thống phân loại là đồng tham chiếu vì đều có danh từ chính "quality"}.
 				\end{itemize}
-
 		
 	\chapter{Tổng kết}	
 		\section*{Kết quả đạt được}				
