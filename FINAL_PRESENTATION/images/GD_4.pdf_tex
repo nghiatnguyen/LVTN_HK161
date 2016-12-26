@@ -1,6 +1,6 @@
 %% Creator: Inkscape 0.91_64bit, www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
-%% Accompanies image file 'general_model.pdf' (pdf, eps, ps)
+%% Accompanies image file 'GD_4.pdf' (pdf, eps, ps)
 %%
 %% To include the image in your LaTeX document, write
 %%   \input{<filename>.pdf_tex}
@@ -49,45 +49,45 @@
   \global\let\svgscale\undefined%
   \makeatother%
   \begin{picture}(1,0.70744325)%
-    \put(0,0){\includegraphics[width=\unitlength,page=1]{general_model.pdf}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{GD_4.pdf}}%
     \put(0.1261034,0.0611633){\makebox(0,0)[b]{\smash{Danh sách các từ đã }}}%
     \put(0.1261034,0.03846469){\makebox(0,0)[b]{\smash{được gán nhãn từ loại}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=2]{general_model.pdf}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{GD_4.pdf}}%
     \put(0.63051702,0.19357188){\makebox(0,0)[b]{\smash{Danh sách các mẫu }}}%
     \put(0.63051702,0.17087327){\makebox(0,0)[b]{\smash{dữ liệu học và kiểm tra}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=3]{general_model.pdf}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{GD_4.pdf}}%
     \put(0.37831021,0.0611633){\makebox(0,0)[b]{\smash{Danh sách }}}%
     \put(0.37831021,0.03846469){\makebox(0,0)[b]{\smash{các cụm danh từ}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=4]{general_model.pdf}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{GD_4.pdf}}%
     \put(0.1261034,0.66267654){\makebox(0,0)[b]{\smash{\textbf{Văn bản chứa ý kiến}}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=5]{general_model.pdf}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{GD_4.pdf}}%
     \put(0.1261034,0.4609111){\makebox(0,0)[b]{\smash{Tiền xử lý văn bản thô}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=6]{general_model.pdf}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{GD_4.pdf}}%
     \put(0.1261034,0.22005359){\makebox(0,0)[b]{\smash{Tách từ và }}}%
     \put(0.1261034,0.19735498){\makebox(0,0)[b]{\smash{gán nhãn từ (POS)}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=7]{general_model.pdf}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{GD_4.pdf}}%
     \put(0.37831021,0.346157){\makebox(0,0)[b]{\smash{Lọc lại các }}}%
     \put(0.37831021,0.32345839){\makebox(0,0)[b]{\smash{cụm danh từ}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=8]{general_model.pdf}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{GD_4.pdf}}%
     \put(0.37831021,0.4609111){\makebox(0,0)[b]{\smash{Tìm các cụm danh từ}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=9]{general_model.pdf}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{GD_4.pdf}}%
     \put(0.37831021,0.22005359){\makebox(0,0)[b]{\smash{Gán nhãn phân loại }}}%
     \put(0.37831021,0.19735498){\makebox(0,0)[b]{\smash{các cụm danh từ}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=10]{general_model.pdf}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{GD_4.pdf}}%
     \put(0.63051702,0.346157){\makebox(0,0)[b]{\smash{Tạo các vectơ }}}%
     \put(0.63051702,0.32345839){\makebox(0,0)[b]{\smash{đặc trưng}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=11]{general_model.pdf}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{GD_4.pdf}}%
     \put(0.63051702,0.4722604){\makebox(0,0)[b]{\smash{Tạo các cặp }}}%
     \put(0.63051702,0.44956179){\makebox(0,0)[b]{\smash{cụm danh từ}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=12]{general_model.pdf}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{GD_4.pdf}}%
     \put(0.88272383,0.346157){\makebox(0,0)[b]{\smash{Tạo chuỗi }}}%
     \put(0.88272383,0.32345839){\makebox(0,0)[b]{\smash{đồng tham chiếu}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=13]{general_model.pdf}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=13]{GD_4.pdf}}%
     \put(0.88272383,0.48360971){\makebox(0,0)[b]{\smash{Xây dựng hệ thống }}}%
     \put(0.88272383,0.4609111){\makebox(0,0)[b]{\smash{phân loại }}}%
     \put(0.88272383,0.43821248){\makebox(0,0)[b]{\smash{(Cây quyết định)}}}%
-    \put(0.1261034,0.53657314){\makebox(0,0)[b]{\smash{\textbf{Công đoạn tiền xử lý}}}}%   
-    \put(0,0){\includegraphics[width=\unitlength,page=14]{general_model.pdf}}% 
+    \put(0.1261034,0.53657314){\makebox(0,0)[b]{\smash{\textbf{Công đoạn tiền xử lý}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=14]{general_model.pdf}}%
     \put(0.88272383,0.20744325){\makebox(0,0)[b]{\smash{\textbf{Các chuỗi }}}}%
     \put(0.88272383,0.18474464){\makebox(0,0)[b]{\smash{\textbf{đồng tham chiếu}}}}%
     \put(0.37831021,0.54161728){\makebox(0,0)[b]{\smash{\textbf{Công đoạn trích xuất }}}}%
@@ -95,7 +95,7 @@
     \put(0.63051702,0.54476986){\makebox(0,0)[b]{\smash{\textbf{Công đoạn xây dựng }}}}%
     \put(0.63051702,0.52207125){\makebox(0,0)[b]{\smash{\textbf{dữ liệu học và kiểm tra}}}}%
     \put(0.88272383,0.54476986){\makebox(0,0)[b]{\smash{\textbf{Công đoạn xây dựng }}}}%
-    \put(0.88272383,0.52207125){\makebox(0,0)[b]{\smash{\textbf{bộ phân loại và gom cụm}}}}%    
-    \put(0.1261034,0.33480769){\makebox(0,0)[b]{\smash{Tách câu}}}%    
+    \put(0.88272383,0.52207125){\makebox(0,0)[b]{\smash{\textbf{bộ phân loại và gom cụm}}}}%
+    \put(0.1261034,0.33480769){\makebox(0,0)[b]{\smash{Tách câu}}}%
   \end{picture}%
 \endgroup%

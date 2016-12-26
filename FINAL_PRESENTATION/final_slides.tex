@@ -1,4 +1,4 @@
-\documentclass{beamer}
+\documentclass[9pt]{beamer}
 \setbeamertemplate{background canvas}[vertical shading][bottom=red!10,top=blue!10]
 \usetheme{Berkeley}
 \usepackage[utf8]{vietnam}
@@ -13,24 +13,37 @@
 \setbeamerfont{page number in head/foot}{size=\tiny}
 \setbeamertemplate{footline}[frame number]
 
-\title{Luận văn tốt nghiệp}
-\subtitle{Phân giải đồng tham chiếu cho các đối tượng và thuộc tính trong khai khoáng ý kiến}
-\author[]{Nguyễn Trọng Nghĩa 51202370 \\ Nguyễn Đăng Trang 51203957 \break \break GVHD: GS.TS. Phan Thị Tươi \\ GVPB: GS.TS. Cao Hoàng Trụ}
-\institute{Đại học Bách Khoa TP. Hồ Chí Minh}
-\date{\today}
-
-\begin{document}	
+\begin{document}
 	\setbeamertemplate{sidebar left}[sidebar theme]
+	
+	\title{Luận văn tốt nghiệp}
+	\subtitle{Phân giải đồng tham chiếu cho các đối tượng và thuộc tính trong khai khoáng ý kiến}
+	\author[]{
+		\begin{tabular}{ll}
+			Nguyễn Trọng Nghĩa & 51202370 \\
+			Nguyễn Đăng Trang & 51203957 \\
+			 & 
+		\end{tabular}
+		\break
+		\begin{tabular}{ll}
+			GVHD & GS.TS Phan Thị Tươi \\
+			GVPB & GS.TS Cao Hoàng Trụ
+		\end{tabular}
+	}
+	\institute{Đại học Bách Khoa TP. Hồ Chí Minh}
+	\date{\today}
+	
 	\begin{frame}
-		\titlepage
+		\maketitle
 	\end{frame}
 
 	\section{Tổng quan đề tài}
 	\begin{frame}
 		\frametitle{Tổng quan đề tài}
-		\begin{block}{Giới thiệu}
+		\begin{block}{Giới thiệu đề tài}
 			\textbf{Phân giải đồng tham chiếu cho đối tượng và thuộc tính trong khai khoáng ý kiến} hướng đến việc phân giải đồng tham chiếu cho các đối tượng và thuộc tính trong văn bản chứa ý kiến.	
-			\begin{itemize}				
+			\begin{itemize}	
+				\item{Thương mại điện tử đang phát triển mạnh mẽ và người dùng có nhu cầu thể hiện ý kiến lên các sản phẩm trên mạng.}			
 				\item{Văn bản chứa ý kiến là các bài đánh giá (review), bài thảo luận (discussion),...}
 				\item{Đối tượng và thuộc tính là các thực thể được thể hiện ý kiến, trong đó thuộc tính là bộ phận hoặc đặc tính của đối tượng.}
 				\item{Nếu không có phân giải đồng tham chiếu cho các đối tượng và thuộc tính, ý kiến của người viết rất có thể sẽ được gán không đúng cho các thực thể.}
@@ -38,108 +51,39 @@
 		\end{block}		
 	\end{frame}
 
+	\begin{frame}{Tổng quan đề tài (tt)}
+		\begin{block}{Phân giải đồng tham chiếu}			
+			\textbf{Phân giải đồng tham chiếu} là một bài toán kinh điển trong Xử lý ngôn ngữ tự nhiên. Mục tiêu của bài toán là tìm kiếm những từ, cụm từ hoặc ngữ cùng chỉ đến một khái niệm, thực thể trong thế giới thực. 
+		\end{block}
+		\begin{block}{Ví dụ}
+		\begin{itemize}
+			\item{\textit{Beckham} will visit Vietnam tomorrow. \textit{He} will attend a football event in Saigon.}
+			\item{\textit{The Samsung Galaxy S3} is one of the best phones I’ve ever used. I absolutely
+love the phone and \textit{the photo quality} \underline{it} has.}
+		\end{itemize}
+		\end{block}		
+	\end{frame}
+
 	\begin{frame}
 		\frametitle{Tổng quan đề tài (tt)}
-		\begin{block}{Mục tiêu}
+		\begin{block}{Mục tiêu đề tài}
 			Tìm ra các từ/cụm từ trong văn bản chứa ý kiến cùng chỉ về một đối tượng hoặc thuộc tính nào đó, tức là tìm các chuỗi đồng tham chiếu của đối tượng và thuộc tính.
 		\end{block}		
-		\begin{block}{Phạm vi}
-			Giả định của đề tài là đối tượng và thuộc tính của đối tượng đã được tìm ra, bài toán của đề tài là đi tìm các chuỗi đồng tham chiếu của chúng. Trong đó chỉ xét các quan hệ đồng tham chiếu dạng \textit{đồng nhất (identity)}. 
-		\end{block}
-	\end{frame}
-
-	\begin{frame}
-		\frametitle{Tổng quan đề tài (tt)}
-		\begin{block}{Ví dụ phân giải đồng tham chiếu}			
-			I've had \textbf{\textcolor{red}{my 8100}} for about two years.  Dropped \textbf{\textcolor{red}{it}} on pavement, concrete, wood floors, etc. at least 30 times so \textbf{\textcolor{red}{it}} has a ton of scratches but \textbf{\textcolor{red}{it}}'s held up very well.  My 2-year old has chewed on \textbf{\textcolor{red}{it}}, licked \textbf{\textcolor{red}{it}}, smacked \textbf{\textcolor{red}{it}}, etc. -- still no problems.  \textbf{Signal} has been solid, \textbf{intuitive usability} is very good.  \textbf{My standard battery} was great for the first 20 months (several hours of \textbf{talk time}, a week of \textbf{standby}) and just now is needing a charge every other day. I'll definitely buy a Sanyo again.
-		\end{block}
-	\end{frame}
-
-	\begin{frame}
-		\frametitle{Tổng quan đề tài (tt)}
-		\begin{block}{Ví dụ phân giải đồng tham chiếu (tt)}
+		\begin{block}{Phạm vi đề tài}
 			\begin{itemize}
-				\item{Trong review trên, đối tượng được nói đến là một chiếc điện thoại \textbf{my 8100}. Nó bao gồm các thuộc tính là \textbf{a ton of scratches}, \textbf{Signal}, \textbf{intuitive usability}, \textbf{My standard battery}, \textbf{talk time} và \textbf{standby}. Trên thực thể và các thuộc tính này, người dùng có thể hiện ý kiến cá nhân lên nó. Ví dụ: \textit{Signal has been solid}. 		}
-				\item{Các từ/cụm từ \textbf{my 8100} và \textbf{it} (được bôi đỏ) trong ví dụ trên đồng tham chiếu với nhau, nó cùng chỉ tới một thực thể là chiếc điện thoại \textbf{my 8100}.}
-			\end{itemize}			
-		\end{block}		
-	\end{frame}
-
-	\section{Khái quát về đồng tham chiếu}
-	\begin{frame}
-		\frametitle{Khái quát về đồng tham chiếu}
-		\begin{block}{Giới thiệu}
-			\textbf{Phân giải đồng tham chiếu} là một bài toán kinh điển trong XLNNTN. Hai từ hoặc cụm từ được gọi là đồng tham chiếu với nhau nếu chúng cùng chỉ đến một thực thể.
-			Mục tiêu của bài toán phân giải đồng tham chiếu là tìm kiếm tất cả các từ hoặc cụm từ đồng tham chiếu với nhau đó.
-		\end{block}
-		\begin{block}{Các hướng tiếp cận}
-			Có 3 hướng tiếp cận phổ biến đối với bài toán Phân giải đồng tham chiếu:
-			\begin{itemize}
-				\item Phương pháp học có giám sát
-				\item Phương pháp học không giám sát
-				\item Phương pháp xây dựng hệ thống các luật
+				\item{Giả định rằng các đối tượng và thuộc tính đã được tìm ra}
+				\item{Chỉ xét các quan hệ đồng tham chiếu dạng \textit{đồng nhất (identity)}}
 			\end{itemize}
 		\end{block}
-	\end{frame}
-
-	\begin{frame}
-		\frametitle{Khái quát về đồng tham chiếu (tt)}
-		\begin{block}{Phương pháp học có giám sát}		
-		\begin{itemize}
-			\item Hai giải thuật được sử dụng phổ biến: Cây quyết định và SVM
-			\item Mô hình xây dựng tập huấn luyện: Mô hình xét theo cặp, mô hình hướng thực thể, mô hình xếp hạng.
-		\end{itemize}
-		\end{block}
-		\begin{block}{Phương pháp học không giám sát}
-			Giải thuật thường được sử dụng là giải thuật gom cụm. Mỗi từ, cụm từ có một tập các thuộc tính đặc trưng. Giải thuật gom cụm phân chia tập các từ, cụm từ thành các cụm, trong đó mỗi cụm chứa các từ, cụm từ có cùng đặc điểm về thuộc tính.
-		\end{block}
-	\end{frame}
-
-	\begin{frame}
-		\frametitle{Khái quát về đồng tham chiếu (tt)}
-		\begin{block}{Phương pháp xây dựng hệ thống các luật}
-			Xây dựng tập luật gồm các luật về cú pháp, ngữ nghĩa xác định khi nào thì hai từ, cụm từ đồng tham chiếu đến nhau. Luật đứng đầu tiên có độ chính xác cao nhất, sau đó giảm dần với các luật đứng sau. Văn bản được đưa qua các luật, bắt đầu từ luật đầu tiên. Sau khi áp dụng tất cả các luật trên văn bản, ta thu được kết quả cuối cùng là tập các cụm đồng tham chiếu.
-		\end{block}
-	\end{frame}
-
-	\section{Khái quát về khai khoáng ý kiến}
-	\begin{frame}
-		\frametitle{Khái quát về khai khoáng ý kiến}
-		\begin{block}{Giới thiệu}
-			\textbf{Khai khoáng ý kiến (Opinion Mining)} hay \textbf{Phân tích cảm xúc (Sentiment Analysis)} là một lĩnh vực nghiên cứu của Xử lý ngôn ngữ tự nhiên (XLNNTN), hướng đến việc tìm ra ý kiến/cảm xúc của chủ thể (người viết, người nói,...) đối với một thực thể nào đó thể hiện qua ngôn ngữ.
-		\end{block}
-		\begin{block}{Các mô hình khai khoáng ý kiến}			
-			\begin{itemize}
-				\item{Cấp độ văn bản (Document level)}
-				\item{Cấp độ câu (Sentence level)}
-				\item{Cấp độ thực thể - thuộc tính (Entity-Aspect level)}
-			\end{itemize}
-		\end{block}
-	\end{frame}
-
-	\begin{frame}
-		\frametitle{Khái quát về khai khoáng ý kiến (tt)}
-		\begin{block}{Khai khoáng ý kiến cấp độ thực thể - thuộc tính}
-			\begin{itemize}
-				\item{Ở cấp độ thực thể - thuộc tính, nhiệm vụ là tìm tất cả các ý kiến (Opinion) chứa trong văn bản: Một ý kiến bao gồm 5 thành phần (Theo Bing Liu trong cuốn Sentiment Analysis and Opinion Mining \footnote{https://www.cs.uic.edu/~liub/FBS/SentimentAnalysis-and-OpinionMining.pdf})
-				\\\textbf{(e,a,s,h,t)}
-				\\\textbf{e}: thực thể
-				\textbf{a}: thuộc tính của thực thể
-				\textbf{s}: ý kiến trên thực thể đó
-				\textbf{h}: chủ thể thể hiện ý kiến
-				\textbf{t}: thời điểm đưa ra ý kiến}
-
-				\item{Ví dụ: Một ý kiến được rút trích từ \textit{ví dụ 1} \{my 8100, my battery, tích cực (great), người viết review, thời gian viết review\}}
-			\end{itemize}
-		\end{block}		
 	\end{frame}
 
 	\section{Phương pháp đề xuất}
 	\subsection{Tổng quan quy trình}
 	\begin{frame}{Tổng quan quy trình}		
-		\begin{figure}[H] 
+		\begin{figure}[H]
+			\LARGE 
 			\centering				
-			\resizebox{90mm}{!}{\input{images/general_model.pdf_tex}}
+			\resizebox{100mm}{!}{\input{images/general_model.pdf_tex}}
 			\caption{Tổng quan quy trình phân giải đồng tham chiếu}	
 			\label{fig:generalmodel}						
 		\end{figure}
@@ -147,103 +91,98 @@
 
 	\subsection{Tiền xử lý}	
 	\begin{frame}{Tiền xử lý}		
-		\begin{block}{Tiền xử lý văn bản thô}
-			Chuẩn hóa dữ liệu thô để việc sử dụng công cụ Stanford xử lý có hiệu quả cao.
-			\\Ví dụ: 
-			\\Tiền xử lý cho văn bản sau: \textit{This phone is an excellent phone\textcircled{.}It has a very good color screen, it is well \textcolor{red}{disigned}, \textcolor{purple}{the camera pretty good} for a phone}
-			\begin{itemize}
-				\item{Câu sau phải cách dấu chấm câu trước bằng ít nhất một dấu khoảng cách (Chỗ khoanh tròn) => Thêm dấu cách sau dấu chấm cuối câu trước.}
-				\item{\textit{disigned} sai chính tả => Sửa lỗi chính tả, thành \textit{designed}.}
-				\item{Dùng \textit{the camera pretty good} là sai cú pháp văn phạm (\textit{be pretty good}) => Chỉnh sửa về từ ngữ cho đúng văn phạm.}
-			\end{itemize}
-		\end{block}
+		\begin{columns}[t]
+			\begin{column}{0.4\textwidth}				
+			   	\begin{block}{Tiền xử lý văn bản thô}
+	   				Sửa lỗi chính tả và một số lỗi nhỏ khác do cách viết không chuẩn mực của người dùng.
+				\end{block}
+			\end{column}
+			\begin{column}{0.6\textwidth}  %%<--- here				
+			 	\begin{figure}[H]
+					\LARGE 
+					\centering				
+					\resizebox{65mm}{!}{\input{images/GD_1.pdf_tex}}	
+				\end{figure}				
+			\end{column}
+		\end{columns}
+		\begin{columns}[t]
+			\begin{column}{\textwidth}				
+			   	\begin{block}{Tách câu, tách từ và gán nhãn từ loại}
+			   		\begin{itemize}
+			   			\item{Công cụ Stanford \footnotemark}
+			   			\item{Penn Treebank POS Tag \footnotemark}
+		   			\end{itemize}					
+				\end{block}
+			\end{column}			
+		\end{columns}
+		\footnotetext[1]{http://stanfordnlp.github.io/CoreNLP}
+		\footnotetext[2]{http://web.mit.edu/6.863/www/PennTreebankTags.html}
 	\end{frame}
-
-	\begin{frame}{Tiền xử lý (tt)}
-		\begin{block}{Tách câu, tách từ và gán nhãn từ loại}
-			Việc tách câu, tách từ đóng vai trò quan trọng trong các bước tiếp theo. Những công việc này thực hiện được là nhờ vào gói công cụ Stanford \footnote{http://stanfordnlp.github.io/CoreNLP}. Các nhãn từ loại (part-of-speech) cũng được trích ra nhờ vào gói công cụ này, chúng được sử dụng theo như Penn Treebank POS Tag \footnote{http://web.mit.edu/6.863/www/PennTreebankTags.html}.
-		\end{block}
-	\end{frame}	
 
 	\subsection{Trích xuất cụm danh từ}
 	\begin{frame}{Trích xuất cụm danh từ}		
-		\begin{block}{Tìm các cụm danh từ}
-			Dựa vào kết quả gán nhãn từ loại và công cụ CRFChunker \footnote{http://crfchunker.sourceforge.net}, tìm được các cụm danh từ trong các câu. Các cụm danh từ có khả năng nói tới đối tượng và thuộc tính, mục tiêu hướng đến của phép phân giải đồng tham chiếu.
-			\\Ví dụ:
-			<This phone> is <an excellent phone>.  <It> has <a very good color screen>, <it> is well designed, <the camera> is pretty good for <a phone>.
-		\end{block}		
-		\begin{block}{Lọc lại các cụm danh từ}
-			Một số cụm danh từ sẽ không được đưa vào bộ phân loại vì chúng không thể chỉ về đối tượng và thuộc tính. Đó là các cụm danh từ chỉ người, thời gian, số lượng,...
-		\end{block}
-	\end{frame}	
-
-	\begin{frame}{Trích xuất cụm danh từ (tt)}		
-		\begin{block}{Gán nhãn cụm danh từ}
-			\begin{itemize}
-				\item{Mục đích của việc gán nhãn cụm danh từ là nhằm xác định cụm danh từ nào chỉ đến đối tượng, thuộc tính đồng thời biểu diễn sự tham chiếu giữa chúng. Qua đó việc tạo tập dữ liệu cho việc học và test một cách dễ dàng.}
-				\item{Mỗi cụm danh từ được gán nhãn có dạng <ID,REF,TYPE NP>. Trong đó:
-					\begin{itemize}
-						\item{ID: chỉ vị trí của cụm danh từ trong câu.}
-						\item{REF: ID của cụm danh từ mà cụm danh từ hiện tại đang tham chiếu đến.}
-						\item{TYPE NP: là giá trị dùng để phân loại cụm danh từ NP. Tập giá trị: \{0,1,2,3\}.}			
-					\end{itemize}}
-			\end{itemize}
-		\end{block}
-	\end{frame}
-
-	\begin{frame}
-		\frametitle{Trích xuất cụm danh từ (tt)}
-		\begin{block}{Ví dụ gán nhãn cụm danh từ}
-			Ví dụ: Đoạn văn bản đã được gán nhãn:
-			<0,-1,0 The Note 3> is a lot lighter than <1,-1,0 my HTC EVO>. <2,0,2 It>'s very fast and has <3,0,1 so many features> that <4,-1,0 an IPhone5> can't touch. I love <5,-1,3 the camera > and <6,5,2 it> takes <7,-1,3 great pictures>.
-		\end{block}		
+		\begin{columns}[t]
+			\begin{column}{0.4\textwidth}
+			   	\begin{block}{Tìm các cụm danh từ}
+	   				Công cụ CRFChunker \footnotemark.
+				\end{block}
+				\begin{block}{Lọc lại các cụm danh từ}
+			   		Một số cụm danh từ sẽ không được đưa vào bộ phân loại vì chúng không thể chỉ về đối tượng và thuộc tính.				
+				\end{block}
+			\end{column}
+			\begin{column}{0.6\textwidth}  %%<--- here
+			 	\begin{figure}[H]
+					\LARGE 
+					\centering				
+					\resizebox{65mm}{!}{\input{images/GD_2.pdf_tex}}	
+				\end{figure}
+			\end{column}
+		\end{columns}
+		\footnotetext[3]{http://crfchunker.sourceforge.net}
+		\begin{columns}[t]
+			\begin{column}{\textwidth}
+			   	\begin{block}{Gán nhãn cụm danh từ}					
+					Ví dụ: Đoạn văn bản đã được gán nhãn:
+					<0,-1,0 The Note 3> is a lot lighter than <1,-1,0 my HTC EVO>. <2,0,2 It>'s very fast and has <3,0,1 so many features> that <4,-1,0 an IPhone5> can't touch. 
+				\end{block}					
+			\end{column}			
+		\end{columns}
 	\end{frame}
 
 	\subsection{Xây dựng dữ liệu học và kiểm tra}
-	\begin{frame}{Xây dựng dữ liệu học và kiểm tra}		
-		\begin{block}{Cách tạo tập dữ liệu học và kiểm tra}
-			Từ tập dữ liệu, ta tìm được một danh sách L gồm các cụm danh từ. 
-			\begin{itemize}
-				\item{Tập huấn luyện (Instances) bao gồm mọi cặp (NP1, NP2) được tạo ra từ danh sách L và thỏa mãn điều kiện NP1 hoặc NP2 là cụm danh từ chỉ đối tượng/thuộc tính.}
-				\item{Do đề tài chỉ thực hiện với mục đích phân giải đồng tham chiếu các đối tượng/thuộc tính nên không xét trường hợp các cặp (NP1,NP2) mà cả NP1 và NP2 đều không chỉ đối tượng/thuộc tính.}
-			\end{itemize}
-		\end{block}
-	\end{frame}	
-
-	\begin{frame}{Xây dựng dữ liệu học và kiểm tra (tt)}		
-		\begin{block}{Ví dụ xây dựng dữ liệu học và kiểm tra}			
-			Xem xét đoạn văn bản đã được đánh dấu dưới đây:
-			I have owned <0,-1,0 the Nokia 6101> since <1,0,1 late October 2005>. I absolutely love <2,0,0 it>! I wouldn't trade <3,2,0 it> for <4,0,1 the world>.
-		\end{block}
-
-		\begin{figure}[H]
-			\centering	
-			\tiny			
-			\noindent\fbox{
-			    \parbox{0.7\textwidth}{
-			    \sffamily{
-			        4,6,false,false,true,false,1,true,false,false,2,false,false,false,false,10,false,false\\
-					0,6,false,false,true,false,3,true,false,false,2,false,false,false,false,10,false,false\\
-					4,5,false,false,true,false,1,true,false,false,2,false,false,false,false,10,false,false\\
-					0,5,false,false,true,false,3,true,false,false,2,false,false,false,false,10,false,true\\
-					3,4,true,false,false,false,0,true,false,true,2,false,false,false,false,1,false,false\\
-					2,4,true,false,false,false,1,true,false,false,2,false,false,false,false,1,false,false\\
-					1,4,false,false,false,false,2,true,false,false,2,false,false,false,false,4,false,false\\
-					0,4,false,false,false,false,2,true,false,false,2,false,false,false,false,0,false,false\\
-					0,3,false,true,false,false,2,true,false,false,2,false,false,false,false,10,false,true\\
-					0,2,false,true,false,false,1,true,false,false,2,false,false,false,false,10,false,true\\
-					0,1,false,false,false,false,0,true,false,false,2,true,false,false,false,10,false,false}
-		    	}
-			}
-			\caption{Các mẫu dữ liệu học và kiểm tra.}				
-		\end{figure}		
+	\begin{frame}{Xây dựng dữ liệu học và kiểm tra}				
+		\begin{columns}[t]
+			\begin{column}{0.4\textwidth}
+			   	\begin{block}{Tạo cặp các cụm danh từ}
+					Tạo tất cả các cặp gồm hai cụm danh từ trong văn bản, trong đó ít nhất một trong hai cụm danh từ phải là đối tượng hoặc thuộc tính.
+				\end{block}
+			\end{column}
+			\begin{column}{0.6\textwidth}  %%<--- here
+			 	\begin{figure}[H]
+					\LARGE 
+					\centering				
+					\resizebox{65mm}{!}{\input{images/GD_3.pdf_tex}}	
+				\end{figure}
+			\end{column}
+		\end{columns}
+		\begin{columns}[t]
+			\begin{column}{\textwidth}
+			   	\begin{block}{Tạo các vectơ đặc trưng}										
+					(<f1,f2,f3,…,fn>, y)
+					\begin{itemize}
+						\item{<f1,f2,f3,…,fn>: tập đặc trưng}
+						\item{Y: giá trị phân loại}										
+					\end{itemize}
+				\end{block}					
+			\end{column}			
+		\end{columns}
 	\end{frame}	
 
 	\begin{frame}{Xây dựng dữ liệu học và kiểm tra (tt)}		
 		\begin{table}[]		
 		\parbox{\textwidth}{
 			\centering			
-			\fontsize{5pt}{7}\selectfont		
+			\fontsize{6pt}{7}\selectfont		
 			\include{draw/features_table}	
 			\caption{Các đặc trưng được sử dụng trong hệ thống}
 		}
@@ -254,7 +193,7 @@
 		\begin{table}[]		
 		\parbox{\textwidth}{
 			\centering
-			\fontsize{5pt}{7}\selectfont			
+			\fontsize{6pt}{7}\selectfont			
 			\include{draw/features_table_2}	
 			\caption{Các đặc trưng được sử dụng trong hệ thống (tt)}
 		}
@@ -263,49 +202,38 @@
 
 	\subsection{Tạo bộ phân loại và gom cụm}
 	\begin{frame}{Tạo bộ phân loại và gom cụm}		
-		\begin{block}{Áp dụng phương pháp chọn lại mẫu}
-			Khắc phục tình trạng tập dữ liệu chênh lệch bằng cách dùng phương pháp chọn lại mẫu (resampling methods).
-			Các thông số áp dụng (Dùng Resample trong WEKA):
-			\begin{itemize}
-				\item{Z: thể hiện kích thược tập dữ liệu mới so với tập dữ liệu cũ. Chúng tôi chọn Z = 100, kích thước tập dữ liệu học mới bằng với tập dữ liệu học cũ.}
-				\item{B: thể hiện mức độ chênh lệch dữ liệu trong tập dữ liệu mới. Chúng tôi lựa chọn B = 0.1.}
-			\end{itemize}
-		\end{block}
+		\begin{columns}
+			\begin{column}{0.4\textwidth}
+			   	\begin{block}{Áp dụng giải thuật học máy}
+					Giải thuật cây quyết định J48 (trên Weka) được sử dụng để phân loại cho các cặp ứng viên.
+				\end{block}				
+			\end{column}
+			\begin{column}{0.6\textwidth}  %%<--- here
+			 	\begin{figure}[H]
+					\LARGE 
+					\centering				
+					\resizebox{65mm}{!}{\input{images/GD_4.pdf_tex}}	
+				\end{figure}
+			\end{column}
+		\end{columns}
+		\begin{columns}
+			\begin{column}{\textwidth}
+			   	\begin{block}{Gom cụm}
+			   		Được thực hiện trên cơ sở tính chất bắc cầu của quan hệ đồng tham chiếu. Giả sử bộ phân loại cho kết quả các cặp cụm danh từ (A,B) và (B,C) đồng tham chiếu với nhau. Khi đó ta gom được (A,B,C) thành một cụm đồng tham chiếu.				
+				\end{block}					
+			\end{column}			
+		\end{columns}
 	\end{frame}
 
-	\begin{frame}{Tạo bộ phân loại và gom cụm (tt)}		
-		\begin{block}{Áp dụng giải thuật học máy}
-			Áp dụng mô hình học có giám sát. Giải thuật cây quyết định J48 (trên Weka) được sử dụng để phân loại cho các cặp ứng viên.
-		\end{block}			
-
-		\begin{block}{Gom cụm}
-			Dựa vào kết quả phân loại các cặp ứng viên, thực hiện gom cụm đồng tham chiếu. Việc gom cụm này được thực hiện trên cơ sở tính chất bắc cầu của quan hệ đồng tham chiếu. Giả sử bộ phân loại cho kết quả các cặp cụm danh từ (A,B) và (B,C) đồng tham chiếu với nhau. Khi đó ta gom được (A,B,C) thành một cụm đồng tham chiếu.
-		\end{block}
-	\end{frame}
-
-	\section{Thực nghiệm và đánh giá}		
+	\section{Thực nghiệm và đánh giá}				
 		\begin{frame}{Thực nghiệm và đánh giá}			
-			\begin{block}{Chương trình}
-				Hệ thống được hiện thực bằng ngôn ngữ Java (JDK1.8), dùng tới các thư viện của công cụ Stanford, Weka và code của công cụ CRFChunker. Chương trình được tổ chức thành các gói (package) sau:
-				\begin{itemize}
-					\item{element}
-					\item{gui}
-					\item{process}
-					\item{test}
-					\item{util}
-					\item{weka}						
-				\end{itemize}
-			\end{block}
-		\end{frame}	
-
-		\begin{frame}{Thực nghiệm và đánh giá (tt)}			
 			\begin{block}{Dữ liệu thực nghiệm}
 				Dữ liệu được thu thập từ các bài đánh giá (review) trên \textit{amazon.com} và các bài thảo luận (discussion) từ \textit{http://www.howardforums.com}. Đây là các bài đánh giá và thảo luận về điện thoại. Tập dữ liệu gồm 157 bài, với mỗi bài có trung bình 7-8 câu.
 			\end{block}
 			\begin{figure}[H]
 				\centering				
 				\noindent\fbox{
-				    \parbox{0.9\textwidth}{\scriptsize
+				    \parbox{0.9\textwidth}{
 				        The fact that the GS5 is from Samsung makes it the Z2's biggest competitor. The Z2's strongest points are the side-mounted camera button. The Z2 has slightly louder speakers, slightly better battery life than the GS5. It has a fingerprint reader for easier unlocking, a better looking screen and a removable battery. Between the two phones, I'd pick the GS5 for its brighter display and for the ease of use the fingerprint reader brings. That said, watch out because the GS5 doesn't use on-screen menu buttons so handling it can be tricky unless you stick it in a case.
 			    	}
 				}
@@ -333,13 +261,12 @@
 		\end{frame}
 
 		\begin{frame}{Thực nghiệm và đánh giá (tt)}			
-			\begin{block}{Các hệ thống được đánh giá}
-				Các hệ thống được đánh giá bao gồm:
+			\begin{block}{Các hệ thống được đánh giá}				
 				\begin{itemize}
-					\item{Hệ thống cơ sở: Hệ thống sử dụng tập thuộc tính là các đặc trưng thuộc Nhóm liên quan ngữ pháp, Nhóm liên quan từ vựng và Nhóm thuộc tính khác}.
-					\item{Hệ thống SC: Hệ thống cơ sở sử dụng thêm đặc trưng \textit{Tính nhất quán về ý kiến (SC)}}.
-					\item{Hệ thống EOA: Hệ thống cơ sở sử dụng thêm đặc trưng \textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến (EOA)}}.
-					\item{Hệ thống đầy đủ: Hệ thống sử dụng tập thuộc tính là tất cả các đặc trưng đã nêu}
+					\item{Hệ thống cơ sở: Nhóm liên quan ngữ pháp + Nhóm liên quan từ vựng + Nhóm thuộc tính khác}.
+					\item{Hệ thống SC: Hệ thống cơ sở + \textit{Tính nhất quán về ý kiến (SC)}}.
+					\item{Hệ thống EOA: Hệ thống cơ sở + \textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến (EOA)}}.
+					\item{Hệ thống đầy đủ: Tất cả đặc trưng}
 				\end{itemize}
 			\end{block}			
 		\end{frame}
@@ -371,34 +298,7 @@
 				\item{Việc kết hợp hai đặc trưng mới \textit{Tính nhất quán về ý kiến (SC)} và \textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến (EOA)} vẫn còn gặp vấn đề}
 			\end{itemize}				
 			\end{block}						
-		\end{frame}
-
-		\begin{frame}{Thực nghiệm và đánh giá (tt)}			
-			\begin{block}{Phân tích}
-				Nguyên nhân đặc trưng \textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến (EOA)} chưa ảnh hưởng nhiều đến hệ thống:
-				\begin{itemize}
-					\item{Số lượng từ chỉ ý kiến trong tập dữ liệu vẫn chưa nhiều.}
-					\item{Các từ chỉ ý kiến trong tập dữ liệu vẫn chưa có tính đặc trưng cao.}
-					\item{Tập dữ liệu học của đặc trưng EOA bị nhiễu.}
-					\item{Theo giả thuyết cặp nào có giá trị đặc trưng EOA càng nhỏ thì càng có khả năng đồng tham chiếu. Tuy nhiên trên thực tế không hoàn toàn như vậy.}
-				\end{itemize}												
-			\end{block}				
-		\end{frame}
-
-		\begin{frame}{Thực nghiệm và đánh giá (tt)}			
-			\begin{block}{Phân tích (tt)}					
-				Nguyên nhân đặc trưng \textit{Tính nhất quán về ý kiến (SC)} chưa ảnh hưởng nhiều đến hệ thống:
-				\begin{itemize}
-					\item{Giải thuật tìm thiên hướng ý kiến gắn với đối tượng/thuộc tính được nêu ra trong câu vẫn còn đơn giản và chỉ cho kết quả đúng đối với các câu tương đối đơn giản.}	
-				\end{itemize}							
-				Một số lý do làm cho hệ thống vẫn chưa đạt kết quả cao:
-				\begin{itemize}
-					\item{Hai đặc trưng liên quan đến Khai khoáng ý kiến vẫn chưa có nhiều ảnh hưởng đến hệ thống.}
-					\item{Có những trường hợp một đối tượng được diễn tả bởi nhiều tên gọi khác nhau mà không đặc trưng nào trong hệ thống phát hiện ra được.}
-					\item{Đặc trưng \textit{Danh từ chính giống nhau} ảnh hưởng nhiều đến độ đúng đắn của hệ thống.}
-				\end{itemize}				
-			\end{block}						
-		\end{frame}
+		\end{frame}		
 
 	\section{Tổng kết}
 		\begin{frame}{Tổng kết}			
@@ -411,7 +311,7 @@
 			\begin{block}{Khó khăn, hạn chế}
 				\begin{itemize}
 					\item Dữ liệu tự thu thập có nhiều câu phức tạp, gây ảnh hưởng đến các đặc trưng liên quan Khai khoáng ý kiến. 
-					\item Do giới hạn về thời gian nên chưa kịp áp dụng mô hình cho tiếng Việt.				
+					\item Do giới hạn về thời gian nên chưa kịp thử nghiệm cho tiếng Việt.				
 				\end{itemize}
 			\end{block}
 		\end{frame}
@@ -421,7 +321,7 @@
 				\begin{itemize}
 					\item Tìm thêm các đặc trưng mới liên quan đến Khai khoáng ý kiến để tăng hiệu suất hệ thống.
 					\item Cải thiện đặc trưng Sự kết hợp giữa thực thể và từ chỉ ý kiến.
-					\item Thử nghiệm mô hình cho tiếng Việt.
+					\item Thử nghiệm cho tiếng Việt.
 				\end{itemize}
 			\end{block}
 		\end{frame}
