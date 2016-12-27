@@ -1,4 +1,4 @@
-\documentclass[9pt]{beamer}
+\documentclass[9pt,xcolor=table]{beamer}
 \setbeamertemplate{background canvas}[vertical shading][bottom=red!10,top=blue!10]
 \usetheme{Berkeley}
 \usepackage[utf8]{vietnam}
@@ -9,9 +9,29 @@
 \usepackage{array}
 \newcolumntype{x}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
 \graphicspath{ {images/} }
+\usepackage{xcolor}
 
 \setbeamerfont{page number in head/foot}{size=\tiny}
 \setbeamertemplate{footline}[frame number]
+
+\newcommand{\inlineitem}{%
+\leavevmode\usebeamertemplate{itemize item}
+}
+\newcounter{newenumi}
+\setcounter{newenumi}{1}
+
+\newcommand{\inlineenum}{%
+ {%
+ \setcounter{enumi}{\thenewenumi}%
+ \leavevmode\usebeamertemplate{enumerate  item}
+ \stepcounter{newenumi}
+ \setcounter{enumi}{0}
+ }
+}
+
+\newcommand{\resetinlineenum}{
+ \setcounter{newenumi}{1}
+}
 
 \begin{document}
 	\setbeamertemplate{sidebar left}[sidebar theme]
@@ -34,7 +54,18 @@
 	\date{\today}
 	
 	\begin{frame}
+		\Large
 		\maketitle
+	\end{frame}
+
+	\begin{frame}{Nội dung trình bày}
+		\LARGE
+		\begin{itemize}			
+			\item{Tổng quan đề tài}
+			\item{Phương pháp đề xuất}
+			\item{Thực nghiệm và đánh giá}
+			\item{Tổng kết}
+		\end{itemize}
 	\end{frame}
 
 	\section{Tổng quan đề tài}
@@ -44,7 +75,6 @@
 			\textbf{Phân giải đồng tham chiếu cho đối tượng và thuộc tính trong khai khoáng ý kiến} hướng đến việc phân giải đồng tham chiếu cho các đối tượng và thuộc tính trong văn bản chứa ý kiến.	
 			\begin{itemize}	
 				\item{Thương mại điện tử đang phát triển mạnh mẽ và người dùng có nhu cầu thể hiện ý kiến lên các sản phẩm trên mạng.}			
-				\item{Văn bản chứa ý kiến là các bài đánh giá (review), bài thảo luận (discussion),...}
 				\item{Đối tượng và thuộc tính là các thực thể được thể hiện ý kiến, trong đó thuộc tính là bộ phận hoặc đặc tính của đối tượng.}
 				\item{Nếu không có phân giải đồng tham chiếu cho các đối tượng và thuộc tính, ý kiến của người viết rất có thể sẽ được gán không đúng cho các thực thể.}
 			\end{itemize}		
@@ -107,11 +137,9 @@ love the phone and \textit{the photo quality} \underline{it} has.}
 		\end{columns}
 		\begin{columns}[t]
 			\begin{column}{\textwidth}				
-			   	\begin{block}{Tách câu, tách từ và gán nhãn từ loại}
-			   		\begin{itemize}
-			   			\item{Công cụ Stanford \footnotemark}
-			   			\item{Penn Treebank POS Tag \footnotemark}
-		   			\end{itemize}					
+			   	\begin{block}{Tách câu, tách từ và gán nhãn từ loại}			   		
+			   			\inlineitem{Dùng công cụ Stanford \footnotemark}
+			   			\inlineitem{Dựa theo Penn Treebank POS Tag \footnotemark}		   			
 				\end{block}
 			\end{column}			
 		\end{columns}
@@ -124,10 +152,10 @@ love the phone and \textit{the photo quality} \underline{it} has.}
 		\begin{columns}[t]
 			\begin{column}{0.4\textwidth}
 			   	\begin{block}{Tìm các cụm danh từ}
-	   				Công cụ CRFChunker \footnotemark.
+	   				Dựa vào công cụ CRFChunker \footnotemark.
 				\end{block}
 				\begin{block}{Lọc lại các cụm danh từ}
-			   		Một số cụm danh từ sẽ không được đưa vào bộ phân loại vì chúng không thể chỉ về đối tượng và thuộc tính.				
+			   		Loại một số cụm danh từ vì chúng không thể chỉ về đối tượng hoặc thuộc tính.				
 				\end{block}
 			\end{column}
 			\begin{column}{0.6\textwidth}  %%<--- here
@@ -142,8 +170,7 @@ love the phone and \textit{the photo quality} \underline{it} has.}
 		\begin{columns}[t]
 			\begin{column}{\textwidth}
 			   	\begin{block}{Gán nhãn cụm danh từ}					
-					Ví dụ: Đoạn văn bản đã được gán nhãn:
-					<0,-1,0 The Note 3> is a lot lighter than <1,-1,0 my HTC EVO>. <2,0,2 It>'s very fast and has <3,0,1 so many features> that <4,-1,0 an IPhone5> can't touch. 
+					\textit{Ví dụ:} <0,-1,0 The Note 3> is a lot lighter than <1,-1,0 my HTC EVO>. <2,0,2 It>'s very fast and has <3,0,1 so many features> that <4,-1,0 an IPhone5> can't touch. 
 				\end{block}					
 			\end{column}			
 		\end{columns}
@@ -153,8 +180,8 @@ love the phone and \textit{the photo quality} \underline{it} has.}
 	\begin{frame}{Xây dựng dữ liệu học và kiểm tra}				
 		\begin{columns}[t]
 			\begin{column}{0.4\textwidth}
-			   	\begin{block}{Tạo cặp các cụm danh từ}
-					Tạo tất cả các cặp gồm hai cụm danh từ trong văn bản, trong đó ít nhất một trong hai cụm danh từ phải là đối tượng hoặc thuộc tính.
+			   	\begin{block}{Tạo các cặp cụm danh từ}
+					Có ít nhất một đối tượng hoặc thuộc tính trong mỗi cặp cụm danh từ được tạo.
 				\end{block}
 			\end{column}
 			\begin{column}{0.6\textwidth}  %%<--- here
@@ -171,7 +198,7 @@ love the phone and \textit{the photo quality} \underline{it} has.}
 					(<f1,f2,f3,…,fn>, y)
 					\begin{itemize}
 						\item{<f1,f2,f3,…,fn>: tập đặc trưng}
-						\item{Y: giá trị phân loại}										
+						\item{y: giá trị phân loại}										
 					\end{itemize}
 				\end{block}					
 			\end{column}			
@@ -200,11 +227,44 @@ love the phone and \textit{the photo quality} \underline{it} has.}
 		\end{table}
 	\end{frame}
 
+	\begin{frame}{Xây dựng dữ liệu học và kiểm tra (tt)}
+		\begin{block}{Đặc trưng Tính nhất quán về ý kiến (SC)}
+			\begin{itemize}
+				\item{Ví dụ:\\
+				\begin{itemize}
+					\item[$\bullet$]{\textit{The XBR4} is brighter than \textit{the 5080}. Overall, \textit{it} is a great choice.}
+					\item[$\bullet$]{\textit{The N73} is my favorite. \textit{It} can produce great pictures.}
+					\item[$\bullet$]{\textit{The K800} is awesome. \textit{That phone} has short battery life.}
+				\end{itemize}}
+				\item{Xét các cặp cụm danh từ (NP1, NP2) ở hai câu liên tiếp: \\
+					\begin{itemize}
+						\item[$\bullet$]{SC=0: NP1 và NP2 khác thiên hướng ý kiến}
+						\item[$\bullet$]{SC=1: NP1 và NP2 cùng thiên hướng ý kiến}
+						\item[$\bullet$]{SC=2: Không xác định được thiên hướng ý kiến cho NP1 hoặc NP2}
+					\end{itemize}}
+			\end{itemize}
+		\end{block}		
+	\end{frame}
+
+	\begin{frame}{Xây dựng dữ liệu học và kiểm tra (tt)}
+		\begin{block}{Đặc trưng Sự kết hợp giữa thực thể và từ chỉ thuộc tính (EOA)}
+			\begin{itemize}
+				\item{Ví dụ:\\
+				i love the \textit{nokia n95} but not sure how strong \textit{the flash} would be? And also \textit{it} is quite \textit{expensive}, so anyone got any ideas?}				
+				\item{Quan hệ giữa một cụm danh từ NP và một từ chỉ ý kiến OW: \\
+					\begin{center}
+						$PMI(NP,OW) = log\frac{(P(NP,OW)}{P(NP)\times P(OW)}$
+					\end{center}}
+				\item{Xét \{NP1,NP2,…,NPi,…NPn\}. Phạm vi giá trị EOA: \{0,1,2,3,4,10\}}
+			\end{itemize}
+		\end{block}		
+	\end{frame}
+
 	\subsection{Tạo bộ phân loại và gom cụm}
 	\begin{frame}{Tạo bộ phân loại và gom cụm}		
-		\begin{columns}
+		\begin{columns}[t]
 			\begin{column}{0.4\textwidth}
-			   	\begin{block}{Áp dụng giải thuật học máy}
+			   	\begin{block}{Tạo bộ phân loại}
 					Giải thuật cây quyết định J48 (trên Weka) được sử dụng để phân loại cho các cặp ứng viên.
 				\end{block}				
 			\end{column}
@@ -216,10 +276,10 @@ love the phone and \textit{the photo quality} \underline{it} has.}
 				\end{figure}
 			\end{column}
 		\end{columns}
-		\begin{columns}
+		\begin{columns}[t]
 			\begin{column}{\textwidth}
 			   	\begin{block}{Gom cụm}
-			   		Được thực hiện trên cơ sở tính chất bắc cầu của quan hệ đồng tham chiếu. Giả sử bộ phân loại cho kết quả các cặp cụm danh từ (A,B) và (B,C) đồng tham chiếu với nhau. Khi đó ta gom được (A,B,C) thành một cụm đồng tham chiếu.				
+			   		Giả sử bộ phân loại cho kết quả các cặp cụm danh từ (A,B) và (B,C) đồng tham chiếu với nhau, khi đó ta gom được (A,B,C) thành một cụm đồng tham chiếu (nhờ vào tính bắc cầu).			
 				\end{block}					
 			\end{column}			
 		\end{columns}
@@ -242,37 +302,54 @@ love the phone and \textit{the photo quality} \underline{it} has.}
 		\end{frame}		
 
 		\begin{frame}{Thực nghiệm và đánh giá (tt)}			
-			\begin{block}{Các độ đo}
-				Sử dụng 3 độ đo phổ biến để đánh giá hệ thống: 
+			\begin{block}{Phương pháp đánh giá}				
 				\begin{itemize}
-					\item{P: độ đúng đắn (precision)}
-					\item{R: độ phủ (recall)}
-					\item{F: độ F (F-measure)}
+					\item{Kiểm chứng chéo (k-fold cross validation) với k=5}
+					\item{Hệ đo MUC, B-CUBED, CEAF-$\Phi_4$}					
 				\end{itemize}		
 			\end{block}
-			\begin{block}{Các phương pháp}
-				Sử dụng 3 hệ đo khác nhau để tính các độ đo trên, gồm:
+			\begin{block}{Các hệ đo}
+				\footnotesize
 				\begin{itemize}
-					\item{Hệ đo MUC}
-					\item{Hệ đo B-CUBED}
-					\item{Hệ đo CEAF-$\Phi_4$}
+					\item{Hệ đo MUC:
+						\begin{center}
+							\inlineitem{$P = \frac{\sum \big(|R_i| - |p \big(R_i)|)}{\sum_{|R_i| - 1}}$}
+							\inlineitem{$R = \frac{\sum \big(|S_i| - |p \big(S_i)|)}{\sum_{|S_i| - 1}}$}
+						\end{center}
+					}
+					\item{Hệ đo B-CUBED:	
+						\begin{center}
+							\inlineitem{$P = \frac{1}{n} \sum_{i=1}^{n} \frac{\sum_{j=1}^{|p (S_i)|} |P_{ij}|*\big(|S_i| - |P_{ij}|)} {|S_{i}|^2}$}
+							\inlineitem{$R = \frac{1}{m} \sum_{i=1}^{m} \frac{\sum_{j=1}^{|p (R_i)|} |P'_{ij}|*\big(|S_i| - |P'_{ij}|)} {|R_{i}|^2}$}
+						\end{center}
+					}
+					\item{Hệ đo CEAF-$\Phi_4$:	
+						\begin{center}						
+							\inlineitem{$P = \frac{\Phi \big(g*)}{\sum_{S_i \in S*}\Phi_4 \big(S_i, S_i)}$}
+							\inlineitem{$R = \frac{\Phi \big(g*)}{\sum_{R_i \in R*}\Phi_4 \big(R_i, S_j)}$}
+						\end{center}
+					}			
+					\item{Công thức tính F:
+						\begin{center}									
+							$F = \frac{2PR}{P+R}$
+						\end{center}
+						}
 				\end{itemize}
 			\end{block}
 		\end{frame}
 
 		\begin{frame}{Thực nghiệm và đánh giá (tt)}			
-			\begin{block}{Các hệ thống được đánh giá}				
+			\begin{block}{Các hệ thống được đánh giá}
+				\footnotesize						
 				\begin{itemize}
-					\item{Hệ thống cơ sở: Nhóm liên quan ngữ pháp + Nhóm liên quan từ vựng + Nhóm thuộc tính khác}.
-					\item{Hệ thống SC: Hệ thống cơ sở + \textit{Tính nhất quán về ý kiến (SC)}}.
-					\item{Hệ thống EOA: Hệ thống cơ sở + \textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến (EOA)}}.
-					\item{Hệ thống đầy đủ: Tất cả đặc trưng}
+					\item{Hệ thống cơ sở: Nhóm liên quan ngữ pháp + Nhóm liên quan từ vựng + Nhóm thuộc tính khác.}
+					\item{Hệ thống SC: Hệ thống cơ sở + \textit{Tính nhất quán về ý kiến (SC)}.}
+					\item{Hệ thống EOA: Hệ thống cơ sở + \textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến (EOA)}.}
+					\item{Hệ thống đầy đủ: Tất cả đặc trưng.}
 				\end{itemize}
-			\end{block}			
-		\end{frame}
-
-		\begin{frame}{Thực nghiệm và đánh giá (tt)}									
+			\end{block}	
 			\begin{table}[]
+				\LARGE
 				\centering
 				\resizebox{\textwidth}{!}{								
 				\begin{tabular}{|l|cx{1cm}c|cx{1cm}c|cx{1cm}c|c|c|c|c|c|c|}
@@ -286,19 +363,55 @@ love the phone and \textit{the photo quality} \underline{it} has.}
 				\end{tabular}
 				}
 				\caption{Kết quả thực nghiệm}
-			\end{table}			
+			\end{table}		
 		\end{frame}
 
-		\begin{frame}{Thực nghiệm và đánh giá (tt)}			
-			\begin{block}{Nhận xét}
-			\begin{itemize}
-				\item{Đặc trưng liên quan đến Khai khoáng ý kiến đã ảnh hưởng tích cực đến kết quả}
-				\item{Đặc trưng \textit{Tính nhất quán về ý kiến (SC)} đã có ảnh hưởng tương đối lớn đến hệ thống}
-				\item{Đặc trưng \textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến (EOA)} ít có ảnh hưởng tích cực đến hệ thống}
-				\item{Việc kết hợp hai đặc trưng mới \textit{Tính nhất quán về ý kiến (SC)} và \textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến (EOA)} vẫn còn gặp vấn đề}
-			\end{itemize}				
-			\end{block}						
-		\end{frame}		
+		\begin{frame}[t]{Thực nghiệm và đánh giá (tt)}								
+			\begin{columns}[t]
+				\begin{column}{0.6\textwidth}					
+					\begin{figure}[H] 			
+						\centering					
+						\includegraphics[scale=0.35]{charts/chart_muc.pdf}											
+					\end{figure} 				
+				\end{column}
+				\begin{column}{0.4\textwidth}
+				\end{column}
+			\end{columns}
+			\begin{columns}[t]
+				\begin{column}{0.4\textwidth}
+				\end{column}
+				\begin{column}{0.6\textwidth}
+					\begin{figure}[H] 
+						\centering					
+						\includegraphics[scale=0.35]{charts/chart_b3.pdf}					
+					\end{figure}
+				\end{column}				
+			\end{columns}						
+		\end{frame}
+
+		\begin{frame}[t]{Thực nghiệm và đánh giá (tt)}								
+			\begin{columns}[t]
+				\begin{column}{\textwidth}
+					\begin{figure}[H] 			
+						\centering					
+						\includegraphics[scale=0.35]{charts/chart_ceaf4.pdf}										
+					\end{figure} 				
+				\end{column}
+			\end{columns}
+			\begin{columns}[t]
+				\begin{column}{\textwidth}
+					\begin{block}{Nhận xét}
+						\footnotesize		
+						\begin{itemize}
+							\item{Đặc trưng liên quan đến Khai khoáng ý kiến đã ảnh hưởng tích cực đến kết quả}
+							\item{Đặc trưng \textit{Tính nhất quán về ý kiến (SC)} đã có ảnh hưởng tương đối lớn đến hệ thống}
+							\item{Đặc trưng \textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến (EOA)} ít có ảnh hưởng tích cực đến hệ thống}
+							\item{Việc kết hợp hai đặc trưng mới \textit{Tính nhất quán về ý kiến (SC)} và \textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến (EOA)} vẫn còn gặp vấn đề}
+						\end{itemize}			
+					\end{block}
+				\end{column}				
+			\end{columns}						
+		\end{frame}	
 
 	\section{Tổng kết}
 		\begin{frame}{Tổng kết}			
@@ -320,10 +433,17 @@ love the phone and \textit{the photo quality} \underline{it} has.}
 			\begin{block}{Hướng phát triển}
 				\begin{itemize}
 					\item Tìm thêm các đặc trưng mới liên quan đến Khai khoáng ý kiến để tăng hiệu suất hệ thống.
-					\item Cải thiện đặc trưng Sự kết hợp giữa thực thể và từ chỉ ý kiến.
+					\item Cải thiện đặc trưng \textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến}.
 					\item Thử nghiệm cho tiếng Việt.
 				\end{itemize}
 			\end{block}
+		\end{frame}
+
+		\begin{frame}{Câu hỏi}
+			\Huge
+			\centering
+			\fontsize{30pt}{30}\selectfont
+			\textit{Câu hỏi}
 		\end{frame}
 
 \end{document}
