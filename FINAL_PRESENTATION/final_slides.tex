@@ -92,7 +92,6 @@ love the phone and \textit{the photo quality} \underline{it} has.}
 
 	\section{Tổng quan đề tài}
 	\begin{frame}
-		\frametitle{Tổng quan đề tài}
 		\begin{block}{Động cơ thực hiện đề tài}
 			\begin{itemize}	
 				\item{Thương mại điện tử đang phát triển mạnh mẽ và người dùng có nhu cầu thể hiện ý kiến lên các sản phẩm trên mạng. Ý kiến thường hướng đến đối tượng và thuộc tính; trong đó đối tượng là sản phẩm, thuộc tính là bộ phận hoặc đặc tính của sản phẩm.}
@@ -245,10 +244,10 @@ love the phone and \textit{the photo quality} \underline{it} has.}
 		\begin{columns}[t]
 			\begin{column}{\textwidth}
 			   	\begin{block}{Tạo các vectơ đặc trưng}										
-					(<f1,f2,f3,…,fn>, y)
+					$(<f_{1},f_{2},f_{3},…,f_{n}>, y)$
 					\begin{itemize}
-						\item{<f1,f2,f3,…,fn>: tập đặc trưng}
-						\item{y: giá trị phân loại}										
+						\item{<$<f_{1},f_{2},f_{3},…,f_{n}>$: tập đặc trưng}
+						\item{$y$: giá trị phân loại}										
 					\end{itemize}
 				\end{block}					
 			\end{column}			
@@ -300,12 +299,17 @@ love the phone and \textit{the photo quality} \underline{it} has.}
 		\begin{block}{Đặc trưng Sự kết hợp giữa thực thể và từ chỉ thuộc tính (EOA)}
 			\begin{itemize}
 				\item{Ví dụ:\\
-				i love the \textit{nokia n95} but not sure how strong \textit{the flash} would be? And also \textit{it} is quite \textit{expensive}, so anyone got any ideas?}				
+				\textit{I love the \textbf{nokia n95} but not sure how strong \textbf{the flash} would be? And also \textbf{it} is quite \textbf{expensive}, so anyone got any ideas?}}				
 				\item{Quan hệ giữa một cụm danh từ NP và một từ chỉ ý kiến OW: \\
 					\begin{center}
 						$PMI(NP,OW) = log\frac{(P(NP,OW)}{P(NP)\times P(OW)}$
 					\end{center}}
-				\item{Xét \{NP1,NP2,…,NPi,…NPn\}. Phạm vi giá trị EOA: \{0,1,2,3,4,10\}}
+				\item{Danh sách cụm danh từ \{$NP_{1},NP_{2},…,NP_{i},…,NP_{n}$\}.
+					\begin{itemize}
+						\item[$\bullet$]{Các cặp được tạo bởi $NP_{i}$: $(NP_{1},NP_{i}),(NP_{2},NP_{i}),…,(NP_{i-1},NP_{i})$}
+						\item[$\bullet$]{So sánh giá trị PMI giữa các cặp để tính giá trị đặc trưng EOA.}
+						\item[$\bullet$]{Phạm vi giá trị EOA: \{0,1,2,3,4,10\}}
+					\end{itemize}}
 			\end{itemize}
 		\end{block}		
 	\end{frame}
@@ -355,36 +359,38 @@ love the phone and \textit{the photo quality} \underline{it} has.}
 			\begin{block}{Phương pháp đánh giá}				
 				\begin{itemize}
 					\item{Kiểm chứng chéo (k-fold cross validation) với k=5}
-					\item{Hệ đo MUC, B-CUBED, CEAF-$\Phi_4$}					
+					\item{Độ đo: Precision, Recall, F-measure}
+					\item{Hệ đo: MUC, B-CUBED, CEAF-$\Phi_4$}					
 				\end{itemize}		
 			\end{block}
-			\begin{block}{Các hệ đo}
-				\footnotesize
-				\begin{itemize}
-					\item{Hệ đo MUC:
-						\begin{center}
-							\inlineitem{$P = \frac{\sum \big(|R_i| - |p \big(R_i)|)}{\sum_{|R_i| - 1}}$}
-							\inlineitem{$R = \frac{\sum \big(|S_i| - |p \big(S_i)|)}{\sum_{|S_i| - 1}}$}
+			\begin{block}{Hệ đo MUC}
+				\begin{center}
+							\inlineitem{\scalebox{1.5}{$P = \frac{\sum \big(|R_i| - |p \big(R_i)|)}{\sum_{|R_i| - 1}}$}}
+							\inlineitem{\scalebox{1.5}{$R = \frac{\sum \big(|S_i| - |p \big(S_i)|)}{\sum_{|S_i| - 1}}$}}
 						\end{center}
-					}
-					\item{Hệ đo B-CUBED:	
-						\begin{center}
-							\inlineitem{$P = \frac{1}{n} \sum_{i=1}^{n} \frac{\sum_{j=1}^{|p (S_i)|} |P_{ij}|*\big(|S_i| - |P_{ij}|)} {|S_{i}|^2}$}
-							\inlineitem{$R = \frac{1}{m} \sum_{i=1}^{m} \frac{\sum_{j=1}^{|p (R_i)|} |P'_{ij}|*\big(|S_i| - |P'_{ij}|)} {|R_{i}|^2}$}
-						\end{center}
-					}
-					\item{Hệ đo CEAF-$\Phi_4$:	
-						\begin{center}						
-							\inlineitem{$P = \frac{\Phi \big(g*)}{\sum_{S_i \in S*}\Phi_4 \big(S_i, S_i)}$}
-							\inlineitem{$R = \frac{\Phi \big(g*)}{\sum_{R_i \in R*}\Phi_4 \big(R_i, S_j)}$}
-						\end{center}
-					}			
-					\item{Công thức tính F:
-						\begin{center}									
-							$F = \frac{2PR}{P+R}$
-						\end{center}
-						}
-				\end{itemize}
+			\end{block}
+			\begin{block}{Hệ đo CEAF-$\Phi_4$}
+				\begin{center}						
+					\inlineitem{\scalebox{1.5}{$P = \frac{\Phi \big(g*)}{\sum_{S_i \in S*}\Phi_4 \big(S_i, S_i)}$}}
+					\inlineitem{\scalebox{1.5}{$R = \frac{\Phi \big(g*)}{\sum_{R_i \in R*}\Phi_4 \big(R_i, S_j)}$}}
+				\end{center}
+			\end{block}
+		\end{frame}
+
+		\begin{frame}{Thực nghiệm và đánh giá (tt)}
+			\begin{block}{Hệ đo B-CUBED}
+				\begin{center}
+					\begin{itemize} 
+					\item{\scalebox{1.5}{$P = \frac{1}{n} \sum_{i=1}^{n} \frac{\sum_{j=1}^{|p (S_i)|} |P_{ij}|*\big(|S_i| - |P_{ij}|)} {|S_{i}|^2}$}}
+					\item{\scalebox{1.5}{$R = \frac{1}{m} \sum_{i=1}^{m} \frac{\sum_{j=1}^{|p (R_i)|} |P'_{ij}|*\big(|S_i| - |P'_{ij}|)} {|R_{i}|^2}$}}
+					\end{itemize}
+				\end{center}
+			\end{block}
+			
+			\begin{block}{Công thức tính F}
+				\begin{center}									
+					\scalebox{1.5}{$F = \frac{2PR}{P+R}$}
+				\end{center}
 			\end{block}
 		\end{frame}
 
