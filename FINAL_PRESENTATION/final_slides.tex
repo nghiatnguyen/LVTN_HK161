@@ -75,8 +75,8 @@
 		\frametitle{Tổng quan đề tài}
 		\begin{block}{Giới thiệu đề tài}
 			\begin{itemize}
-				\item{\textbf{Phân giải đồng tham chiếu} hướng đến việc tìm kiếm những từ, cụm từ hoặc ngữ cùng chỉ đến một khái niệm, thực thể trong thế giới thực.}
-				\item{Nội dung đề tài: \textbf{Phân giải đồng tham chiếu} cho \textbf{đối tượng} và \textbf{thuộc tính} trong các \textbf{văn bản chứa ý kiến}.}				
+				\item{\textit{Phân giải đồng tham chiếu} hướng đến việc tìm kiếm những từ, cụm từ hoặc ngữ cùng chỉ đến một khái niệm, thực thể trong thế giới thực.}
+				\item{Nội dung đề tài: \textit{Phân giải đồng tham chiếu} cho \textit{đối tượng} và \textit{thuộc tính} trong các \textit{văn bản chứa ý kiến}.}				
 			\end{itemize}
 		\end{block}		
 		\begin{block}{Ví dụ}			
@@ -88,13 +88,12 @@
 		\begin{block}{Động cơ thực hiện đề tài}
 			\begin{itemize}	
 				\item{Thương mại điện tử đang phát triển mạnh mẽ và người dùng ngày càng có nhu cầu thể hiện ý kiến lên các sản phẩm trên mạng.}
-				% \item{Nếu không có phân giải đồng tham chiếu cho các đối tượng và thuộc tính, ý kiến của người viết rất có thể sẽ được gán không đúng cho các thực thể.}
-				\item{Tránh thu thập thiếu thông tin ý kiến của người dùng hoặc xác định sai đối tượng, thuộc tính mà ý kiến hướng đến.}
+				\item{Nếu không có phân giải đồng tham chiếu cho các đối tượng và thuộc tính, ý kiến của người viết rất có thể sẽ được gán không đúng cho các thực thể.}				
 				\item{Cải thiện 10\% kết quả Khai khoáng ý kiến (theo Nicolas Nicolov).}
 			\end{itemize}		
 		\end{block}		
 		\begin{block}{Ví dụ}			
-			\textit{This Sanyo 8100} is an excellent phone.  \textbf{It} has \textit{a very good color screen}, \textbf{it} is well designed, \textit{the camera} is pretty good for a phone, and \textbf{it} has numerous features.
+			\textit{This Sanyo 8100} is an excellent phone.  \underline{It} has \textit{a very good color screen}, \underline{it} is well designed, \textit{the camera} is pretty good for a phone, and \underline{it} has numerous features.
 		\end{block}
 	\end{frame}
 
@@ -105,9 +104,16 @@
 		\end{block}		
 		\begin{block}{Phạm vi đề tài}
 			\begin{itemize}
-				\item{Giả định rằng các đối tượng và thuộc tính đã được tìm ra}
-				\item{Chỉ xét các quan hệ đồng tham chiếu dạng \textit{đồng nhất (identity)}}
+				\item{Giả định rằng các đối tượng và thuộc tính đã được tìm ra \footnotemark \textsuperscript{,} \footnotemark}
 			\end{itemize}
+			\footnotetext[1]{Minqing Hu and Bing Liu. 2004.
+				\textit{Mining and Summarizing Customer Reviews}.
+				In Proceedings of the ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (KDD-2004), Aug 22-25, 2004, Seattle, Washington, USA.
+			}
+			\footnotetext[2]{A-M. Popescu and O. Etzioni. 2005. 
+				\textit{Extracting product features and opinions from reviews}.
+				EMNLP’05.
+			}
 		\end{block}
 	\end{frame}
 
@@ -117,13 +123,20 @@
 		\frametitle{Các công trình liên quan}
 		\begin{block}{Đồng tham chiếu}
 			Kể từ những năm 1960 đến nay đã có nhiều công trình nghiên cứu, với nhiều mô hình, nhiều hướng tiếp cận giải quyết khác nhau.
+			\begin{itemize}
+				\item{Các mô hình: Mô hình cặp, mô hình hướng thực thể, mô hình xếp hạng}
+				\item{Các hướng tiếp cận: Học có giám sát, học không giám sát, hệ thống luật}
+			\end{itemize}
 		\end{block}
 		\begin{block}{Đồng tham chiếu trong khai khoáng ý kiến}
 			\begin{itemize}
-				\item{Stoyanov và Cardie (2006): Phân giải đồng tham chiếu người nêu ý kiến}
-				\item{Hu và Liu (2010): Phân giải đồng tham chiếu đối tượng và thuộc tính}
+				\item{Stoyanov và Cardie (2006): Phân giải đồng tham chiếu cho chủ thể ý kiến}
+				\item{Ding và Liu (2010): Phân giải đồng tham chiếu đối tượng và thuộc tính \footnotemark}
 			\end{itemize}
-		\end{block}		
+		\end{block}
+		\footnotetext[3]{Xiaowen Ding and Bing Liu. 2010.
+			\textit{Resolving Object and Attribute Coreference in Opinion Mining}. 
+			In Proceedings of International Conference on Computational Linguistics (COLING-2010). 2010.}		
 	\end{frame}
 
 	\section{Phương pháp đề xuất}
@@ -162,8 +175,8 @@
 				\end{block}
 			\end{column}			
 		\end{columns}
-		\footnotetext[1]{http://stanfordnlp.github.io/CoreNLP}
-		\footnotetext[2]{http://web.mit.edu/6.863/www/PennTreebankTags.html}
+		\footnotetext[4]{http://stanfordnlp.github.io/CoreNLP}
+		\footnotetext[5]{http://web.mit.edu/6.863/www/PennTreebankTags.html}
 	\end{frame}
 
 	\subsection{Trích xuất cụm danh từ}
@@ -185,7 +198,7 @@
 				\end{figure}
 			\end{column}
 		\end{columns}
-		\footnotetext[3]{http://crfchunker.sourceforge.net}
+		\footnotetext[6]{http://crfchunker.sourceforge.net}
 		\begin{columns}[t]
 			\begin{column}{\textwidth}
 			   	\begin{block}{Gán nhãn cụm danh từ}					
@@ -193,6 +206,14 @@
 				\end{block}					
 			\end{column}			
 		\end{columns}
+	\end{frame}
+
+	\begin{frame}{Trích xuất cụm danh từ (tt)}
+		\begin{figure}[H]
+			\centering							
+			\includegraphics[scale=0.45]{images/markup_tool}				
+			\caption{Công cụ gán nhãn dữ liệu đồng tham chiếu}				
+		\end{figure}
 	\end{frame}
 
 	\subsection{Xây dựng dữ liệu học và kiểm tra}
@@ -251,15 +272,15 @@
 	\begin{frame}{Xây dựng dữ liệu học và kiểm tra (tt)}
 		\begin{block}{Đặc trưng Tính nhất quán về ý kiến (SC)}			
 			Ví dụ:\\
-			\begin{itemize}
-				\item[$\bullet$]{\textit{The XBR4} is brighter than \textit{the 5080}. Overall, \textit{it} is a great choice.}
-				\item[$\bullet$]{\textit{The N73} is my favorite. \textit{It} can produce great pictures.}
-				\item[$\bullet$]{\textit{The K800} is awesome. \textit{That phone} has short battery life.}
+			\begin{itemize}				
+				\item[$\bullet$]{\textit{\underline{The N73} is my favorite. \underline{It} can produce great pictures.}}
+				\item[$\bullet$]{\textit{\underline{The K800} is awesome. \underline{That phone} has short battery life.}}
+				\item[$\bullet$]{\textit{\underline{The XBR4} is brighter than \underline{the 5080}. Overall, \underline{it} is a great choice.}}
 			\end{itemize}									
 		\end{block}	
 		\begin{block}{Đặc trưng Sự kết hợp giữa thực thể và từ chỉ ý kiến (EOA)}			
 			Ví dụ:\\
-			\textit{I love the \textbf{nokia n95} but not sure how strong \textbf{the flash} would be? And also \textbf{it} is quite \textbf{expensive}, so anyone got any ideas?}			
+			\textit{I love the \underline{nokia n95} but not sure how strong \underline{the flash} would be? And also \underline{it} is quite \underline{expensive}, so anyone got any ideas?}			
 		\end{block}			
 	\end{frame}	
 
@@ -317,36 +338,8 @@
 						\end{itemize}
 					}					
 				\end{itemize}		
-			\end{block}
-			% \begin{block}{Công thức tính F}
-			% 	\begin{center}									
-			% 		\scalebox{1.5}{$F = \frac{2PR}{P+R}$}
-			% 	\end{center}
-			% \end{block}
-			% \begin{block}{Hệ đo MUC}
-			% 	\begin{center}
-			% 		\inlineitem{\scalebox{1.5}{$P = \frac{\sum \left(|R_i| - |p \left(R_i\right)|\right)}{\sum_{|R_i| - 1}}$}}
-			% 		\inlineitem{\scalebox{1.5}{$R = \frac{\sum \left(|S_i| - |p \left(S_i\right)|\right)}{\sum_{|S_i| - 1}}$}}
-			% 	\end{center}
-			% \end{block}
-			% \begin{block}{Hệ đo CEAF-$\Phi_4$}
-			% 	\begin{center}						
-			% 		\inlineitem{\scalebox{1.5}{$P = \frac{\Phi \left(g*\right)}{\sum_{S_i \in S*}\Phi_4 \left(S_i, S_i\right)}$}}
-			% 		\inlineitem{\scalebox{1.5}{$R = \frac{\Phi \left(g*\right)}{\sum_{R_i \in R*}\Phi_4 \left(R_i, S_j\right)}$}}
-			% 	\end{center}
-			% \end{block}
-		\end{frame}
-
-		% \begin{frame}{Thực nghiệm và đánh giá (tt)}
-			% \begin{block}{Hệ đo B-CUBED}
-			% 	\begin{center}
-			% 		\begin{itemize} 
-			% 		\item{\scalebox{1.5}{$P = \frac{1}{n} \sum_{i=1}^{n} \frac{\sum_{j=1}^{|p (S_i)|} |P_{ij}|*\left(|S_i| - |P_{ij}|\right)} {|S_{i}|^2}$}}
-			% 		\item{\scalebox{1.5}{$R = \frac{1}{m} \sum_{i=1}^{m} \frac{\sum_{j=1}^{|p (R_i)|} |P'_{ij}|*\left(|S_i| - |P'_{ij}|\right)} {|R_{i}|^2}$}}
-			% 		\end{itemize}
-			% 	\end{center}
-			% \end{block}						
-		% \end{frame}
+			\end{block}					
+		\end{frame}		
 
 		\begin{frame}{Thực nghiệm và đánh giá (tt)}			
 			\begin{block}{Các hệ thống được đánh giá}
@@ -378,52 +371,50 @@
 			\end{table}		
 		\end{frame}
 
-		% \begin{frame}[t]{Thực nghiệm và đánh giá (tt)}								
-		% 	\begin{columns}[t]
-		% 		\begin{column}{0.6\textwidth}					
-		% 			\begin{figure}[H] 			
-		% 				\centering					
-		% 				\includegraphics[scale=0.35]{charts/chart_muc.pdf}											
-		% 			\end{figure} 				
-		% 		\end{column}
-		% 		\begin{column}{0.4\textwidth}
-		% 		\end{column}
-		% 	\end{columns}
-		% 	\begin{columns}[t]
-		% 		\begin{column}{0.4\textwidth}
-		% 		\end{column}
-		% 		\begin{column}{0.6\textwidth}
-		% 			\begin{figure}[H] 
-		% 				\centering					
-		% 				\includegraphics[scale=0.35]{charts/chart_b3.pdf}					
-		% 			\end{figure}
-		% 		\end{column}				
-		% 	\end{columns}						
-		% \end{frame}
-
 		\begin{frame}[t]{Thực nghiệm và đánh giá (tt)}								
-			% \begin{columns}[t]
-			% 	\begin{column}{\textwidth}
+			\begin{columns}[t]
+				\begin{column}{\textwidth}
 					\begin{figure}[H] 			
 						\centering					
-						\includegraphics[scale=0.45]{charts/chart_comparison.pdf}									
+						\includegraphics[scale=0.38]{charts/chart_comparison.pdf}									
 					\end{figure} 				
-			% 	\end{column}
-			% \end{columns}
-			% \begin{columns}[t]
-			% 	\begin{column}{\textwidth}
-			% 		\begin{block}{Nhận xét}
-			% 			\footnotesize		
-			% 			\begin{itemize}
-			% 				\item{Đặc trưng liên quan đến Khai khoáng ý kiến đã ảnh hưởng tích cực đến kết quả}
-			% 				\item{Đặc trưng \textit{Tính nhất quán về ý kiến (SC)} đã có ảnh hưởng tương đối lớn đến hệ thống}
-			% 				\item{Đặc trưng \textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến (EOA)} ít có ảnh hưởng tích cực đến hệ thống}
-			% 				\item{Việc kết hợp hai đặc trưng mới \textit{Tính nhất quán về ý kiến (SC)} và \textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến (EOA)} vẫn còn gặp vấn đề}
-			% 			\end{itemize}			
-			% 		\end{block}
-			% 	\end{column}				
-			% \end{columns}						
+				\end{column}
+			\end{columns}
+			\begin{columns}[t]
+				\begin{column}{\textwidth}
+					\begin{block}{Nhận xét}
+						\footnotesize		
+						\begin{itemize}
+							\item{Đặc trưng liên quan đến Khai khoáng ý kiến đã ảnh hưởng tích cực đến kết quả}
+							\item{Đặc trưng \textit{Tính nhất quán về ý kiến (SC)} đã có ảnh hưởng tương đối lớn đến hệ thống}
+							\item{Đặc trưng \textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến (EOA)} ít có ảnh hưởng tích cực đến hệ thống}
+							\item{Việc kết hợp hai đặc trưng mới \textit{Tính nhất quán về ý kiến (SC)} và \textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến (EOA)} vẫn còn gặp vấn đề}
+						\end{itemize}			
+					\end{block}
+				\end{column}				
+			\end{columns}						
 		\end{frame}	
+
+		\begin{frame}{Thực nghiệm và đánh giá (tt)}
+			\begin{block}{Phân tích}
+				\begin{itemize}
+					\item{Số lượng từ chỉ ý kiến trong tập dữ liệu vẫn chưa nhiều (chỉ có 442 trong số 2634 cụm từ chỉ đối tượng, thuộc tính có từ chỉ ý kiến đi kèm) $\Rightarrow$ Đặc trưng EOA vẫn chưa ảnh hưởng nhiều đến hệ thống.}
+					\item{Các từ chỉ ý kiến trong tập dữ liệu vẫn chưa có tính đặc trưng cao, ví dụ như tính từ \textit{good}, \textit{nice}, \textit{better}, \textit{great}.}
+					\item{Theo giả thuyết cặp nào có giá trị đặc trưng EOA càng nhỏ thì càng có khả năng đồng tham chiếu. Tuy nhiên trên thực tế có những trường hợp ngược lại.}					
+					\item{Giải thuật tìm thiên hướng ý kiến gắn với đối tượng/thuộc tính được nêu ra trong câu vẫn còn đơn giản và chỉ cho kết quả đúng đối với các câu tương đối đơn giản.}
+				\end{itemize}
+			\end{block}
+		\end{frame}
+
+		\begin{frame}{Thực nghiệm và đánh giá (tt)}			
+			\begin{block}{Phân tích (tt)}
+				\begin{itemize}
+					\item{Mỗi bài đánh giá xuất hiện nhiều đối tượng và thuộc tính $\Rightarrow$ Khó xác định đồng tham chiếu nếu không dựa vào hai đặc trưng liên quan đến khai khoáng ý kiến.}
+					\item{Một số trường hợp một đối tượng được diễn tả bởi nhiều tên gọi khác nhau mà không đặc trưng nào trong hệ thống phát hiện ra được. Ví dụ: \textit{the GS3}, \textit{the Samsung S3}, \textit{a new S3 SGH-I747 (US model) ATT phone}.}
+					\item{Đặc trưng \textit{Danh từ chính giống nhau} ảnh hưởng nhiều đến độ đúng đắn của hệ thống nhưng có một số trường hợp bắt sai. Ví dụ: \textit{the camera quality} và \textit{the image quality}.}
+				\end{itemize}
+			\end{block}
+		\end{frame}
 
 	\section{Tổng kết}
 		\begin{frame}{Tổng kết}			
@@ -451,11 +442,45 @@
 			\end{block}
 		\end{frame}
 
-		\begin{frame}{Câu hỏi}
+		\begin{frame}{Hết phần trình bày}
 			\Huge
 			\centering
-			\fontsize{30pt}{30}\selectfont
-			\textit{Câu hỏi}
+			\fontsize{35pt}{35}\selectfont
+			\textit{Cảm ơn hội đồng đã lắng nghe!}			
 		\end{frame}
 
+	\section{Phụ lục}
+		\begin{frame}{Phụ lục: Các hệ đo}
+			\begin{block}{Hệ đo MUC}
+				\begin{center}
+					\inlineitem{\scalebox{1.5}{$P = \frac{\sum \left(|R_i| - |p \left(R_i\right)|\right)}{\sum_{|R_i| - 1}}$}}
+					\inlineitem{\scalebox{1.5}{$R = \frac{\sum \left(|S_i| - |p \left(S_i\right)|\right)}{\sum_{|S_i| - 1}}$}}
+				\end{center}
+			\end{block}
+			\begin{block}{Hệ đo CEAF-$\Phi_4$}
+				\begin{center}						
+					\inlineitem{\scalebox{1.5}{$P = \frac{\Phi \left(g*\right)}{\sum_{S_i \in S*}\Phi_4 \left(S_i, S_i\right)}$}}
+					\inlineitem{\scalebox{1.5}{$R = \frac{\Phi \left(g*\right)}{\sum_{R_i \in R*}\Phi_4 \left(R_i, S_j\right)}$}}
+				\end{center}
+			\end{block}
+		\end{frame}
+
+		\begin{frame}{Phụ lục: Các hệ đo (tt)}
+			\begin{block}{Hệ đo B-CUBED}
+				\begin{center}
+					\begin{itemize} 
+					\item{\scalebox{1.5}{$P = \frac{1}{n} \sum_{i=1}^{n} \frac{\sum_{j=1}^{|p (S_i)|} |P_{ij}|*\left(|S_i| - |P_{ij}|\right)} {|S_{i}|^2}$}}
+					\item{\scalebox{1.5}{$R = \frac{1}{m} \sum_{i=1}^{m} \frac{\sum_{j=1}^{|p (R_i)|} |P'_{ij}|*\left(|S_i| - |P'_{ij}|\right)} {|R_{i}|^2}$}}
+					\end{itemize}
+				\end{center}
+			\end{block}	
+			\begin{block}{Công thức tính F}
+				\begin{center}									
+					\scalebox{1.5}{$F = \frac{2PR}{P+R}$}
+				\end{center}
+			\end{block}					
+		\end{frame}
+
+		\begin{frame}{Phụ lục: Pointwise Mutual Information (PMI)}
+		\end{frame}
 \end{document}
