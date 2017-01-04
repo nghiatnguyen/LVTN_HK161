@@ -1,0 +1,23 @@
+% Author: Rasmus Pank Roulund
+% \documentclass{minimal}
+% \usepackage{tikz}
+% \usepackage[utf8]{vietnam}
+
+% \begin{document}
+% \usetikzlibrary{arrows,chains,positioning,scopes}
+
+\tikzset{
+    block/.style={draw,thick,text width=5em,minimum height=6.5em,minimum width=5em,align=center},
+    arrow/.style={->, thick}
+}
+\begin{tikzpicture}
+  {[start chain]
+      \node[block,on chain] (N1) {Tập hợp các cụm danh từ};
+      \node[block,on chain,join=by {arrow},right=1cm of N1] (N2) {Tạo tập các cặp cụm danh từ};
+      \node[block,on chain,join=by {arrow},right=1cm of N2] (N3) {Phân loại các cặp cụm danh từ};
+      \node[block,on chain,join=by {arrow},right=1cm of N3] (N4) {Kết hợp những cặp được phân loại đồng tham chiếu};
+      \node[block,on chain,join=by {arrow},right=1cm of N4] (N5) {Các chuỗi đồng tham chiếu};
+    }
+      
+  \end{tikzpicture}
+% \end{document}

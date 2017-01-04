@@ -7,6 +7,8 @@
 \usepackage{booktabs, multicol, multirow}
 \usepackage{adjustbox}
 \usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
 \newcolumntype{x}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
 \graphicspath{ {images/} }
 \usepackage{xcolor}
@@ -31,6 +33,14 @@
 
 \newcommand{\resetinlineenum}{
  \setcounter{newenumi}{1}
+}
+
+%---------------SET FOR DIAGRAM------------------------------
+\usetikzlibrary{arrows,chains,positioning,scopes}
+
+\tikzset{
+    block/.style={draw,thick,text width=5em,minimum height=6.5em,minimum width=5em,align=center},
+    arrow/.style={->, thick}
 }
 
 \begin{document}
@@ -89,12 +99,15 @@
 			\begin{itemize}	
 				\item{Thương mại điện tử đang phát triển mạnh mẽ và người dùng ngày càng có nhu cầu thể hiện ý kiến lên các sản phẩm trên mạng.}
 				\item{Nếu không có phân giải đồng tham chiếu cho các đối tượng và thuộc tính, ý kiến của người viết rất có thể sẽ được gán không đúng cho các thực thể.}				
-				\item{Cải thiện 10\% kết quả Khai khoáng ý kiến (theo Nicolas Nicolov).}
-			\end{itemize}		
+				\item{Cải thiện 10\% kết quả Khai khoáng ý kiến (theo Nicolas Nicolov \footnotemark).}
+			\end{itemize}					
 		\end{block}		
-		\begin{block}{Ví dụ}			
-			\textit{This Sanyo 8100} is an excellent phone.  \underline{It} has \textit{a very good color screen}, \underline{it} is well designed, \textit{the camera} is pretty good for a phone, and \underline{it} has numerous features.
+		\begin{block}{Ví dụ}						
+			\textit{The Galaxy III} is pretty cool. \underline{It}'s a plastic phone, but \underline{it} feels solid even though \underline{it}'s very light. \textit{The screen} looks great. \underline{It} is very sharp.
 		\end{block}
+		\footnotetext[1]{N. Nicolov, F. Salvetti and S. Ivanova. 2008.
+			\textit{Sentiment analysis: Does coreference matter?}.
+			In AISB 2008 Convention Communication, Interaction and Social Intelligence.}
 	\end{frame}
 
 	\begin{frame}
@@ -106,11 +119,11 @@
 			\begin{itemize}
 				\item{Giả định rằng các đối tượng và thuộc tính đã được tìm ra \footnotemark \textsuperscript{,} \footnotemark}
 			\end{itemize}
-			\footnotetext[1]{Minqing Hu and Bing Liu. 2004.
+			\footnotetext[2]{Minqing Hu and Bing Liu. 2004.
 				\textit{Mining and Summarizing Customer Reviews}.
 				In Proceedings of the ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (KDD-2004), Aug 22-25, 2004, Seattle, Washington, USA.
 			}
-			\footnotetext[2]{A-M. Popescu and O. Etzioni. 2005. 
+			\footnotetext[3]{A-M. Popescu and O. Etzioni. 2005. 
 				\textit{Extracting product features and opinions from reviews}.
 				EMNLP’05.
 			}
@@ -130,11 +143,15 @@
 		\end{block}
 		\begin{block}{Đồng tham chiếu trong khai khoáng ý kiến}
 			\begin{itemize}
-				\item{Stoyanov và Cardie (2006): Phân giải đồng tham chiếu cho chủ thể ý kiến}
+				\item{Stoyanov và Cardie (2006): Phân giải đồng tham chiếu cho chủ thể ý kiến \footnotemark}
 				\item{Ding và Liu (2010): Phân giải đồng tham chiếu đối tượng và thuộc tính \footnotemark}
 			\end{itemize}
 		\end{block}
-		\footnotetext[3]{Xiaowen Ding and Bing Liu. 2010.
+		\footnotetext[4]{Veselin Stoyanov and Claire Cardie. 2006.
+			\textit{Partially supervised coreference resolution for opinion summarization through structured rule learning}.
+			In Proceedings of the 2006 Conference on Empirical Methods in Natural Language
+			Processing (EMNLP), pages 336-344.}
+		\footnotetext[5]{Xiaowen Ding and Bing Liu. 2010.
 			\textit{Resolving Object and Attribute Coreference in Opinion Mining}. 
 			In Proceedings of International Conference on Computational Linguistics (COLING-2010). 2010.}		
 	\end{frame}
@@ -175,8 +192,8 @@
 				\end{block}
 			\end{column}			
 		\end{columns}
-		\footnotetext[4]{http://stanfordnlp.github.io/CoreNLP}
-		\footnotetext[5]{http://web.mit.edu/6.863/www/PennTreebankTags.html}
+		\footnotetext[6]{http://stanfordnlp.github.io/CoreNLP}
+		\footnotetext[7]{http://web.mit.edu/6.863/www/PennTreebankTags.html}
 	\end{frame}
 
 	\subsection{Trích xuất cụm danh từ}
@@ -198,7 +215,7 @@
 				\end{figure}
 			\end{column}
 		\end{columns}
-		\footnotetext[6]{http://crfchunker.sourceforge.net}
+		\footnotetext[8]{http://crfchunker.sourceforge.net}
 		\begin{columns}[t]
 			\begin{column}{\textwidth}
 			   	\begin{block}{Gán nhãn cụm danh từ}					
@@ -332,13 +349,26 @@
 					\item{Độ đo: Precision, Recall, F-measure}
 					\item{Hệ đo: 
 						\begin{itemize}
-							\item[$\bullet$]{MUC}
-							\item[$\bullet$]{B-CUBED}
-							\item[$\bullet$]{CEAF-$\Phi_4$}
+							\item[$\bullet$]{MUC} \footnotemark
+							\item[$\bullet$]{B-CUBED} \footnotemark
+							\item[$\bullet$]{CEAF-$\Phi_4$} \footnotemark
 						\end{itemize}
 					}					
 				\end{itemize}		
 			\end{block}					
+			\footnotetext[9]{Vilain, Marc, John Burger, John Aberdeen, Dennis Connolly and Lynette Hirschman. 1995.
+				\textit{A model-theoretic coreference scoring scheme}.
+				In Proceedings of the 6th Message Understanding Conference (MUC-6), pages 45–52.}
+			\footnotetext[10]{
+				Amit Bagga and Breck Baldwin. 1998.
+				\textit{Algorithms for Scoring Coreference Chains}.
+				In The First International Conference on Language Resources and Evaluation Workshop on Linguistics Coreference.
+			}
+			\footnotetext[11]{
+				Xiaoqiang Luo. 2005.
+				\textit{On coreference resolution performance metrics}.
+				In Proceedings of the Human Language Technology Conference and the 2005 Conference on Empirical Methods in Natural Language Processing, Vancouver, B.C., Canada, 6–8 October 2005, pages 25–32
+			}
 		\end{frame}		
 
 		\begin{frame}{Thực nghiệm và đánh giá (tt)}			
@@ -483,4 +513,117 @@
 
 		\begin{frame}{Phụ lục: Pointwise Mutual Information (PMI)}
 		\end{frame}
+
+		\begin{frame}{Phụ lục: Công cụ CRFChunker}
+			\begin{block}{Công cụ CRFChunker}
+				\begin{itemize}
+					\item{Độ F = 95.77\%}
+					\item{Tốc độ gom cụm từ (chunking speed) = 700 câu/giây \footnotemark}
+				\end{itemize}
+			\end{block}
+			\begin{figure}[H]
+				\centering
+				\footnotesize				
+				\noindent\fbox{
+				    \parbox{0.9\textwidth}{
+				    	The/DT/B-NP Note/NN/I-NP 3/CD/I-NP is/VBZ/B-VP a/DT/B-NP lot/NN/I-NP lighter/JJR/B-ADVP than/IN/B-PP my/PRP\$/B-NP HTC/NNP/I-NP EVO/NNP/I-NP ././O
+				    	\\
+				    	\\
+				        It/PRP/B-NP 's/VBZ/B-VP very/RB/B-ADJP fast/JJ/I-ADJP and/CC/O has/VBZ/B-VP so/RB/B-NP many/JJ/I-NP features/NNS/I-NP that/IN/B-SBAR an/DT/B-NP IPhone5/NN/I-NP ca/MD/B-VP n't/RB/I-VP touch/VB/I-VP ././O 
+				        \\
+				        \\
+						I/PRP/B-NP love/VBP/B-VP the/DT/B-NP camera/NN/I-NP features/NNS/I-NP and/CC/O it/PRP/B-NP takes/VBZ/B-VP great/JJ/B-NP pictures/NNS/I-NP ././O
+			    	}
+				}
+				\caption{Kết quả đầu ra của công cụ CRFChunker}				
+			\end{figure}
+			\footnotetext{Xuan-Hieu Phan, \textit{CRFChunker: CRF English Phrase Chunker}, http://crfchunker.sourceforge.net/, 2006.}
+		\end{frame}
+
+		\begin{frame}{Phụ lục: Từ điển ý kiến và từ khóa so sánh}
+			\begin{block}{Từ điển ý kiến}
+				\begin{itemize}
+					\item Dùng từ điển ý kiến (opinion lexicon) được cung cấp bởi Bing Liu \footnotemark
+					\item Từ điển này gồm 6800 từ (tích cực + tiêu cực), được tập hợp bắt đầu từ bài báo (Hu và Liu, KDD-2004)
+				\end{itemize}
+			\end{block}
+			\begin{block}{Từ khóa so sánh}
+				Gồm có 3 nhóm:
+				\begin{itemize}
+					\item Từ có nhãn từ loại là JJR, RBR
+					\item more/less + JJ/RB
+					\item Các từ đặc biệt: beat, outperform,...
+				\end{itemize}
+			\end{block}
+			\footnotetext{http://www.cs.uic.edu/~liub/FBS/opinion-lexicon-English.rar}
+		\end{frame}
+
+		\begin{frame}{Công trình của Nicolov}
+		\end{frame}
+
+		\begin{frame}{Công trình của Stoyanov và Cardie}
+		\end{frame}
+
+		\begin{frame}{Công trình của Ding và Liu (2010)}
+			\begin{figure}[H]
+				\centering							
+				\includegraphics[scale=0.45]{images/base_features}				
+				\caption{Các đặc trưng trích từ bài báo của Ding và Liu (2010)}				
+			\end{figure}
+		\end{frame}
+
+		\begin{frame}{Công trình của Ding và Liu (2010) (tt)}
+			\begin{figure}[H]
+				\centering							
+				\includegraphics[scale=0.45]{images/base_result_1}				
+				\caption{Thống kê về dữ liệu từ bài báo của Ding và Liu (2010)}				
+			\end{figure}
+			\begin{figure}[H]
+				\centering							
+				\includegraphics[scale=0.45]{images/base_result_2}				
+				\caption{Các kết quả từ bài báo của Ding và Liu (2010)}				
+			\end{figure}
+		\end{frame}
+
+		\begin{frame}{Các công trình tìm đối tượng và thuộc tính}
+			\begin{block}{Công trình của Hu và Liu (2004)}
+				Bài toán \textit{Khai phá và tóm tắt các bài đánh giá (review) của người dùng}, với 3 công việc: 
+				\begin{itemize}
+					\item{Trích xuất các thuộc tính của đối tượng (mà họ gọi là \textit{feature}) được người dùng thể hiện ý kiến}
+					\item{Đối với từng thuộc tính, xác định các câu thể hiện ý kiến kèm theo}
+					\item{Tóm tắt kết quả}
+				\end{itemize}
+			\end{block}
+			\begin{block}{Công trình của Popescu và Etzioni (2005)}
+				Cải tiến công trình của Hu và Liu (2004) về phương pháp thực hiện và cho ra kết quả khả quan hơn
+			\end{block}
+		\end{frame}		
+
+		\begin{frame}{Mô hình cặp (mention pair)}
+			\begin{figure}[H]
+				\centering
+				\scalebox{.8}{\input{draw/mention_pair}}
+				\caption{Ý tưởng các bước thực hiện trong Mô hình cặp}
+				\label{fig:mentionpair}
+			\end{figure}
+		\end{frame}
+
+		\begin{frame}{Mô hình hướng thực thể (entity-mention)}
+			\begin{figure}[H]
+				\centering
+				\scalebox{.8}{\input{draw/entity_mention}}
+				\caption{Một hiện thực điển hình của mô hình thực thể}
+				\label{fig:entitymention}
+			\end{figure}
+		\end{frame}
+
+		\begin{frame}{Mô hình xếp hạng (ranking model)}
+			\begin{figure}[H]
+				\centering
+				\scalebox{.8}{\input{draw/ranking_model}}
+				\caption{Ý tưởng các bước của mô hình xếp hạng}
+				\label{fig:rankingmodel}
+			\end{figure}
+		\end{frame}
+
 \end{document}

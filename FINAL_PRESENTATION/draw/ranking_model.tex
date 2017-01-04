@@ -1,0 +1,25 @@
+% Author: Rasmus Pank Roulund
+% \documentclass{minimal}
+% \usepackage{tikz}
+% \usepackage[utf8]{vietnam}
+
+% \begin{document}
+% \usetikzlibrary{arrows,chains,positioning,scopes}
+
+\tikzset{
+    block/.style={draw,thick,text width=6em,minimum height=10em,minimum width=7em,align=center},
+    arrow/.style={->, thick}
+}
+\begin{tikzpicture}
+  {[start chain]
+      \node[block,on chain] (N1) {Tập hợp các cụm danh từ};
+      \node[block,on chain,join=by {arrow},right=1cm of N1] (N2) {Lọc lại các cụm danh từ có khả năng nằm trong chuỗi đồng tham chiếu};
+      \node[block,on chain,join=by {arrow},right=1cm of N2] (N3) {Với một cụm danh từ, so sánh các ứng viên cụm danh từ nằm bên trái của nó};
+      \node[block,on chain,join=by {arrow},right=1cm of N3] (N4) {Lựa chọn ứng viên có khả năng đồng tham chiếu cao nhất};
+      \node[block,on chain,join=by {arrow},below=1cm of N4] (N5) {Tạo các cặp cụm danh từ đồng tham chiếu};
+      \node[block,on chain,join=by {arrow},left=1cm of N5] (N6) {Kết hợp những cặp đồng tham chiếu};
+      \node[block,on chain,join=by {arrow},left=1cm of N6] (N7) {Tạo các chuỗi đồng tham chiếu};      
+    }
+      
+  \end{tikzpicture}
+% \end{document}
