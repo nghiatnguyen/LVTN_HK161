@@ -85,11 +85,15 @@
 	\end{frame}
 	
 	\begin{frame}
+		\frametitle{Tổng quan đề tài (tt)}
 		\begin{block}{Động cơ thực hiện đề tài}
 			\begin{itemize}	
 				\item{Thương mại điện tử đang phát triển mạnh mẽ và người dùng ngày càng có nhu cầu thể hiện ý kiến lên các sản phẩm trên mạng.}
 				\item{Nếu không có phân giải đồng tham chiếu cho các đối tượng và thuộc tính, ý kiến của người viết rất có thể sẽ được gán không đúng cho các thực thể.}				
-				\item{Cải thiện 10\% kết quả Khai khoáng ý kiến (theo Nicolas Nicolov).}
+				\item{Cải thiện 10\% kết quả Khai khoáng ý kiến (theo Nicolas Nicolov).
+				\footnotetext[1]{N. Nicolov, F. Salvetti and S. Ivanova. 2008.
+				\textit{Sentiment analysis: Does coreference matter?}.
+				In AISB 2008 Convention Communication, Interaction and Social Intelligence.}}
 			\end{itemize}		
 		\end{block}		
 		\begin{block}{Ví dụ}			
@@ -266,7 +270,13 @@
 			\caption{Các đặc trưng được sử dụng trong hệ thống (tt)}
 		}
 		\end{table}
-		\hyperlink{results}{\beamerbutton{Kết quả thực nghiệm}}
+		% \hyperlink{results}{\beamerbutton{Kết quả thực nghiệm}}
+		\footnotetext[1]{Wee Meng Soon, Hwee Tou Ng, and Daniel Chung Yong Lim. 2001.
+	\textit{A machine learning approach to coreference resolution of noun phrases}.
+	Computational Linguistics, 27(4):521–544.}
+		\footnotetext[2]{Vincent Ng and Claire Cardie. 2002.
+	\textit{Improving Machine Learning Approaches to Coreference Resolution}.
+	In Proceedings of the 40th Annual Meeting of the Association for Computational Linguistics, pages 104–111.}
 	\end{frame}
 
 	\begin{frame}{Xây dựng dữ liệu học và kiểm tra (tt)}
@@ -350,8 +360,8 @@
 					\item{Hệ thống EOA: Hệ thống cơ sở + \textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến (EOA)}.}
 					\item{Hệ thống đầy đủ: Tất cả đặc trưng.}
 				\end{itemize}
-				\hyperlink{features}{\beamerbutton{Xem Bảng các đặc trưng}}
-				\hypertarget{results}{}
+				% \hyperlink{features}{\beamerbutton{Xem Bảng các đặc trưng}}
+				% \hypertarget{results}{}
 			\end{block}	
 			\begin{table}[]
 				\LARGE
@@ -400,7 +410,7 @@
 				\begin{itemize}
 					\item{Số lượng từ chỉ ý kiến trong tập dữ liệu vẫn chưa nhiều (chỉ có 442 trong số 2634 cụm từ chỉ đối tượng, thuộc tính có từ chỉ ý kiến đi kèm) $\Rightarrow$ Đặc trưng EOA vẫn chưa ảnh hưởng nhiều đến hệ thống.}
 					\item{Các từ chỉ ý kiến trong tập dữ liệu vẫn chưa có tính đặc trưng cao, ví dụ như tính từ \textit{good}, \textit{nice}, \textit{better}, \textit{great}.}
-					\item{Theo giả thuyết cặp nào có giá trị đặc trưng EOA càng nhỏ thì càng có khả năng đồng tham chiếu. Tuy nhiên trên thực tế có những trường hợp ngược lại.}					
+					% \item{Theo giả thuyết cặp nào có giá trị đặc trưng EOA càng nhỏ thì càng có khả năng đồng tham chiếu. Tuy nhiên trên thực tế có những trường hợp ngược lại.}					
 					\item{Giải thuật tìm thiên hướng ý kiến gắn với đối tượng/thuộc tính được nêu ra trong câu vẫn còn đơn giản và chỉ cho kết quả đúng đối với các câu tương đối đơn giản.}
 				\end{itemize}
 			\end{block}
@@ -482,5 +492,19 @@
 		\end{frame}
 
 		\begin{frame}{Phụ lục: Pointwise Mutual Information (PMI)}
+			\footnotetext{Fano, R., 1961.
+			\textit{Transmission of Information}.
+			MIT Press Cambridge, Massachussetts. 
+			}
+				\begin{center}
+						\begin{equation*}
+						PMI(NP,OW) = log\frac{(P(NP,OW)}{P(NP)\times P(OW)}
+						\end{equation*}
+				\end{center}
+				\begin{itemize} 
+						\item{P(NP): Xác suất cụm danh từ xuất hiện trong tập dữ liệu T.}
+						\item{P(OW): Xác suất từ chỉ ý kiến xuất hiện trong tập dữ liệu T.}
+						\item{P(NP,OW): Xác suất cụm danh từ và từ chỉ ý kiến cùng xuất hiện trong một câu trong tập dữ liệu T.}
+					\end{itemize}
 		\end{frame}
 \end{document}
