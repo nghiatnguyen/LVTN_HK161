@@ -1,6 +1,6 @@
 %% Creator: Inkscape 0.91_64bit, www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
-%% Accompanies image file 'general_model.pdf' (pdf, eps, ps)
+%% Accompanies image file '4.pdf' (pdf, eps, ps)
 %%
 %% To include the image in your LaTeX document, write
 %%   \input{<filename>.pdf_tex}
@@ -36,7 +36,7 @@
   }%
   \providecommand\rotatebox[2]{#2}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{404.8bp}%
+    \setlength{\unitlength}{128.8bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -48,23 +48,14 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.51581028)%
-    \put(0,0){\includegraphics[width=\unitlength,page=1]{general_model.pdf}}%
-    \put(0.08893281,0.46343874){\makebox(0,0)[b]{\smash{Văn bản}}}%
-    \put(0.08893281,0.42786561){\makebox(0,0)[b]{\smash{chứa ý kiến}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=2]{general_model.pdf}}%
-    \put(0.08893281,0.24802372){\makebox(0,0)[b]{\smash{\textbf{Tiền xử lý}}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=3]{general_model.pdf}}%
-    \put(0.87944664,0.06818182){\makebox(0,0)[b]{\smash{Các chuỗi}}}%
-    \put(0.87944664,0.0326087){\makebox(0,0)[b]{\smash{đồng tham chiếu}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=4]{general_model.pdf}}%
-    \put(0.35573123,0.26581028){\makebox(0,0)[b]{\smash{\textbf{Trích xuất}}}}%
-    \put(0.35573123,0.23023715){\makebox(0,0)[b]{\smash{\textbf{cụm danh từ}}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=5]{general_model.pdf}}%
-    \put(0.62252964,0.26581028){\makebox(0,0)[b]{\smash{\textbf{Rút trích}}}}%
-    \put(0.62252964,0.23023715){\makebox(0,0)[b]{\smash{\textbf{đặc trưng}}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=6]{general_model.pdf}}%
-    \put(0.87944664,0.26581028){\makebox(0,0)[b]{\smash{\textbf{Phân loại và}}}}%
-    \put(0.87944664,0.23023715){\makebox(0,0)[b]{\smash{\textbf{gom cụm}}}}%
+  \begin{picture}(1,1.0621118)%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{4.pdf}}%
+    \put(0.49689441,0.21428571){\makebox(0,0)[b]{\smash{Tạo chuỗi }}}%
+    \put(0.49689441,0.10248447){\makebox(0,0)[b]{\smash{đồng tham chiếu}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{4.pdf}}%
+    \put(0.49689441,0.89130435){\makebox(0,0)[b]{\smash{Xây dựng hệ thống }}}%
+    \put(0.49689441,0.77950311){\makebox(0,0)[b]{\smash{phân loại }}}%
+    \put(0.49689441,0.66770186){\makebox(0,0)[b]{\smash{(Cây quyết định)}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{4.pdf}}%
   \end{picture}%
 \endgroup%

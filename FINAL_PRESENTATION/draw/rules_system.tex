@@ -1,0 +1,37 @@
+% \documentclass{article}
+% \usepackage{tikz}
+% \usepackage[utf8]{vietnam}
+
+% \begin{document}
+% \usetikzlibrary{arrows,chains,positioning,scopes}
+
+\tikzset{    
+    arrow/.style={->, thick},
+    block/.style={draw,text width=3.5em,minimum height=5em,minimum width=4em,align=center}
+}
+
+\begin{tikzpicture}[node distance=2.5cm]
+        \node [draw] (np) {Phát hiện các cụm danh từ};        
+        \node (table) [shape=rectangle,draw, below of=np] {
+            \begin{tabular}{c}
+                \hline
+                Luật 1: Xác định người nói \\ \hline
+                Luật 2: Trùng chuỗi \\ \hline
+                . \\ \hline
+                . \\ \hline
+                . \\ \hline                
+                Luật 10: Đại từ giống nhau \\ \hline
+            \end{tabular}
+        };
+        \node [draw, below of=table] (coref) {Các chuỗi đồng tham chiếu};
+        \node [above left = 1cm of table] (top_left){};
+        \node [below left = 1cm of table] (bottom_left){};
+        \node [above right = 1cm of table] (top_right){};
+        \node [below right = 1cm of table] (bottom_right){};
+        \draw [arrow] (table) -- (coref);
+        \draw [arrow] (np) -- (table);        
+        \path [draw,arrow] (top_left) --node{}(bottom_left) node [block,pos=0.5,left=0.5cm,font=\footnotesize] {Độ chính xác (Precision) giảm dần};
+        \path [draw,arrow] (top_right) --node{}(bottom_right) node [block,pos=0.5,right=0.5cm,font=\footnotesize] {Độ phủ (Recall) tăng dần};        
+\end{tikzpicture}
+
+% \end{document}
