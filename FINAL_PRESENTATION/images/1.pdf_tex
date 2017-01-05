@@ -1,6 +1,6 @@
 %% Creator: Inkscape 0.91_64bit, www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
-%% Accompanies image file 'general_model.pdf' (pdf, eps, ps)
+%% Accompanies image file '1.pdf' (pdf, eps, ps)
 %%
 %% To include the image in your LaTeX document, write
 %%   \input{<filename>.pdf_tex}
@@ -36,7 +36,7 @@
   }%
   \providecommand\rotatebox[2]{#2}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{404.8bp}%
+    \setlength{\unitlength}{128.8bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -48,23 +48,17 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.51581028)%
-    \put(0,0){\includegraphics[width=\unitlength,page=1]{general_model.pdf}}%
-    \put(0.08893281,0.46343874){\makebox(0,0)[b]{\smash{Văn bản}}}%
-    \put(0.08893281,0.42786561){\makebox(0,0)[b]{\smash{chứa ý kiến}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=2]{general_model.pdf}}%
-    \put(0.08893281,0.24802372){\makebox(0,0)[b]{\smash{\textbf{Tiền xử lý}}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=3]{general_model.pdf}}%
-    \put(0.87944664,0.06818182){\makebox(0,0)[b]{\smash{Các chuỗi}}}%
-    \put(0.87944664,0.0326087){\makebox(0,0)[b]{\smash{đồng tham chiếu}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=4]{general_model.pdf}}%
-    \put(0.35573123,0.26581028){\makebox(0,0)[b]{\smash{\textbf{Trích xuất}}}}%
-    \put(0.35573123,0.23023715){\makebox(0,0)[b]{\smash{\textbf{cụm danh từ}}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=5]{general_model.pdf}}%
-    \put(0.62252964,0.26581028){\makebox(0,0)[b]{\smash{\textbf{Rút trích}}}}%
-    \put(0.62252964,0.23023715){\makebox(0,0)[b]{\smash{\textbf{đặc trưng}}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=6]{general_model.pdf}}%
-    \put(0.87944664,0.26581028){\makebox(0,0)[b]{\smash{\textbf{Phân loại và}}}}%
-    \put(0.87944664,0.23023715){\makebox(0,0)[b]{\smash{\textbf{gom cụm}}}}%
+  \begin{picture}(1,2.49069876)%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{1.pdf}}%
+    \put(0.49689441,0.30125776){\makebox(0,0)[b]{\smash{Danh sách các từ đã }}}%
+    \put(0.49689441,0.18945652){\makebox(0,0)[b]{\smash{được gán nhãn từ loại}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{1.pdf}}%
+    \put(0.49689441,2.27020186){\makebox(0,0)[b]{\smash{Tiền xử lý văn bản thô}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{1.pdf}}%
+    \put(0.49689441,1.08386646){\makebox(0,0)[b]{\smash{Tách từ và }}}%
+    \put(0.49689441,0.97206522){\makebox(0,0)[b]{\smash{gán nhãn từ (POS)}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{1.pdf}}%
+    \put(0.49689441,1.64908385){\makebox(0,0)[b]{\smash{Tách câu}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{1.pdf}}%
   \end{picture}%
 \endgroup%
