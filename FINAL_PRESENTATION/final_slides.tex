@@ -279,20 +279,50 @@
 	In Proceedings of the 40th Annual Meeting of the Association for Computational Linguistics, pages 104–111.}
 	\end{frame}
 
+
 	\begin{frame}{Xây dựng dữ liệu học và kiểm tra (tt)}
-		\begin{block}{Đặc trưng Tính nhất quán về ý kiến (SC)}			
+		\begin{block}{Đặc trưng Sự kết hợp giữa thực thể và từ chỉ ý kiến (EOA)}			
+			Từ chỉ ý kiến: good, bad, expensive, cheap,... \\ 
+			Ví dụ:\\
+			\textit{I love the \underline{nokia n95} but not sure how strong \underline{the flash} would be? And also \underline{it} is quite \underline{expensive}, so anyone got any ideas?} \\
+			Hiện thực:
+				\begin{itemize}
+					\item{Xác định từ chỉ ý kiến kèm theo cụm danh từ.}
+					\item{Xác định quan hệ từ chỉ ý kiến với các cụm danh từ. 
+						\begin{equation*}
+						PMI(NP,OW) = log\frac{(P(NP,OW)}{P(NP)\times P(OW)}
+						\end{equation*}
+				}
+					\item{Xếp hạng các mối quan hệ giữa từ chỉ ý kiến với các cụm danh từ.}
+				\end{itemize}
+
+		\end{block}	
+	\end{frame}
+
+	\begin{frame}{Xây dựng dữ liệu học và kiểm tra (tt)}
+		\begin{block}{Đặc trưng Tính nhất quán về ý kiến (SC)}		
 			Ví dụ:\\
 			\begin{itemize}				
 				\item[$\bullet$]{\textit{\underline{The N73} is my favorite. \underline{It} can produce great pictures.}}
 				\item[$\bullet$]{\textit{\underline{The K800} is awesome. \underline{That phone} has short battery life.}}
 				\item[$\bullet$]{\textit{\underline{The XBR4} is brighter than \underline{the 5080}. Overall, \underline{it} is a great choice.}}
+			\end{itemize}
+			Hiện thực: \\
+				\begin{itemize}
+					\item{Xác định thiên hướng ý kiến (tích cực, tiêu cực) của mỗi cụm danh từ.}
+					\item{So sánh thiên hướng giữa các cặp cụm danh từ.}
+				\end{itemize}
+			Giá trị đặc trưng: \\
+			\begin{itemize}
+				\item{SC = 0: Hai cụm danh từ nằm trong hai câu liên tiếp khác thiên hướng ý kiến}
+				\item{SC = 1: Hai cụm danh từ nằm trong hai câu liên tiếp có cùng thiên hướng ý kiến}
+				\item{SC = 2: Một trong hai cụm danh từ không xác định được thiên hướng ý kiến hoặc chúng không nằm trong hai câu liên tiếp}
 			\end{itemize}									
 		\end{block}	
-		\begin{block}{Đặc trưng Sự kết hợp giữa thực thể và từ chỉ ý kiến (EOA)}			
-			Ví dụ:\\
-			\textit{I love the \underline{nokia n95} but not sure how strong \underline{the flash} would be? And also \underline{it} is quite \underline{expensive}, so anyone got any ideas?}			
-		\end{block}			
+				
 	\end{frame}	
+
+	
 
 	\subsection{Tạo bộ phân loại và gom cụm}
 	\begin{frame}{Tạo bộ phân loại và gom cụm}		
