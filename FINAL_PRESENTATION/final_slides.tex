@@ -1,5 +1,4 @@
 \documentclass[9pt,xcolor=table,hyperref=unicode]{beamer}
-\setbeamertemplate{background canvas}[vertical shading][bottom=red!10,top=blue!10]
 \usetheme{Berkeley}
 \usepackage[utf8]{vietnam}
 \usepackage{tikz}
@@ -13,7 +12,7 @@
 \graphicspath{ {images/} }
 \usepackage{xcolor}
 
-\setbeamerfont{page number in head/foot}{size=\tiny}
+\setbeamerfont{page number in head/foot}{size=\small}
 \setbeamertemplate{footline}[frame number]
 
 \newcommand{\inlineitem}{%
@@ -35,6 +34,16 @@
  \setcounter{newenumi}{1}
 }
 
+\setbeamertemplate{footline}{% 
+  \hfill% 
+  \usebeamercolor[fg]{page number in head/foot}% 
+  \usebeamerfont{page number in head/foot}% 
+  \insertframenumber%  
+  \kern1em\vskip2pt% 
+}
+
+\setbeamercolor{page number in head/foot}{fg=black}
+
 %---------------SET FOR DIAGRAM------------------------------
 \usetikzlibrary{arrows,chains,positioning,scopes}
 
@@ -45,10 +54,12 @@
 
 \begin{document}
 	\setbeamertemplate{sidebar left}[sidebar theme]
+	\setbeamertemplate{enumerate/enumerate body begin}{\HUGE}
 	
 	\title{Luận văn tốt nghiệp}
-	\subtitle{Phân giải đồng tham chiếu cho các đối tượng và thuộc tính trong khai khoáng ý kiến}
+	\subtitle{\fontsize{16pt}{16}\selectfont Phân giải đồng tham chiếu cho \\ các đối tượng và thuộc tính trong \\ khai khoáng ý kiến}
 	\author[]{
+		\normalsize
 		\begin{tabular}{ll}
 			Nguyễn Trọng Nghĩa & 51202370 \\
 			Nguyễn Đăng Trang & 51203957 \\
@@ -70,13 +81,14 @@
 
 	\begin{frame}{Nội dung trình bày}
 		\LARGE
-		\begin{itemize}			
+		\begin{enumerate}
+			\itemsep1.5em 
 			\item{Tổng quan đề tài}
 			\item{Các công trình liên quan}
 			\item{Phương pháp đề xuất}
 			\item{Thực nghiệm và đánh giá}
 			\item{Tổng kết}
-		\end{itemize}
+		\end{enumerate}
 	\end{frame}
 
 
@@ -99,16 +111,12 @@
 		\begin{block}{Động cơ thực hiện đề tài}
 			\begin{itemize}	
 				\item{Thương mại điện tử đang phát triển mạnh mẽ và người dùng ngày càng có nhu cầu thể hiện ý kiến lên các sản phẩm trên mạng.}
-				\item{Nếu không có phân giải đồng tham chiếu cho các đối tượng và thuộc tính, ý kiến của người viết rất có thể sẽ được gán không đúng cho các thực thể.}				
-				\item{Cải thiện 10\% kết quả Khai khoáng ý kiến (theo Nicolas Nicolov \footnotemark).}
-			\end{itemize}					
+				\item{Nếu không có phân giải đồng tham chiếu cho các đối tượng và thuộc tính, ý kiến của người viết rất có thể sẽ được gán không đúng cho các thực thể.}								
+			\end{itemize}		
 		\end{block}		
 		\begin{block}{Ví dụ}						
 			\textit{The Galaxy III} is pretty cool. \underline{It}'s a plastic phone, but \underline{it} feels solid even though \underline{it}'s very light. \textit{The screen} looks great. \underline{It} is very sharp.
 		\end{block}
-		\footnotetext[1]{N. Nicolov, F. Salvetti and S. Ivanova. 2008.
-			\textit{Sentiment analysis: Does coreference matter?}.
-			In AISB 2008 Convention Communication, Interaction and Social Intelligence.}
 	\end{frame}
 
 	\begin{frame}
@@ -120,11 +128,11 @@
 			\begin{itemize}
 				\item{Giả định rằng các đối tượng và thuộc tính đã được tìm ra \footnotemark \textsuperscript{,} \footnotemark}
 			\end{itemize}
-			\footnotetext[2]{Minqing Hu and Bing Liu. 2004.
+			\footnotetext[1]{Minqing Hu and Bing Liu. 2004.
 				\textit{Mining and Summarizing Customer Reviews}.
 				In Proceedings of the ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (KDD-2004), Aug 22-25, 2004, Seattle, Washington, USA.
 			}
-			\footnotetext[3]{A-M. Popescu and O. Etzioni. 2005. 
+			\footnotetext[2]{A-M. Popescu and O. Etzioni. 2005. 
 				\textit{Extracting product features and opinions from reviews}.
 				EMNLP’05.
 			}
@@ -136,7 +144,7 @@
 	\begin{frame}
 		\frametitle{Các công trình liên quan}
 		\begin{block}{Đồng tham chiếu}
-			Kể từ những năm 1960 đến nay đã có nhiều công trình nghiên cứu, với nhiều mô hình, nhiều hướng tiếp cận giải quyết khác nhau.
+			Kể từ những năm 1960 đến nay đã có nhiều công trình nghiên cứu.
 			\begin{itemize}
 				\item{Các mô hình: Mô hình cặp, mô hình hướng thực thể, mô hình xếp hạng}
 				\item{Các hướng tiếp cận: Học có giám sát, học không giám sát, hệ thống luật}
@@ -148,11 +156,11 @@
 				\item{Ding và Liu (2010): Phân giải đồng tham chiếu đối tượng và thuộc tính \footnotemark}
 			\end{itemize}
 		\end{block}
-		\footnotetext[4]{Veselin Stoyanov and Claire Cardie. 2006.
+		\footnotetext[3]{Veselin Stoyanov and Claire Cardie. 2006.
 			\textit{Partially supervised coreference resolution for opinion summarization through structured rule learning}.
 			In Proceedings of the 2006 Conference on Empirical Methods in Natural Language
 			Processing (EMNLP), pages 336-344.}
-		\footnotetext[5]{Xiaowen Ding and Bing Liu. 2010.
+		\footnotetext[4]{Xiaowen Ding and Bing Liu. 2010.
 			\textit{Resolving Object and Attribute Coreference in Opinion Mining}. 
 			In Proceedings of International Conference on Computational Linguistics (COLING-2010). 2010.}		
 	\end{frame}
@@ -164,66 +172,75 @@
 			\LARGE 
 			\centering				
 			\resizebox{100mm}{!}{\input{images/general_model.pdf_tex}}
-			\caption{Tổng quan quy trình phân giải đồng tham chiếu}	
-			\label{fig:generalmodel}						
+			\caption{Tổng quan quy trình phân giải đồng tham chiếu}									
 		\end{figure}
 	\end{frame}	
 
 	\subsection{Tiền xử lý}	
 	\begin{frame}{Tiền xử lý}		
 		\begin{columns}[t]
-			\begin{column}{0.4\textwidth}				
+			\begin{column}{0.7\textwidth}				
 			   	\begin{block}{Tiền xử lý văn bản thô}
 	   				Sửa lỗi chính tả và một số lỗi nhỏ khác do cách viết không chuẩn mực của người dùng.
 				\end{block}
+				\begin{block}{Tách câu, tách từ và gán nhãn từ loại}
+					\begin{itemize}			   		
+		   				\item{Dùng công cụ Stanford \footnotemark}
+		   				\item{Dựa theo Penn Treebank POS Tag \footnotemark}
+		   			\end{itemize}
+				\end{block}
 			\end{column}
-			\begin{column}{0.6\textwidth}  %%<--- here				
+			\begin{column}{0.3\textwidth}  %%<--- here				
 			 	\begin{figure}[H]
-					\LARGE 
+					\fontsize{13pt}{13}\selectfont 
 					\centering				
-					\resizebox{65mm}{!}{\input{images/GD_1.pdf_tex}}	
+					\resizebox{20mm}{!}{\input{images/1.pdf_tex}}	
 				\end{figure}				
 			\end{column}
 		\end{columns}
-		\begin{columns}[t]
+		\begin{columns}[t]			
 			\begin{column}{\textwidth}				
-			   	\begin{block}{Tách câu, tách từ và gán nhãn từ loại}			   		
-		   			\color{blue!60!black}\inlineitem{\color{black}Dùng công cụ Stanford \footnotemark}
-		   			\color{blue!60!black}\inlineitem{\color{black}Dựa theo Penn Treebank POS Tag \footnotemark}
-				\end{block}
+			   	\begin{figure}[H]
+					\LARGE 
+					\resizebox{100mm}{!}{\input{images/B1.pdf_tex}}										
+				\end{figure}
 			\end{column}			
 		\end{columns}
-		\footnotetext[6]{http://stanfordnlp.github.io/CoreNLP}
-		\footnotetext[7]{http://web.mit.edu/6.863/www/PennTreebankTags.html}
+		\footnotetext[5]{http://stanfordnlp.github.io/CoreNLP}
+		\footnotetext[6]{http://web.mit.edu/6.863/www/PennTreebankTags.html}
 	\end{frame}
 
 	\subsection{Trích xuất cụm danh từ}
-	\begin{frame}{Trích xuất cụm danh từ}		
+	\begin{frame}{Trích xuất cụm danh từ}			
 		\begin{columns}[t]
-			\begin{column}{0.4\textwidth}
+			\begin{column}{0.7\textwidth}
 			   	\begin{block}{Tìm các cụm danh từ}
-	   				Dùng công cụ CRFChunker \footnotemark.
+	   				Dựa vào công cụ CRFChunker \footnotemark.
 				\end{block}
 				\begin{block}{Lọc lại các cụm danh từ}
 			   		Loại một số cụm danh từ vì chúng không thể chỉ về đối tượng hoặc thuộc tính.				
 				\end{block}
+				\begin{block}{Gán nhãn cụm danh từ}					
+					\textit{Ví dụ:} \fontsize{9pt}{9}\selectfont <0,-1,0 The Note 3> is a lot lighter than <1,-1,0 my HTC EVO>. <2,0,2 It>'s very fast and has <3,0,1 so many features> that <4,-1,0 an IPhone5> can't touch. 
+				\end{block}
 			\end{column}
-			\begin{column}{0.6\textwidth}  %%<--- here
+			\begin{column}{0.3\textwidth}  %%<--- here
 			 	\begin{figure}[H]
-					\LARGE 
+					\fontsize{13pt}{13}\selectfont
 					\centering				
-					\resizebox{65mm}{!}{\input{images/GD_2.pdf_tex}}	
+					\resizebox{20mm}{!}{\input{images/2.pdf_tex}}	
 				\end{figure}
 			\end{column}
 		\end{columns}
-		\footnotetext[8]{http://crfchunker.sourceforge.net}
 		\begin{columns}[t]
-			\begin{column}{\textwidth}
-			   	\begin{block}{Gán nhãn cụm danh từ}					
-					\textit{Ví dụ:} <0,-1,0 The Note 3> is a lot lighter than <1,-1,0 my HTC EVO>. <2,0,2 It>'s very fast and has <3,0,1 so many features> that <4,-1,0 an IPhone5> can't touch. 
-				\end{block}					
+			\begin{column}{\textwidth}				
+			   	\begin{figure}[H]
+					\LARGE 
+					\resizebox{100mm}{!}{\input{images/B2.pdf_tex}}										
+				\end{figure}
 			\end{column}			
 		\end{columns}
+		\footnotetext[7]{http://crfchunker.sourceforge.net}		
 	\end{frame}
 
 	\begin{frame}{Trích xuất cụm danh từ (tt)}
@@ -234,73 +251,60 @@
 		\end{figure}
 	\end{frame}
 
-	\subsection{Xây dựng dữ liệu học và kiểm tra}
-	\begin{frame}{Xây dựng dữ liệu học và kiểm tra}				
+	\subsection{Rút trích đặc trưng}
+	\begin{frame}{Rút trích đặc trưng}				
 		\begin{columns}[t]
-			\begin{column}{0.4\textwidth}
+			\begin{column}{0.7\textwidth}
 			   	\begin{block}{Tạo các cặp cụm danh từ}
 					Có ít nhất một đối tượng hoặc thuộc tính trong mỗi cặp cụm danh từ được tạo.
 				\end{block}
+				\begin{block}{Tạo các vectơ đặc trưng}										
+					Tạo vectơ đặc trưng cho mỗi cặp cụm danh từ
+				\end{block}
 			\end{column}
-			\begin{column}{0.6\textwidth}  %%<--- here
+			\begin{column}{0.3\textwidth}  %%<--- here
 			 	\begin{figure}[H]
-					\LARGE 
+					\fontsize{13pt}{13}\selectfont
 					\centering				
-					\resizebox{65mm}{!}{\input{images/GD_3.pdf_tex}}	
+					\resizebox{20mm}{!}{\input{images/3.pdf_tex}}	
 				\end{figure}
 			\end{column}
 		\end{columns}
-		\begin{columns}[t]
-			\begin{column}{\textwidth}
-			   	\begin{block}{Tạo các vectơ đặc trưng}										
-					$(<f_{1},f_{2},f_{3},…,f_{n}>, y)$
-					\begin{itemize}
-						\item{$<f_{1},f_{2},f_{3},…,f_{n}>$: tập đặc trưng}
-						\item{$y$: giá trị phân loại}										
-					\end{itemize}
-				\end{block}					
+		\begin{columns}[t]			
+			\begin{column}{\textwidth}				
+			   	\begin{figure}[H]
+					\LARGE 
+					\resizebox{100mm}{!}{\input{images/B3.pdf_tex}}										
+				\end{figure}
 			\end{column}			
 		\end{columns}
 	\end{frame}	
 
-	\begin{frame}{Xây dựng dữ liệu học và kiểm tra (tt)}		
+	\begin{frame}{Rút trích đặc trưng (tt)}		
 		\begin{table}[]		
 		\parbox{\textwidth}{
 			\centering			
-			\fontsize{6pt}{7}\selectfont		
-			\include{draw/features_table}	
-			\caption{Các đặc trưng được sử dụng trong hệ thống}
+			\fontsize{8pt}{10}\selectfont		
+			\include{draw/features_table_main}	
+			\caption{Các đặc trưng được sử dụng trong hệ thống \footnotemark \textsuperscript{,} \footnotemark}
 		}
-		\end{table}
-		\hypertarget{features}{}		
-	\end{frame}	
-
-	\begin{frame}{Xây dựng dữ liệu học và kiểm tra (tt)}		
-		\begin{table}[]		
-		\parbox{\textwidth}{
-			\centering
-			\fontsize{6pt}{7}\selectfont			
-			\include{draw/features_table_2}	
-			\caption{Các đặc trưng được sử dụng trong hệ thống (tt)}
-		}
-		\end{table}
-		% \hyperlink{results}{\beamerbutton{Kết quả thực nghiệm}}
-		\footnotetext[1]{Wee Meng Soon, Hwee Tou Ng, and Daniel Chung Yong Lim. 2001.
+		\end{table}					
+		\footnotetext[8]{Soon, Ng, and Lim. 2001.
 	\textit{A machine learning approach to coreference resolution of noun phrases}.
 	Computational Linguistics, 27(4):521–544.}
-		\footnotetext[2]{Vincent Ng and Claire Cardie. 2002.
+		\footnotetext[9]{Vincent Ng and Claire Cardie. 2002.
 	\textit{Improving Machine Learning Approaches to Coreference Resolution}.
-	In Proceedings of the 40th Annual Meeting of the Association for Computational Linguistics, pages 104–111.}
-	\end{frame}
+	Computational Linguistics, pages 104–111.}	
+	\end{frame}	
 
-	\begin{frame}{Xây dựng dữ liệu học và kiểm tra (tt)}
-		\begin{block}{Đặc trưng Tính nhất quán về ý kiến (SC)}			
-			Ví dụ:\\
-			\begin{itemize}				
-				\item[$\bullet$]{\textit{\underline{The N73} is my favorite. \underline{It} can produce great pictures.}}
-				\item[$\bullet$]{\textit{\underline{The K800} is awesome. \underline{That phone} has short battery life.}}
-				\item[$\bullet$]{\textit{\underline{The XBR4} is brighter than \underline{the 5080}. Overall, \underline{it} is a great choice.}}
-			\end{itemize}									
+	\begin{frame}{Rút trích đặc trưng (tt)}
+		\begin{block}{Đặc trưng Tính nhất quán về ý kiến (SC)}						
+			Ví dụ:\\					
+			\begin{enumerate}				
+				\item{\textit{\underline{The N73} is my favorite. \underline{It} can produce great pictures.}}
+				\item{\textit{\underline{The K800} is awesome. \underline{That phone} has short battery life.}}
+				\item{\textit{\underline{The XBR4} is brighter than \underline{the 5080}. Overall, \underline{it} is a great choice.}}
+			\end{enumerate}								
 		\end{block}	
 		\begin{block}{Đặc trưng Sự kết hợp giữa thực thể và từ chỉ ý kiến (EOA)}			
 			Ví dụ:\\
@@ -308,27 +312,31 @@
 		\end{block}			
 	\end{frame}	
 
-	\subsection{Tạo bộ phân loại và gom cụm}
-	\begin{frame}{Tạo bộ phân loại và gom cụm}		
+	\subsection{Phân loại và gom cụm}
+	\begin{frame}{Phân loại và gom cụm}		
 		\begin{columns}[t]
-			\begin{column}{0.4\textwidth}
-			   	\begin{block}{Tạo bộ phân loại}
+			\begin{column}{0.6\textwidth}
+			   	\begin{block}{Phân loại}
 					Giải thuật cây quyết định J48 (trên Weka) được sử dụng để phân loại cho các cặp ứng viên.
-				\end{block}				
+				\end{block}	
+				\begin{block}{Tạo chuỗi đồng tham chiếu (Gom cụm)}
+			   		(A,B) và (B,C) đồng tham chiếu $\Rightarrow$ Cụm đồng tham chiếu (A,B,C) (nhờ vào tính bắc cầu).
+				\end{block}			
 			\end{column}
-			\begin{column}{0.6\textwidth}  %%<--- here
+			\begin{column}{0.4\textwidth}  %%<--- here
 			 	\begin{figure}[H]
-					\LARGE 
+					\fontsize{13pt}{13}\selectfont
 					\centering				
-					\resizebox{65mm}{!}{\input{images/GD_4.pdf_tex}}	
+					\resizebox{20mm}{!}{\input{images/4.pdf_tex}}	
 				\end{figure}
 			\end{column}
 		\end{columns}
-		\begin{columns}[t]
-			\begin{column}{\textwidth}
-			   	\begin{block}{Gom cụm}
-			   		(A,B) và (B,C) đồng tham chiếu $\Rightarrow$ Cụm đồng tham chiếu (A,B,C) (nhờ vào tính bắc cầu).
-				\end{block}					
+		\begin{columns}[t]			
+			\begin{column}{\textwidth}				
+			   	\begin{figure}[H]
+					\LARGE 
+					\resizebox{100mm}{!}{\input{images/B4.pdf_tex}}										
+				\end{figure}
 			\end{column}			
 		\end{columns}
 	\end{frame}
@@ -336,13 +344,16 @@
 	\section{Thực nghiệm và đánh giá}				
 		\begin{frame}{Thực nghiệm và đánh giá}			
 			\begin{block}{Dữ liệu thực nghiệm}
-				Dữ liệu được thu thập từ các bài đánh giá (review) trên \textit{amazon.com} và các bài thảo luận (discussion) từ \textit{http://www.howardforums.com}. Đây là các bài đánh giá và thảo luận về điện thoại. Tập dữ liệu gồm 157 bài, với mỗi bài có trung bình 7-8 câu.
+				\begin{itemize}
+				 	\item Nguồn: \textit{amazon.com}, \textit{howardforums.com}
+				 	\item Gồm 157 bài, mỗi bài trung bình 7-8 câu.
+				 \end{itemize}				
 			\end{block}
 			\begin{figure}[H]
 				\centering				
 				\noindent\fbox{
 				    \parbox{0.9\textwidth}{
-				        The fact that the GS5 is from Samsung makes it the Z2's biggest competitor. The Z2's strongest points are the side-mounted camera button. The Z2 has slightly louder speakers, slightly better battery life than the GS5. It has a fingerprint reader for easier unlocking, a better looking screen and a removable battery. Between the two phones, I'd pick the GS5 for its brighter display and for the ease of use the fingerprint reader brings. That said, watch out because the GS5 doesn't use on-screen menu buttons so handling it can be tricky unless you stick it in a case.
+				        The fact that the \textcolor{red}{GS5} is from Samsung makes it \textcolor{red}{the Z2}'s biggest competitor. \textcolor{red}{The Z2}'s strongest points are \textcolor{blue}{the side-mounted camera button}. \textcolor{red}{The Z2} has slightly louder \textcolor{blue}{speakers}, slightly better \textcolor{blue}{battery life} than \textcolor{red}{the GS5}. It has \textcolor{blue}{a fingerprint reader} for easier unlocking, a better looking \textcolor{blue}{screen} and a removable \textcolor{blue}{battery}. Between the two phones, I'd pick \textcolor{red}{the GS5} for its brighter \textcolor{blue}{display} and for the ease of use \textcolor{blue}{the fingerprint reader} brings. That said, watch out because \textcolor{red}{the GS5} doesn't use \textcolor{blue}{on-screen menu buttons} so handling it can be tricky unless you stick it in a \textcolor{blue}{case}.
 			    	}
 				}
 				\caption{Ví dụ về một bài đánh giá (review) lấy từ amazon.com}				
@@ -363,15 +374,15 @@
 					}					
 				\end{itemize}		
 			\end{block}					
-			\footnotetext[9]{Vilain, Marc, John Burger, John Aberdeen, Dennis Connolly and Lynette Hirschman. 1995.
+			\footnotetext[10]{Vilain, Marc, John Burger, John Aberdeen, Dennis Connolly and Lynette Hirschman. 1995.
 				\textit{A model-theoretic coreference scoring scheme}.
 				In Proceedings of the 6th Message Understanding Conference (MUC-6), pages 45–52.}
-			\footnotetext[10]{
+			\footnotetext[11]{
 				Amit Bagga and Breck Baldwin. 1998.
 				\textit{Algorithms for Scoring Coreference Chains}.
 				In The First International Conference on Language Resources and Evaluation Workshop on Linguistics Coreference.
 			}
-			\footnotetext[11]{
+			\footnotetext[12]{
 				Xiaoqiang Luo. 2005.
 				\textit{On coreference resolution performance metrics}.
 				In Proceedings of the Human Language Technology Conference and the 2005 Conference on Empirical Methods in Natural Language Processing, Vancouver, B.C., Canada, 6–8 October 2005, pages 25–32
@@ -379,33 +390,22 @@
 		\end{frame}		
 
 		\begin{frame}{Thực nghiệm và đánh giá (tt)}			
-			\begin{block}{Các hệ thống được đánh giá}
-				\footnotesize						
+			\begin{table}[]		
+			\parbox{\textwidth}{
+				\centering			
+				\fontsize{8pt}{10}\selectfont		
+				\include{draw/features_table_short}	
+				\caption{Tóm tắt các đặc trưng được sử dụng trong hệ thống}
+			}
+			\end{table}	
+			\begin{block}{Các hệ thống được đánh giá}								
 				\begin{itemize}
 					\item{Hệ thống cơ sở: Nhóm liên quan ngữ pháp + Nhóm liên quan từ vựng + Nhóm thuộc tính khác.}
 					\item{Hệ thống SC: Hệ thống cơ sở + \textit{Tính nhất quán về ý kiến (SC)}.}
 					\item{Hệ thống EOA: Hệ thống cơ sở + \textit{Sự kết hợp giữa thực thể và từ chỉ ý kiến (EOA)}.}
 					\item{Hệ thống đầy đủ: Tất cả đặc trưng.}
-				\end{itemize}
-				% \hyperlink{features}{\beamerbutton{Xem Bảng các đặc trưng}}
-				% \hypertarget{results}{}
-			\end{block}	
-			\begin{table}[]
-				\LARGE
-				\centering
-				\resizebox{\textwidth}{!}{								
-				\begin{tabular}{|l|cx{1cm}c|cx{1cm}c|cx{1cm}c|c|c|c|c|c|c|}
-				\hline
-				                & \multicolumn{3}{c|}{Hệ đo MUC} & \multicolumn{3}{c|}{Hệ đo B3} & \multicolumn{3}{c|}{Hệ đo CEAF-$\Phi_4$} \\ \hline
-				                & P        & R        & F        & P        & R        & F       & P         & R         & F         \\  \hline
-				Hệ thống cơ sở  &  0.757        &  0.534       &  0.621       &   0.794       &   0.524       & 0.626        & 0.621          & 0.557          &   0.586  \\ \hline
-				Hệ thống SC     &   0.742       &  0.630        &  0.680        & 0.735         &  0.608        &  0.661       &  0.666         & 0.593          & 0.627          \\ \hline
-				Hệ thống EOA 	&   0.735       &  0.558        &  0.632        & 0.766         &  0.542        &  0.632       &  0.616         & 0.568          & 0.591          \\ \hline
-				Hệ thống đầy đủ &  0.730        &   0.632       &  0.676        & 0.724         &  0.610        &   0.658      &  0.661         &  0.594         &  0.626         \\ \hline
-				\end{tabular}
-				}
-				\caption{Kết quả thực nghiệm}
-			\end{table}		
+				\end{itemize}								
+			\end{block}				
 		\end{frame}
 
 		\begin{frame}[t]{Thực nghiệm và đánh giá (tt)}								
@@ -430,28 +430,7 @@
 					\end{block}
 				\end{column}				
 			\end{columns}						
-		\end{frame}	
-
-		\begin{frame}{Thực nghiệm và đánh giá (tt)}
-			\begin{block}{Phân tích}
-				\begin{itemize}
-					\item{Số lượng từ chỉ ý kiến trong tập dữ liệu vẫn chưa nhiều (chỉ có 442 trong số 2634 cụm từ chỉ đối tượng, thuộc tính có từ chỉ ý kiến đi kèm) $\Rightarrow$ Đặc trưng EOA vẫn chưa ảnh hưởng nhiều đến hệ thống.}
-					\item{Các từ chỉ ý kiến trong tập dữ liệu vẫn chưa có tính đặc trưng cao, ví dụ như tính từ \textit{good}, \textit{nice}, \textit{better}, \textit{great}.}
-					% \item{Theo giả thuyết cặp nào có giá trị đặc trưng EOA càng nhỏ thì càng có khả năng đồng tham chiếu. Tuy nhiên trên thực tế có những trường hợp ngược lại.}					
-					\item{Giải thuật tìm thiên hướng ý kiến gắn với đối tượng/thuộc tính được nêu ra trong câu vẫn còn đơn giản và chỉ cho kết quả đúng đối với các câu tương đối đơn giản.}
-				\end{itemize}
-			\end{block}
-		\end{frame}
-
-		\begin{frame}{Thực nghiệm và đánh giá (tt)}			
-			\begin{block}{Phân tích (tt)}
-				\begin{itemize}
-					\item{Mỗi bài đánh giá xuất hiện nhiều đối tượng và thuộc tính $\Rightarrow$ Khó xác định đồng tham chiếu nếu không dựa vào hai đặc trưng liên quan đến khai khoáng ý kiến.}
-					\item{Một số trường hợp một đối tượng được diễn tả bởi nhiều tên gọi khác nhau mà không đặc trưng nào trong hệ thống phát hiện ra được. Ví dụ: \textit{the GS3}, \textit{the Samsung S3}, \textit{a new S3 SGH-I747 (US model) ATT phone}.}
-					\item{Đặc trưng \textit{Danh từ chính giống nhau} ảnh hưởng nhiều đến độ đúng đắn của hệ thống nhưng có một số trường hợp bắt sai. Ví dụ: \textit{the camera quality} và \textit{the image quality}.}
-				\end{itemize}
-			\end{block}
-		\end{frame}
+		\end{frame}					
 
 	\section{Tổng kết}
 		\begin{frame}{Tổng kết}			
@@ -519,9 +498,9 @@
 		\end{frame}
 
 		\begin{frame}{Phụ lục: Pointwise Mutual Information (PMI)}
-			\footnotetext{Fano, R., 1961.
-			\textit{Transmission of Information}.
-			MIT Press Cambridge, Massachussetts. 
+			\footnotetext[13]{Fano, R., 1961.
+				\textit{Transmission of Information}.
+				MIT Press Cambridge, Massachussetts. 
 			}
 				\begin{center}
 						\begin{equation*}
@@ -529,10 +508,10 @@
 						\end{equation*}
 				\end{center}
 				\begin{itemize} 
-						\item{P(NP): Xác suất cụm danh từ xuất hiện trong tập dữ liệu T.}
-						\item{P(OW): Xác suất từ chỉ ý kiến xuất hiện trong tập dữ liệu T.}
-						\item{P(NP,OW): Xác suất cụm danh từ và từ chỉ ý kiến cùng xuất hiện trong một câu trong tập dữ liệu T.}
-					\end{itemize}
+					\item{P(NP): Xác suất cụm danh từ xuất hiện trong tập dữ liệu T.}
+					\item{P(OW): Xác suất từ chỉ ý kiến xuất hiện trong tập dữ liệu T.}
+					\item{P(NP,OW): Xác suất cụm danh từ và từ chỉ ý kiến cùng xuất hiện trong một câu trong tập dữ liệu T.} \footnotemark
+				\end{itemize}
 		\end{frame}
 
 		\begin{frame}{Phụ lục: Công cụ CRFChunker}
@@ -558,7 +537,7 @@
 				}
 				\caption{Kết quả đầu ra của công cụ CRFChunker}				
 			\end{figure}
-			\footnotetext{Xuan-Hieu Phan, \textit{CRFChunker: CRF English Phrase Chunker}, http://crfchunker.sourceforge.net/, 2006.}
+			\footnotetext[14]{Xuan-Hieu Phan, \textit{CRFChunker: CRF English Phrase Chunker}, http://crfchunker.sourceforge.net/, 2006.}
 		\end{frame}
 
 		\begin{frame}{Phụ lục: Từ điển ý kiến và từ khóa so sánh}
@@ -576,16 +555,13 @@
 					\item Các từ đặc biệt: beat, outperform,...
 				\end{itemize}
 			\end{block}
-			\footnotetext{http://www.cs.uic.edu/~liub/FBS/opinion-lexicon-English.rar}
-		\end{frame}
-
-		\begin{frame}{Công trình của Nicolov}
+			\footnotetext[15]{http://www.cs.uic.edu/~liub/FBS/opinion-lexicon-English.rar}
 		\end{frame}
 
 		\begin{frame}{Công trình của Stoyanov và Cardie}
 		\end{frame}
 
-		\begin{frame}{Công trình của Ding và Liu (2010)}
+		\begin{frame}{Phụ lục: Công trình của Ding và Liu (2010)}
 			\begin{figure}[H]
 				\centering							
 				\includegraphics[scale=0.45]{images/base_features}				
@@ -593,7 +569,7 @@
 			\end{figure}
 		\end{frame}
 
-		\begin{frame}{Công trình của Ding và Liu (2010) (tt)}
+		\begin{frame}{Phụ lục: Công trình của Ding và Liu (2010) (tt)}
 			\begin{figure}[H]
 				\centering							
 				\includegraphics[scale=0.45]{images/base_result_1}				
@@ -606,7 +582,7 @@
 			\end{figure}
 		\end{frame}
 
-		\begin{frame}{Các công trình tìm đối tượng và thuộc tính}
+		\begin{frame}{Phụ lục: Các công trình tìm đối tượng và thuộc tính}
 			\begin{block}{Công trình của Hu và Liu (2004)}
 				Bài toán \textit{Khai phá và tóm tắt các bài đánh giá (review) của người dùng}, với 3 công việc: 
 				\begin{itemize}
@@ -620,7 +596,7 @@
 			\end{block}
 		\end{frame}		
 
-		\begin{frame}{Mô hình cặp (mention pair)}
+		\begin{frame}{Phụ lục: Mô hình cặp (mention pair)}
 			\begin{figure}[H]
 				\centering
 				\scalebox{.8}{\input{draw/mention_pair}}
@@ -629,7 +605,7 @@
 			\end{figure}
 		\end{frame}
 
-		\begin{frame}{Mô hình hướng thực thể (entity-mention)}
+		\begin{frame}{Phụ lục: Mô hình hướng thực thể (entity-mention)}
 			\begin{figure}[H]
 				\centering
 				\scalebox{.8}{\input{draw/entity_mention}}
@@ -638,13 +614,70 @@
 			\end{figure}
 		\end{frame}
 
-		\begin{frame}{Mô hình xếp hạng (ranking model)}
+		\begin{frame}{Phụ lục: Mô hình xếp hạng (ranking model)}
 			\begin{figure}[H]
 				\centering
 				\scalebox{.8}{\input{draw/ranking_model}}
 				\caption{Ý tưởng các bước của mô hình xếp hạng}
 				\label{fig:rankingmodel}
 			\end{figure}
+		\end{frame}
+
+		\begin{frame}{Phụ lục: Các đặc trưng được sử dụng}		
+			\begin{table}[]		
+			\parbox{\textwidth}{
+				\centering			
+				\fontsize{6pt}{7}\selectfont		
+				\include{draw/features_table}	
+				\caption{Các đặc trưng được sử dụng trong hệ thống}
+			}
+			\end{table}
+		\end{frame}	
+
+		\begin{frame}{Phụ lục: Các đặc trưng được sử dụng (tt)}				
+			\begin{table}[]		
+			\parbox{\textwidth}{
+				\centering
+				\fontsize{6pt}{7}\selectfont			
+				\include{draw/features_table_2}	
+				\caption{Các đặc trưng được sử dụng trong hệ thống (tt)}
+			}
+			\end{table}		
+		\end{frame}
+
+		\begin{frame}{Phụ lục: Kết quả thực nghiệm}
+			\begin{table}[]
+				\LARGE
+				\centering
+				\resizebox{\textwidth}{!}{								
+				\begin{tabular}{|l|cx{1cm}c|cx{1cm}c|cx{1cm}c|c|c|c|c|c|c|}
+				\hline
+				                & \multicolumn{3}{c|}{Hệ đo MUC} & \multicolumn{3}{c|}{Hệ đo B3} & \multicolumn{3}{c|}{Hệ đo CEAF-$\Phi_4$} \\ \hline
+				                & P        & R        & F        & P        & R        & F       & P         & R         & F         \\  \hline
+				Hệ thống cơ sở  &  0.757        &  0.534       &  0.621       &   0.794       &   0.524       & 0.626        & 0.621          & 0.557          &   0.586  \\ \hline
+				Hệ thống SC     &   0.742       &  0.630        &  0.680        & 0.735         &  0.608        &  0.661       &  0.666         & 0.593          & 0.627          \\ \hline
+				Hệ thống EOA 	&   0.735       &  0.558        &  0.632        & 0.766         &  0.542        &  0.632       &  0.616         & 0.568          & 0.591          \\ \hline
+				Hệ thống đầy đủ &  0.730        &   0.632       &  0.676        & 0.724         &  0.610        &   0.658      &  0.661         &  0.594         &  0.626         \\ \hline
+				\end{tabular}
+				}
+				\caption{Kết quả thực nghiệm}
+			\end{table}	
+		\end{frame}
+
+		\begin{frame}{Phụ lục: Phân tích}			
+			\begin{itemize}
+				\item{Số lượng từ chỉ ý kiến trong tập dữ liệu vẫn chưa nhiều (chỉ có 442 trong số 2634 cụm từ chỉ đối tượng, thuộc tính có từ chỉ ý kiến đi kèm) $\Rightarrow$ Đặc trưng EOA vẫn chưa ảnh hưởng nhiều đến hệ thống.}
+				\item{Các từ chỉ ý kiến trong tập dữ liệu vẫn chưa có tính đặc trưng cao, ví dụ như tính từ \textit{good}, \textit{nice}, \textit{better}, \textit{great}.}									
+				\item{Giải thuật tìm thiên hướng ý kiến gắn với đối tượng/thuộc tính được nêu ra trong câu vẫn còn đơn giản và chỉ cho kết quả đúng đối với các câu tương đối đơn giản.}
+			\end{itemize}			
+		\end{frame}
+
+		\begin{frame}{Phụ lục: Phân tích (tt)}			
+			\begin{itemize}
+				\item{Mỗi bài đánh giá xuất hiện nhiều đối tượng và thuộc tính $\Rightarrow$ Khó xác định đồng tham chiếu nếu không dựa vào hai đặc trưng liên quan đến khai khoáng ý kiến.}
+				\item{Một số trường hợp một đối tượng được diễn tả bởi nhiều tên gọi khác nhau mà không đặc trưng nào trong hệ thống phát hiện ra được. Ví dụ: \textit{the GS3}, \textit{the Samsung S3}, \textit{a new S3 SGH-I747 (US model) ATT phone}.}
+				\item{Đặc trưng \textit{Danh từ chính giống nhau} ảnh hưởng nhiều đến độ đúng đắn của hệ thống nhưng có một số trường hợp bắt sai. Ví dụ: \textit{the camera quality} và \textit{the image quality}.}
+			\end{itemize}			
 		\end{frame}
 
 \end{document}
