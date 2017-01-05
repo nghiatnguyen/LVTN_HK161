@@ -36,7 +36,7 @@
   }%
   \providecommand\rotatebox[2]{#2}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{128.8bp}%
+    \setlength{\unitlength}{144.8bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -48,17 +48,18 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,2.49069876)%
+  \begin{picture}(1,1.77348066)%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{1.pdf}}%
-    \put(0.49689441,0.30125776){\makebox(0,0)[b]{\smash{Danh sách các từ đã }}}%
-    \put(0.49689441,0.18945652){\makebox(0,0)[b]{\smash{được gán nhãn từ loại}}}%
+    \put(0.49723757,1.24585635){\makebox(0,0)[b]{\smash{Tiền xử lý văn bản thô}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{1.pdf}}%
-    \put(0.49689441,2.27020186){\makebox(0,0)[b]{\smash{Tiền xử lý văn bản thô}}}%
+    \put(0.49723757,0.52209945){\makebox(0,0)[b]{\smash{Tách từ và }}}%
+    \put(0.49723757,0.42265193){\makebox(0,0)[b]{\smash{gán nhãn từ loại}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{1.pdf}}%
-    \put(0.49689441,1.08386646){\makebox(0,0)[b]{\smash{Tách từ và }}}%
-    \put(0.49689441,0.97206522){\makebox(0,0)[b]{\smash{gán nhãn từ (POS)}}}%
+    \put(0.49723757,0.85911602){\makebox(0,0)[b]{\smash{Tách câu}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=4]{1.pdf}}%
-    \put(0.49689441,1.64908385){\makebox(0,0)[b]{\smash{Tách câu}}}%
+    \put(0.49723757,1.63259669){\makebox(0,0)[b]{\smash{Văn bản chứa ý kiến}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=5]{1.pdf}}%
+    \put(0.49723757,0.13535912){\makebox(0,0)[b]{\smash{Danh sách các từ đã được}}}%
+    \put(0.49723757,0.0359116){\makebox(0,0)[b]{\smash{gán nhãn từ loại}}}%
   \end{picture}%
 \endgroup%
