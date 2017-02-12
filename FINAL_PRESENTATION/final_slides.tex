@@ -96,15 +96,20 @@
 	\begin{frame}
 		\frametitle{Tổng quan đề tài}
 		\begin{block}{Giới thiệu đề tài}
-			\begin{itemize}
-				\itemsep0.8em
-				\item{\underline{Phân giải đồng tham chiếu} hướng đến việc tìm kiếm những từ, cụm từ cùng chỉ đến một khái niệm, thực thể trong thế giới thực.\\
-				Ví dụ:\\			
-					\textit{\textcolor{red}{Beckham} will visit Vietnam tomorrow. \textcolor{red}{He} will attend a football event in Saigon.}}
-				\item{Nội dung đề tài: Phân giải đồng tham chiếu cho \underline{đối tượng} và \underline{thuộc tính} trong các \underline{văn bản chứa ý kiến}.\\
-				Ví dụ:\\
-					\textit{\textcolor{red}{The Galaxy III} is pretty cool. It's a plastic phone, but it feels solid even though it's very light. \textcolor{blue}{The screen} looks great. It is very sharp.}}
-			\end{itemize}
+			\underline{Phân giải đồng tham chiếu} hướng đến việc tìm kiếm những từ, cụm từ cùng chỉ đến một khái niệm, thực thể trong thế giới thực.
+		\end{block}
+		\begin{block}{Ví dụ}
+			\textcolor{red}{Beckham} will visit Vietnam tomorrow. \textcolor{red}{He} will attend a football event in Saigon.
+		\end{block}					
+	\end{frame}
+
+	\begin{frame}  
+		\frametitle{Tổng quan đề tài (tt)}
+		\begin{block}{Giới thiệu đề tài (tt)}						
+			Nội dung đề tài: Phân giải đồng tham chiếu cho \underline{đối tượng} và \underline{thuộc tính} trong các \underline{văn bản chứa ý kiến}.
+		\end{block}
+		\begin{block}{Ví dụ}
+			\textcolor{red}{The Galaxy III} is pretty cool. It's a plastic phone, but it feels solid even though it's very light. \textcolor{blue}{The screen} looks great. It is very sharp.
 		\end{block}					
 	\end{frame}
 	
@@ -637,7 +642,7 @@
 					\item Từ điển này gồm 6800 từ (tích cực + tiêu cực), được bắt đầu tổng hợp từ bài báo (Hu và Liu, KDD-2004)
 				\end{itemize}
 			\end{block}
-			\begin{block}{Từ khóa so sánh}
+			\begin{block}{Từ khóa so sánh \footnotemark}
 				Gồm có 3 nhóm:
 				\begin{itemize}
 					\item Từ có nhãn từ loại là JJR, RBR
@@ -646,13 +651,14 @@
 				\end{itemize}
 			\end{block}
 			\footnotetext[14]{http://www.cs.uic.edu/~liub/FBS/opinion-lexicon-English.rar}
+			\footnotetext[15]{http://www.cs.uic.edu/~liub/FBS/data.tar.gz}
 		\end{frame}
 
 		\begin{frame}{Phụ lục: Công trình của Stoyanov và Cardie \footnotemark}
 			\begin{block}{Tóm tắt}
 				Phân giải cho chủ thể (người nêu ý kiến)
 			\end{block}
-			\footnotetext[15]{Veselin Stoyanov and Claire Cardie. 2006.
+			\footnotetext[16]{Veselin Stoyanov and Claire Cardie. 2006.
 			\textit{Partially supervised coreference resolution for opinion summarization through structured rule learning}.
 			In Proceedings of the 2006 Conference on Empirical Methods in Natural Language
 			Processing (EMNLP), pages 336-344.}
@@ -693,7 +699,7 @@
 			\end{block}
 		\end{frame}		
 
-		\begin{frame}{Phụ lục: Phương pháp xác định cụm danh từ gắn liền với từ chỉ ý kiến}
+		\begin{frame}{Phụ lục: Cách xác định cụm danh từ gắn liền với từ chỉ ý kiến}
 			\begin{block}{Từ chỉ ý kiến là trạng từ}
 				Cụm danh từ nằm bên trái gần nhất với trạng từ và giữa cụm danh từ và trạng từ tồn tại ít nhất một động từ \\
 				\textit{Ví dụ}: "It takes a photo quickly".
@@ -709,7 +715,7 @@
 			\end{block}
 		\end{frame}	
 
-		\begin{frame}{Phụ lục: Phương pháp xác định tên riêng}
+		\begin{frame}{Phụ lục: Cách xác định tên riêng}
 			\begin{itemize}
 				\item{Cụm danh từ có danh từ chính với nhãn là NNP, NNPS, CD được xác định là danh từ riêng: "The 620",...}
 				\item{Cụm danh từ riêng đặc biệt là \{"iphone", "iphones", "ipod", "ipad", "ipads"\}}
@@ -766,6 +772,52 @@
 			}
 			\end{table}		
 		\end{frame}
+
+		\begin{frame}{Phụ lục: Tính nhất quán về ý kiến}			
+			\textbf{Cách xác định thiên hướng ý kiến đối với cụm danh từ trong Câu đơn}
+			\begin{itemize}
+				\item{Xác định từ chỉ ý kiến đi kèm cụm danh từ (Tương tự trong đặc trưng EOA)}
+				\item{Xác định thiên hướng ý kiến của từ chỉ ý kiến (tích cực/tiêu cực), căn cứ vào từ điển ý kiến được cung cấp bởi Bing Liu}
+				\item{Xét các phép phủ định gắn với từ chỉ ý kiến, chúng làm đảo ngược thiên hướng ý kiến của từ đó. Ví dụ: \\
+					\begin{itemize}
+						\item{The battery is not \underline{good}.}
+						\item{This Nokia doesn't work \underline{well}.}
+						\item{This iPhone is not a \underline{good} phone.}
+					\end{itemize}}
+				\item{Thiên hướng ý kiến của từ chỉ ý kiến (sau khi xem xét đảo ngược) được gắn với cụm danh từ mà nó đi kèm}
+			\end{itemize}								
+		\end{frame}
+
+		\begin{frame}{Phụ lục: Tính nhất quán về ý kiến (tt)}
+			\textbf{Cách xác định thiên hướng ý kiến đối với cụm danh từ trong câu so sánh}
+			\begin{itemize}
+				\item{Câu so sánh được xác định dựa vào các từ khóa so sánh và các đối tượng được so sánh nằm ở 2 đầu của từ khóa so sánh}
+				\item{Xác định đối tượng ưu tiên dựa vào các từ khóa so sánh này}				
+			\end{itemize}
+			\begin{table}[]
+				\centering					
+				\begin{tabular}{ll}
+				\textbf{JJ/RB} & \textbf{Đối tượng ưu tiên}      \\
+				Tích cực       & Đối tượng trước từ khóa so sánh \\
+				Tiêu cực       & Đối tượng sau từ khóa so sánh  
+				\end{tabular}
+				\caption{Cách xác định đối tượng ưu tiên trong câu so sánh}					
+			\end{table}
+			\begin{table}[]
+				\centering					
+				\begin{tabular}{lll}
+				\textbf{more/less} & \textbf{JJ/RB} & \textbf{Đối tượng ưu tiên}      \\
+				more               & Tích cực       & Đối tượng trước từ khóa so sánh \\
+				more               & Tiêu cực       & Đối tượng sau từ khóa so sánh   \\
+				less               & Tích cực       & Đối tượng sau từ khóa so sánh   \\
+				less               & Tiêu cực       & Đối tượng trước từ khóa so sánh
+				\end{tabular}
+				\caption{Cách xác định đối tượng ưu tiên trong câu so sánh (tt)}					
+			\end{table}
+			\begin{itemize}
+				\item{Đối với các từ khóa so sánh beat, outperform,... đối tượng ưu tiên được tìm dựa vào nghĩa của từ khóa so sánh}
+			\end{itemize}	
+		\end{frame}		
 
 		\begin{frame}{Phụ lục: Kết quả thực nghiệm}
 			\begin{table}[]
