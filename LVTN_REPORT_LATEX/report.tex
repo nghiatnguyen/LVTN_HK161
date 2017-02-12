@@ -11,7 +11,7 @@
 \usepackage{tikz}
 \usepackage{fancybox}
 \usetikzlibrary{positioning}
-\usepackage[left=3 cm,right=3 cm,top=3cm,bottom=3cm]{geometry}
+\usepackage[left=3 cm,right=2 cm,top=2cm,bottom=2cm]{geometry}
 \usepackage[labelfont=bf]{caption}
 \usepackage[hidelinks]{hyperref}
 \usepackage{bookmark}
@@ -76,7 +76,7 @@
 %	TITLE SECTION
 %----------------------------------------------------------------------------------------
 \HRule \\[0.4cm]
-{ \huge \bfseries Phân giải đồng tham chiếu \\ cho đối tượng và thuộc tính \\ trong khai khoáng ý kiến}\\[0.4cm] % Title of your document
+{ \huge \bfseries Giải quyếti đồng tham chiếu \\ cho đối tượng và thuộc tính \\ trong khai khoáng ý kiến}\\[0.4cm] % Title of your document
 \HRule \\[0.8cm]
 
 %----------------------------------------------------------------------------------------
@@ -122,7 +122,11 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 \newpage
 	\chapter*{Lời cảm ơn}
 		\par Trước tiên, chúng tôi xin gửi lời cảm ơn sâu sắc tới cô giáo GS.TS Phan Thị Tươi, người đã luôn theo sát hướng dẫn và giúp đỡ tận tình chúng tôi trong suốt quá trình thực hiện Luận văn để chúng tôi hoàn thành đề tài Luận văn của mình. Bên cạnh đó chúng tôi cũng muốn gửi lời cảm ơn chân thành tới các thầy cô của Khoa Khoa học và kỹ thuật máy tính - trường Đại học Bách Khoa TP. Hồ Chí Minh, những kiến thức mà các thầy cô truyền đạt thực sự là những hành trang hữu ích mà chúng tôi có được trong suốt những năm tháng học đại học. Cuối cùng, chúng tôi xin được gửi lời tri ân tới gia đình và bạn bè, những người đã luôn ủng hộ chúng tôi về mặt tinh thần để chúng tôi có được những kết quả ngày hôm nay. 
-
+\newpage
+	\chapter*{Tóm tắt Luận văn}		
+		\par Ngôn ngữ của con người chứa đựng nhiều đặc trưng phức tạp và làm cách nào để cho máy tính khai phá có hiệu quả loại dữ liệu này vẫn là một vấn đề lớn. Khai khoáng ý kiến là một lĩnh vực mới phát triển gần đây của Xử lý ngôn ngữ tự nhiên và đang ngày càng có những ứng dụng rộng rãi, nó hướng đến việc tìm ra những ý kiến, cảm xúc được biểu đạt qua ngôn ngữ. Bên cạnh đó, bài toán phân giải đồng tham chiếu, mặc dù đã được nghiên cứu rộng rãi nhưng vẫn chỉ được thực hiện trên các loại văn bản chung chung. Các văn bản chứa ý kiến như các bài đánh giá (review), các thảo luận (discussion) về các sản phẩm với các đặc trưng riêng của nó, cung cấp thêm những thông tin nhất định cho việc phân giải đồng tham chiếu trên đó có hiệu quả hơn. 
+		\par Trong Luận văn này, chúng tôi đề xuất bài toán \textit{Phân giải đồng tham chiếu cho đối tượng và thuộc tính trong Khai khoáng ý kiến} với cách tiếp cận theo mô hình \textit{Học có giám sát}. Mục tiêu của bài toán là tìm xem những từ/cụm từ nào trong văn bản cùng chỉ về đối tượng hoặc thuộc tính. Dữ liệu được dùng là các văn bản chứa ý kiến bằng ngôn ngữ tiếng Anh. Mô hình do chúng tôi đề xuất cho kết quả khả quan và gợi mở ra những hướng đi cho việc thực hiện Phân giải đồng tham chiếu cho các văn bản chứa ý kiến trong tiếng Việt.
+		\par Luận văn được tổ chức thành 6 chương. Chương 1 nêu ra vấn đề và giới thiệu đề tài \textit{Phân giải đồng tham chiếu cho đối tượng và thuộc tính trong Khai khoáng ý kiến}, chương này cũng đồng thời nói về phạm vi và mục đích của đề tài. Trong chương 2, chúng tôi nói về các công trình liên quan đến đề tài mà chúng tôi thực hiện, chúng là cơ sở quan trọng trong việc hình thành nên phương pháp đề xuất của chúng tôi. Chương 3 là các kiến thức nền tảng được sử dụng trong việc thực hiện đề tài, đó là các nội dung về bài toán Phân giải đồng tham chiếu, Khai khoáng ý kiến và giải thuật học máy Cây quyết định. Chương 4 nói về Phương pháp đề xuất và cách hiện thực hệ thống giải quyết bài toán đặt ra. Trong chương 5, các kết quả thực nghiệm và các đánh giá, phân tích của chúng tôi được dẫn ra. Cuối cùng, chúng tôi tổng kết lại Luận văn của mình trong chương cuối - chương 6.
 		\begin{flushright}
 			Nhóm tác giả
 		\end{flushright}
@@ -140,12 +144,7 @@ TP. Hồ Chí Minh, tháng 12 năm 2016
 	\addcontentsline{toc}{chapter}{Danh sách bảng}
 	\listoftables
 
-\newpage
-	\chapter{Tóm tắt Luận văn}		
-		\par Ngôn ngữ của con người chứa đựng nhiều đặc trưng phức tạp và làm cách nào để cho máy tính khai phá có hiệu quả loại dữ liệu này vẫn là một vấn đề lớn. Khai khoáng ý kiến là một lĩnh vực mới phát triển gần đây của Xử lý ngôn ngữ tự nhiên và đang ngày càng có những ứng dụng rộng rãi, nó hướng đến việc tìm ra những ý kiến, cảm xúc được biểu đạt qua ngôn ngữ. Bên cạnh đó, bài toán phân giải đồng tham chiếu, mặc dù đã được nghiên cứu rộng rãi nhưng vẫn chỉ được thực hiện trên các loại văn bản chung chung. Các văn bản chứa ý kiến như các bài đánh giá (review), các thảo luận (discussion) về các sản phẩm với các đặc trưng riêng của nó, cung cấp thêm những thông tin nhất định cho việc phân giải đồng tham chiếu trên đó có hiệu quả hơn. 
-		\par Trong Luận văn này, chúng tôi đề xuất bài toán \textit{Phân giải đồng tham chiếu cho đối tượng và thuộc tính trong Khai khoáng ý kiến} với cách tiếp cận theo mô hình \textit{Học có giám sát}. Mục tiêu của bài toán là tìm xem những từ/cụm từ nào trong văn bản cùng chỉ về đối tượng hoặc thuộc tính. Dữ liệu được dùng là các văn bản chứa ý kiến bằng ngôn ngữ tiếng Anh. Mô hình do chúng tôi đề xuất cho kết quả khả quan và gợi mở ra những hướng đi cho việc thực hiện Phân giải đồng tham chiếu cho các văn bản chứa ý kiến trong tiếng Việt.
-		\par Luận văn được tổ chức thành 6 chương. Chương 2 nêu ra vấn đề và giới thiệu đề tài \textit{Phân giải đồng tham chiếu cho đối tượng và thuộc tính trong Khai khoáng ý kiến}, chương này cũng đồng thời nói về phạm vi và mục đích của đề tài. Trong chương 3, chúng tôi nói về các công trình liên quan đến đề tài mà chúng tôi thực hiện, chúng là cơ sở quan trọng trong việc hình thành nên phương pháp đề xuất của chúng tôi. Chương 4 là các kiến thức nền tảng được sử dụng trong việc thực hiện đề tài, đó là các nội dung về bài toán Phân giải đồng tham chiếu, Khai khoáng ý kiến và giải thuật học máy Cây quyết định. Chương 5 nói về Phương pháp đề xuất và cách hiện thực hệ thống giải quyết bài toán đặt ra. Trong chương 6, các kết quả thực nghiệm và các đánh giá, phân tích của chúng tôi được dẫn ra. Cuối cùng, chúng tôi tổng kết lại Luận văn của mình trong chương cuối - chương 7.
-		
+\newpage		
 	\chapter{Giới thiệu đề tài}	
 		\label{introduction_chapter}
 		\par \textit{Phân giải đồng tham chiếu (Coreference resolution)} là một bài toán quan trọng và được nghiên cứu rộng rãi trong Xử lý ngôn ngữ tự nhiên \cite{mainpaper}. Mục tiêu của bài toán là tìm ra trong văn bản những đề cập (mention) cùng chỉ về một (tập) thực thể trong thế giới thực và gom nhóm chúng thành các chuỗi đồng tham chiếu.\\
